@@ -1,0 +1,55 @@
+
+	This directory contains a C implementation of John Backus' "FP"
+language.  I wrote this over a period of time, so don't be too shocked by
+many repetitions of the same sequence of code.  The stuff has been written
+to run on HP-UX, which is mostly system V.  It handles signals using the
+"old" signal handler interface, which might offend some reliable signal buffs,
+but seemed to be compatible with more systems.
+
+    Aside from signals it does absolutely nothing surprising, and is quite
+conscientious about declaring what it uses (even in the YACC file!).  It
+has ported to HP-UX on both RISC and 68K-family machines, and has also
+run on our 4.2 VAX.  "lint" is reasonably happy with it, but still complains
+about things like "printf() returns a value which is always ignored".  I
+haven't done anything about these sorts of complaints.  If you come
+across any unportable facet (within reason), I will be happy to change it.
+
+    This code is completely original and wholly created by myself.  I
+release this code into the public domain without limitations or exceptions.
+You may use this code in whole or part for any purpose whatsoever, including
+commercial advantage.  If you wish to provide some payment for its use,
+give it to a charity of your choice instead.
+
+    Many thanks to John Backus for his refreshing Turing award lecture,
+and to the many people who are working on non-Von Neumann languages and
+machine architectures.  Please get in touch with me if you are doing work
+in these areas!
+
+				Regards,
+				Andy Valencia
+				vandys@lindy.stanford.edu
+				br.ajv@rlg.BITNET
+
+The files and their contents are:
+
+Makefile		System-V makefile
+_astprtr		Debugging routine to print the syntax tree
+ast.c			Routines to manage syntax tree nodes
+charfn.c		Routines to handle "char" functions, like '+'
+defun.c			Routines to handle user-defined functions
+exec.c			Top-level run-time driving functions
+fp.h			Central include file
+intrin.c		Execution of identifier-like functions, like "hd"
+lex.c			The lexical analyzer
+misc.c			Miscellaneous functions, like main() and fatal_err()
+obj.c			Functions to manage "object" nodes
+parse.y			A YACC parser for FP
+symtab.c		Symbol table handler
+symtab.h		Local declarations for symbol table
+
+The following files contain sample FP programs:
+
+bubsort.fp		Demo routine to do a bubble sort
+dft.fp			Discrete Fourier transform functions
+primes.fp		Prime number generator
+test.fp			My regression test file.  Won't run on UCB FP!

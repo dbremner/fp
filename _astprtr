@@ -1,0 +1,77 @@
+/*
+ * This file contains a routine for printing the parse tree.
+ *	It is useful when changing the syntax around.
+ *
+ *	Copyright (c) 1986 by Andy Valencia
+ */
+
+    /*
+     * For debugging, print the parse tree
+     */
+void
+ast_prtree(p,d)
+    struct ast *p;
+    int d;
+{
+    int t = p->tag, x;
+
+    if( !p ) return;
+    for( x = 1; x <= d; x++ ) putchar(' ');
+    printf("Tag '%c'",t);
+    switch( t ){
+    case 'c':{
+	int c = (p->val).YYint;
+
+	printf(" operator '");
+	if( (c >= ' ') && (c < 127) )
+	    putchar(c);
+	else switch( c ){
+	case NE: printf("NE"); break;
+	case LE: printf("<="); break;
+	case GE: printf(">="); break;
+	default: printf("???"); break;
+	}
+	printf("'\n");
+	break;
+    }
+    case 'S':
+	printf(" value %d\n",(p->val).YYint);
+	break;
+    case 'I':
+	printf(" value %d\n",(p->val).YYint);
+	break;
+    case 'F':
+	printf(" value %g\n",(p->val).YYfloat);
+	break;
+    case 'B':
+	printf(" boolean %s\n",(p->val).YYint ? "T" : "F");
+	break;
+    case 'i':
+	printf(" intrinsic name '%s'\n",((p->val).YYsym)->sym_pname);
+	break;
+    case 'L': {
+	putchar('\n');
+	while( p ){
+	    ast_prtree(p->left,d+1);
+	    p = p->right;
+	}
+	break;
+    }
+    case '[': {
+	struct ast *q = p->left;
+
+	putchar('\n');
+	while( q ){
+	    ast_prtree(q->left,d+1);
+	    q = q->right;
+	}
+	break;
+    }
+    default:
+	putchar('\n');
+	ast_prtree(p->left,d+1);
+	ast_prtree(p->middle,d+1);
+	ast_prtree(p->right,d+1);
+	break;
+    }
+}
