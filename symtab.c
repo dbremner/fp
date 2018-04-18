@@ -20,7 +20,7 @@ hash(const char *p)
     int s = 0;
     int c;
 
-    while( c = *p++ ) s += c;
+    while( (c = *p++) ) s += c;
     return( s % SYMTABSIZE );
 }
 

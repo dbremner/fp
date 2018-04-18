@@ -175,7 +175,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	    UNDEFINED();
 	}
 	if( !CAR(obj) ) return(obj);
-	while( p = CDR(q) ) q = p;
+    while( (p = CDR(q)) ) q = p;
 	q = CAR(q);
 	q->o_refs += 1;
 	obj_unref(obj);
@@ -194,7 +194,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	}
 	while( CDR(q) ){
 	    *hdp = p = obj_alloc(T_LIST);
-	    if( CAR(p) = CAR(q) ){
+        if( (CAR(p) = CAR(q)) ){
 		CAR(p)->o_refs += 1;
 	    }
 	    hdp = &CDR(p);
