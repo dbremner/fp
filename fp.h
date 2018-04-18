@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdnoreturn.h>
 #include <string.h>
 
 /*
@@ -51,7 +52,7 @@ struct object *execute(struct ast * act, struct object *obj);
 struct object *invoke(struct symtab *def, struct object *obj);
 void ast_free(struct ast *p);
 void ast_freetree(struct ast *p);
-void fatal_err(const char *msg);
+noreturn void fatal_err(const char *msg);
 void defun(struct symtab *name, struct ast *def);
 void symtab_init(void);
 void obj_prtree(struct object *p);
