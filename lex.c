@@ -25,7 +25,7 @@ static int fpos = 0;
      */
 static void
 skipwhite(){
-    register int c;
+    int c;
 
 	/*
 	 * Skip leading blank space
@@ -39,9 +39,9 @@ skipwhite(){
      * Lexical analyzer for YACC
      */
 yylex(){
-    register char *p = buf;
-    register int c;
-    register int c1;
+    char *p = buf;
+    int c;
+    int c1;
 
 	/*
 	 * Skip over white space
@@ -132,7 +132,7 @@ donum(startc)
     char startc;
 {
     char isdouble = 0;
-    register char c, *p = buf;
+    char c, *p = buf;
 
     *p++ = startc;
     for(;;){
@@ -165,7 +165,7 @@ donum(startc)
      */
 static int
 nextc(){
-    register int c;
+    int c;
     static int saw_eof = 0;
 
 again:
@@ -201,7 +201,7 @@ again:
 void
 fp_cmd(){
     char cmd[80], *p = cmd, arg[80];
-    register int c;
+    int c;
     FILE *newf;
 
 	/*

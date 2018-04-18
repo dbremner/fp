@@ -10,7 +10,7 @@
      */
 void
 defun(name,def)
-    register struct symtab *name;
+    struct symtab *name;
     struct ast *def;
 {
 	/*
@@ -41,7 +41,7 @@ defun(name,def)
      */
 struct object *
 invoke( def, obj )
-    register struct symtab *def;
+    struct symtab *def;
     struct object *obj;
 {
 	/*

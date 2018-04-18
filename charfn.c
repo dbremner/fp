@@ -30,7 +30,7 @@ int numargs();
      */
 static
 same( o1, o2 )
-    register struct object *o1, *o2;
+    struct object *o1, *o2;
 {
     if( o1 == o2 ) return( 1 );
     if( o1->o_type != o2->o_type ){
@@ -62,7 +62,7 @@ same( o1, o2 )
      */
 static
 ispair(obj)
-    register struct object *obj;
+    struct object *obj;
 {
     if( obj->o_type != T_LIST ) return( 0 );
     if( CAR(obj) == 0 ) return( 0 );
@@ -114,9 +114,9 @@ noteqobj(obj)
 struct object *
 do_charfun(act,obj)
     struct ast *act;
-    register struct object *obj;
+    struct object *obj;
 {
-    register struct object *p;
+    struct object *p;
     double f;
 
     switch( (act->val).YYint ){
@@ -261,9 +261,9 @@ do_charfun(act,obj)
      *	can allocate the right type of object.
      */
 numargs(obj)
-    register struct object *obj;
+    struct object *obj;
 {
-    register struct object *p, *q;
+    struct object *p, *q;
 
 	/*
 	 * Don't have a well-formed list, so illegal

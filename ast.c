@@ -20,7 +20,7 @@ ast_alloc(atag,l,m,r)
     int atag;
     struct ast *l, *m, *r;
 {
-    register struct ast *p;
+    struct ast *p;
 
 #ifdef MEMSTAT
     ast_out++;
@@ -43,7 +43,7 @@ ast_alloc(atag,l,m,r)
      */
 void
 ast_free(p)
-    register struct ast *p;
+    struct ast *p;
 {
 #ifdef MEMSTAT
     ast_out--;

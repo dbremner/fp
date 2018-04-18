@@ -31,10 +31,10 @@ static struct object *do_rinsert(), *do_binsert();
      */
 struct object *
 execute( act, obj )
-    register struct ast *act;
-    register struct object *obj;
+    struct ast *act;
+    struct object *obj;
 {
-    register struct object *p, *q;
+    struct object *p, *q;
     int x;
 
 	/*
@@ -244,7 +244,7 @@ do_rinsert(act,obj)
     struct ast *act;
     struct object *obj;
 {
-    register struct object *p, *q;
+    struct object *p, *q;
 
     if( obj->o_type != T_LIST ){
 	obj_unref(obj);
@@ -336,7 +336,7 @@ do_binsert(act,obj)
     struct ast *act;
     struct object *obj;
 {
-    register struct object *p, *q;
+    struct object *p, *q;
     struct object *hd, **hdp, *r;
     int x;
 

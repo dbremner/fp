@@ -34,9 +34,9 @@ extern struct object *eqobj();
 struct object *
 do_intrinsics(act,obj)
     struct symtab *act;
-    register struct object *obj;
+    struct object *obj;
 {
-    register struct object *p, *q;
+    struct object *p, *q;
     double f;
 
 	/*
@@ -683,9 +683,9 @@ do_intrinsics(act,obj)
      */
 int
 listlen(p)
-    register struct object *p;
+    struct object *p;
 {
-    register int l = 0;
+    int l = 0;
 
     while( p && CAR(p) ){
 	++l;
@@ -699,11 +699,11 @@ listlen(p)
      */
 static struct object *
 do_dist(elem,lst,obj,side)
-    register struct object *elem, *lst;
+    struct object *elem, *lst;
     struct object *obj;		/* Source object */
     int side;			/* Which side to stick on */
 {
-    register struct object *r, *r2;
+    struct object *r, *r2;
     struct object *hd, **hdp = &hd;
 
     if( !CAR(lst) ){		/* Distributing over NULL list */
@@ -762,10 +762,10 @@ do_dist(elem,lst,obj,side)
      */
 static struct object *
 do_trans(obj)
-    register struct object *obj;
+    struct object *obj;
 {
     int len = 0, x, y;
-    register struct object *p, *q, *r;
+    struct object *p, *q, *r;
     struct object *hd = 0, **hdp = &hd;
 
 	/*
@@ -843,7 +843,7 @@ do_bool(obj,op)
     struct object *obj;
     int op;
 {
-    register struct object *p, *q;
+    struct object *p, *q;
     struct object *r;
     int i;
 

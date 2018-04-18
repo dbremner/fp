@@ -18,7 +18,7 @@ struct object *
 obj_alloc(ty)
     uchar ty;
 {
-    register struct object *p;
+    struct object *p;
 
 #ifdef MEMSTAT
     obj_out++;
@@ -57,7 +57,7 @@ obj_free(p)
      */
 void
 obj_unref(p)
-    register struct object *p;
+    struct object *p;
 {
     if( !p ) return;
     if( --(p->o_refs) ) return;
