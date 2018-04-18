@@ -681,6 +681,7 @@ do_intrinsics(act,obj)
     /*
      * listlen()--return length of a list
      */
+int
 listlen(p)
     register struct object *p;
 {

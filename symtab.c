@@ -14,7 +14,7 @@ static struct symtab
     /*
      * Generate a hash value for a string
      */
-static
+static int
 hash(p)
     register char *p;
 {

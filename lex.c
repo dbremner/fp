@@ -13,7 +13,7 @@ static int donum();
 extern YYSTYPE yylval;
 
 static FILE *cur_in /*= stdin*/; //TODO
-static nextc();
+static int nextc();
 char prompt;
 
 #define MAXNEST 5		/* How deep can we get? */
@@ -163,7 +163,7 @@ donum(startc)
      * getchar() function for lexical analyzer.  Adds a prompt if
      *	input is from keyboard, also localizes I/O redirection.
      */
-static
+static int
 nextc(){
     register int c;
     static int saw_eof = 0;
