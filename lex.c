@@ -224,60 +224,60 @@ fp_cmd(void){
 	 */
     if( strcmp(cmd,"load") == 0 ){	/* Load command */
 
-	    /*
-	     * Get next word, the file to load
-	     */
-	skipwhite();
-	p = arg;
-	while( (c = nextc()) != EOF )
-	    if( isspace(c) ) break;
-	    else *p++ = c;
-	*p = '\0';
+            /*
+             * Get next word, the file to load
+             */
+        skipwhite();
+        p = arg;
+        while( (c = nextc()) != EOF )
+            if( isspace(c) ) break;
+            else *p++ = c;
+        *p = '\0';
 
-	    /*
-	     * Can we push down any more?
-	     */
-	if( fpos == MAXNEST-1 ){
-	    printf(")load'ed files nested too deep\n");
-	    return;
-	}
+            /*
+             * Can we push down any more?
+             */
+        if( fpos == MAXNEST-1 ){
+            printf(")load'ed files nested too deep\n");
+            return;
+        }
 
-	    /*
-	     * Try and open the file
-	     */
-	if( (newf = fopen(arg,"r")) == 0 ){
-	    perror(arg);
-	    return;
-	}
+            /*
+             * Try and open the file
+             */
+        if( (newf = fopen(arg,"r")) == 0 ){
+            perror(arg);
+            return;
+        }
 
-	    /*
-	     * Pushdown the current file, make this one it.
-	     */
-	fstack[fpos++] = cur_in;
-	cur_in = newf;
-	return;
+            /*
+             * Pushdown the current file, make this one it.
+             */
+        fstack[fpos++] = cur_in;
+        cur_in = newf;
+        return;
     }
 
     if( strcmp(cmd,"quit") == 0 ){	/* Leave */
-	printf("\nDone\n");
-	exit( 0 );
+        printf("\nDone\n");
+        exit( 0 );
     }
     if( strcmp(cmd,"help") == 0 ){	/* Give help */
         printf("Commands are:\n");
-	printf(" quit - leave FP\n");
-	printf(" help - this message\n");
-	printf(" load - redirect input from a file\n");
-#ifdef YYDEBUG
-	printf(" yydebug - toggle parser tracing\n");
-#endif
-	return;
+        printf(" quit - leave FP\n");
+        printf(" help - this message\n");
+        printf(" load - redirect input from a file\n");
+    #ifdef YYDEBUG
+        printf(" yydebug - toggle parser tracing\n");
+    #endif
+        return;
     }
 #ifdef YYDEBUG
     if( strcmp(cmd,"yydebug") == 0 ){	/* Toggle parser trace */
-	extern int yydebug;
+        extern int yydebug;
 
-	yydebug = !yydebug;
-	return;
+        yydebug = !yydebug;
+        return;
     }
 #endif
     printf("Unknown command '%s'\n",cmd);
