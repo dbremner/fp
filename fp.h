@@ -61,6 +61,7 @@ void obj_unref(struct object *p);
 extern struct symtab *lookup(const char *name);
 
 //charfn.c
+struct object *do_charfun(struct ast *act, struct object *obj);
 struct object *eqobj(struct object *obj);
 
 //intrin.c
