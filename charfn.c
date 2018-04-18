@@ -260,6 +260,7 @@ do_charfun(act,obj)
      *	we tell our caller if the result will be double or int, so that he
      *	can allocate the right type of object.
      */
+int
 numargs(obj)
     struct object *obj;
 {
