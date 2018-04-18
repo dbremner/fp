@@ -46,8 +46,8 @@ struct ast;
 struct symtab;
 struct object;
 
-extern struct ast *ast_alloc(int atag, struct ast *l, struct ast *m, struct ast *r);
-extern struct object *obj_alloc(uint32_t);
+struct ast *ast_alloc(int atag, struct ast *l, struct ast *m, struct ast *r);
+struct object *obj_alloc(uint32_t);
 struct object *execute(struct ast * act, struct object *obj);
 struct object *invoke(struct symtab *def, struct object *obj);
 void ast_free(struct ast *p);
@@ -58,7 +58,7 @@ void symtab_init(void);
 void obj_prtree(struct object *p);
 void obj_free(struct object *p);
 void obj_unref(struct object *p);
-extern struct symtab *lookup(const char *name);
+struct symtab *lookup(const char *name);
 
 //charfn.c
 struct object *do_charfun(struct ast *act, struct object *obj);
