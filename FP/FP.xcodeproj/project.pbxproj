@@ -277,6 +277,7 @@
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_INPUT_FILETYPE = sourcecode.c.c;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				WARNING_CFLAGS = "-Weverything";
 			};
 			name = Debug;
 		};
@@ -288,6 +289,7 @@
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_INPUT_FILETYPE = sourcecode.c.c;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				WARNING_CFLAGS = "-Weverything";
 			};
 			name = Release;
 		};
