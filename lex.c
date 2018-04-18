@@ -14,6 +14,9 @@ extern YYSTYPE yylval;
 
 static FILE *cur_in /*= stdin*/; //TODO
 static int nextc(void);
+
+void fp_cmd(void);
+
 char prompt;
 
 #define MAXNEST 5		/* How deep can we get? */
