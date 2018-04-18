@@ -5,12 +5,12 @@
  */
 #include "symtab.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <ctype.h>
 
 static char buf[80];
 static int donum();
 extern YYSTYPE yylval;
-extern void exit(), perror();
 
 static FILE *cur_in = stdin;
 static nextc();

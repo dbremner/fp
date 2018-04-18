@@ -5,8 +5,6 @@
  */
 #include "symtab.h"
 
-extern char *strcpy();
-
     /*
      * Our hash table
      */

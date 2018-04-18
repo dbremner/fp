@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 /*
  * Common definitions for FP
  *
@@ -46,7 +50,6 @@ extern struct ast *ast_alloc();
 extern struct object *obj_alloc(), *execute(), *invoke();
 extern void ast_free(), ast_freetree(), fatal_err(), defun(),
 	symtab_init(), obj_free(), obj_unref(), obj_prtree();
-extern char *malloc();
 extern struct symtab *lookup();
 
 

@@ -7,7 +7,6 @@
 #include <setjmp.h>
 #include <signal.h>
 
-extern void exit(), longjmp();
 extern char prompt;
 
 static jmp_buf restart;
