@@ -66,6 +66,7 @@ struct object *eqobj(struct object *obj);
 
 //intrin.c
 int listlen(struct object *p);
+struct object *do_intrinsics(struct symtab *act, struct object *obj);
 
 //lex.c
 int yylex(void);

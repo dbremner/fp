@@ -22,8 +22,6 @@
 #define CDR(x) ( ((x)->o_val).o_list.cdr )
 #define ISNUM(x) ( ((x)->o_type == T_INT) || (x->o_type == T_FLOAT) )
 
-extern struct object *
-do_intrinsics(struct symtab *act, struct object *obj);
 static struct object *do_rinsert(struct ast *act, struct object *obj);
 static struct object *do_binsert(struct ast *act, struct object *obj);
 
