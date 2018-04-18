@@ -93,6 +93,7 @@ typedef union {
      */
 struct ast {
     int tag;
+    int padding;
     YYSTYPE val;
     struct ast *left, *middle, *right;
 };
@@ -102,6 +103,7 @@ struct ast {
      */
 struct symtab {
     uint32_t sym_type;
+    uint32_t padding;
     YYstype sym_val;
     struct symtab *sym_next;
     char *sym_pname;
