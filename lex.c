@@ -136,18 +136,18 @@ donum(char startc)
 
     *p++ = startc;
     for(;;){
-	c = nextc();
-	if( isdigit(c) ){
-	    *p++ = c;
-	    continue;
-	}
-	if( c == '.' ){
-	    *p++ = c;
-	    isdouble = 1;
-	    continue;
-	}
-	ungetc( c, cur_in );
-	break;
+        c = nextc();
+        if( isdigit(c) ){
+            *p++ = c;
+            continue;
+        }
+        if( c == '.' ){
+            *p++ = c;
+            isdouble = 1;
+            continue;
+        }
+        ungetc( c, cur_in );
+        break;
     }
     *p = '\0';
     if( isdouble ){
@@ -170,9 +170,10 @@ nextc(void){
 
 again:
     if( cur_in == stdin ){
-	if( saw_eof ) return(EOF);
-	if( 0 /*!stdin->_cnt*/ ) //TODO
-	    putchar(prompt);
+        if( saw_eof )
+            return(EOF);
+        if( 0 /*!stdin->_cnt*/ ) //TODO
+            putchar(prompt);
     }
     c = fgetc(cur_in);
     if( c == '#' ){
@@ -183,13 +184,13 @@ again:
 	 * Pop up a level of indirection on EOF
 	 */
     if( c == EOF ){
-	if( cur_in != stdin ){
-	    fclose(cur_in);
-	    cur_in = fstack[--fpos];
-	    goto again;
-	} else {
-	    saw_eof++;
-	}
+        if( cur_in != stdin ){
+            fclose(cur_in);
+            cur_in = fstack[--fpos];
+            goto again;
+        } else {
+            saw_eof++;
+        }
     }
     return(c);
 }
