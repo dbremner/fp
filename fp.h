@@ -13,7 +13,7 @@
      *	couldn't resist wasting a bit...
      */
 typedef unsigned char uchar;
-typedef unsigned long int uint;
+//typedef unsigned long int uint; TODO
 
     /*
      * The symbolic names for the different types
