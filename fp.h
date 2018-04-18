@@ -31,7 +31,7 @@ struct list {
      * An object's structure
      */
 struct object {
-    uint8_t o_type;		/* Type for selecting */
+    uint32_t o_type;		/* Type for selecting */
     uint32_t o_refs;	/* Number of current refs, for GC */
     union {
 	int o_int;		/* T_INT, T_BOOL */
@@ -46,7 +46,7 @@ struct symtab;
 struct object;
 
 extern struct ast *ast_alloc(int atag, struct ast *l, struct ast *m, struct ast *r);
-extern struct object *obj_alloc(uint8_t);
+extern struct object *obj_alloc(uint32_t);
 struct object *execute(struct ast * act, struct object *obj);
 struct object *invoke(struct symtab *def, struct object *obj);
 void ast_free(struct ast *p);
@@ -101,7 +101,7 @@ struct ast {
      * A symbol table entry for an identifier
      */
 struct symtab {
-    uint8_t sym_type;
+    uint32_t sym_type;
     YYstype sym_val;
     struct symtab *sym_next;
     char *sym_pname;

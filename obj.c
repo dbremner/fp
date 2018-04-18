@@ -15,7 +15,7 @@ int obj_out = 0;
      * Allocate an object
      */
 struct object *
-obj_alloc(uint8_t ty)
+obj_alloc(uint32_t ty)
 {
     struct object *p;
 
