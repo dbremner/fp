@@ -34,7 +34,7 @@ skipwhite(){
 	 * Skip leading blank space
 	 */
     while( (c = nextc()) != EOF )
-	if( !isspace(c) ) break;
+        if( !isspace(c) ) break;
     ungetc(c,cur_in);
 }
 
@@ -57,55 +57,57 @@ again:
 	/*
 	 * Return EOF
 	 */
-    if( c == EOF ) return(c);
+    if( c == EOF )
+        return(c);
 
 	/*
 	 * An "identifier"?
 	 */
     if( isalpha(c) ){
-	struct symtab *q;
+        struct symtab *q;
 
 	    /*
 	     * Assemble a "word" out of the input stream, symbol table it
 	     */
-	*p++ = c;
-	while( isalnum(c = nextc()) ) *p++ = c;
-	ungetc(c,cur_in);
-	*p = '\0';
-	q = lookup(buf);
+        *p++ = c;
+        while( isalnum(c = nextc()) ) *p++ = c;
+        ungetc(c,cur_in);
+        *p = '\0';
+        q = lookup(buf);
 
-	    /*
-	     * yylval is always set to the symbol table entry
-	     */
-	yylval.YYsym = q;
+            /*
+             * yylval is always set to the symbol table entry
+             */
+        yylval.YYsym = q;
 
-	    /*
-	     * For built-ins, return the token value
-	     */
-	if( q->sym_type == SYM_BUILTIN ) return( q->sym_val.YYint );
+            /*
+             * For built-ins, return the token value
+             */
+        if( q->sym_type == SYM_BUILTIN ) return( q->sym_val.YYint );
 
-	    /*
-	     * For user-defined (or new),
-	     *	return "User Defined"--UDEF
-	     */
-	return( UDEF );
+            /*
+             * For user-defined (or new),
+             *	return "User Defined"--UDEF
+             */
+        return( UDEF );
     }
 
 	/*
 	 * For numbers, call our number routine.
 	 */
-    if( isdigit(c) ) return( donum(c) );
+    if( isdigit(c) )
+        return( donum(c) );
 
 	/*
 	 * For possible unary operators, see if a digit
 	 *	immediately follows.
 	 */
     if( (c == '+') || (c == '-') ){
-	char c2 = nextc();
+        char c2 = nextc();
 
-	ungetc(c2,cur_in);
-	if( isdigit(c2) )
-	    return( donum(c) );
+        ungetc(c2,cur_in);
+        if( isdigit(c2) )
+            return( donum(c) );
     }
 
 	/*
@@ -114,20 +116,20 @@ again:
 	 */
     yylval.YYint = c;
     switch( c ){
-    case '<':
-	if( (c1 = nextc()) == '=' ) return( yylval.YYint = LE );
-	ungetc( c1, cur_in );
-	return(c);
-    case '>':
-	if( (c1 = nextc()) == '=' ) return( yylval.YYint = GE );
-	ungetc( c1, cur_in );
-	return(c);
-    case '~':
-	if( (c1 = nextc()) == '=' ) return( yylval.YYint = NE );
-	ungetc( c1, cur_in );
-	return(c);
-    default:
-	return(c);
+        case '<':
+            if( (c1 = nextc()) == '=' ) return( yylval.YYint = LE );
+            ungetc( c1, cur_in );
+            return(c);
+        case '>':
+            if( (c1 = nextc()) == '=' ) return( yylval.YYint = GE );
+            ungetc( c1, cur_in );
+            return(c);
+        case '~':
+            if( (c1 = nextc()) == '=' ) return( yylval.YYint = NE );
+            ungetc( c1, cur_in );
+            return(c);
+        default:
+            return(c);
     }
 }
 
@@ -154,11 +156,11 @@ donum(char startc)
     }
     *p = '\0';
     if( isdouble ){
-	sscanf(buf,"%lf",&(yylval.YYdouble));
-	return( FLOAT );
+        sscanf(buf,"%lf",&(yylval.YYdouble));
+        return( FLOAT );
     } else {
-	sscanf(buf,"%d",&(yylval.YYint));
-	return( INT );
+        sscanf(buf,"%d",&(yylval.YYint));
+        return( INT );
     }
 }
 
@@ -180,8 +182,9 @@ again:
     }
     c = fgetc(cur_in);
     if( c == '#' ){
-	while( (c = fgetc(cur_in)) != EOF )
-	    if( c == '\n' ) goto again;
+        while( (c = fgetc(cur_in)) != EOF )
+            if( c == '\n' )
+                goto again;
     }
 	/*
 	 * Pop up a level of indirection on EOF
@@ -212,11 +215,14 @@ fp_cmd(void){
 	 * Assemble a word, the command
 	 */
     skipwhite();
-    if( (c = nextc()) == EOF ) return;
+    if( (c = nextc()) == EOF )
+        return;
     *p++ = c;
     while( (c = nextc()) != EOF )
-	if( isalpha(c) ) *p++ = c;
-	else break;
+        if( isalpha(c) )
+            *p++ = c;
+        else
+            break;
     *p = '\0';
 
 	/*
@@ -230,8 +236,10 @@ fp_cmd(void){
         skipwhite();
         p = arg;
         while( (c = nextc()) != EOF )
-            if( isspace(c) ) break;
-            else *p++ = c;
+            if( isspace(c) )
+                break;
+            else
+                *p++ = c;
         *p = '\0';
 
             /*
