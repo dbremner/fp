@@ -3,7 +3,7 @@
  *
  *	Copyright (c) 1986 by Andy Valencia
  */
-#include "fp.h"
+
 #include "y.tab.h"
 
 #define SYMTABSIZE 101
