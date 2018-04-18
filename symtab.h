@@ -11,6 +11,10 @@
     /*
      * sym_type values
      */
-#define SYM_BUILTIN 1		/* A built-in */
-#define SYM_DEF 2		/* User-defined */
-#define SYM_NEW 3		/* Never seen before! */
+
+enum symtype {
+    SYM_BUILTIN = 1, /* A built-in */
+    SYM_DEF = 2, /* User-defined */
+    SYM_NEW = 3 /* Never seen before! */
+};
+
