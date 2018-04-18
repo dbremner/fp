@@ -9,13 +9,13 @@
     /*
      * This ugly set of macros makes access to objects easier.
      *
-     * UNDEFINED generates the undefined object & returns it
+     * UNDEFINED() generates the undefined object & returns it
      * NUMVAL generates a value for C of the correct type
      * CAR manipulates the object as a list & gives its first part
      * CDR is like CAR but gives all but the first
      * ISNUM provides a boolean saying if the named object is a number
      */
-#define UNDEFINED return(obj_alloc(T_UNDEF));
+#define UNDEFINED() return(obj_alloc(T_UNDEF));
 #define NUMVAL(x) ( (x->o_type == T_INT) ? \
     ((x->o_val).o_int) : ((x->o_val).o_double) )
 #define CAR(x) ( (x->o_val).o_list.car )
@@ -79,7 +79,7 @@ eqobj(struct object *obj)
 
     if( !ispair(obj) ){
 	obj_unref(obj);
-	UNDEFINED;
+	UNDEFINED();
     }
     p = obj_alloc(T_BOOL);
     if( same(CAR(obj),CAR(CDR(obj))) )
@@ -123,7 +123,7 @@ do_charfun(struct ast *act, struct object *obj)
 	switch( numargs(obj) ){
 	case T_UNDEF:
 	    obj_unref(obj);
-	    UNDEFINED;
+	    UNDEFINED();
 	case T_FLOAT:
 	case T_INT:
 	    p = obj_alloc(T_BOOL);
@@ -136,7 +136,7 @@ do_charfun(struct ast *act, struct object *obj)
 	switch( numargs(obj) ){
 	case T_UNDEF:
 	    obj_unref(obj);
-	    UNDEFINED;
+	    UNDEFINED();
 	case T_FLOAT:
 	case T_INT:
 	    p = obj_alloc(T_BOOL);
@@ -149,7 +149,7 @@ do_charfun(struct ast *act, struct object *obj)
 	switch( numargs(obj) ){
 	case T_UNDEF:
 	    obj_unref(obj);
-	    UNDEFINED;
+	    UNDEFINED();
 	case T_FLOAT:
 	case T_INT:
 	    p = obj_alloc(T_BOOL);
@@ -162,7 +162,7 @@ do_charfun(struct ast *act, struct object *obj)
 	switch( numargs(obj) ){
 	case T_UNDEF:
 	    obj_unref(obj);
-	    UNDEFINED;
+	    UNDEFINED();
 	case T_FLOAT:
 	case T_INT:
 	    p = obj_alloc(T_BOOL);
@@ -175,7 +175,7 @@ do_charfun(struct ast *act, struct object *obj)
 	switch( numargs(obj) ){
 	case T_UNDEF:
 	    obj_unref(obj);
-	    UNDEFINED;
+	    UNDEFINED();
 	case T_FLOAT:
 	    p = obj_alloc(T_FLOAT);
 	    (p->o_val).o_double = NUMVAL(CAR(obj))+NUMVAL(CAR(CDR(obj)));
@@ -191,7 +191,7 @@ do_charfun(struct ast *act, struct object *obj)
 	switch( numargs(obj) ){
 	case T_UNDEF:
 	    obj_unref(obj);
-	    UNDEFINED;
+	    UNDEFINED();
 	case T_FLOAT:
 	    p = obj_alloc(T_FLOAT);
 	    (p->o_val).o_double = NUMVAL(CAR(obj))-NUMVAL(CAR(CDR(obj)));
@@ -207,7 +207,7 @@ do_charfun(struct ast *act, struct object *obj)
 	switch( numargs(obj) ){
 	case T_UNDEF:
 	    obj_unref(obj);
-	    UNDEFINED;
+	    UNDEFINED();
 	case T_FLOAT:
 	    p = obj_alloc(T_FLOAT);
 	    (p->o_val).o_double = NUMVAL(CAR(obj))*NUMVAL(CAR(CDR(obj)));
@@ -223,13 +223,13 @@ do_charfun(struct ast *act, struct object *obj)
 	switch( numargs(obj) ){
 	case T_UNDEF:
 	    obj_unref(obj);
-	    UNDEFINED;
+	    UNDEFINED();
 	case T_FLOAT:
 	case T_INT:
 	    f = NUMVAL(CAR(CDR(obj)));
 	    if( f == 0.0 ){
 		obj_unref(obj);
-		UNDEFINED;
+		UNDEFINED();
 	    }
 	    p = obj_alloc(T_FLOAT);
 	    (p->o_val).o_double = NUMVAL(CAR(obj))/f;
