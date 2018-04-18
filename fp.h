@@ -52,13 +52,13 @@ struct object *execute(struct ast * act, struct object *obj);
 struct object *invoke(struct symtab *def, struct object *obj);
 void ast_free(struct ast *p);
 void ast_freetree(struct ast *p);
-void fatal_err(char *msg);
+void fatal_err(const char *msg);
 void defun(struct symtab *name, struct ast *def);
 void symtab_init(void);
 void obj_prtree(struct object *p);
 void obj_free(struct object *p);
 void obj_unref(struct object *p);
-extern struct symtab *lookup(char *name);
+extern struct symtab *lookup(const char *name);
 
 //charfn.c
 struct object *eqobj(struct object *obj);
@@ -70,7 +70,7 @@ int listlen(struct object *p);
 int yylex(void);
 
 //misc.c
-void yyerror(char *msg);
+void yyerror(const char *msg);
 
 //YACC runtime
 int yyparse(void);

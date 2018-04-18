@@ -15,7 +15,7 @@ static struct symtab
      * Generate a hash value for a string
      */
 static int
-hash(char *p)
+hash(const char *p)
 {
     int s = 0;
     int c;
@@ -28,7 +28,7 @@ hash(char *p)
      * Allocate a new entry, fill in the salient fields
      */
 static struct symtab *
-new_entry(char *n)
+new_entry(const char *n)
 {
     struct symtab *p = (struct symtab *)malloc(sizeof(struct symtab));
 
@@ -45,7 +45,7 @@ new_entry(char *n)
      *	was none.
      */
 struct symtab *
-lookup(char *name)
+lookup(const char *name)
 {
     int h;
     struct symtab
@@ -78,7 +78,7 @@ lookup(char *name)
      * Local function to do built-in stuffing
      */
 static void
-stuff(char *sym, int val)
+stuff(const char *sym, int val)
 {
     struct symtab *p = lookup(sym);
 

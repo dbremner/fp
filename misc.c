@@ -12,14 +12,14 @@ extern char prompt;
 static jmp_buf restart;
 
 void
-fatal_err(char *msg)
+fatal_err(const char *msg)
 {
     printf("Fatal error: %s\n",msg);
     exit( 1 );
 }
 
 void
-yyerror(char *msg)
+yyerror(const char *msg)
 {
     printf("yyerror() reports '%s'\n",msg);
     prompt = '\t';
