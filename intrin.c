@@ -24,8 +24,12 @@
 #define CDR(x) ( ((x)->o_val).o_list.cdr )
 #define ISNUM(x) ( (x->o_type == T_INT) || (x->o_type == T_FLOAT) )
 
-static struct object *do_dist(), *do_trans(), *do_bool();
-extern int numargs();
+static struct object *
+do_dist(struct object *elem, struct object *lst, struct object *obj, int side);
+
+static struct object *do_trans(struct object *obj);
+static struct object *do_bool(struct object *obj, int op);
+extern int numargs(struct object *obj);
 extern struct object *eqobj();
 
     /*
@@ -680,8 +684,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
      * listlen()--return length of a list
      */
 int
-listlen(p)
-    struct object *p;
+listlen(struct object *p)
 {
     int l = 0;
 
@@ -696,10 +699,11 @@ listlen(p)
      * Common code between distribute-left and -right
      */
 static struct object *
-do_dist(elem,lst,obj,side)
-    struct object *elem, *lst;
-    struct object *obj;		/* Source object */
-    int side;			/* Which side to stick on */
+do_dist(
+        struct object *elem,
+        struct object *lst,
+        struct object *obj, /* Source object */
+        int side)   /* Which side to stick on */
 {
     struct object *r, *r2;
     struct object *hd, **hdp = &hd;
@@ -759,8 +763,7 @@ do_dist(elem,lst,obj,side)
      * do_trans()--transpose the elements of the "matrix"
      */
 static struct object *
-do_trans(obj)
-    struct object *obj;
+do_trans(struct object *obj)
 {
     int len = 0, x, y;
     struct object *p, *q, *r;
@@ -837,9 +840,7 @@ do_trans(obj)
      * do_bool()--do the three boolean binary operators
      */
 static struct object *
-do_bool(obj,op)
-    struct object *obj;
-    int op;
+do_bool(struct object *obj, int op)
 {
     struct object *p, *q;
     struct object *r;

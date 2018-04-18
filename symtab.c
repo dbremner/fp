@@ -35,7 +35,7 @@ new_entry(char *n)
     p->sym_type = SYM_NEW;
     p->sym_next = 0;
     p->sym_val.YYint = 0;
-    p->sym_pname = malloc((unsigned)(strlen(n)+1));
+    p->sym_pname = (char*)malloc((unsigned)(strlen(n)+1));
     (void)strcpy(p->sym_pname,n);
     return(p);
 }
@@ -91,7 +91,7 @@ stuff(char *sym, int val)
      * Fill in symbol table with built-ins
      */
 void
-symtab_init(){
+symtab_init(void){
     stuff( "and", AND );
     stuff( "or", OR );
     stuff( "xor", XOR );

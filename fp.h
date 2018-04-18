@@ -13,7 +13,7 @@
      *	couldn't resist wasting a bit...
      */
 typedef unsigned char uchar;
-//typedef unsigned long int uint; TODO
+typedef unsigned long int uint; //TODO
 
     /*
      * The symbolic names for the different types
@@ -47,11 +47,33 @@ struct object {
 };
 
 extern struct ast *ast_alloc(int atag, struct ast *l, struct ast *m, struct ast *r);
-extern struct object *obj_alloc(uchar), *execute(), *invoke();
-extern void ast_free(), ast_freetree(), fatal_err(), defun(),
-	symtab_init(), obj_free(), obj_unref(), obj_prtree();
-extern struct symtab *lookup();
+extern struct object *obj_alloc(uchar);
+struct object *execute(struct ast * act, struct object *obj);
+struct object *invoke(struct symtab *def, struct object *obj);
+void ast_free(struct ast *p);
+void ast_freetree(struct ast *p);
+void fatal_err(char *msg);
+void defun(struct symtab *name, struct ast *def);
+void symtab_init(void);
+void obj_prtree(struct object *p);
+void obj_free(struct object *p);
+void obj_unref(struct object *p);
+extern struct symtab *lookup(char *name);
 
+//charfn.c
+struct object *eqobj(struct object *obj);
+
+//intrin.c
+int listlen(struct object *p);
+
+//lex.c
+int yylex(void);
+
+//misc.c
+void yyerror(char *msg);
+
+//YACC runtime
+int yyparse(void);
 
     /*
      * To alleviate typing in YACC, this type embodies all the

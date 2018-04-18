@@ -9,7 +9,7 @@
 #include <ctype.h>
 
 static char buf[80];
-static int donum();
+static int donum(char startc);
 extern YYSTYPE yylval;
 
 static FILE *cur_in /*= stdin*/; //TODO
@@ -39,7 +39,7 @@ skipwhite(){
      * Lexical analyzer for YACC
      */
 int
-yylex(){
+yylex(void){
     char *p = buf;
     int c;
     int c1;
@@ -129,8 +129,7 @@ again:
 }
 
 static int
-donum(startc)
-    char startc;
+donum(char startc)
 {
     char isdouble = 0;
     char c, *p = buf;
@@ -200,7 +199,7 @@ again:
      *	I/O redirection.  Shrug.
      */
 void
-fp_cmd(){
+fp_cmd(void){
     char cmd[80], *p = cmd, arg[80];
     int c;
     FILE *newf;

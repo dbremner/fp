@@ -22,7 +22,7 @@
 #define CDR(x) ( (x->o_val).o_list.cdr )
 #define ISNUM(x) ( (x->o_type == T_INT) || (x->o_type == T_FLOAT) )
 
-int numargs();
+int numargs(struct object *obj);
 
     /*
      * same()--looks at two objects and tells whether they are the same.

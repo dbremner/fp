@@ -29,7 +29,7 @@ yyerror(char *msg)
      * Floating exception handler
      */
 static void
-badmath(){
+badmath(int ignored){
     printf("Floating exception\n");
     prompt = '\t';
     signal(SIGFPE, badmath);
@@ -40,14 +40,15 @@ badmath(){
      * User interrupt handler
      */
 static void
-intr(){
+intr(int ignored){
     printf("Interrupt\n");
     prompt = '\t';
     signal(SIGINT, intr);
     longjmp(restart,1);
 }
 
-main() {
+int
+main(void) {
     symtab_init();
     prompt = '\t';
 

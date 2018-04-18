@@ -9,7 +9,7 @@
 #define NULLAST ((struct ast *)0)
 extern char prompt;
 static char had_undef = 0;
-extern void fp_cmd();
+extern void fp_cmd(void);
 
 #ifdef MEMSTAT
 extern int obj_out, ast_out;
