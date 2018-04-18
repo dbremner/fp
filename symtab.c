@@ -18,7 +18,8 @@ static
 hash(p)
     register char *p;
 {
-    register s = 0, c;
+    register int s = 0;
+    register int c;
 
     while( c = *p++ ) s += c;
     return( s % SYMTABSIZE );
@@ -49,7 +50,7 @@ struct symtab *
 lookup(name)
     char *name;
 {
-    register h;
+    register int h;
     struct symtab
 	*p = stab[h = hash(name)],
 	*old;

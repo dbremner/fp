@@ -25,7 +25,7 @@ static int fpos = 0;
      */
 static void
 skipwhite(){
-    register c;
+    register int c;
 
 	/*
 	 * Skip leading blank space
@@ -40,7 +40,8 @@ skipwhite(){
      */
 yylex(){
     register char *p = buf;
-    register c, c1;
+    register int c;
+    register int c1;
 
 	/*
 	 * Skip over white space
@@ -165,7 +166,7 @@ donum(startc)
 static
 nextc(){
     register int c;
-    static saw_eof = 0;
+    static int saw_eof = 0;
 
 again:
     if( cur_in == stdin ){
@@ -200,7 +201,7 @@ again:
 void
 fp_cmd(){
     char cmd[80], *p = cmd, arg[80];
-    register c;
+    register int c;
     FILE *newf;
 
 	/*

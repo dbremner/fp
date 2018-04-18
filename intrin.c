@@ -684,7 +684,7 @@ do_intrinsics(act,obj)
 listlen(p)
     register struct object *p;
 {
-    register l = 0;
+    register int l = 0;
 
     while( p && CAR(p) ){
 	++l;
