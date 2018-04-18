@@ -46,8 +46,8 @@ struct object {
     } o_val;
 };
 
-extern struct ast *ast_alloc();
-extern struct object *obj_alloc(), *execute(), *invoke();
+extern struct ast *ast_alloc(int atag, struct ast *l, struct ast *m, struct ast *r);
+extern struct object *obj_alloc(uchar), *execute(), *invoke();
 extern void ast_free(), ast_freetree(), fatal_err(), defun(),
 	symtab_init(), obj_free(), obj_unref(), obj_prtree();
 extern struct symtab *lookup();

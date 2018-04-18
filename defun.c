@@ -9,9 +9,7 @@
      * Define a function
      */
 void
-defun(name,def)
-    struct symtab *name;
-    struct ast *def;
+defun(struct symtab *name, struct ast *def)
 {
 	/*
 	 * Check what we're defining, handle redefining
@@ -40,9 +38,7 @@ defun(name,def)
      * Call a previously-defined user function, or error
      */
 struct object *
-invoke( def, obj )
-    struct symtab *def;
-    struct object *obj;
+invoke(struct symtab *def, struct object *obj)
 {
 	/*
 	 * Must be a defined function

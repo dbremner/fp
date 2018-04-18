@@ -29,8 +29,7 @@ int numargs();
      *	We recurse if it is a list.
      */
 static
-same( o1, o2 )
-    struct object *o1, *o2;
+same(struct object *o1, struct object *o2)
 {
     if( o1 == o2 ) return( 1 );
     if( o1->o_type != o2->o_type ){
@@ -61,8 +60,7 @@ same( o1, o2 )
      * ispair()--tell if our argument object is a list of two elements
      */
 static
-ispair(obj)
-    struct object *obj;
+ispair(struct object *obj)
 {
     if( obj->o_type != T_LIST ) return( 0 );
     if( CAR(obj) == 0 ) return( 0 );
@@ -76,8 +74,7 @@ ispair(obj)
      *	undefined on ill-formed list, etc.
      */
 struct object *
-eqobj(obj)
-    struct object *obj;
+eqobj(struct object *obj)
 {
     struct object *p;
 
@@ -98,8 +95,7 @@ eqobj(obj)
      * noteqobj()--just like eqobj(), but not equal
      */
 static struct object *
-noteqobj(obj)
-    struct object *obj;
+noteqobj(struct object *obj)
 {
     struct object *p = eqobj(obj);
 
@@ -112,9 +108,7 @@ noteqobj(obj)
      * do_charfun()--execute the action of a binary function
      */
 struct object *
-do_charfun(act,obj)
-    struct ast *act;
-    struct object *obj;
+do_charfun(struct ast *act, struct object *obj)
 {
     struct object *p;
     double f;
@@ -261,8 +255,7 @@ do_charfun(act,obj)
      *	can allocate the right type of object.
      */
 int
-numargs(obj)
-    struct object *obj;
+numargs(struct object *obj)
 {
     struct object *p, *q;
 

@@ -16,9 +16,7 @@ int ast_out = 0;
      * Get a node
      */
 struct ast *
-ast_alloc(atag,l,m,r)
-    int atag;
-    struct ast *l, *m, *r;
+ast_alloc(int atag, struct ast *l, struct ast *m, struct ast *r)
 {
     struct ast *p;
 
@@ -42,8 +40,7 @@ ast_alloc(atag,l,m,r)
      * Free a node
      */
 void
-ast_free(p)
-    struct ast *p;
+ast_free(struct ast *p)
 {
 #ifdef MEMSTAT
     ast_out--;
@@ -57,8 +54,7 @@ ast_free(p)
      * Free a whole tree
      */
 void
-ast_freetree(p)
-    struct ast *p;
+ast_freetree(struct ast *p)
 {
     if( !p ) return;
     ast_freetree(p->left);

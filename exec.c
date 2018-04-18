@@ -30,9 +30,7 @@ static struct object *do_rinsert(), *do_binsert();
      *	execute the action and return the result.
      */
 struct object *
-execute( act, obj )
-    struct ast *act;
-    struct object *obj;
+execute(struct ast * act, struct object *obj )
 {
     struct object *p, *q;
     int x;

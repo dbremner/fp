@@ -15,8 +15,7 @@ int obj_out = 0;
      * Allocate an object
      */
 struct object *
-obj_alloc(ty)
-    uchar ty;
+obj_alloc(uchar ty)
 {
     struct object *p;
 
@@ -40,8 +39,7 @@ obj_alloc(ty)
      * Free an object
      */
 void
-obj_free(p)
-    struct object *p;
+obj_free(struct object *p)
 {
 #ifdef MEMSTAT
     obj_out--;
@@ -56,8 +54,7 @@ obj_free(p)
      *	reference.
      */
 void
-obj_unref(p)
-    struct object *p;
+obj_unref(struct object *p)
 {
     if( !p ) return;
     if( --(p->o_refs) ) return;
@@ -81,8 +78,7 @@ obj_unref(p)
 
 static char last_close = 0;
 void
-obj_prtree(p)
-    struct object *p;
+obj_prtree(struct object *p)
 {
     if( !p ) return;
     switch( p->o_type ){
