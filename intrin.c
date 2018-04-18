@@ -30,7 +30,6 @@ do_dist(struct object *elem, struct object *lst, struct object *obj, int side);
 static struct object *do_trans(struct object *obj);
 static struct object *do_bool(struct object *obj, int op);
 extern int numargs(struct object *obj);
-extern struct object *eqobj();
 
     /*
      * Main intrinsic processing routine

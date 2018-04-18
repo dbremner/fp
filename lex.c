@@ -13,7 +13,7 @@ static int donum(char startc);
 extern YYSTYPE yylval;
 
 static FILE *cur_in /*= stdin*/; //TODO
-static int nextc();
+static int nextc(void);
 char prompt;
 
 #define MAXNEST 5		/* How deep can we get? */
@@ -164,7 +164,7 @@ donum(char startc)
      *	input is from keyboard, also localizes I/O redirection.
      */
 static int
-nextc(){
+nextc(void){
     int c;
     static int saw_eof = 0;
 
