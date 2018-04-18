@@ -274,6 +274,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LC7VFVAQZZ;
+				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_INPUT_FILETYPE = sourcecode.c.c;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -284,6 +285,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LC7VFVAQZZ;
+				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_INPUT_FILETYPE = sourcecode.c.c;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
