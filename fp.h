@@ -63,6 +63,7 @@ struct symtab *lookup(const char *name);
 //charfn.c
 struct object *do_charfun(struct ast *act, struct object *obj);
 struct object *eqobj(struct object *obj);
+int numargs(struct object *obj);
 
 //intrin.c
 int listlen(struct object *p);
