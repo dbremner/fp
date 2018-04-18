@@ -22,8 +22,11 @@
 #define CDR(x) ( ((x)->o_val).o_list.cdr )
 #define ISNUM(x) ( ((x)->o_type == T_INT) || (x->o_type == T_FLOAT) )
 
-extern struct object *do_charfun(), *do_intrinsics();
-static struct object *do_rinsert(), *do_binsert();
+extern struct object *do_charfun(struct ast *act, struct object *obj);
+extern struct object *
+do_intrinsics(struct symtab *act, struct object *obj);
+static struct object *do_rinsert(struct ast *act, struct object *obj);
+static struct object *do_binsert(struct ast *act, struct object *obj);
 
     /*
      * Given an AST for an action, and an object to do the action upon,
@@ -238,9 +241,7 @@ execute(struct ast * act, struct object *obj )
      * Local function to handle the tedious right-inserting
      */
 static struct object *
-do_rinsert(act,obj)
-    struct ast *act;
-    struct object *obj;
+do_rinsert(struct ast *act, struct object *obj)
 {
     struct object *p, *q;
 
@@ -330,9 +331,7 @@ do_rinsert(act,obj)
      * Local function to handle the tedious binary inserting
      */
 static struct object *
-do_binsert(act,obj)
-    struct ast *act;
-    struct object *obj;
+do_binsert(struct ast *act, struct object *obj)
 {
     struct object *p, *q;
     struct object *hd, **hdp, *r;

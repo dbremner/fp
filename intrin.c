@@ -32,9 +32,7 @@ extern struct object *eqobj();
      * Main intrinsic processing routine
      */
 struct object *
-do_intrinsics(act,obj)
-    struct symtab *act;
-    struct object *obj;
+do_intrinsics(struct symtab *act, struct object *obj)
 {
     struct object *p, *q;
     double f;
