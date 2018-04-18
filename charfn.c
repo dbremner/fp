@@ -28,7 +28,7 @@ int numargs();
      * same()--looks at two objects and tells whether they are the same.
      *	We recurse if it is a list.
      */
-static
+static int
 same(struct object *o1, struct object *o2)
 {
     if( o1 == o2 ) return( 1 );
@@ -59,7 +59,7 @@ same(struct object *o1, struct object *o2)
     /*
      * ispair()--tell if our argument object is a list of two elements
      */
-static
+static int
 ispair(struct object *obj)
 {
     if( obj->o_type != T_LIST ) return( 0 );

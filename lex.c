@@ -38,6 +38,7 @@ skipwhite(){
     /*
      * Lexical analyzer for YACC
      */
+int
 yylex(){
     char *p = buf;
     int c;
