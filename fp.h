@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -7,13 +8,6 @@
  *
  *	Copyright (c) 1986 by Andy Valencia
  */
-
-    /*
-     * Aliases for unsigned quantities.  Not really any reason, just
-     *	couldn't resist wasting a bit...
-     */
-typedef unsigned char uchar;
-//typedef unsigned long int uint; //TODO
 
     /*
      * The symbolic names for the different types
@@ -37,8 +31,8 @@ struct list {
      * An object's structure
      */
 struct object {
-    uchar o_type;		/* Type for selecting */
-    uint o_refs;		/* Number of current refs, for GC */
+    uint8_t o_type;		/* Type for selecting */
+    uint32_t o_refs;	/* Number of current refs, for GC */
     union {
 	int o_int;		/* T_INT, T_BOOL */
 	double o_double;		/* T_FLOAT */
@@ -52,7 +46,7 @@ struct symtab;
 struct object;
 
 extern struct ast *ast_alloc(int atag, struct ast *l, struct ast *m, struct ast *r);
-extern struct object *obj_alloc(uchar);
+extern struct object *obj_alloc(uint8_t);
 struct object *execute(struct ast * act, struct object *obj);
 struct object *invoke(struct symtab *def, struct object *obj);
 void ast_free(struct ast *p);
@@ -107,7 +101,7 @@ struct ast {
      * A symbol table entry for an identifier
      */
 struct symtab {
-    uchar sym_type;
+    uint8_t sym_type;
     YYstype sym_val;
     struct symtab *sym_next;
     char *sym_pname;
