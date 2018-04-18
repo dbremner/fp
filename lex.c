@@ -50,7 +50,6 @@ yylex(void){
 	/*
 	 * Skip over white space
 	 */
-again:
     skipwhite();
     c = nextc();
 
