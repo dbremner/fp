@@ -23,7 +23,8 @@ ast_alloc(int atag, struct ast *l, struct ast *m, struct ast *r)
 #ifdef MEMSTAT
     ast_out++;
 #endif
-    if( p = ast_list ){
+    p = ast_list;
+    if(p){
 	ast_list = p->left;
     } else {
 	p = (struct ast *)malloc(sizeof(struct ast));

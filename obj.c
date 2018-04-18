@@ -25,7 +25,8 @@ obj_alloc(uint32_t ty)
 	/*
 	 * Have a free one on the list
 	 */
-    if( p = free_objs ){
+    p = free_objs;
+    if(p){
 	free_objs = (p->o_val).o_list.car;
     } else if( (p = (struct object *)malloc(sizeof(struct object))) == 0 )
 	fatal_err("out of memory in obj_alloc()");
