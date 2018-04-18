@@ -6,8 +6,6 @@
 
 #include "y.tab.h"
 
-#define SYMTABSIZE 101
-
     /*
      * sym_type values
      */

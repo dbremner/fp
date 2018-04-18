@@ -6,6 +6,8 @@
 #include "fp.h"
 #include "symtab.h"
 
+static const int SYMTABSIZE = 101;
+
     /*
      * Our hash table
      */
