@@ -674,7 +674,6 @@ do_intrinsics(struct symtab *act, struct object *obj)
     
     default:
 	fatal_err("Unrecognized symbol in do_intrinsics()");
-    exit(EXIT_FAILURE); //TODO
     } /* Switch() */
     /*NOTREACHED*/
 }
