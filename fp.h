@@ -34,9 +34,9 @@ struct object {
     uint32_t o_type;		/* Type for selecting */
     uint32_t o_refs;	/* Number of current refs, for GC */
     union {
-	int o_int;		/* T_INT, T_BOOL */
-	double o_double;		/* T_FLOAT */
-	struct list o_list;	/* T_LIST */
+        int o_int;		/* T_INT, T_BOOL */
+        double o_double;		/* T_FLOAT */
+        struct list o_list;	/* T_LIST */
     } o_val;
 };
 
