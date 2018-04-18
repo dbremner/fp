@@ -19,6 +19,7 @@ fatal_err(msg)
     exit( 1 );
 }
 
+void
 yyerror(msg)
     char *msg;
 {
