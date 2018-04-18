@@ -12,7 +12,7 @@ static char buf[80];
 static int donum();
 extern YYSTYPE yylval;
 
-static FILE *cur_in = stdin;
+static FILE *cur_in /*= stdin*/; //TODO
 static nextc();
 char prompt;
 
@@ -170,7 +170,7 @@ nextc(){
 again:
     if( cur_in == stdin ){
 	if( saw_eof ) return(EOF);
-	if( !stdin->_cnt )
+	if( 0 /*!stdin->_cnt*/ ) //TODO
 	    putchar(prompt);
     }
     c = fgetc(cur_in);
