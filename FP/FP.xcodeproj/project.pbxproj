@@ -278,7 +278,7 @@
 				GCC_INPUT_FILETYPE = sourcecode.c.c;
 				GCC_STRICT_ALIASING = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WARNING_CFLAGS = "-Weverything";
+				WARNING_CFLAGS = "";
 			};
 			name = Debug;
 		};
@@ -291,7 +291,7 @@
 				GCC_INPUT_FILETYPE = sourcecode.c.c;
 				GCC_STRICT_ALIASING = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WARNING_CFLAGS = "-Weverything";
+				WARNING_CFLAGS = "";
 			};
 			name = Release;
 		};
