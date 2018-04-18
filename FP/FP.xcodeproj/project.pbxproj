@@ -45,6 +45,7 @@
 		36B05E652086F34F0084D970 /* symtab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = symtab.h; path = ../../symtab.h; sourceTree = "<group>"; };
 		36B05E662086F34F0084D970 /* misc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = misc.c; path = ../../misc.c; sourceTree = "<group>"; };
 		36B05E672086F3500084D970 /* obj.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = obj.c; path = ../../obj.c; sourceTree = "<group>"; };
+		36B05E7220878F530084D970 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = types.h; path = ../../types.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +90,7 @@
 				36B05E642086F34F0084D970 /* parse.y */,
 				36B05E612086F34F0084D970 /* symtab.c */,
 				36B05E652086F34F0084D970 /* symtab.h */,
+				36B05E7220878F530084D970 /* types.h */,
 			);
 			path = FP;
 			sourceTree = "<group>";
