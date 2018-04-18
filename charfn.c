@@ -52,6 +52,7 @@ same( o1, o2 )
 	return( same(CAR(o1),CAR(o2)) && same(CDR(o1),CDR(o2)) );
     default:
 	fatal_err("Bad AST type in same()");
+    exit(EXIT_FAILURE); //TODO
     }
     /*NOTREACHED*/
 }
@@ -244,6 +245,7 @@ do_charfun(act,obj)
 	}
     default:
 	fatal_err("Undefined charop tag in execute()");
+    exit(EXIT_FAILURE); //TODO
     }
     /*NOTREACHED*/
 }

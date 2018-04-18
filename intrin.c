@@ -673,6 +673,7 @@ do_intrinsics(act,obj)
     
     default:
 	fatal_err("Unrecognized symbol in do_intrinsics()");
+    exit(EXIT_FAILURE); //TODO
     } /* Switch() */
     /*NOTREACHED*/
 }

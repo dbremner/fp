@@ -231,6 +231,7 @@ execute( act, obj )
 
     default:
 	fatal_err("Undefined AST tag in execute()");
+    exit(EXIT_FAILURE); //TODO
     }
     /*NOTREACHED*/
 }
