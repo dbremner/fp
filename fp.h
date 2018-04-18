@@ -41,10 +41,7 @@ struct object {
     } o_val;
 };
 
-// fwd dcls
-struct ast;
-struct symtab;
-struct object;
+#include "types.h"
 
 struct ast *ast_alloc(int atag, struct ast *l, struct ast *m, struct ast *r);
 struct object *obj_alloc(uint32_t);
@@ -77,5 +74,3 @@ void yyerror(const char *msg);
 
 //YACC runtime
 int yyparse(void);
-
-#include "types.h"
