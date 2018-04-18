@@ -46,6 +46,11 @@ struct object {
     } o_val;
 };
 
+// fwd dcls
+struct ast;
+struct symtab;
+struct object;
+
 extern struct ast *ast_alloc(int atag, struct ast *l, struct ast *m, struct ast *r);
 extern struct object *obj_alloc(uchar);
 struct object *execute(struct ast * act, struct object *obj);
