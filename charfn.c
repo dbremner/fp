@@ -14,9 +14,9 @@
      * CDR is like CAR but gives all but the first
      * ISNUM provides a boolean saying if the named object is a number
      */
+
 #define NUMVAL(x) ( (x->o_type == T_INT) ? \
     ((x->o_val).o_int) : ((x->o_val).o_double) )
-#define CAR(x) ( (x->o_val).o_list.car )
 #define CDR(x) ( (x->o_val).o_list.cdr )
 #define ISNUM(x) ( (x->o_type == T_INT) || (x->o_type == T_FLOAT) )
 
@@ -44,7 +44,7 @@ same(struct object *o1, struct object *o2)
     case T_FLOAT:
 	return( o1->o_val.o_double == o2->o_val.o_double );
     case T_LIST:
-	return( same(CAR(o1),CAR(o2)) && same(CDR(o1),CDR(o2)) );
+	return( same(car(o1),car(o2)) && same(CDR(o1),CDR(o2)) );
     default:
 	fatal_err("Bad AST type in same()");
     }
@@ -58,7 +58,7 @@ static int
 ispair(struct object *obj)
 {
     if( obj->o_type != T_LIST ) return( 0 );
-    if( CAR(obj) == 0 ) return( 0 );
+    if( car(obj) == 0 ) return( 0 );
     if( CDR(obj) == 0 ) return( 0 );
     if( CDR(CDR(obj)) ) return( 0 );
     return( 1 );
@@ -78,7 +78,7 @@ eqobj(struct object *obj)
 	return undefined();
     }
     p = obj_alloc(T_BOOL);
-    if( same(CAR(obj),CAR(CDR(obj))) )
+    if( same(car(obj),car(CDR(obj))) )
 	p->o_val.o_int = 1;
     else
 	p->o_val.o_int = 0;
@@ -123,7 +123,7 @@ do_charfun(struct ast *act, struct object *obj)
 	case T_FLOAT:
 	case T_INT:
 	    p = obj_alloc(T_BOOL);
-	    (p->o_val).o_int = NUMVAL(CAR(obj)) > NUMVAL(CAR(CDR(obj)));
+	    (p->o_val).o_int = NUMVAL(car(obj)) > NUMVAL(car(CDR(obj)));
 	    obj_unref(obj);
 	    return(p);
 	}
@@ -136,7 +136,7 @@ do_charfun(struct ast *act, struct object *obj)
 	case T_FLOAT:
 	case T_INT:
 	    p = obj_alloc(T_BOOL);
-	    (p->o_val).o_int = NUMVAL(CAR(obj)) >= NUMVAL(CAR(CDR(obj)));
+	    (p->o_val).o_int = NUMVAL(car(obj)) >= NUMVAL(car(CDR(obj)));
 	    obj_unref(obj);
 	    return(p);
 	}
@@ -149,7 +149,7 @@ do_charfun(struct ast *act, struct object *obj)
 	case T_FLOAT:
 	case T_INT:
 	    p = obj_alloc(T_BOOL);
-	    (p->o_val).o_int = NUMVAL(CAR(obj)) <= NUMVAL(CAR(CDR(obj)));
+	    (p->o_val).o_int = NUMVAL(car(obj)) <= NUMVAL(car(CDR(obj)));
 	    obj_unref(obj);
 	    return(p);
 	}
@@ -162,7 +162,7 @@ do_charfun(struct ast *act, struct object *obj)
 	case T_FLOAT:
 	case T_INT:
 	    p = obj_alloc(T_BOOL);
-	    (p->o_val).o_int = NUMVAL(CAR(obj)) < NUMVAL(CAR(CDR(obj)));
+	    (p->o_val).o_int = NUMVAL(car(obj)) < NUMVAL(car(CDR(obj)));
 	    obj_unref(obj);
 	    return(p);
 	}
@@ -174,12 +174,12 @@ do_charfun(struct ast *act, struct object *obj)
 	    return undefined();
 	case T_FLOAT:
 	    p = obj_alloc(T_FLOAT);
-	    (p->o_val).o_double = NUMVAL(CAR(obj))+NUMVAL(CAR(CDR(obj)));
+	    (p->o_val).o_double = NUMVAL(car(obj))+NUMVAL(car(CDR(obj)));
 	    obj_unref(obj);
 	    return(p);
 	case T_INT:
 	    p = obj_alloc(T_INT);
-	    (p->o_val).o_int = NUMVAL(CAR(obj))+NUMVAL(CAR(CDR(obj)));
+	    (p->o_val).o_int = NUMVAL(car(obj))+NUMVAL(car(CDR(obj)));
 	    obj_unref(obj);
 	    return(p);
 	}
@@ -190,12 +190,12 @@ do_charfun(struct ast *act, struct object *obj)
 	    return undefined();
 	case T_FLOAT:
 	    p = obj_alloc(T_FLOAT);
-	    (p->o_val).o_double = NUMVAL(CAR(obj))-NUMVAL(CAR(CDR(obj)));
+	    (p->o_val).o_double = NUMVAL(car(obj))-NUMVAL(car(CDR(obj)));
 	    obj_unref(obj);
 	    return(p);
 	case T_INT:
 	    p = obj_alloc(T_INT);
-	    (p->o_val).o_int = NUMVAL(CAR(obj))-NUMVAL(CAR(CDR(obj)));
+	    (p->o_val).o_int = NUMVAL(car(obj))-NUMVAL(car(CDR(obj)));
 	    obj_unref(obj);
 	    return(p);
 	}
@@ -206,12 +206,12 @@ do_charfun(struct ast *act, struct object *obj)
 	    return undefined();
 	case T_FLOAT:
 	    p = obj_alloc(T_FLOAT);
-	    (p->o_val).o_double = NUMVAL(CAR(obj))*NUMVAL(CAR(CDR(obj)));
+	    (p->o_val).o_double = NUMVAL(car(obj))*NUMVAL(car(CDR(obj)));
 	    obj_unref(obj);
 	    return(p);
 	case T_INT:
 	    p = obj_alloc(T_INT);
-	    (p->o_val).o_int = NUMVAL(CAR(obj))*NUMVAL(CAR(CDR(obj)));
+	    (p->o_val).o_int = NUMVAL(car(obj))*NUMVAL(car(CDR(obj)));
 	    obj_unref(obj);
 	    return(p);
 	}
@@ -222,13 +222,13 @@ do_charfun(struct ast *act, struct object *obj)
 	    return undefined();
 	case T_FLOAT:
 	case T_INT:
-	    f = NUMVAL(CAR(CDR(obj)));
+	    f = NUMVAL(car(CDR(obj)));
 	    if( f == 0.0 ){
 		obj_unref(obj);
 		return undefined();
 	    }
 	    p = obj_alloc(T_FLOAT);
-	    (p->o_val).o_double = NUMVAL(CAR(obj))/f;
+	    (p->o_val).o_double = NUMVAL(car(obj))/f;
 	    obj_unref(obj);
 	    return(p);
 	}
@@ -262,8 +262,8 @@ numargs(struct object *obj)
 	 * So it's a list of two.  Verify type of both elements.
 	 *	'p' gets the first object, 'q' gets second.
 	 */
-    p = CAR(obj);
-    q = CAR(CDR(obj));
+    p = car(obj);
+    q = car(CDR(obj));
     if( !ISNUM(p) || !ISNUM(q) ) return(T_UNDEF);
     if( (p->o_type == T_FLOAT) || (q->o_type == T_FLOAT) )
 	return(T_FLOAT);

@@ -99,7 +99,7 @@ execute(struct ast * act, struct object *obj )
 	    obj_unref(obj);
 	    return undefined();
 	}
-	p = CAR(p);
+	p = car(p);
 	p->o_refs += 1;		/* Add reference to this elem */
 	obj_unref(obj);		/* Unreference list as a whole */
 	return(p);
@@ -175,10 +175,10 @@ execute(struct ast * act, struct object *obj )
 	    obj_unref(obj);
 	    return undefined();
 	}
-	if( !CAR(obj) ) return(obj);
+	if( !car(obj) ) return(obj);
 	for( p = obj; p; p = CDR(p) ){
 	    (p->o_val.o_list.car)->o_refs += 1;
-	    if( (q = execute(act->left,CAR(p)))->o_type == T_UNDEF ){
+	    if( (q = execute(act->left,car(p)))->o_type == T_UNDEF ){
 		obj_unref(hd); obj_unref(obj);
 		return(q);
 	    }
@@ -249,7 +249,7 @@ do_rinsert(struct ast *act, struct object *obj)
 	 *	operator.  If it's one for which we have an identity,
 	 *	return the identity.  Otherwise, undefined.  Bletch.
 	 */
-    if( !CAR(obj) ){
+    if( !car(obj) ){
 	obj_unref(obj);
 	if( act->tag == 'c' ){
 	    switch( act->val.YYint ){
@@ -288,7 +288,7 @@ do_rinsert(struct ast *act, struct object *obj)
 	 * If the list has only one element, we return that element.
 	 */
     if( !(p = CDR(obj)) ){
-	p = CAR(obj);
+	p = car(obj);
 	p->o_refs += 1;
 	obj_unref(obj);
 	return(p);
@@ -314,8 +314,8 @@ do_rinsert(struct ast *act, struct object *obj)
 	return(p);
     }
     q = obj_alloc(T_LIST);
-    CAR(q) = CAR(obj);
-    CAR(obj)->o_refs += 1;
+    CAR(q) = car(obj);
+    car(obj)->o_refs += 1;
     CAR(CDR(q) = obj_alloc(T_LIST)) = p;
     obj_unref(obj);
     return( execute(act,q) );
@@ -341,7 +341,7 @@ do_binsert(struct ast *act, struct object *obj)
 	 *	operator.  If it's one for which we have an identity,
 	 *	return the identity.  Otherwise, undefined.  Bletch.
 	 */
-    if( !CAR(obj) ){
+    if( !car(obj) ){
 	obj_unref(obj);
 	if( act->tag == 'c' ){
 	    switch( act->val.YYint ){
@@ -380,7 +380,7 @@ do_binsert(struct ast *act, struct object *obj)
 	 * If the list has only one element, we return that element.
 	 */
     if( !(p = CDR(obj)) ){
-	p = CAR(obj);
+	p = car(obj);
 	p->o_refs += 1;
 	obj_unref(obj);
 	return(p);
@@ -406,16 +406,16 @@ do_binsert(struct ast *act, struct object *obj)
 	if( x ){
 	    *hdp = r = obj_alloc(T_LIST);
 	    hdp = &CDR(r);
-	    CAR(r) = CAR(q);
-	    CAR(q)->o_refs += 1;
+	    CAR(r) = car(q);
+	    car(q)->o_refs += 1;
 	    q = CDR(q);
 	    x = 0;
 	} else
 	    x = 1;
     }
     *hdp = p = obj_alloc(T_LIST);
-    CAR(p) = CAR(q);
-    CAR(q)->o_refs += 1;
+    CAR(p) = car(q);
+    car(q)->o_refs += 1;
 
 	/*
 	 * 'q' names the second half, but we must add a reference, otherwise

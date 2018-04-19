@@ -60,6 +60,12 @@ static inline struct object *undefined(void)
     return(obj_alloc(T_UNDEF));
 }
 
+///CAR manipulates the object as a list & gives its first part
+static inline struct object *car(struct object *x)
+{
+    return (x->o_val).o_list.car;
+}
+
 //charfn.c
 struct object *do_charfun(struct ast *act, struct object *obj);
 struct object *eqobj(struct object *obj);
