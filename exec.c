@@ -12,13 +12,11 @@
      * NUMVAL generates a value for C of the correct type
      * CAR manipulates the object as a list & gives its first part
      * CDR is like CAR but gives all but the first
-     * ISNUM provides a boolean saying if the named object is a number
      */
 #define NUMVAL(x) ( ((x)->o_type == T_INT) ? \
     (((x)->o_val).o_int) : (((x)->o_val).o_double) )
 #define CAR(x) ( ((x)->o_val).o_list.car )
 #define CDR(x) ( ((x)->o_val).o_list.cdr )
-#define ISNUM(x) ( ((x)->o_type == T_INT) || (x->o_type == T_FLOAT) )
 
 static struct object *do_rinsert(struct ast *act, struct object *obj);
 static struct object *do_binsert(struct ast *act, struct object *obj);

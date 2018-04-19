@@ -11,12 +11,10 @@
      *
      * NUMVAL generates a value for C of the correct type
      * CAR manipulates the object as a list & gives its first part
-     * ISNUM provides a boolean saying if the named object is a number
      */
 
 #define NUMVAL(x) ( (x->o_type == T_INT) ? \
     ((x->o_val).o_int) : ((x->o_val).o_double) )
-#define ISNUM(x) ( (x->o_type == T_INT) || (x->o_type == T_FLOAT) )
 
     /*
      * same()--looks at two objects and tells whether they are the same.
@@ -262,7 +260,7 @@ numargs(struct object *obj)
 	 */
     p = car(obj);
     q = car(cdr(obj));
-    if( !ISNUM(p) || !ISNUM(q) ) return(T_UNDEF);
+    if( !isnum(p) || !isnum(q) ) return(T_UNDEF);
     if( (p->o_type == T_FLOAT) || (q->o_type == T_FLOAT) )
 	return(T_FLOAT);
     return(T_INT);

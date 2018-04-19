@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <stdint.h>
 #include <stdnoreturn.h>
 
@@ -70,6 +71,12 @@ static inline struct object *car(struct object *x)
 static inline struct object *cdr(struct object *x)
 {
     return ((x)->o_val).o_list.cdr;
+}
+
+///ISNUM provides a boolean saying if the named object is a number
+static inline bool isnum(struct object *x)
+{
+    return ( (x->o_type == T_INT) || (x->o_type == T_FLOAT) );
 }
 
 //charfn.c

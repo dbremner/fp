@@ -15,14 +15,12 @@
      * NUMVAL generates a value for C of the correct type
      * CAR manipulates the object as a list & gives its first part
      * CDR is like CAR but gives all but the first
-     * ISNUM provides a boolean saying if the named object is a number
      */
 
 #define NUMVAL(x) ( (x->o_type == T_INT) ? \
     ((x->o_val).o_int) : ((x->o_val).o_double) )
 #define CAR(x) ( ((x)->o_val).o_list.car )
 #define CDR(x) ( ((x)->o_val).o_list.cdr )
-#define ISNUM(x) ( (x->o_type == T_INT) || (x->o_type == T_FLOAT) )
 
 static struct object *
 do_dist(struct object *elem, struct object *lst, struct object *obj, int side);
@@ -429,7 +427,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
     }
 
     case SIN:		/* sin() function */
-	if( !ISNUM(obj) ){
+	if( !isnum(obj) ){
 	    obj_unref(obj);
 	    return undefined();
 	}
@@ -440,7 +438,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	return(p);
 
     case COS:		/* cos() function */
-	if( !ISNUM(obj) ){
+	if( !isnum(obj) ){
 	    obj_unref(obj);
 	    return undefined();
 	}
@@ -451,7 +449,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	return(p);
 
     case TAN:		/* tan() function */
-	if( !ISNUM(obj) ){
+	if( !isnum(obj) ){
 	    obj_unref(obj);
 	    return undefined();
 	}
@@ -462,7 +460,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	return(p);
 
     case ASIN:		/* asin() function */
-	if( !ISNUM(obj) ){
+	if( !isnum(obj) ){
 	    obj_unref(obj);
 	    return undefined();
 	}
@@ -473,7 +471,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	return(p);
 
     case ACOS:		/* acos() function */
-	if( !ISNUM(obj) ){
+	if( !isnum(obj) ){
 	    obj_unref(obj);
 	    return undefined();
 	}
@@ -484,7 +482,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	return(p);
 
     case ATAN:		/* atan() function */
-	if( !ISNUM(obj) ){
+	if( !isnum(obj) ){
 	    obj_unref(obj);
 	    return undefined();
 	}
@@ -495,7 +493,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	return(p);
     
     case EXP:		/* exp() function */
-	if( !ISNUM(obj) ){
+	if( !isnum(obj) ){
 	    obj_unref(obj);
 	    return undefined();
 	}
@@ -506,7 +504,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	return(p);
     
     case LOG:		/* log() function */
-	if( !ISNUM(obj) ){
+	if( !isnum(obj) ){
 	    obj_unref(obj);
 	    return undefined();
 	}
