@@ -6,7 +6,7 @@
  */
 #include "fp.h"
 #include "y.tab.h"
-#include "math.h"
+#include <math.h>
 #include <stdio.h>
 
     /*
