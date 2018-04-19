@@ -38,8 +38,7 @@ new_entry(const char *n)
     p->sym_type = SYM_NEW;
     p->sym_next = 0;
     p->sym_val.YYint = 0;
-    p->sym_pname = (char*)malloc((unsigned)(strlen(n)+1));
-    (void)strcpy(p->sym_pname,n);
+    p->sym_pname = strdup(n);
     return(p);
 }
 
