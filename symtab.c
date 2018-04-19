@@ -53,7 +53,7 @@ lookup(const char *name)
     int h = hash(name);
     struct symtab
 	*p = stab[h],
-	*old;
+	*old = NULL;
 
 	/*
 	 * No hash hits, must be a new entry
