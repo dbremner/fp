@@ -50,9 +50,9 @@ new_entry(const char *n)
 struct symtab *
 lookup(const char *name)
 {
-    int h;
+    int h = hash(name);
     struct symtab
-	*p = stab[h = hash(name)],
+	*p = stab[h],
 	*old;
 
 	/*
