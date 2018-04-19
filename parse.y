@@ -14,6 +14,8 @@ void fp_cmd(void);
 #ifdef MEMSTAT
 extern int obj_out, ast_out;
 #endif
+
+#pragma clang diagnostic ignored "-Wunreachable-code"
 %}
 
 %start go
