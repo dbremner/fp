@@ -93,7 +93,7 @@ execute(struct ast * act, struct object *obj )
 	}
 	while( --x ){		/* Scan down list X times */
 	    if( !p ) break;
-	    p = CDR(p);
+	    p = cdr(p);
 	}
 	if( !p ){		/* Fell off bottom of list */
 	    obj_unref(obj);
@@ -176,7 +176,7 @@ execute(struct ast * act, struct object *obj )
 	    return undefined();
 	}
 	if( !car(obj) ) return(obj);
-	for( p = obj; p; p = CDR(p) ){
+	for( p = obj; p; p = cdr(p) ){
 	    (p->o_val.o_list.car)->o_refs += 1;
 	    if( (q = execute(act->left,car(p)))->o_type == T_UNDEF ){
 		obj_unref(hd); obj_unref(obj);
@@ -287,7 +287,7 @@ do_rinsert(struct ast *act, struct object *obj)
 	/*
 	 * If the list has only one element, we return that element.
 	 */
-    if( !(p = CDR(obj)) ){
+    if( !(p = cdr(obj)) ){
 	p = car(obj);
 	p->o_refs += 1;
 	obj_unref(obj);
@@ -297,7 +297,7 @@ do_rinsert(struct ast *act, struct object *obj)
 	/*
 	 * If the list has two elements, we apply our operator and reduce
 	 */
-    if( !CDR(p) ){
+    if( !cdr(p) ){
 	return( execute(act,obj) );
     }
 
@@ -307,8 +307,8 @@ do_rinsert(struct ast *act, struct object *obj)
 	 *	first linked onto the result.  Normal business over undefined
 	 *	objects popping up.
 	 */
-    CDR(obj)->o_refs += 1;
-    p = do_rinsert(act,CDR(obj));
+    cdr(obj)->o_refs += 1;
+    p = do_rinsert(act,cdr(obj));
     if( p->o_type == T_UNDEF ){
 	obj_unref(obj);
 	return(p);
@@ -379,7 +379,7 @@ do_binsert(struct ast *act, struct object *obj)
 	/*
 	 * If the list has only one element, we return that element.
 	 */
-    if( !(p = CDR(obj)) ){
+    if( !(p = cdr(obj)) ){
 	p = car(obj);
 	p->o_refs += 1;
 	obj_unref(obj);
@@ -389,7 +389,7 @@ do_binsert(struct ast *act, struct object *obj)
 	/*
 	 * If the list has two elements, we apply our operator and reduce
 	 */
-    if( !CDR(p) ){
+    if( !cdr(p) ){
 	return( execute(act,obj) );
     }
 
@@ -402,13 +402,13 @@ do_binsert(struct ast *act, struct object *obj)
     x = 0;
     hd = 0;
     hdp = &hd;
-    for( q = obj; p; p = CDR(p) ){
+    for( q = obj; p; p = cdr(p) ){
 	if( x ){
 	    *hdp = r = obj_alloc(T_LIST);
 	    hdp = &CDR(r);
 	    CAR(r) = car(q);
 	    car(q)->o_refs += 1;
-	    q = CDR(q);
+	    q = cdr(q);
 	    x = 0;
 	} else
 	    x = 1;
@@ -422,7 +422,7 @@ do_binsert(struct ast *act, struct object *obj)
 	 *	our use of it via execute() will consume it (and obj still
 	 *	references it...).
 	 */
-    q = CDR(q);
+    q = cdr(q);
     q->o_refs += 1;
 
 	/*

@@ -66,6 +66,12 @@ static inline struct object *car(struct object *x)
     return (x->o_val).o_list.car;
 }
 
+///CDR is like CAR but gives all but the first
+static inline struct object *cdr(struct object *x)
+{
+    return ((x)->o_val).o_list.cdr;
+}
+
 //charfn.c
 struct object *do_charfun(struct ast *act, struct object *obj);
 struct object *eqobj(struct object *obj);
