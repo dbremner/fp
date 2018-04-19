@@ -17,28 +17,6 @@
 #define T_UNDEF 4	/* The undefined object */
 #define T_BOOL 5	/* A boolean value */
 
-    /*
-     * A list of arbitrary objects
-     */
-struct list {
-    struct object
-	*car,		/* Head of list */
-	*cdr;		/* and Tail */
-};
-
-    /*
-     * An object's structure
-     */
-struct object {
-    uint32_t o_type;		/* Type for selecting */
-    uint32_t o_refs;	/* Number of current refs, for GC */
-    union {
-        int o_int;		/* T_INT, T_BOOL */
-        double o_double;		/* T_FLOAT */
-        struct list o_list;	/* T_LIST */
-    } o_val;
-};
-
 #include "types.h"
 
 struct ast *ast_alloc(int atag, struct ast *l, struct ast *m, struct ast *r);
