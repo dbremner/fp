@@ -12,13 +12,12 @@
     /*
      * This ugly set of macros makes access to objects easier.
      *
-     * UNDEFINED() generates the undefined object & returns it
      * NUMVAL generates a value for C of the correct type
      * CAR manipulates the object as a list & gives its first part
      * CDR is like CAR but gives all but the first
      * ISNUM provides a boolean saying if the named object is a number
      */
-#define UNDEFINED() return(obj_alloc(T_UNDEF));
+
 #define NUMVAL(x) ( (x->o_type == T_INT) ? \
     ((x->o_val).o_int) : ((x->o_val).o_double) )
 #define CAR(x) ( ((x)->o_val).o_list.car )
@@ -54,7 +53,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 
 	if( obj->o_type != T_LIST ){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 	for( p = obj, l = 0; p && CAR(p); p = CDR(p) ) l++;
 	obj_unref(obj);
@@ -74,7 +73,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
     case FIRST:
     case HD:		/* First elem of a list */
 	if( obj->o_type != T_LIST ){
-	    obj_unref(obj); UNDEFINED();
+	    obj_unref(obj); return undefined();
 	}
 	if( !(p = CAR(obj)) ) return(obj);
 	p->o_refs += 1;
@@ -83,7 +82,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 
     case TL:		/* Remainder of list */
 	if( (obj->o_type != T_LIST) || !CAR(obj) ){
-	    obj_unref(obj); UNDEFINED();
+	    obj_unref(obj); return undefined();
 	}
 	if( !(p = CDR(obj)) ){
 	    p = obj_alloc(T_LIST);
@@ -99,11 +98,11 @@ do_intrinsics(struct symtab *act, struct object *obj)
 
 	if( (obj->o_type != T_INT) && (obj->o_type != T_FLOAT) ){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 	l = (obj->o_type == T_INT) ? obj->o_val.o_int : obj->o_val.o_double;
 	obj_unref(obj);
-	if( l < 0 ) UNDEFINED();
+	if( l < 0 ) return undefined();
 	if( l == 0 ) return( obj_alloc(T_LIST) );
 	for( x = 1; x <= l; x++ ){
 	    *hdp = p = obj_alloc(T_LIST);
@@ -129,7 +128,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	    ( (x = p->o_val.o_int) == 0 )
 	){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 
 	    /*
@@ -141,7 +140,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	    x += (tmp + 1);
 	    if( x < 1 ){
 		obj_unref(obj);
-		UNDEFINED();
+		return undefined();
 	    }
 	}
 
@@ -158,7 +157,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	     */
 	if( !q || !(q = CAR(q)) ){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 
 	    /*
@@ -172,7 +171,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
     case LAST:		/* Return last element of list */
 	if( (q = obj)->o_type != T_LIST ){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 	if( !CAR(obj) ) return(obj);
     while( (p = CDR(q)) ) q = p;
@@ -190,7 +189,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	    !CAR(obj)
 	){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 	while( CDR(q) ){
 	    *hdp = p = obj_alloc(T_LIST);
@@ -214,7 +213,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	    (p->o_type != T_LIST)
 	){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 	return( do_dist(q,p,obj,0) );
 
@@ -227,7 +226,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	    (q->o_type != T_LIST)
 	){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 	return( do_dist(p,q,obj,1) );
     
@@ -242,7 +241,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	    (p->o_type != T_LIST)
 	){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 	q->o_refs += 1;
 	if( !CAR(p) ){		/* Null list? */
@@ -270,7 +269,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	    (q->o_type != T_LIST)
 	){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 	r->o_refs += 1;
 	if( !CAR(q) ){		/* Empty list */
@@ -309,7 +308,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 
 	if( obj->o_type != T_LIST ){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 	if( !CAR(obj) ) return(obj);
 	for( p = 0, q = obj; q; q = CDR(q) ){
@@ -331,7 +330,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	     */
 	if( obj->o_type != T_LIST ){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 
 	    /*
@@ -369,7 +368,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	     */
 	if( obj->o_type != T_LIST ){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 
 	    /*
@@ -405,7 +404,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 
 	if( obj->o_type != T_LIST ){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 	if( !CAR(obj) ) return(obj);
 	for( p = obj; p; p = CDR(p) ){
@@ -413,7 +412,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	    if( q->o_type != T_LIST ){
 		obj_unref(obj);
 		obj_unref(hd);
-		UNDEFINED();
+		return undefined();
 	    }
 	    if( !CAR(q) ) continue;
 	    for( ; q; q = CDR(q) ){
@@ -432,7 +431,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
     case SIN:		/* sin() function */
 	if( !ISNUM(obj) ){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 	p = obj_alloc(T_FLOAT);
 	f = NUMVAL(obj);
@@ -443,7 +442,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
     case COS:		/* cos() function */
 	if( !ISNUM(obj) ){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 	p = obj_alloc(T_FLOAT);
 	f = NUMVAL(obj);
@@ -454,7 +453,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
     case TAN:		/* tan() function */
 	if( !ISNUM(obj) ){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 	p = obj_alloc(T_FLOAT);
 	f = NUMVAL(obj);
@@ -465,7 +464,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
     case ASIN:		/* asin() function */
 	if( !ISNUM(obj) ){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 	p = obj_alloc(T_FLOAT);
 	f = NUMVAL(obj);
@@ -476,7 +475,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
     case ACOS:		/* acos() function */
 	if( !ISNUM(obj) ){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 	p = obj_alloc(T_FLOAT);
 	f = NUMVAL(obj);
@@ -487,7 +486,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
     case ATAN:		/* atan() function */
 	if( !ISNUM(obj) ){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 	p = obj_alloc(T_FLOAT);
 	f = NUMVAL(obj);
@@ -498,7 +497,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
     case EXP:		/* exp() function */
 	if( !ISNUM(obj) ){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 	p = obj_alloc(T_FLOAT);
 	f = NUMVAL(obj);
@@ -509,7 +508,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
     case LOG:		/* log() function */
 	if( !ISNUM(obj) ){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 	p = obj_alloc(T_FLOAT);
 	f = NUMVAL(obj);
@@ -521,7 +520,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	switch( numargs(obj) ){
 	case T_UNDEF:
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	case T_FLOAT:
 	case T_INT:{
 	    int x1, x2;
@@ -529,7 +528,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	    x1 = NUMVAL(CAR(obj));
 	    if( (x2 = NUMVAL(CAR(CDR(obj)))) == 0 ){
 		obj_unref(obj);
-		UNDEFINED();
+		return undefined();
 	    }
 	    p = obj_alloc(T_INT);
 	    (p->o_val).o_int = x1 % x2;
@@ -547,7 +546,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	    !CAR(obj)
 	){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 	for( p = obj, x = 0; p; p = CDR(p) ){
 	    if( x == 0 ){
@@ -577,7 +576,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	    ( (l = listlen(obj)) == 0 )
 	){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 	l = ((l-1) >> 1)+1;
 	for( x = 0, p = obj; x < l; ++x, p = CDR(p) ){
@@ -625,7 +624,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	switch( numargs(obj) ){
 	case T_UNDEF:
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	case T_FLOAT:
 	case T_INT:{
 	    int x1, x2;
@@ -633,7 +632,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	    x1 = NUMVAL(CAR(obj));
 	    if( (x2 = NUMVAL(CAR(CDR(obj)))) == 0 ){
 		obj_unref(obj);
-		UNDEFINED();
+		return undefined();
 	    }
 	    p = obj_alloc(T_INT);
 	    (p->o_val).o_int = x1 / x2;
@@ -646,7 +645,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
     case NIL:
 	if( obj->o_type != T_LIST ){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 	p = obj_alloc(T_BOOL);
 	if( CAR(obj) ) p->o_val.o_int = 0;
@@ -666,7 +665,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
     case NOT:
 	if( obj->o_type != T_BOOL ){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 	(p = obj_alloc(T_BOOL))->o_val.o_int = !obj->o_val.o_int;
 	obj_unref(obj);
@@ -776,7 +775,7 @@ do_trans(struct object *obj)
 	( p->o_type != T_LIST )
     ){
 	obj_unref(obj);
-	UNDEFINED();
+	return undefined();
     }
 
 	/*
@@ -795,7 +794,7 @@ do_trans(struct object *obj)
 	    (listlen(r) != len)
 	){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
     }
 
@@ -850,7 +849,7 @@ do_bool(struct object *obj, int op)
 	( (q = CAR(CDR(obj)))->o_type != T_BOOL)
     ){
 	obj_unref(obj);
-	UNDEFINED();
+	return undefined();
     }
     r = obj_alloc(T_BOOL);
     switch( op ){

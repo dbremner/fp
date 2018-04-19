@@ -54,6 +54,12 @@ void obj_free(struct object *p);
 void obj_unref(struct object *p);
 struct symtab *lookup(const char *name);
 
+///generates the undefined object & returns it
+static inline struct object *undefined(void)
+{
+    return(obj_alloc(T_UNDEF));
+}
+
 //charfn.c
 struct object *do_charfun(struct ast *act, struct object *obj);
 struct object *eqobj(struct object *obj);

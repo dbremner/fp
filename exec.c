@@ -9,13 +9,11 @@
     /*
      * This ugly set of macros makes access to objects easier.
      *
-     * UNDEFINED() generates the undefined object & returns it
      * NUMVAL generates a value for C of the correct type
      * CAR manipulates the object as a list & gives its first part
      * CDR is like CAR but gives all but the first
      * ISNUM provides a boolean saying if the named object is a number
      */
-#define UNDEFINED() return(obj_alloc(T_UNDEF));
 #define NUMVAL(x) ( ((x)->o_type == T_INT) ? \
     (((x)->o_val).o_int) : (((x)->o_val).o_double) )
 #define CAR(x) ( ((x)->o_val).o_list.car )
@@ -73,12 +71,12 @@ execute(struct ast * act, struct object *obj )
 	    !CAR(obj)
 	){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 	p = obj;
 	if( (x = act->val.YYint) == 0 ){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 
 	    /*
@@ -90,7 +88,7 @@ execute(struct ast * act, struct object *obj )
 	    x += (tmp+1);
 	    if( x < 0 ){
 		obj_unref(obj);
-		UNDEFINED();
+		return undefined();
 	    }
 	}
 	while( --x ){		/* Scan down list X times */
@@ -99,7 +97,7 @@ execute(struct ast * act, struct object *obj )
 	}
 	if( !p ){		/* Fell off bottom of list */
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 	p = CAR(p);
 	p->o_refs += 1;		/* Add reference to this elem */
@@ -159,7 +157,7 @@ execute(struct ast * act, struct object *obj )
 	if( p->o_type != T_BOOL ){
 	    obj_unref(obj);
 	    obj_unref(p);
-	    UNDEFINED();
+	    return undefined();
 	}
 	if( p->o_val.o_int ) q = execute(act->middle,obj);
 	else q = execute(act->right,obj);
@@ -175,7 +173,7 @@ execute(struct ast * act, struct object *obj )
 	hd = 0;
 	if( obj->o_type != T_LIST ){
 	    obj_unref(obj);
-	    UNDEFINED();
+	    return undefined();
 	}
 	if( !CAR(obj) ) return(obj);
 	for( p = obj; p; p = CDR(p) ){
@@ -209,14 +207,14 @@ execute(struct ast * act, struct object *obj )
 	while( 1 ){
 	    if( obj->o_type == T_UNDEF ){
 		obj_unref(obj);
-		UNDEFINED();
+		return undefined();
 	    }
 	    obj->o_refs += 1;
 	    p = execute(act->left,obj);
 	    if( p->o_type != T_BOOL ){
 		obj_unref(obj);
 		obj_unref(p);
-		UNDEFINED();
+		return undefined();
 	    }
 	    if( p->o_val.o_int ){
 		obj_unref(p);
@@ -243,7 +241,7 @@ do_rinsert(struct ast *act, struct object *obj)
 
     if( obj->o_type != T_LIST ){
 	obj_unref(obj);
-	UNDEFINED();
+	return undefined();
     }
 
 	/*
@@ -266,7 +264,7 @@ do_rinsert(struct ast *act, struct object *obj)
 		p->o_val.o_int = 1;
 		break;
 	    default:
-		UNDEFINED();
+		return undefined();
 	    }
 	} else if ( act->tag == 'i' ){
 	    switch( (act->val.YYsym)->sym_val.YYint ){
@@ -280,9 +278,9 @@ do_rinsert(struct ast *act, struct object *obj)
 		p->o_val.o_int = 0;
 		break;
 	    default:
-		UNDEFINED();
+		return undefined();
 	    }
-	} else UNDEFINED();
+	} else return undefined();
 	return(p);
     }
 
@@ -335,7 +333,7 @@ do_binsert(struct ast *act, struct object *obj)
 
     if( obj->o_type != T_LIST ){
 	obj_unref(obj);
-	UNDEFINED();
+	return undefined();
     }
 
 	/*
@@ -358,7 +356,7 @@ do_binsert(struct ast *act, struct object *obj)
 		p->o_val.o_int = 1;
 		break;
 	    default:
-		UNDEFINED();
+		return undefined();
 	    }
 	} else if ( act->tag == 'i' ){
 	    switch( (act->val.YYsym)->sym_val.YYint ){
@@ -372,9 +370,9 @@ do_binsert(struct ast *act, struct object *obj)
 		p->o_val.o_int = 0;
 		break;
 	    default:
-		UNDEFINED();
+		return undefined();
 	    }
-	} else UNDEFINED();
+	} else return undefined();
 	return(p);
     }
 
