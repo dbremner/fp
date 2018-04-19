@@ -5,6 +5,7 @@
  */
 #include "fp.h"
 #include "y.tab.h"
+#include <stdlib.h>
 
 static struct ast *ast_list = 0;
 

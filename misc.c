@@ -6,6 +6,8 @@
 #include "fp.h"
 #include <setjmp.h>
 #include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 extern char prompt;
 

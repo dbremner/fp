@@ -4,6 +4,8 @@
  *	Copyright (c) 1986 by Andy Valencia
  */
 #include "fp.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 static struct object *free_objs = 0;
 

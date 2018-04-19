@@ -5,6 +5,8 @@
  */
 #include "fp.h"
 #include "symtab.h"
+#include <stdlib.h>
+#include <string.h>
 
 static const int SYMTABSIZE = 101;
 

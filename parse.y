@@ -5,6 +5,7 @@
     *	Copyright (c) 1986 by Andy Valencia
     */
 #include "fp.h"
+#include <stdio.h>
 
 #define NULLAST ((struct ast *)0)
 extern char prompt;

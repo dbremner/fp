@@ -1,8 +1,5 @@
 #include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <stdnoreturn.h>
-#include <string.h>
 
 /*
  * Common definitions for FP
