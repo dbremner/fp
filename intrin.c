@@ -75,7 +75,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    obj_unref(obj); return undefined();
 	}
 	if( !(p = car(obj)) ) return(obj);
-	p->o_refs += 1;
+	p->inc_ref();
 	obj_unref(obj);
 	return(p);
 
@@ -86,7 +86,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	if( !(p = cdr(obj)) ){
 	    p = obj_alloc(obj_type::T_LIST);
 	} else {
-	    p->o_refs += 1;
+	    p->inc_ref();
 	}
 	obj_unref(obj);
 	return(p);
@@ -163,7 +163,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    /*
 	     * Add a reference to the named object, release the old object
 	     */
-	q->o_refs += 1;
+	q->inc_ref();
 	obj_unref(obj);
 	return(q);
     }
@@ -176,7 +176,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	if( !car(obj) ) return(obj);
     while( (p = cdr(q)) ) q = p;
 	q = car(q);
-	q->o_refs += 1;
+	q->inc_ref();
 	obj_unref(obj);
 	return(q);
     
@@ -195,7 +195,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	while( cdr(q) ){
 	    *hdp = p = obj_alloc(obj_type::T_LIST);
         if( (CAR(p) = car(q)) ){
-		car(p)->o_refs += 1;
+		car(p)->inc_ref();
 	    }
 	    hdp = &CDR(p);
 	    q = cdr(q);
@@ -244,14 +244,14 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    obj_unref(obj);
 	    return undefined();
 	}
-	q->o_refs += 1;
+	q->inc_ref();
 	if( !car(p) ){		/* Null list? */
 	    obj_unref(obj);
 	    p = obj_alloc(obj_type::T_LIST);
 	    CAR(p) = q;
 	    return(p);		/* Just return element */
 	}
-	p->o_refs += 1;
+	p->inc_ref();
 	r = obj_alloc(obj_type::T_LIST);
 	CDR(r) = p;
 	CAR(r) = q;
@@ -274,7 +274,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    obj_unref(obj);
 	    return undefined();
 	}
-	r->o_refs += 1;
+	r->inc_ref();
 	if( !car(q) ){		/* Empty list */
 	    obj_unref(obj);
 	    p = obj_alloc(obj_type::T_LIST);
@@ -288,7 +288,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	     */
 	while( q ){
 	    *hdp = p = obj_alloc(obj_type::T_LIST);
-	    car(q)->o_refs += 1;
+	    car(q)->inc_ref();
 	    CAR(p) = car(q);
 	    hdp = &CDR(p);
 	    q = CDR(q);
@@ -319,7 +319,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    CDR(r) = p;
 	    p = r;
 	    CAR(p) = car(q);
-	    car(q)->o_refs += 1;
+	    car(q)->inc_ref();
 	}
 	obj_unref(obj);
 	return(p);
@@ -355,11 +355,11 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    *hdp = p = obj_alloc(obj_type::T_LIST);
 	    hdp = &CDR(p);
 	    CAR(p) = car(q);
-	    car(q)->o_refs += 1;
+	    car(q)->inc_ref();
 	}
 	*hdp = p = obj_alloc(obj_type::T_LIST);
 	CAR(p) = car(obj);
-	car(obj)->o_refs += 1;
+	car(obj)->inc_ref();
 	obj_unref(obj);
 	return(hd);
     }
@@ -394,11 +394,11 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    *hdp = p = obj_alloc(obj_type::T_LIST);
 	    hdp = &CDR(p);
 	    CAR(p) = car(q);
-	    car(q)->o_refs += 1;
+	    car(q)->inc_ref();
 	}
 	p = obj_alloc(obj_type::T_LIST);
 	CAR(p) = car(q);
-	car(q)->o_refs += 1;
+	car(q)->inc_ref();
 	CDR(p) = hd;
 	obj_unref(obj);
 	return(p);
@@ -426,7 +426,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 		*hdp = r = obj_alloc(obj_type::T_LIST);
 		hdp = &CDR(r);
 		CAR(r) = car(q);
-		car(q)->o_refs += 1;
+		car(q)->inc_ref();
 	    }
 	}
 	obj_unref(obj);
@@ -563,12 +563,12 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 		hdp = &CDR(q);
 		CAR(q) = r = obj_alloc(obj_type::T_LIST);
 		CAR(r) = car(p);
-		car(p)->o_refs += 1;
+		car(p)->inc_ref();
 		x++;
 	    } else {
 		CDR(r) = q = obj_alloc(obj_type::T_LIST);
 		CAR(q) = car(p);
-		car(p)->o_refs += 1;
+		car(p)->inc_ref();
 		x = 0;
 	    }
 	}
@@ -594,7 +594,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    *hdp = q = obj_alloc(obj_type::T_LIST);
 	    hdp = &CDR(q);
 	    CAR(q) = car(p);
-	    car(p)->o_refs += 1;
+	    car(p)->inc_ref();
 	}
 	CAR(top = obj_alloc(obj_type::T_LIST)) = hd;
 	hd = nullptr; hdp = &hd;
@@ -602,7 +602,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    *hdp = q = obj_alloc(obj_type::T_LIST);
 	    hdp = &CDR(q);
 	    CAR(q) = car(p);
-	    car(p)->o_refs += 1;
+	    car(p)->inc_ref();
 	    p = cdr(p);
 	}
 	if( !hd ) hd = obj_alloc(obj_type::T_LIST);
@@ -718,7 +718,7 @@ do_dist(
     obj_ptr *hdp = &hd;
 
     if( !car(lst) ){		/* Distributing over NULL list */
-	lst->o_refs += 1;
+	lst->inc_ref();
 	obj_unref(obj);
 	return(lst);
     }
@@ -745,18 +745,18 @@ do_dist(
 	r = obj_alloc(obj_type::T_LIST);
 	if( !side ){
 	    CAR(r) = elem;
-	    elem->o_refs += 1;
+	    elem->inc_ref();
 	} else {
 	    CAR(r) = car(lst);
-	    car(lst)->o_refs += 1;
+	    car(lst)->inc_ref();
 	}
 	r2 = CDR(r) = obj_alloc(obj_type::T_LIST);
 	if( !side ){
 	    CAR(r2) = car(lst);
-	    car(lst)->o_refs += 1;
+	    car(lst)->inc_ref();
 	} else {
 	    CAR(r2) = elem;
-	    elem->o_refs += 1;
+	    elem->inc_ref();
 	}
 	*hdp = obj_alloc(obj_type::T_LIST);
 	CAR(*hdp) = r;
@@ -842,7 +842,7 @@ do_trans(obj_ptr obj)
 	    *hdp2 = r;
 	    hdp2 = &CDR(r);
 	    CAR(r) = q;
-	    q->o_refs += 1;
+	    q->inc_ref();
 	}
 	CAR(s) = hd2;
     }

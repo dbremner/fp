@@ -99,7 +99,7 @@ execute(ast_ptr act, obj_ptr obj )
 	    return undefined();
 	}
 	p = car(p);
-	p->o_refs += 1;		/* Add reference to this elem */
+	p->inc_ref();		/* Add reference to this elem */
 	obj_unref(obj);		/* Unreference list as a whole */
 	return(p);
 
@@ -123,7 +123,7 @@ execute(ast_ptr act, obj_ptr obj )
 	act = act->left;
 	hd = (obj_ptr)0;
 	while( act ){
-	    obj->o_refs += 1;
+	    obj->inc_ref();
 	    if( (p = execute(act->left,obj))->o_type == obj_type::T_UNDEF ){
 		obj_unref(hd);
 		obj_unref(obj);
@@ -148,7 +148,7 @@ execute(ast_ptr act, obj_ptr obj )
 	 * Conditional.  Evaluate & return one of the two paths
 	 */
     case '>':
-	obj->o_refs += 1;
+	obj->inc_ref();
 	p = execute(act->left,obj);
 	if( p->o_type == obj_type::T_UNDEF ){
 	    obj_unref(obj);
@@ -179,7 +179,7 @@ execute(ast_ptr act, obj_ptr obj )
 	}
 	if( !car(obj) ) return(obj);
 	for( p = obj; p; p = cdr(p) ){
-	    (p->o_val.o_list.car)->o_refs += 1;
+	    (p->o_val.o_list.car)->inc_ref();
 	    if( (q = execute(act->left,car(p)))->o_type == obj_type::T_UNDEF ){
 		obj_unref(hd); obj_unref(obj);
 		return(q);
@@ -199,7 +199,7 @@ execute(ast_ptr act, obj_ptr obj )
 	if( obj->o_type == obj_type::T_UNDEF ) return(obj);
 	obj_unref(obj);
 	p = act->val.YYobj;
-	p->o_refs += 1;
+	p->inc_ref();
 	return(p);
     
 	/*
@@ -211,7 +211,7 @@ execute(ast_ptr act, obj_ptr obj )
 		obj_unref(obj);
 		return undefined();
 	    }
-	    obj->o_refs += 1;
+	    obj->inc_ref();
 	    p = execute(act->left,obj);
 	    if( p->o_type != obj_type::T_BOOL ){
 		obj_unref(obj);
@@ -291,7 +291,7 @@ do_rinsert(ast_ptr act, obj_ptr obj)
 	 */
     if( !(p = cdr(obj)) ){
 	p = car(obj);
-	p->o_refs += 1;
+	p->inc_ref();
 	obj_unref(obj);
 	return(p);
     }
@@ -309,7 +309,7 @@ do_rinsert(ast_ptr act, obj_ptr obj)
 	 *	first linked onto the result.  Normal business over undefined
 	 *	objects popping up.
 	 */
-    cdr(obj)->o_refs += 1;
+    cdr(obj)->inc_ref();
     p = do_rinsert(act,cdr(obj));
     if( p->o_type == obj_type::T_UNDEF ){
 	obj_unref(obj);
@@ -317,7 +317,7 @@ do_rinsert(ast_ptr act, obj_ptr obj)
     }
     q = obj_alloc(obj_type::T_LIST);
     CAR(q) = car(obj);
-    car(obj)->o_refs += 1;
+    car(obj)->inc_ref();
     CAR(CDR(q) = obj_alloc(obj_type::T_LIST)) = p;
     obj_unref(obj);
     return( execute(act,q) );
@@ -386,7 +386,7 @@ do_binsert(ast_ptr act, obj_ptr obj)
 	 */
     if( !(p = cdr(obj)) ){
 	p = car(obj);
-	p->o_refs += 1;
+	p->inc_ref();
 	obj_unref(obj);
 	return(p);
     }
@@ -412,7 +412,7 @@ do_binsert(ast_ptr act, obj_ptr obj)
 	    *hdp = r = obj_alloc(obj_type::T_LIST);
 	    hdp = &CDR(r);
 	    CAR(r) = car(q);
-	    car(q)->o_refs += 1;
+	    car(q)->inc_ref();
 	    q = cdr(q);
 	    x = 0;
 	} else
@@ -420,7 +420,7 @@ do_binsert(ast_ptr act, obj_ptr obj)
     }
     *hdp = p = obj_alloc(obj_type::T_LIST);
     CAR(p) = car(q);
-    car(q)->o_refs += 1;
+    car(q)->inc_ref();
 
 	/*
 	 * 'q' names the second half, but we must add a reference, otherwise
@@ -428,7 +428,7 @@ do_binsert(ast_ptr act, obj_ptr obj)
 	 *	references it...).
 	 */
     q = cdr(q);
-    q->o_refs += 1;
+    q->inc_ref();
 
 	/*
 	 * Almost there... "hd" is the first, "q" is the second, we encase
