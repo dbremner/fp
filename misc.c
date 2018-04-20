@@ -27,10 +27,13 @@ yyerror(const char *msg)
     prompt = '\t';
 }
 
+extern "C" [[noreturn]] void badmath(int ignored);
+
     /*
      * Floating exception handler
      */
-[[noreturn]] static void
+extern "C"
+[[noreturn]] void
 badmath(int ignored){
     printf("Floating exception\n");
     prompt = '\t';
@@ -38,10 +41,13 @@ badmath(int ignored){
     longjmp(restart,1);
 }
 
+extern "C" [[noreturn]] void intr(int ignored);
+
     /*
      * User interrupt handler
      */
-[[noreturn]] static void
+extern "C"
+[[noreturn]] void
 intr(int ignored){
     printf("Interrupt\n");
     prompt = '\t';
