@@ -64,8 +64,6 @@ struct symtab {
     YYstype sym_val{};
     sym_ptr sym_next = nullptr;
     char *sym_pname = nullptr;
-    
-    ///Allocate a new entry, fill in the salient fields
     symtab(const char *pname, uint32_t type)
     {
         sym_pname = strdup(pname);
