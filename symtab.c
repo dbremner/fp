@@ -52,9 +52,8 @@ struct symtab *
 lookup(const char *name)
 {
     int h = hash(name);
-    struct symtab
-	*p = stab[h],
-	*old = NULL;
+    struct symtab *p = stab[h];
+	struct symtab *old = NULL;
 
 	/*
 	 * No hash hits, must be a new entry
