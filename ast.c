@@ -5,7 +5,6 @@
  */
 #include "fp.h"
 #include "y.tab.h"
-#include <stdlib.h>
 
 static ast_ptr ast_list = nullptr;
 
@@ -28,7 +27,7 @@ ast_alloc(int atag, ast_ptr l, ast_ptr m, ast_ptr r)
     if(p){
 	ast_list = p->left;
     } else {
-	p = (ast_ptr)malloc(sizeof(struct ast));
+    p = new ast{};
     }
     if( p == nullptr ) fatal_err("Out of mem in ast_alloc()");
     p->tag = atag;
