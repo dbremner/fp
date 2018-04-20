@@ -17,11 +17,11 @@ defun(sym_ptr name, ast_ptr def)
 	 * Check what we're defining, handle redefining
 	 */
     switch( name->sym_type ){
-    case SYM_DEF:
+    case symtype::SYM_DEF:
 	printf("%s: redefined.\n",name->sym_pname);
 	ast_freetree(name->sym_val.YYast);
 	break;
-    case SYM_NEW:
+    case symtype::SYM_NEW:
 	printf("{%s}\n",name->sym_pname);
 	break;
     default:
@@ -33,7 +33,7 @@ defun(sym_ptr name, ast_ptr def)
 	 *	definition.
 	 */
     name->sym_val.YYast = def;
-    name->sym_type = SYM_DEF;
+    name->sym_type = symtype::SYM_DEF;
 }
 
     /*
@@ -45,7 +45,7 @@ invoke(sym_ptr def, obj_ptr obj)
 	/*
 	 * Must be a defined function
 	 */
-    if( def->sym_type != SYM_DEF ){
+    if( def->sym_type != symtype::SYM_DEF ){
 	printf("%s: undefined\n",def->sym_pname);
 	obj_unref(obj);
 	return( obj_alloc(T_UNDEF) );

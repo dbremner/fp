@@ -59,7 +59,7 @@ struct ast {
  * sym_type values
  */
 
-enum symtype {
+enum class symtype {
     SYM_BUILTIN = 1, /* A built-in */
     SYM_DEF = 2, /* User-defined */
     SYM_NEW = 3 /* Never seen before! */
@@ -69,7 +69,7 @@ enum symtype {
  * A symbol table entry for an identifier
  */
 struct symtab {
-    uint32_t sym_type = 0;
+    symtype sym_type;
     uint32_t padding = 0;
     YYstype sym_val{};
     sym_ptr sym_next = nullptr;
@@ -78,7 +78,7 @@ struct symtab {
     symtab(const char *pname)
     {
         sym_pname = strdup(pname);
-        sym_type = SYM_NEW;
+        sym_type = symtype::SYM_NEW;
     }
 };
 

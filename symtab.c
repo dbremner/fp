@@ -69,8 +69,8 @@ stuff(const char *sym, int val)
 {
     sym_ptr p = lookup(sym);
 
-    if( p->sym_type != SYM_NEW ) fatal_err("Dup init in stuff()");
-    p->sym_type = SYM_BUILTIN;
+    if( p->sym_type != symtype::SYM_NEW ) fatal_err("Dup init in stuff()");
+    p->sym_type = symtype::SYM_BUILTIN;
     p->sym_val.YYint = val;
 }
 

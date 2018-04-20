@@ -84,7 +84,7 @@ yylex(void){
             /*
              * For built-ins, return the token value
              */
-        if( q->sym_type == SYM_BUILTIN ) return( q->sym_val.YYint );
+        if( q->sym_type == symtype::SYM_BUILTIN ) return( q->sym_val.YYint );
 
             /*
              * For user-defined (or new),
