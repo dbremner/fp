@@ -1,6 +1,8 @@
 #ifndef TYPES_H
 #define TYPES_H
 
+#include <string.h>
+
 typedef struct ast* ast_ptr;
 typedef struct object* obj_ptr;
 typedef struct symtab* sym_ptr;
@@ -62,6 +64,11 @@ struct symtab {
     YYstype sym_val{};
     sym_ptr sym_next = nullptr;
     char *sym_pname = nullptr;
+    symtab(const char *pname, uint32_t type)
+    {
+        sym_pname = strdup(pname);
+        sym_type = type;
+    }
 };
 
 #endif

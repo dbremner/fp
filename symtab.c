@@ -34,12 +34,7 @@ hash(const char *p)
 static sym_ptr
 new_entry(const char *n)
 {
-    sym_ptr p = new symtab{};
-
-    p->sym_type = SYM_NEW;
-    p->sym_next = nullptr;
-    p->sym_val.YYint = 0;
-    p->sym_pname = strdup(n);
+    sym_ptr p = new symtab{n, SYM_NEW};
     return(p);
 }
 
