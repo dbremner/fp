@@ -5,7 +5,6 @@
  */
 #include "fp.h"
 #include "symtab.h"
-#include <stdlib.h>
 #include <string.h>
 
 static const int SYMTABSIZE = 101;
@@ -35,7 +34,7 @@ hash(const char *p)
 static sym_ptr
 new_entry(const char *n)
 {
-    sym_ptr p = (sym_ptr)malloc(sizeof(struct symtab));
+    sym_ptr p = new symtab{};
 
     p->sym_type = SYM_NEW;
     p->sym_next = nullptr;
