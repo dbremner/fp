@@ -25,7 +25,7 @@ struct object {
         int o_int;        /* T_INT, T_BOOL */
         double o_double;        /* T_FLOAT */
         struct list o_list;    /* T_LIST */
-    } o_val;
+    } o_val{};
     
     object(obj_type type)
     {
