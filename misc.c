@@ -13,7 +13,7 @@ extern char prompt;
 
 static jmp_buf restart;
 
-noreturn void
+[[noreturn]] void
 fatal_err(const char *msg)
 {
     printf("Fatal error: %s\n",msg);
@@ -30,7 +30,7 @@ yyerror(const char *msg)
     /*
      * Floating exception handler
      */
-noreturn static void
+[[noreturn]] static void
 badmath(int ignored){
     printf("Floating exception\n");
     prompt = '\t';
@@ -41,7 +41,7 @@ badmath(int ignored){
     /*
      * User interrupt handler
      */
-noreturn static void
+[[noreturn]] static void
 intr(int ignored){
     printf("Interrupt\n");
     prompt = '\t';

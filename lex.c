@@ -202,7 +202,7 @@ again:
     return(c);
 }
 
-noreturn static void
+[[noreturn]] static void
 quit(void)
 {
     printf("\nDone\n");

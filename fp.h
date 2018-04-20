@@ -1,6 +1,5 @@
 #include <stdbool.h>
 #include <stdint.h>
-#include <stdnoreturn.h>
 
 /*
  * Common definitions for FP
@@ -25,7 +24,7 @@ obj_ptr execute(ast_ptr  act, obj_ptr obj);
 obj_ptr invoke(sym_ptr def, obj_ptr obj);
 void ast_free(ast_ptr p);
 void ast_freetree(ast_ptr p);
-noreturn void fatal_err(const char *msg);
+[[noreturn]] void fatal_err(const char *msg);
 void defun(sym_ptr name, ast_ptr def);
 void symtab_init(void);
 void obj_prtree(obj_ptr p);
