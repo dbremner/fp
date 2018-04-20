@@ -43,6 +43,16 @@ struct object {
     {
         return ((this)->o_val).o_list.cdr;
     }
+    
+    void inc_ref()
+    {
+        o_refs++;
+    }
+    
+    void dec_ref()
+    {
+        o_refs--;
+    }
 };
 
 /*
