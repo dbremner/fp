@@ -45,12 +45,12 @@ typedef union {
  * An AST
  */
 struct ast {
-    int tag;
-    int padding;
-    YYSTYPE val;
-    ast_ptr left;
-    ast_ptr middle;
-    ast_ptr right;
+    int tag = 0;
+    int padding = 0;
+    YYSTYPE val{};
+    ast_ptr left = nullptr;
+    ast_ptr middle = nullptr;
+    ast_ptr right = nullptr;
 };
 
 /*
