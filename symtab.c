@@ -38,7 +38,7 @@ new_entry(const char *n)
     sym_ptr p = (sym_ptr)malloc(sizeof(struct symtab));
 
     p->sym_type = SYM_NEW;
-    p->sym_next = NULL;
+    p->sym_next = nullptr;
     p->sym_val.YYint = 0;
     p->sym_pname = strdup(n);
     return(p);
@@ -53,12 +53,12 @@ lookup(const char *name)
 {
     int h = hash(name);
     sym_ptr p = stab[h];
-	sym_ptr old = NULL;
+	sym_ptr old = nullptr;
 
 	/*
 	 * No hash hits, must be a new entry
 	 */
-    if( p == NULL ){
+    if( p == nullptr ){
 	return( stab[h] = new_entry(name) );
     }
 

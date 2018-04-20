@@ -182,7 +182,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
     
     case FRONT:
     case TLR:{		/* Return a list of all but list */
-    obj_ptr hd = NULL;
+    obj_ptr hd = nullptr;
     obj_ptr *hdp = &hd;
 
 	if(
@@ -260,7 +260,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
     }
 
     case APNDR:{	/* Append element from right */
-    obj_ptr hd = NULL;
+    obj_ptr hd = nullptr;
     obj_ptr *hdp = &hd;
     obj_ptr r;
 
@@ -314,7 +314,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    return undefined();
 	}
 	if( !car(obj) ) return(obj);
-	for( p = NULL, q = obj; q; q = cdr(q) ){
+	for( p = nullptr, q = obj; q; q = cdr(q) ){
 	    r = obj_alloc(T_LIST);
 	    CDR(r) = p;
 	    p = r;
@@ -326,7 +326,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
     }
 
     case ROTL:{		/* Rotate left */
-    obj_ptr hd = NULL;
+    obj_ptr hd = nullptr;
     obj_ptr *hdp = &hd;
 
 	    /*
@@ -365,7 +365,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
     }
 
     case ROTR:{		/* Rotate right */
-    obj_ptr hd = NULL;
+    obj_ptr hd = nullptr;
     obj_ptr *hdp = &hd;
 
 	    /*
@@ -405,7 +405,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
     }
 
     case CONCAT:{		/* Concatenate several lists */
-    obj_ptr hd = NULL;
+    obj_ptr hd = nullptr;
     obj_ptr *hdp = &hd;
     obj_ptr r;
 
@@ -545,7 +545,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	}
     
     case PAIR:{		/* Pair up successive elements of a list */
-    obj_ptr hd = NULL;
+    obj_ptr hd = nullptr;
     obj_ptr *hdp = &hd;
     obj_ptr r;
 	int x;
@@ -578,7 +578,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 
     case SPLIT:{	/* Split list into two (roughly) equal halves */
 	int l,x;
-    obj_ptr hd = NULL;
+    obj_ptr hd = nullptr;
     obj_ptr *hdp = &hd;
     obj_ptr top;
 
@@ -597,7 +597,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    car(p)->o_refs += 1;
 	}
 	CAR(top = obj_alloc(T_LIST)) = hd;
-	hd = NULL; hdp = &hd;
+	hd = nullptr; hdp = &hd;
 	while(p){
 	    *hdp = q = obj_alloc(T_LIST);
 	    hdp = &CDR(q);
@@ -778,7 +778,7 @@ do_trans(obj_ptr obj)
     obj_ptr p;
     obj_ptr q;
     obj_ptr r;
-    obj_ptr hd = NULL;
+    obj_ptr hd = nullptr;
     obj_ptr *hdp = &hd;
 
 	/*
@@ -828,7 +828,7 @@ do_trans(obj_ptr obj)
 	 */
     for( x = 0; x < len; ++x ){
     obj_ptr s = obj_alloc(T_LIST);
-    obj_ptr hd2 = NULL;
+    obj_ptr hd2 = nullptr;
     obj_ptr *hdp2 = &hd2;
 
 	*hdp = s;

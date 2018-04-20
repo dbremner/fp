@@ -172,7 +172,7 @@ execute(ast_ptr act, obj_ptr obj )
     obj_ptr *hdp = &hd;
     obj_ptr r;
 
-	hd = NULL;
+	hd = nullptr;
 	if( obj->o_type != T_LIST ){
 	    obj_unref(obj);
 	    return undefined();
@@ -405,7 +405,7 @@ do_binsert(ast_ptr act, obj_ptr obj)
 	 *	half, and 'hd' names a copy of the first.
 	 */
     x = 0;
-    hd = NULL;
+    hd = nullptr;
     hdp = &hd;
     for( q = obj; p; p = cdr(p) ){
 	if( x ){

@@ -53,8 +53,8 @@ static bool
 ispair(obj_ptr obj)
 {
     if( obj->o_type != T_LIST ) return(false);
-    if( car(obj) == NULL ) return(false);
-    if( cdr(obj) == NULL ) return(false);
+    if( car(obj) == nullptr ) return(false);
+    if( cdr(obj) == nullptr ) return(false);
     if( cdr(cdr(obj)) ) return(false);
     return(true);
 }

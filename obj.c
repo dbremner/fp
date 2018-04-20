@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static obj_ptr free_objs = NULL;
+static obj_ptr free_objs = nullptr;
 
 #ifdef MEMSTAT
 int obj_out = 0;
@@ -48,11 +48,11 @@ obj_alloc(uint32_t ty)
     p = free_objs;
     if(p){
 	free_objs = (p->o_val).o_list.car;
-    } else if( (p = (obj_ptr)malloc(sizeof(struct object))) == NULL )
+    } else if( (p = (obj_ptr)malloc(sizeof(struct object))) == nullptr )
 	fatal_err("out of memory in obj_alloc()");
     p->o_refs = 1;
     if( (p->o_type = ty) == T_LIST )
-	p->o_val.o_list.car = p->o_val.o_list.cdr = NULL;
+	p->o_val.o_list.car = p->o_val.o_list.cdr = nullptr;
     return(p);
 }
 
