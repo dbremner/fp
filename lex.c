@@ -202,6 +202,35 @@ again:
     return(c);
 }
 
+noreturn static void
+quit(void)
+{
+    printf("\nDone\n");
+    exit( 0 );
+}
+
+static void
+help(void)
+{
+    printf("Commands are:\n");
+    printf(" quit - leave FP\n");
+    printf(" help - this message\n");
+    printf(" load - redirect input from a file\n");
+#ifdef YYDEBUG
+    printf(" yydebug - toggle parser tracing\n");
+#endif
+    return;
+}
+
+static void
+flipyydebug(void)
+{
+    extern int yydebug;
+    
+    yydebug = !yydebug;
+    return;
+}
+
     /*
      * Command processor.  The reason it's here is that we play with
      *	I/O redirection.  Shrug.
@@ -268,24 +297,15 @@ fp_cmd(void){
     }
 
     if( strcmp(cmd,"quit") == 0 ){	/* Leave */
-        printf("\nDone\n");
-        exit( 0 );
+        quit();
     }
     if( strcmp(cmd,"help") == 0 ){	/* Give help */
-        printf("Commands are:\n");
-        printf(" quit - leave FP\n");
-        printf(" help - this message\n");
-        printf(" load - redirect input from a file\n");
-    #ifdef YYDEBUG
-        printf(" yydebug - toggle parser tracing\n");
-    #endif
+        help();
         return;
     }
 #ifdef YYDEBUG
     if( strcmp(cmd,"yydebug") == 0 ){	/* Toggle parser trace */
-        extern int yydebug;
-
-        yydebug = !yydebug;
+        flipyydebug();
         return;
     }
 #endif
