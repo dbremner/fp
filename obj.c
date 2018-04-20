@@ -49,7 +49,7 @@ obj_alloc(obj_type ty)
     if(p){
 	free_objs = (p->o_val).o_list.car;
     } else {
-        p = (obj_ptr)malloc(sizeof(struct object));
+        p = new object{ty};
         if( (p) == nullptr )
             fatal_err("out of memory in obj_alloc()");
     }
