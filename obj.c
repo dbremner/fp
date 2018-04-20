@@ -13,6 +13,22 @@ static obj_ptr free_objs = NULL;
 int obj_out = 0;
 #endif
 
+static void
+incobjcount(void)
+{
+#ifdef MEMSTAT
+    obj_out++;
+#endif
+}
+
+static void
+decobjcount(void)
+{
+#ifdef MEMSTAT
+    obj_out--;
+#endif
+}
+
     /*
      * Allocate an object
      */
@@ -21,9 +37,7 @@ obj_alloc(uint32_t ty)
 {
     obj_ptr p;
 
-#ifdef MEMSTAT
-    obj_out++;
-#endif
+    incobjcount();
 	/*
 	 * Have a free one on the list
 	 */
@@ -44,9 +58,7 @@ obj_alloc(uint32_t ty)
 void
 obj_free(obj_ptr p)
 {
-#ifdef MEMSTAT
-    obj_out--;
-#endif
+    decobjcount();
     if( !p ) fatal_err("Null object to obj_free()");
     (p->o_val).o_list.car = free_objs;
     free_objs = p;
