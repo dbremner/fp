@@ -44,7 +44,9 @@ struct ast {
     int tag;
     int padding;
     YYSTYPE val;
-    struct ast *left, *middle, *right;
+    struct ast *left;
+    struct ast *middle;
+    struct ast *right;
 };
 
 /*
