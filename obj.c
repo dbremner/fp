@@ -49,8 +49,9 @@ obj_alloc(obj_type ty)
     if(p){
 	free_objs = (p->o_val).o_list.car;
     } else {
-        if( (p = (obj_ptr)malloc(sizeof(struct object))) == nullptr )
-	fatal_err("out of memory in obj_alloc()");
+        p = (obj_ptr)malloc(sizeof(struct object));
+        if( (p) == nullptr )
+            fatal_err("out of memory in obj_alloc()");
     }
     p->o_refs = 1;
     if( (p->o_type = ty) == obj_type::T_LIST )
