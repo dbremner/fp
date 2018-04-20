@@ -74,11 +74,6 @@ struct symtab {
     YYstype sym_val{};
     sym_ptr sym_next = nullptr;
     char *sym_pname = nullptr;
-    symtab(const char *pname, uint32_t type)
-    {
-        sym_pname = strdup(pname);
-        sym_type = type;
-    }
     
     symtab(const char *pname)
     {
