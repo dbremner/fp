@@ -56,6 +56,16 @@ struct ast {
 };
 
 /*
+ * sym_type values
+ */
+
+enum symtype {
+    SYM_BUILTIN = 1, /* A built-in */
+    SYM_DEF = 2, /* User-defined */
+    SYM_NEW = 3 /* Never seen before! */
+};
+
+/*
  * A symbol table entry for an identifier
  */
 struct symtab {
