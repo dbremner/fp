@@ -65,7 +65,7 @@ yylex(void){
 	 * An "identifier"?
 	 */
     if( isalpha(c) ){
-        struct symtab *q;
+        sym_ptr q;
 
 	    /*
 	     * Assemble a "word" out of the input stream, symbol table it

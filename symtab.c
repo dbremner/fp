@@ -32,10 +32,10 @@ hash(const char *p)
     /*
      * Allocate a new entry, fill in the salient fields
      */
-static struct symtab *
+static sym_ptr
 new_entry(const char *n)
 {
-    struct symtab *p = (struct symtab *)malloc(sizeof(struct symtab));
+    sym_ptr p = (sym_ptr)malloc(sizeof(struct symtab));
 
     p->sym_type = SYM_NEW;
     p->sym_next = 0;
@@ -48,12 +48,12 @@ new_entry(const char *n)
      * Given a string, go find the entry.  Allocate an entry if there
      *	was none.
      */
-struct symtab *
+sym_ptr
 lookup(const char *name)
 {
     int h = hash(name);
-    struct symtab *p = stab[h];
-	struct symtab *old = NULL;
+    sym_ptr p = stab[h];
+	sym_ptr old = NULL;
 
 	/*
 	 * No hash hits, must be a new entry
@@ -83,7 +83,7 @@ lookup(const char *name)
 static void
 stuff(const char *sym, int val)
 {
-    struct symtab *p = lookup(sym);
+    sym_ptr p = lookup(sym);
 
     if( p->sym_type != SYM_NEW ) fatal_err("Dup init in stuff()");
     p->sym_type = SYM_BUILTIN;

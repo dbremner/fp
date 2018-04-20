@@ -37,7 +37,7 @@ typedef union {
     ast_ptr YYast;
     obj_ptr YYobj;
     struct list *YYlist;
-    struct symtab *YYsym;
+    sym_ptr YYsym;
 } YYstype;
 #define YYSTYPE YYstype
 
@@ -60,7 +60,7 @@ struct symtab {
     uint32_t sym_type;
     uint32_t padding;
     YYstype sym_val;
-    struct symtab *sym_next;
+    sym_ptr sym_next;
     char *sym_pname;
 };
 

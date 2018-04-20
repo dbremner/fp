@@ -11,7 +11,7 @@
      * Define a function
      */
 void
-defun(struct symtab *name, ast_ptr def)
+defun(sym_ptr name, ast_ptr def)
 {
 	/*
 	 * Check what we're defining, handle redefining
@@ -40,7 +40,7 @@ defun(struct symtab *name, ast_ptr def)
      * Call a previously-defined user function, or error
      */
 obj_ptr
-invoke(struct symtab *def, obj_ptr obj)
+invoke(sym_ptr def, obj_ptr obj)
 {
 	/*
 	 * Must be a defined function

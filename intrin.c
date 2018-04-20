@@ -32,7 +32,7 @@ static obj_ptr do_bool(obj_ptr obj, int op);
      * Main intrinsic processing routine
      */
 obj_ptr
-do_intrinsics(struct symtab *act, obj_ptr obj)
+do_intrinsics(sym_ptr act, obj_ptr obj)
 {
     obj_ptr p;
     obj_ptr q;
