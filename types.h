@@ -20,7 +20,7 @@ struct list {
  */
 struct object {
     obj_type o_type;        /* Type for selecting */
-    uint32_t o_refs;    /* Number of current refs, for GC */
+    uint32_t o_refs = 1;    /* Number of current refs, for GC */
     union {
         int o_int;        /* T_INT, T_BOOL */
         double o_double;        /* T_FLOAT */

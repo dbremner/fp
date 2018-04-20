@@ -53,7 +53,6 @@ obj_alloc(obj_type ty)
         if( (p) == nullptr )
             fatal_err("out of memory in obj_alloc()");
     }
-    p->o_refs = 1;
     if( p->o_type == obj_type::T_LIST )
 	p->o_val.o_list.car = p->o_val.o_list.cdr = nullptr;
     return(p);
