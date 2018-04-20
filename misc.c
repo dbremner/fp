@@ -34,7 +34,7 @@ extern "C" [[noreturn]] void badmath(int ignored);
      */
 extern "C"
 [[noreturn]] void
-badmath(int ignored){
+badmath(int /*ignored*/){
     printf("Floating exception\n");
     prompt = '\t';
     signal(SIGFPE, badmath);
@@ -48,7 +48,7 @@ extern "C" [[noreturn]] void intr(int ignored);
      */
 extern "C"
 [[noreturn]] void
-intr(int ignored){
+intr(int /*ignored*/){
     printf("Interrupt\n");
     prompt = '\t';
     signal(SIGINT, intr);
