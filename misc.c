@@ -64,5 +64,4 @@ main(void) {
     yyparse();
     printf("\nFP done\n");
     exit( 0 );
-    /*NOTREACHED*/
 }

@@ -230,7 +230,6 @@ execute(ast_ptr act, obj_ptr obj )
     default:
 	fatal_err("Undefined AST tag in execute()");
     }
-    /*NOTREACHED*/
 }
 
     /*

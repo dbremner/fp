@@ -685,7 +685,6 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
     default:
 	fatal_err("Unrecognized symbol in do_intrinsics()");
     } /* Switch() */
-    /*NOTREACHED*/
 }
 
     /*

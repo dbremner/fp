@@ -44,7 +44,6 @@ same(obj_ptr o1, obj_ptr o2)
     default:
 	fatal_err("Bad AST type in same()");
     }
-    /*NOTREACHED*/
 }
 
     /*
@@ -231,7 +230,6 @@ do_charfun(ast_ptr act, obj_ptr obj)
     default:
 	fatal_err("Undefined charop tag in execute()");
     }
-    /*NOTREACHED*/
 }
 
     /*

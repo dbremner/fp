@@ -76,7 +76,6 @@ obj_unref(obj_ptr p)
     default:
 	fatal_err("Unknown type in obj_unref()");
     }
-    /*NOTREACHED*/
 }
 
 static char last_close = 0;
@@ -115,5 +114,4 @@ obj_prtree(obj_ptr p)
 	last_close = 1;
 	return;
     }
-    /*NOTREACHED*/
 }
