@@ -187,7 +187,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 
 	if(
 	    ((q = obj)->o_type != obj_type::T_LIST) ||
-	    !CAR(obj)
+	    !car(obj)
 	){
 	    obj_unref(obj);
 	    return undefined();
@@ -380,9 +380,9 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	     * Need two elems, otherwise be ID function
 	     */
 	if(
-	    !(CAR(obj)) ||
+	    !(car(obj)) ||
 	    !(q = cdr(obj)) ||
-	    !(CAR(q))
+	    !(car(q))
 	){
 	    return(obj);
 	}
@@ -552,7 +552,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 
 	if(
 	    (obj->o_type != obj_type::T_LIST) ||
-	    !CAR(obj)
+	    !car(obj)
 	){
 	    obj_unref(obj);
 	    return undefined();
