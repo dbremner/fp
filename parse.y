@@ -100,7 +100,7 @@ object	:	object2
 			     */
 			if( had_undef ){
 			    obj_unref($1.YYobj);
-			    $$.YYobj = obj_alloc(T_UNDEF);
+			    $$.YYobj = obj_alloc(obj_type::T_UNDEF);
 			    had_undef = 0;
 			}
 		    }
@@ -109,7 +109,7 @@ object2	:	atom
 	|	fpSequence
 	|	'?'
 		    {
-			$$.YYobj = obj_alloc(T_UNDEF);
+			$$.YYobj = obj_alloc(obj_type::T_UNDEF);
 			had_undef = 1;
 		    }
 	;
@@ -118,7 +118,7 @@ fpSequence
 	:	'<' object2 OptComma SeqBody '>'
 		    {
 			obj_ptr p = 
-			    $$.YYobj = obj_alloc(T_LIST);
+			    $$.YYobj = obj_alloc(obj_type::T_LIST);
 			(p->o_val).o_list.car = $2.YYobj;
 			(p->o_val).o_list.cdr = $4.YYobj;
 		    }
@@ -130,7 +130,7 @@ SeqBody	:	Empty
 	|	object2 OptComma SeqBody
 		    {
 			obj_ptr p = 
-			    $$.YYobj = obj_alloc(T_LIST);
+			    $$.YYobj = obj_alloc(obj_type::T_LIST);
 			(p->o_val).o_list.car = $1.YYobj;
 			(p->o_val).o_list.cdr = $3.YYobj;
 		    }
@@ -139,32 +139,32 @@ SeqBody	:	Empty
 atom	:	T
 		    {
 			obj_ptr p = 
-			    $$.YYobj = obj_alloc(T_BOOL);
+			    $$.YYobj = obj_alloc(obj_type::T_BOOL);
 			(p->o_val).o_int = 1;
 		    }
 	|	F
 		    {
 			obj_ptr p = 
-			    $$.YYobj = obj_alloc(T_BOOL);
+			    $$.YYobj = obj_alloc(obj_type::T_BOOL);
 			(p->o_val).o_int = 0;
 		    }
 	|	'<' '>'
 		    {
 			obj_ptr p = 
-			    $$.YYobj = obj_alloc(T_LIST);
+			    $$.YYobj = obj_alloc(obj_type::T_LIST);
 			(p->o_val).o_list.car =
 			    (p->o_val).o_list.cdr = 0;
 		    }
 	|	INT
 		    {
 			obj_ptr p = 
-			    $$.YYobj = obj_alloc(T_INT);
+			    $$.YYobj = obj_alloc(obj_type::T_INT);
 			(p->o_val).o_int = $1.YYint;
 		    }
 	|	FLOAT
 		    {
 			obj_ptr p = 
-			    $$.YYobj = obj_alloc(T_FLOAT);
+			    $$.YYobj = obj_alloc(obj_type::T_FLOAT);
 			(p->o_val).o_double = $1.YYdouble;
 		    }
 	;

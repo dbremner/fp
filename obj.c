@@ -37,7 +37,7 @@ static void decobjcount(void)
      * Allocate an object
      */
 obj_ptr
-obj_alloc(uint32_t ty)
+obj_alloc(obj_type ty)
 {
     obj_ptr p;
 
@@ -51,7 +51,7 @@ obj_alloc(uint32_t ty)
     } else if( (p = (obj_ptr)malloc(sizeof(struct object))) == nullptr )
 	fatal_err("out of memory in obj_alloc()");
     p->o_refs = 1;
-    if( (p->o_type = ty) == T_LIST )
+    if( (p->o_type = ty) == obj_type::T_LIST )
 	p->o_val.o_list.car = p->o_val.o_list.cdr = nullptr;
     return(p);
 }
@@ -78,13 +78,13 @@ obj_unref(obj_ptr p)
     if( !p ) return;
     if( --(p->o_refs) ) return;
     switch( p->o_type ){
-    case T_INT:
-    case T_FLOAT:
-    case T_UNDEF:
-    case T_BOOL:
+    case obj_type::T_INT:
+    case obj_type::T_FLOAT:
+    case obj_type::T_UNDEF:
+    case obj_type::T_BOOL:
 	obj_free(p);
 	return;
-    case T_LIST:
+    case obj_type::T_LIST:
 	obj_unref( (p->o_val).o_list.car );
 	obj_unref( (p->o_val).o_list.cdr );
 	obj_free(p);
@@ -100,20 +100,20 @@ obj_prtree(obj_ptr p)
 {
     if( !p ) return;
     switch( p->o_type ){
-    case T_INT:
+    case obj_type::T_INT:
 	last_close = 0;
 	printf("%d ",(p->o_val).o_int); return;
-    case T_FLOAT:
+    case obj_type::T_FLOAT:
 	last_close = 0;
 	printf("%.9g ",(p->o_val).o_double); return;
-    case T_BOOL:
+    case obj_type::T_BOOL:
 	last_close = 0;
 	printf("%s ",
 	    (p->o_val).o_int ? "T" : "F"); return;
-    case T_UNDEF:
+    case obj_type::T_UNDEF:
 	last_close = 0;
 	printf("? "); return;
-    case T_LIST:
+    case obj_type::T_LIST:
 	printf("<");
 	last_close = 0;
 	if( !p->o_val.o_list.car ){

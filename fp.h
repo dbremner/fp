@@ -10,16 +10,19 @@
     /*
      * The symbolic names for the different types
      */
-#define T_INT 1		/* Integer */
-#define T_FLOAT 2	/* Floating point */
-#define T_LIST 3	/* A LISP-style list */
-#define T_UNDEF 4	/* The undefined object */
-#define T_BOOL 5	/* A boolean value */
+
+enum class obj_type {
+    T_INT = 1,      /* Integer */
+    T_FLOAT = 2,    /* Floating point */
+    T_LIST = 3,     /* A LISP-style list */
+    T_UNDEF = 4,    /* The undefined object */
+    T_BOOL = 5,     /* A boolean value */
+};
 
 #include "types.h"
 
 ast_ptr ast_alloc(int atag, ast_ptr l, ast_ptr m, ast_ptr r);
-obj_ptr obj_alloc(uint32_t);
+obj_ptr obj_alloc(obj_type);
 obj_ptr execute(ast_ptr  act, obj_ptr obj);
 obj_ptr invoke(sym_ptr def, obj_ptr obj);
 void ast_free(ast_ptr p);
@@ -35,7 +38,7 @@ sym_ptr lookup(const char *name);
 ///generates the undefined object & returns it
 static inline obj_ptr undefined(void)
 {
-    return(obj_alloc(T_UNDEF));
+    return(obj_alloc(obj_type::T_UNDEF));
 }
 
 ///CAR manipulates the object as a list & gives its first part
@@ -53,13 +56,13 @@ static inline obj_ptr cdr(obj_ptr x)
 ///ISNUM provides a boolean saying if the named object is a number
 static inline bool isnum(obj_ptr x)
 {
-    return ( (x->o_type == T_INT) || (x->o_type == T_FLOAT) );
+    return ( (x->o_type == obj_type::T_INT) || (x->o_type == obj_type::T_FLOAT) );
 }
 
 //charfn.c
 obj_ptr do_charfun(ast_ptr act, obj_ptr obj);
 obj_ptr eqobj(obj_ptr obj);
-int numargs(obj_ptr obj);
+obj_type numargs(obj_ptr obj);
 
 //intrin.c
 int listlen(obj_ptr p);

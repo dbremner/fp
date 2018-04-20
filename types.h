@@ -20,7 +20,7 @@ struct list {
  * An object's structure
  */
 struct object {
-    uint32_t o_type;        /* Type for selecting */
+    obj_type o_type;        /* Type for selecting */
     uint32_t o_refs;    /* Number of current refs, for GC */
     union {
         int o_int;        /* T_INT, T_BOOL */

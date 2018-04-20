@@ -66,7 +66,7 @@ execute(ast_ptr act, obj_ptr obj )
 	 */
     case 'S':
 	if(
-	    (obj->o_type != T_LIST) ||
+	    (obj->o_type != obj_type::T_LIST) ||
 	    !CAR(obj)
 	){
 	    obj_unref(obj);
@@ -124,12 +124,12 @@ execute(ast_ptr act, obj_ptr obj )
 	hd = (obj_ptr)0;
 	while( act ){
 	    obj->o_refs += 1;
-	    if( (p = execute(act->left,obj))->o_type == T_UNDEF ){
+	    if( (p = execute(act->left,obj))->o_type == obj_type::T_UNDEF ){
 		obj_unref(hd);
 		obj_unref(obj);
 		return(p);
 	    }
-	    *hdp = q = obj_alloc(T_LIST);
+	    *hdp = q = obj_alloc(obj_type::T_LIST);
 	    hdp = &(CDR(q));
 	    CAR(q) = p;
 	    act = act->right;
@@ -150,11 +150,11 @@ execute(ast_ptr act, obj_ptr obj )
     case '>':
 	obj->o_refs += 1;
 	p = execute(act->left,obj);
-	if( p->o_type == T_UNDEF ){
+	if( p->o_type == obj_type::T_UNDEF ){
 	    obj_unref(obj);
 	    return(p);
 	}
-	if( p->o_type != T_BOOL ){
+	if( p->o_type != obj_type::T_BOOL ){
 	    obj_unref(obj);
 	    obj_unref(p);
 	    return undefined();
@@ -173,18 +173,18 @@ execute(ast_ptr act, obj_ptr obj )
     obj_ptr r;
 
 	hd = nullptr;
-	if( obj->o_type != T_LIST ){
+	if( obj->o_type != obj_type::T_LIST ){
 	    obj_unref(obj);
 	    return undefined();
 	}
 	if( !car(obj) ) return(obj);
 	for( p = obj; p; p = cdr(p) ){
 	    (p->o_val.o_list.car)->o_refs += 1;
-	    if( (q = execute(act->left,car(p)))->o_type == T_UNDEF ){
+	    if( (q = execute(act->left,car(p)))->o_type == obj_type::T_UNDEF ){
 		obj_unref(hd); obj_unref(obj);
 		return(q);
 	    }
-	    *hdp = r = obj_alloc(T_LIST);
+	    *hdp = r = obj_alloc(obj_type::T_LIST);
 	    CAR(r) = q;
 	    hdp = &CDR(r);
 	}
@@ -196,7 +196,7 @@ execute(ast_ptr act, obj_ptr obj )
 	 * Introduce an object
 	 */
     case '%':
-	if( obj->o_type == T_UNDEF ) return(obj);
+	if( obj->o_type == obj_type::T_UNDEF ) return(obj);
 	obj_unref(obj);
 	p = act->val.YYobj;
 	p->o_refs += 1;
@@ -207,13 +207,13 @@ execute(ast_ptr act, obj_ptr obj )
 	 */
     case 'W':
 	while( 1 ){
-	    if( obj->o_type == T_UNDEF ){
+	    if( obj->o_type == obj_type::T_UNDEF ){
 		obj_unref(obj);
 		return undefined();
 	    }
 	    obj->o_refs += 1;
 	    p = execute(act->left,obj);
-	    if( p->o_type != T_BOOL ){
+	    if( p->o_type != obj_type::T_BOOL ){
 		obj_unref(obj);
 		obj_unref(p);
 		return undefined();
@@ -241,7 +241,7 @@ do_rinsert(ast_ptr act, obj_ptr obj)
     obj_ptr p;
     obj_ptr q;
 
-    if( obj->o_type != T_LIST ){
+    if( obj->o_type != obj_type::T_LIST ){
 	obj_unref(obj);
 	return undefined();
     }
@@ -257,12 +257,12 @@ do_rinsert(ast_ptr act, obj_ptr obj)
 	    switch( act->val.YYint ){
 	    case '+':
 	    case '-':
-		p = obj_alloc(T_INT);
+		p = obj_alloc(obj_type::T_INT);
 		p->o_val.o_int = 0;
 		break;
 	    case '/':
 	    case '*':
-		p = obj_alloc(T_INT);
+		p = obj_alloc(obj_type::T_INT);
 		p->o_val.o_int = 1;
 		break;
 	    default:
@@ -271,12 +271,12 @@ do_rinsert(ast_ptr act, obj_ptr obj)
 	} else if ( act->tag == 'i' ){
 	    switch( (act->val.YYsym)->sym_val.YYint ){
 	    case AND:
-		p = obj_alloc(T_BOOL);
+		p = obj_alloc(obj_type::T_BOOL);
 		p->o_val.o_int = 1;
 		break;
 	    case OR:
 	    case XOR:
-		p = obj_alloc(T_BOOL);
+		p = obj_alloc(obj_type::T_BOOL);
 		p->o_val.o_int = 0;
 		break;
 	    default:
@@ -311,14 +311,14 @@ do_rinsert(ast_ptr act, obj_ptr obj)
 	 */
     cdr(obj)->o_refs += 1;
     p = do_rinsert(act,cdr(obj));
-    if( p->o_type == T_UNDEF ){
+    if( p->o_type == obj_type::T_UNDEF ){
 	obj_unref(obj);
 	return(p);
     }
-    q = obj_alloc(T_LIST);
+    q = obj_alloc(obj_type::T_LIST);
     CAR(q) = car(obj);
     car(obj)->o_refs += 1;
-    CAR(CDR(q) = obj_alloc(T_LIST)) = p;
+    CAR(CDR(q) = obj_alloc(obj_type::T_LIST)) = p;
     obj_unref(obj);
     return( execute(act,q) );
 }
@@ -336,7 +336,7 @@ do_binsert(ast_ptr act, obj_ptr obj)
     obj_ptr r;
     int x;
 
-    if( obj->o_type != T_LIST ){
+    if( obj->o_type != obj_type::T_LIST ){
 	obj_unref(obj);
 	return undefined();
     }
@@ -352,12 +352,12 @@ do_binsert(ast_ptr act, obj_ptr obj)
 	    switch( act->val.YYint ){
 	    case '+':
 	    case '-':
-		p = obj_alloc(T_INT);
+		p = obj_alloc(obj_type::T_INT);
 		p->o_val.o_int = 0;
 		break;
 	    case '/':
 	    case '*':
-		p = obj_alloc(T_INT);
+		p = obj_alloc(obj_type::T_INT);
 		p->o_val.o_int = 1;
 		break;
 	    default:
@@ -366,12 +366,12 @@ do_binsert(ast_ptr act, obj_ptr obj)
 	} else if ( act->tag == 'i' ){
 	    switch( (act->val.YYsym)->sym_val.YYint ){
 	    case AND:
-		p = obj_alloc(T_BOOL);
+		p = obj_alloc(obj_type::T_BOOL);
 		p->o_val.o_int = 1;
 		break;
 	    case OR:
 	    case XOR:
-		p = obj_alloc(T_BOOL);
+		p = obj_alloc(obj_type::T_BOOL);
 		p->o_val.o_int = 0;
 		break;
 	    default:
@@ -409,7 +409,7 @@ do_binsert(ast_ptr act, obj_ptr obj)
     hdp = &hd;
     for( q = obj; p; p = cdr(p) ){
 	if( x ){
-	    *hdp = r = obj_alloc(T_LIST);
+	    *hdp = r = obj_alloc(obj_type::T_LIST);
 	    hdp = &CDR(r);
 	    CAR(r) = car(q);
 	    car(q)->o_refs += 1;
@@ -418,7 +418,7 @@ do_binsert(ast_ptr act, obj_ptr obj)
 	} else
 	    x = 1;
     }
-    *hdp = p = obj_alloc(T_LIST);
+    *hdp = p = obj_alloc(obj_type::T_LIST);
     CAR(p) = car(q);
     car(q)->o_refs += 1;
 
@@ -434,9 +434,9 @@ do_binsert(ast_ptr act, obj_ptr obj)
 	 * Almost there... "hd" is the first, "q" is the second, we encase
 	 *	them in an outer list, and call execute on them.
 	 */
-    p = obj_alloc(T_LIST);
+    p = obj_alloc(obj_type::T_LIST);
     CAR(p) = do_binsert(act,hd);
-    CAR(CDR(p) = obj_alloc(T_LIST)) = do_binsert(act,q);
+    CAR(CDR(p) = obj_alloc(obj_type::T_LIST)) = do_binsert(act,q);
     obj_unref(obj);
     return(execute(act,p));
 }

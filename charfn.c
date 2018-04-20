@@ -13,7 +13,7 @@
      * CAR manipulates the object as a list & gives its first part
      */
 
-#define NUMVAL(x) ( (x->o_type == T_INT) ? \
+#define NUMVAL(x) ( (x->o_type == obj_type::T_INT) ? \
     ((x->o_val).o_int) : ((x->o_val).o_double) )
 
     /*
@@ -25,21 +25,21 @@ same(obj_ptr o1, obj_ptr o2)
 {
     if( o1 == o2 ) return(true);
     if( o1->o_type != o2->o_type ){
-	if( o1->o_type == T_INT )
-	    if( o2->o_type == T_FLOAT )
+	if( o1->o_type == obj_type::T_INT )
+	    if( o2->o_type == obj_type::T_FLOAT )
 		return( o1->o_val.o_int == o2->o_val.o_double );
-	if( o2->o_type == T_INT )
-	    if( o1->o_type == T_FLOAT )
+	if( o2->o_type == obj_type::T_INT )
+	    if( o1->o_type == obj_type::T_FLOAT )
 		return( o2->o_val.o_int == o1->o_val.o_double );
 	return(false);
     }
     switch( o1->o_type ){
-    case T_INT:
-    case T_BOOL:
+    case obj_type::T_INT:
+    case obj_type::T_BOOL:
 	return( o1->o_val.o_int == o2->o_val.o_int );
-    case T_FLOAT:
+    case obj_type::T_FLOAT:
 	return( o1->o_val.o_double == o2->o_val.o_double );
-    case T_LIST:
+    case obj_type::T_LIST:
 	return( same(car(o1),car(o2)) && same(cdr(o1),cdr(o2)) );
     default:
 	fatal_err("Bad AST type in same()");
@@ -52,7 +52,7 @@ same(obj_ptr o1, obj_ptr o2)
 static bool
 ispair(obj_ptr obj)
 {
-    if( obj->o_type != T_LIST ) return(false);
+    if( obj->o_type != obj_type::T_LIST ) return(false);
     if( car(obj) == nullptr ) return(false);
     if( cdr(obj) == nullptr ) return(false);
     if( cdr(cdr(obj)) ) return(false);
@@ -72,7 +72,7 @@ eqobj(obj_ptr obj)
 	obj_unref(obj);
 	return undefined();
     }
-    p = obj_alloc(T_BOOL);
+    p = obj_alloc(obj_type::T_BOOL);
     if( same(car(obj),car(cdr(obj))) )
 	p->o_val.o_int = 1;
     else
@@ -89,7 +89,7 @@ noteqobj(obj_ptr obj)
 {
     obj_ptr p = eqobj(obj);
 
-    if( p->o_type == T_BOOL )
+    if( p->o_type == obj_type::T_BOOL )
 	p->o_val.o_int = (p->o_val.o_int ? 0 : 1);
     return(p);
 }
@@ -112,12 +112,12 @@ do_charfun(ast_ptr act, obj_ptr obj)
 
     case '>':
 	switch( numargs(obj) ){
-	case T_UNDEF:
+	case obj_type::T_UNDEF:
 	    obj_unref(obj);
 	    return undefined();
-	case T_FLOAT:
-	case T_INT:
-	    p = obj_alloc(T_BOOL);
+	case obj_type::T_FLOAT:
+	case obj_type::T_INT:
+	    p = obj_alloc(obj_type::T_BOOL);
 	    (p->o_val).o_int = NUMVAL(car(obj)) > NUMVAL(car(cdr(obj)));
 	    obj_unref(obj);
 	    return(p);
@@ -125,12 +125,12 @@ do_charfun(ast_ptr act, obj_ptr obj)
 
     case GE:
 	switch( numargs(obj) ){
-	case T_UNDEF:
+	case obj_type::T_UNDEF:
 	    obj_unref(obj);
 	    return undefined();
-	case T_FLOAT:
-	case T_INT:
-	    p = obj_alloc(T_BOOL);
+	case obj_type::T_FLOAT:
+	case obj_type::T_INT:
+	    p = obj_alloc(obj_type::T_BOOL);
 	    (p->o_val).o_int = NUMVAL(car(obj)) >= NUMVAL(car(cdr(obj)));
 	    obj_unref(obj);
 	    return(p);
@@ -138,12 +138,12 @@ do_charfun(ast_ptr act, obj_ptr obj)
 
     case LE:
 	switch( numargs(obj) ){
-	case T_UNDEF:
+	case obj_type::T_UNDEF:
 	    obj_unref(obj);
 	    return undefined();
-	case T_FLOAT:
-	case T_INT:
-	    p = obj_alloc(T_BOOL);
+	case obj_type::T_FLOAT:
+	case obj_type::T_INT:
+	    p = obj_alloc(obj_type::T_BOOL);
 	    (p->o_val).o_int = NUMVAL(car(obj)) <= NUMVAL(car(cdr(obj)));
 	    obj_unref(obj);
 	    return(p);
@@ -151,12 +151,12 @@ do_charfun(ast_ptr act, obj_ptr obj)
 
     case '<':
 	switch( numargs(obj) ){
-	case T_UNDEF:
+	case obj_type::T_UNDEF:
 	    obj_unref(obj);
 	    return undefined();
-	case T_FLOAT:
-	case T_INT:
-	    p = obj_alloc(T_BOOL);
+	case obj_type::T_FLOAT:
+	case obj_type::T_INT:
+	    p = obj_alloc(obj_type::T_BOOL);
 	    (p->o_val).o_int = NUMVAL(car(obj)) < NUMVAL(car(cdr(obj)));
 	    obj_unref(obj);
 	    return(p);
@@ -164,65 +164,65 @@ do_charfun(ast_ptr act, obj_ptr obj)
 
     case '+':
 	switch( numargs(obj) ){
-	case T_UNDEF:
+	case obj_type::T_UNDEF:
 	    obj_unref(obj);
 	    return undefined();
-	case T_FLOAT:
-	    p = obj_alloc(T_FLOAT);
+	case obj_type::T_FLOAT:
+	    p = obj_alloc(obj_type::T_FLOAT);
 	    (p->o_val).o_double = NUMVAL(car(obj))+NUMVAL(car(cdr(obj)));
 	    obj_unref(obj);
 	    return(p);
-	case T_INT:
-	    p = obj_alloc(T_INT);
+	case obj_type::T_INT:
+	    p = obj_alloc(obj_type::T_INT);
 	    (p->o_val).o_int = NUMVAL(car(obj))+NUMVAL(car(cdr(obj)));
 	    obj_unref(obj);
 	    return(p);
 	}
     case '-':
 	switch( numargs(obj) ){
-	case T_UNDEF:
+	case obj_type::T_UNDEF:
 	    obj_unref(obj);
 	    return undefined();
-	case T_FLOAT:
-	    p = obj_alloc(T_FLOAT);
+	case obj_type::T_FLOAT:
+	    p = obj_alloc(obj_type::T_FLOAT);
 	    (p->o_val).o_double = NUMVAL(car(obj))-NUMVAL(car(cdr(obj)));
 	    obj_unref(obj);
 	    return(p);
-	case T_INT:
-	    p = obj_alloc(T_INT);
+	case obj_type::T_INT:
+	    p = obj_alloc(obj_type::T_INT);
 	    (p->o_val).o_int = NUMVAL(car(obj))-NUMVAL(car(cdr(obj)));
 	    obj_unref(obj);
 	    return(p);
 	}
     case '*':
 	switch( numargs(obj) ){
-	case T_UNDEF:
+	case obj_type::T_UNDEF:
 	    obj_unref(obj);
 	    return undefined();
-	case T_FLOAT:
-	    p = obj_alloc(T_FLOAT);
+	case obj_type::T_FLOAT:
+	    p = obj_alloc(obj_type::T_FLOAT);
 	    (p->o_val).o_double = NUMVAL(car(obj))*NUMVAL(car(cdr(obj)));
 	    obj_unref(obj);
 	    return(p);
-	case T_INT:
-	    p = obj_alloc(T_INT);
+	case obj_type::T_INT:
+	    p = obj_alloc(obj_type::T_INT);
 	    (p->o_val).o_int = NUMVAL(car(obj))*NUMVAL(car(cdr(obj)));
 	    obj_unref(obj);
 	    return(p);
 	}
     case '/':
 	switch( numargs(obj) ){
-	case T_UNDEF:
+	case obj_type::T_UNDEF:
 	    obj_unref(obj);
 	    return undefined();
-	case T_FLOAT:
-	case T_INT:
+	case obj_type::T_FLOAT:
+	case obj_type::T_INT:
 	    f = NUMVAL(car(cdr(obj)));
 	    if( f == 0.0 ){
 		obj_unref(obj);
 		return undefined();
 	    }
-	    p = obj_alloc(T_FLOAT);
+	    p = obj_alloc(obj_type::T_FLOAT);
 	    (p->o_val).o_double = NUMVAL(car(obj))/f;
 	    obj_unref(obj);
 	    return(p);
@@ -242,7 +242,7 @@ do_charfun(ast_ptr act, obj_ptr obj)
      *	we tell our caller if the result will be double or int, so that he
      *	can allocate the right type of object.
      */
-int
+obj_type
 numargs(obj_ptr obj)
 {
     obj_ptr p;
@@ -251,7 +251,7 @@ numargs(obj_ptr obj)
 	/*
 	 * Don't have a well-formed list, so illegal
 	 */
-    if( !ispair(obj) ) return(T_UNDEF);
+    if( !ispair(obj) ) return(obj_type::T_UNDEF);
 
 	/*
 	 * So it's a list of two.  Verify type of both elements.
@@ -259,8 +259,8 @@ numargs(obj_ptr obj)
 	 */
     p = car(obj);
     q = car(cdr(obj));
-    if( !isnum(p) || !isnum(q) ) return(T_UNDEF);
-    if( (p->o_type == T_FLOAT) || (q->o_type == T_FLOAT) )
-	return(T_FLOAT);
-    return(T_INT);
+    if( !isnum(p) || !isnum(q) ) return(obj_type::T_UNDEF);
+    if( (p->o_type == obj_type::T_FLOAT) || (q->o_type == obj_type::T_FLOAT) )
+	return(obj_type::T_FLOAT);
+    return(obj_type::T_INT);
 }

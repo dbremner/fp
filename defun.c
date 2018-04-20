@@ -48,7 +48,7 @@ invoke(sym_ptr def, obj_ptr obj)
     if( def->sym_type != symtype::SYM_DEF ){
 	printf("%s: undefined\n",def->sym_pname);
 	obj_unref(obj);
-	return( obj_alloc(T_UNDEF) );
+	return( obj_alloc(obj_type::T_UNDEF) );
     }
 
 	/*
