@@ -34,7 +34,7 @@ hash(const char *p)
 static sym_ptr
 new_entry(const char *n)
 {
-    sym_ptr p = new symtab{n, SYM_NEW};
+    sym_ptr p = new symtab{n};
     return(p);
 }
 
