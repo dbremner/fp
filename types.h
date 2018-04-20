@@ -11,8 +11,8 @@ typedef struct symtab* sym_ptr;
  * A list of arbitrary objects
  */
 struct list {
-    struct object *car;        /* Head of list */
-    struct object *cdr;        /* and Tail */
+    obj_ptr car;        /* Head of list */
+    obj_ptr cdr;        /* and Tail */
 };
 
 /*
