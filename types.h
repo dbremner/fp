@@ -1,6 +1,10 @@
 #ifndef TYPES_H
 #define TYPES_H
 
+typedef struct ast* ast_ptr;
+typedef struct object* object_ptr;
+typedef struct symtab* symtab_ptr;
+
 /*
  * A list of arbitrary objects
  */
