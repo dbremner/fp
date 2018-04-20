@@ -2,8 +2,8 @@
 #define TYPES_H
 
 typedef struct ast* ast_ptr;
-typedef struct object* object_ptr;
-typedef struct symtab* symtab_ptr;
+typedef struct object* obj_ptr;
+typedef struct symtab* sym_ptr;
 
 /*
  * A list of arbitrary objects
