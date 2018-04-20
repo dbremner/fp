@@ -31,6 +31,18 @@ struct object {
     {
         o_type = type;
     }
+    
+    ///CAR manipulates the object as a list & gives its first part
+    obj_ptr car()
+    {
+        return (this->o_val).o_list.car;
+    }
+    
+    ///CDR is like CAR but gives all but the first
+    obj_ptr cdr()
+    {
+        return ((this)->o_val).o_list.cdr;
+    }
 };
 
 /*
