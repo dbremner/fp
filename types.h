@@ -57,11 +57,11 @@ struct ast {
  * A symbol table entry for an identifier
  */
 struct symtab {
-    uint32_t sym_type;
-    uint32_t padding;
-    YYstype sym_val;
-    sym_ptr sym_next;
-    char *sym_pname;
+    uint32_t sym_type = 0;
+    uint32_t padding = 0;
+    YYstype sym_val{};
+    sym_ptr sym_next = nullptr;
+    char *sym_pname = nullptr;
 };
 
 #endif
