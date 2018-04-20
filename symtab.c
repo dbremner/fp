@@ -53,7 +53,7 @@ lookup(const char *name)
 	 * No hash hits, must be a new entry
 	 */
     if( p == nullptr ){
-	return( stab[h] = new_entry(name) );
+	return( stab[h] = new symtab(name) );
     }
 
 	/*
@@ -68,7 +68,7 @@ lookup(const char *name)
 	/*
 	 * No hits, add to end of chain
 	 */
-    return( old->sym_next = new_entry(name) );
+    return( old->sym_next = new symtab(name) );
 }
 
     /*
