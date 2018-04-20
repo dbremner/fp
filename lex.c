@@ -222,6 +222,7 @@ help(void)
     return;
 }
 
+#ifdef YYDEBUG
 static void
 flipyydebug(void)
 {
@@ -230,6 +231,7 @@ flipyydebug(void)
     yydebug = !yydebug;
     return;
 }
+#endif
 
     /*
      * Command processor.  The reason it's here is that we play with
