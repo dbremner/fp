@@ -77,7 +77,7 @@ application
 	:	    { prompt = '-'; }
 	    funForm ':' object
 		    {
-			struct object *p = execute($2.YYast,$4.YYobj);
+			obj_ptr p = execute($2.YYast,$4.YYobj);
 
 			obj_prtree(p);
 			printf("\n");
@@ -115,7 +115,7 @@ object2	:	atom
 fpSequence
 	:	'<' object2 OptComma SeqBody '>'
 		    {
-			struct object *p = 
+			obj_ptr p = 
 			    $$.YYobj = obj_alloc(T_LIST);
 			(p->o_val).o_list.car = $2.YYobj;
 			(p->o_val).o_list.cdr = $4.YYobj;
@@ -127,7 +127,7 @@ SeqBody	:	Empty
 		    }
 	|	object2 OptComma SeqBody
 		    {
-			struct object *p = 
+			obj_ptr p = 
 			    $$.YYobj = obj_alloc(T_LIST);
 			(p->o_val).o_list.car = $1.YYobj;
 			(p->o_val).o_list.cdr = $3.YYobj;
@@ -136,32 +136,32 @@ SeqBody	:	Empty
 
 atom	:	T
 		    {
-			struct object *p = 
+			obj_ptr p = 
 			    $$.YYobj = obj_alloc(T_BOOL);
 			(p->o_val).o_int = 1;
 		    }
 	|	F
 		    {
-			struct object *p = 
+			obj_ptr p = 
 			    $$.YYobj = obj_alloc(T_BOOL);
 			(p->o_val).o_int = 0;
 		    }
 	|	'<' '>'
 		    {
-			struct object *p = 
+			obj_ptr p = 
 			    $$.YYobj = obj_alloc(T_LIST);
 			(p->o_val).o_list.car =
 			    (p->o_val).o_list.cdr = 0;
 		    }
 	|	INT
 		    {
-			struct object *p = 
+			obj_ptr p = 
 			    $$.YYobj = obj_alloc(T_INT);
 			(p->o_val).o_int = $1.YYint;
 		    }
 	|	FLOAT
 		    {
-			struct object *p = 
+			obj_ptr p = 
 			    $$.YYobj = obj_alloc(T_FLOAT);
 			(p->o_val).o_double = $1.YYdouble;
 		    }

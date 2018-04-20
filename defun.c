@@ -39,8 +39,8 @@ defun(struct symtab *name, ast_ptr def)
     /*
      * Call a previously-defined user function, or error
      */
-struct object *
-invoke(struct symtab *def, struct object *obj)
+obj_ptr
+invoke(struct symtab *def, obj_ptr obj)
 {
 	/*
 	 * Must be a defined function

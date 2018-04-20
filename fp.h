@@ -20,51 +20,51 @@
 #include "types.h"
 
 ast_ptr ast_alloc(int atag, ast_ptr l, ast_ptr m, ast_ptr r);
-struct object *obj_alloc(uint32_t);
-struct object *execute(ast_ptr  act, struct object *obj);
-struct object *invoke(struct symtab *def, struct object *obj);
+obj_ptr obj_alloc(uint32_t);
+obj_ptr execute(ast_ptr  act, obj_ptr obj);
+obj_ptr invoke(struct symtab *def, obj_ptr obj);
 void ast_free(ast_ptr p);
 void ast_freetree(ast_ptr p);
 noreturn void fatal_err(const char *msg);
 void defun(struct symtab *name, ast_ptr def);
 void symtab_init(void);
-void obj_prtree(struct object *p);
-void obj_free(struct object *p);
-void obj_unref(struct object *p);
+void obj_prtree(obj_ptr p);
+void obj_free(obj_ptr p);
+void obj_unref(obj_ptr p);
 struct symtab *lookup(const char *name);
 
 ///generates the undefined object & returns it
-static inline struct object *undefined(void)
+static inline obj_ptr undefined(void)
 {
     return(obj_alloc(T_UNDEF));
 }
 
 ///CAR manipulates the object as a list & gives its first part
-static inline struct object *car(struct object *x)
+static inline obj_ptr car(obj_ptr x)
 {
     return (x->o_val).o_list.car;
 }
 
 ///CDR is like CAR but gives all but the first
-static inline struct object *cdr(struct object *x)
+static inline obj_ptr cdr(obj_ptr x)
 {
     return ((x)->o_val).o_list.cdr;
 }
 
 ///ISNUM provides a boolean saying if the named object is a number
-static inline bool isnum(struct object *x)
+static inline bool isnum(obj_ptr x)
 {
     return ( (x->o_type == T_INT) || (x->o_type == T_FLOAT) );
 }
 
 //charfn.c
-struct object *do_charfun(ast_ptr act, struct object *obj);
-struct object *eqobj(struct object *obj);
-int numargs(struct object *obj);
+obj_ptr do_charfun(ast_ptr act, obj_ptr obj);
+obj_ptr eqobj(obj_ptr obj);
+int numargs(obj_ptr obj);
 
 //intrin.c
-int listlen(struct object *p);
-struct object *do_intrinsics(struct symtab *act, struct object *obj);
+int listlen(obj_ptr p);
+obj_ptr do_intrinsics(struct symtab *act, obj_ptr obj);
 
 //lex.c
 int yylex(void);

@@ -35,7 +35,7 @@ typedef union {
     int YYint;
     double YYdouble;
     ast_ptr YYast;
-    struct object *YYobj;
+    obj_ptr YYobj;
     struct list *YYlist;
     struct symtab *YYsym;
 } YYstype;

@@ -21,7 +21,7 @@
      *	We recurse if it is a list.
      */
 static int
-same(struct object *o1, struct object *o2)
+same(obj_ptr o1, obj_ptr o2)
 {
     if( o1 == o2 ) return( 1 );
     if( o1->o_type != o2->o_type ){
@@ -51,7 +51,7 @@ same(struct object *o1, struct object *o2)
      * ispair()--tell if our argument object is a list of two elements
      */
 static int
-ispair(struct object *obj)
+ispair(obj_ptr obj)
 {
     if( obj->o_type != T_LIST ) return( 0 );
     if( car(obj) == 0 ) return( 0 );
@@ -64,10 +64,10 @@ ispair(struct object *obj)
      * eqobj()--tell if the two objects in the list are equal.
      *	undefined on ill-formed list, etc.
      */
-struct object *
-eqobj(struct object *obj)
+obj_ptr
+eqobj(obj_ptr obj)
 {
-    struct object *p;
+    obj_ptr p;
 
     if( !ispair(obj) ){
 	obj_unref(obj);
@@ -85,10 +85,10 @@ eqobj(struct object *obj)
     /*
      * noteqobj()--just like eqobj(), but not equal
      */
-static struct object *
-noteqobj(struct object *obj)
+static obj_ptr
+noteqobj(obj_ptr obj)
 {
-    struct object *p = eqobj(obj);
+    obj_ptr p = eqobj(obj);
 
     if( p->o_type == T_BOOL )
 	p->o_val.o_int = (p->o_val.o_int ? 0 : 1);
@@ -98,10 +98,10 @@ noteqobj(struct object *obj)
     /*
      * do_charfun()--execute the action of a binary function
      */
-struct object *
-do_charfun(ast_ptr act, struct object *obj)
+obj_ptr
+do_charfun(ast_ptr act, obj_ptr obj)
 {
-    struct object *p;
+    obj_ptr p;
     double f;
 
     switch( (act->val).YYint ){
@@ -245,10 +245,10 @@ do_charfun(ast_ptr act, struct object *obj)
      *	can allocate the right type of object.
      */
 int
-numargs(struct object *obj)
+numargs(obj_ptr obj)
 {
-    struct object *p;
-    struct object *q;
+    obj_ptr p;
+    obj_ptr q;
 
 	/*
 	 * Don't have a well-formed list, so illegal

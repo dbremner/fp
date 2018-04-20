@@ -22,20 +22,20 @@
 #define CAR(x) ( ((x)->o_val).o_list.car )
 #define CDR(x) ( ((x)->o_val).o_list.cdr )
 
-static struct object *
-do_dist(struct object *elem, struct object *lst, struct object *obj, int side);
+static obj_ptr
+do_dist(obj_ptr elem, obj_ptr lst, obj_ptr obj, int side);
 
-static struct object *do_trans(struct object *obj);
-static struct object *do_bool(struct object *obj, int op);
+static obj_ptr do_trans(obj_ptr obj);
+static obj_ptr do_bool(obj_ptr obj, int op);
 
     /*
      * Main intrinsic processing routine
      */
-struct object *
-do_intrinsics(struct symtab *act, struct object *obj)
+obj_ptr
+do_intrinsics(struct symtab *act, obj_ptr obj)
 {
-    struct object *p;
-    struct object *q;
+    obj_ptr p;
+    obj_ptr q;
     double f;
 
 	/*
@@ -93,8 +93,8 @@ do_intrinsics(struct symtab *act, struct object *obj)
 
     case IOTA:{		/* Given arg N, generate <1..N> */
 	int x, l;
-    struct object *hd;
-    struct object **hdp = &hd;
+    obj_ptr hd;
+    obj_ptr *hdp = &hd;
 
 	if( (obj->o_type != T_INT) && (obj->o_type != T_FLOAT) ){
 	    obj_unref(obj);
@@ -182,8 +182,8 @@ do_intrinsics(struct symtab *act, struct object *obj)
     
     case FRONT:
     case TLR:{		/* Return a list of all but list */
-    struct object *hd = 0;
-    struct object **hdp = &hd;
+    obj_ptr hd = 0;
+    obj_ptr *hdp = &hd;
 
 	if(
 	    ((q = obj)->o_type != T_LIST) ||
@@ -232,7 +232,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	return( do_dist(p,q,obj,1) );
     
     case APNDL:{	/* Append element from left */
-	struct object *r;
+	obj_ptr r;
 
 	if(
 	    (obj->o_type != T_LIST) ||
@@ -260,9 +260,9 @@ do_intrinsics(struct symtab *act, struct object *obj)
     }
 
     case APNDR:{	/* Append element from right */
-    struct object *hd = 0;
-    struct object **hdp = &hd;
-    struct object *r;
+    obj_ptr hd = 0;
+    obj_ptr *hdp = &hd;
+    obj_ptr r;
 
 	if(
 	    (obj->o_type != T_LIST) ||
@@ -307,7 +307,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	return( do_trans(obj) );
     
     case REVERSE:{	/* Reverse all elements of a list */
-	struct object *r;
+	obj_ptr r;
 
 	if( obj->o_type != T_LIST ){
 	    obj_unref(obj);
@@ -326,8 +326,8 @@ do_intrinsics(struct symtab *act, struct object *obj)
     }
 
     case ROTL:{		/* Rotate left */
-    struct object *hd = 0;
-    struct object **hdp = &hd;
+    obj_ptr hd = 0;
+    obj_ptr *hdp = &hd;
 
 	    /*
 	     * Wanna list
@@ -365,8 +365,8 @@ do_intrinsics(struct symtab *act, struct object *obj)
     }
 
     case ROTR:{		/* Rotate right */
-    struct object *hd = 0;
-    struct object **hdp = &hd;
+    obj_ptr hd = 0;
+    obj_ptr *hdp = &hd;
 
 	    /*
 	     * Wanna list
@@ -405,9 +405,9 @@ do_intrinsics(struct symtab *act, struct object *obj)
     }
 
     case CONCAT:{		/* Concatenate several lists */
-    struct object *hd = 0;
-    struct object **hdp = &hd;
-    struct object *r;
+    obj_ptr hd = 0;
+    obj_ptr *hdp = &hd;
+    obj_ptr r;
 
 	if( obj->o_type != T_LIST ){
 	    obj_unref(obj);
@@ -545,9 +545,9 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	}
     
     case PAIR:{		/* Pair up successive elements of a list */
-    struct object *hd = 0;
-    struct object **hdp = &hd;
-    struct object *r;
+    obj_ptr hd = 0;
+    obj_ptr *hdp = &hd;
+    obj_ptr r;
 	int x;
 
 	if(
@@ -578,9 +578,9 @@ do_intrinsics(struct symtab *act, struct object *obj)
 
     case SPLIT:{	/* Split list into two (roughly) equal halves */
 	int l,x;
-    struct object *hd = 0;
-    struct object **hdp = &hd;
-    struct object *top;
+    obj_ptr hd = 0;
+    obj_ptr *hdp = &hd;
+    obj_ptr top;
 
 	if(
 	    (obj->o_type != T_LIST) ||
@@ -692,7 +692,7 @@ do_intrinsics(struct symtab *act, struct object *obj)
      * listlen()--return length of a list
      */
 int
-listlen(struct object *p)
+listlen(obj_ptr p)
 {
     int l = 0;
 
@@ -706,17 +706,17 @@ listlen(struct object *p)
     /*
      * Common code between distribute-left and -right
      */
-static struct object *
+static obj_ptr
 do_dist(
-        struct object *elem,
-        struct object *lst,
-        struct object *obj, /* Source object */
+        obj_ptr elem,
+        obj_ptr lst,
+        obj_ptr obj, /* Source object */
         int side)   /* Which side to stick on */
 {
-    struct object *r;
-    struct object *r2;
-    struct object *hd;
-    struct object **hdp = &hd;
+    obj_ptr r;
+    obj_ptr r2;
+    obj_ptr hd;
+    obj_ptr *hdp = &hd;
 
     if( !car(lst) ){		/* Distributing over NULL list */
 	lst->o_refs += 1;
@@ -772,15 +772,15 @@ do_dist(
     /*
      * do_trans()--transpose the elements of the "matrix"
      */
-static struct object *
-do_trans(struct object *obj)
+static obj_ptr
+do_trans(obj_ptr obj)
 {
     int len = 0, x, y;
-    struct object *p;
-    struct object *q;
-    struct object *r;
-    struct object *hd = 0;
-    struct object **hdp = &hd;
+    obj_ptr p;
+    obj_ptr q;
+    obj_ptr r;
+    obj_ptr hd = 0;
+    obj_ptr *hdp = &hd;
 
 	/*
 	 * Check argument, make sure first element is a list.
@@ -828,9 +828,9 @@ do_trans(struct object *obj)
 	 *	about it because I never use this blinking function.
 	 */
     for( x = 0; x < len; ++x ){
-    struct object *s = obj_alloc(T_LIST);
-    struct object *hd2 = 0;
-    struct object **hdp2 = &hd2;
+    obj_ptr s = obj_alloc(T_LIST);
+    obj_ptr hd2 = 0;
+    obj_ptr *hdp2 = &hd2;
 
 	*hdp = s;
 	hdp = &CDR(s);
@@ -854,12 +854,12 @@ do_trans(struct object *obj)
     /*
      * do_bool()--do the three boolean binary operators
      */
-static struct object *
-do_bool(struct object *obj, int op)
+static obj_ptr
+do_bool(obj_ptr obj, int op)
 {
-    struct object *p;
-    struct object *q;
-    struct object *r;
+    obj_ptr p;
+    obj_ptr q;
+    obj_ptr r;
     int i;
 
     if(

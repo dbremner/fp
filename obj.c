@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static struct object *free_objs = 0;
+static obj_ptr free_objs = 0;
 
 #ifdef MEMSTAT
 int obj_out = 0;
@@ -16,10 +16,10 @@ int obj_out = 0;
     /*
      * Allocate an object
      */
-struct object *
+obj_ptr
 obj_alloc(uint32_t ty)
 {
-    struct object *p;
+    obj_ptr p;
 
 #ifdef MEMSTAT
     obj_out++;
@@ -30,7 +30,7 @@ obj_alloc(uint32_t ty)
     p = free_objs;
     if(p){
 	free_objs = (p->o_val).o_list.car;
-    } else if( (p = (struct object *)malloc(sizeof(struct object))) == 0 )
+    } else if( (p = (obj_ptr)malloc(sizeof(struct object))) == 0 )
 	fatal_err("out of memory in obj_alloc()");
     p->o_refs = 1;
     if( (p->o_type = ty) == T_LIST )
@@ -42,7 +42,7 @@ obj_alloc(uint32_t ty)
      * Free an object
      */
 void
-obj_free(struct object *p)
+obj_free(obj_ptr p)
 {
 #ifdef MEMSTAT
     obj_out--;
@@ -57,7 +57,7 @@ obj_free(struct object *p)
      *	reference.
      */
 void
-obj_unref(struct object *p)
+obj_unref(obj_ptr p)
 {
     if( !p ) return;
     if( --(p->o_refs) ) return;
@@ -81,7 +81,7 @@ obj_unref(struct object *p)
 
 static char last_close = 0;
 void
-obj_prtree(struct object *p)
+obj_prtree(obj_ptr p)
 {
     if( !p ) return;
     switch( p->o_type ){

@@ -18,18 +18,18 @@
 #define CAR(x) ( ((x)->o_val).o_list.car )
 #define CDR(x) ( ((x)->o_val).o_list.cdr )
 
-static struct object *do_rinsert(ast_ptr act, struct object *obj);
-static struct object *do_binsert(ast_ptr act, struct object *obj);
+static obj_ptr do_rinsert(ast_ptr act, obj_ptr obj);
+static obj_ptr do_binsert(ast_ptr act, obj_ptr obj);
 
     /*
      * Given an AST for an action, and an object to do the action upon,
      *	execute the action and return the result.
      */
-struct object *
-execute(ast_ptr act, struct object *obj )
+obj_ptr
+execute(ast_ptr act, obj_ptr obj )
 {
-    struct object *p;
-    struct object *q;
+    obj_ptr p;
+    obj_ptr q;
     int x;
 
 	/*
@@ -117,11 +117,11 @@ execute(ast_ptr act, struct object *obj )
 	 *	the presence of T_UNDEF popping up along the way.
 	 */
     case '[':{
-    struct object *hd;
-    struct object **hdp = &hd;
+    obj_ptr hd;
+    obj_ptr *hdp = &hd;
 
 	act = act->left;
-	hd = (struct object *)0;
+	hd = (obj_ptr)0;
 	while( act ){
 	    obj->o_refs += 1;
 	    if( (p = execute(act->left,obj))->o_type == T_UNDEF ){
@@ -168,9 +168,9 @@ execute(ast_ptr act, struct object *obj )
 	 * Apply the action to each member of a list
 	 */
     case '&': {
-    struct object *hd;
-    struct object **hdp = &hd;
-    struct object *r;
+    obj_ptr hd;
+    obj_ptr *hdp = &hd;
+    obj_ptr r;
 
 	hd = 0;
 	if( obj->o_type != T_LIST ){
@@ -236,11 +236,11 @@ execute(ast_ptr act, struct object *obj )
     /*
      * Local function to handle the tedious right-inserting
      */
-static struct object *
-do_rinsert(ast_ptr act, struct object *obj)
+static obj_ptr
+do_rinsert(ast_ptr act, obj_ptr obj)
 {
-    struct object *p;
-    struct object *q;
+    obj_ptr p;
+    obj_ptr q;
 
     if( obj->o_type != T_LIST ){
 	obj_unref(obj);
@@ -327,14 +327,14 @@ do_rinsert(ast_ptr act, struct object *obj)
     /*
      * Local function to handle the tedious binary inserting
      */
-static struct object *
-do_binsert(ast_ptr act, struct object *obj)
+static obj_ptr
+do_binsert(ast_ptr act, obj_ptr obj)
 {
-    struct object *p;
-    struct object *q;
-    struct object *hd;
-    struct object **hdp;
-    struct object *r;
+    obj_ptr p;
+    obj_ptr q;
+    obj_ptr hd;
+    obj_ptr *hdp;
+    obj_ptr r;
     int x;
 
     if( obj->o_type != T_LIST ){
