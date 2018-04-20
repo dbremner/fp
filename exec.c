@@ -28,7 +28,8 @@ static struct object *do_binsert(ast_ptr act, struct object *obj);
 struct object *
 execute(ast_ptr act, struct object *obj )
 {
-    struct object *p, *q;
+    struct object *p;
+    struct object *q;
     int x;
 
 	/*
@@ -116,7 +117,8 @@ execute(ast_ptr act, struct object *obj )
 	 *	the presence of T_UNDEF popping up along the way.
 	 */
     case '[':{
-	struct object *hd, **hdp = &hd;
+    struct object *hd;
+    struct object **hdp = &hd;
 
 	act = act->left;
 	hd = (struct object *)0;
@@ -166,7 +168,9 @@ execute(ast_ptr act, struct object *obj )
 	 * Apply the action to each member of a list
 	 */
     case '&': {
-	struct object *hd, **hdp = &hd, *r;
+    struct object *hd;
+    struct object **hdp = &hd;
+    struct object *r;
 
 	hd = 0;
 	if( obj->o_type != T_LIST ){
@@ -235,7 +239,8 @@ execute(ast_ptr act, struct object *obj )
 static struct object *
 do_rinsert(ast_ptr act, struct object *obj)
 {
-    struct object *p, *q;
+    struct object *p;
+    struct object *q;
 
     if( obj->o_type != T_LIST ){
 	obj_unref(obj);
@@ -325,8 +330,11 @@ do_rinsert(ast_ptr act, struct object *obj)
 static struct object *
 do_binsert(ast_ptr act, struct object *obj)
 {
-    struct object *p, *q;
-    struct object *hd, **hdp, *r;
+    struct object *p;
+    struct object *q;
+    struct object *hd;
+    struct object **hdp;
+    struct object *r;
     int x;
 
     if( obj->o_type != T_LIST ){

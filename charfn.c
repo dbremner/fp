@@ -247,7 +247,8 @@ do_charfun(ast_ptr act, struct object *obj)
 int
 numargs(struct object *obj)
 {
-    struct object *p, *q;
+    struct object *p;
+    struct object *q;
 
 	/*
 	 * Don't have a well-formed list, so illegal

@@ -34,7 +34,8 @@ static struct object *do_bool(struct object *obj, int op);
 struct object *
 do_intrinsics(struct symtab *act, struct object *obj)
 {
-    struct object *p, *q;
+    struct object *p;
+    struct object *q;
     double f;
 
 	/*
@@ -92,7 +93,8 @@ do_intrinsics(struct symtab *act, struct object *obj)
 
     case IOTA:{		/* Given arg N, generate <1..N> */
 	int x, l;
-	struct object *hd, **hdp = &hd;
+    struct object *hd;
+    struct object **hdp = &hd;
 
 	if( (obj->o_type != T_INT) && (obj->o_type != T_FLOAT) ){
 	    obj_unref(obj);
@@ -180,7 +182,8 @@ do_intrinsics(struct symtab *act, struct object *obj)
     
     case FRONT:
     case TLR:{		/* Return a list of all but list */
-	struct object *hd = 0, **hdp = &hd;
+    struct object *hd = 0;
+    struct object **hdp = &hd;
 
 	if(
 	    ((q = obj)->o_type != T_LIST) ||
@@ -257,7 +260,9 @@ do_intrinsics(struct symtab *act, struct object *obj)
     }
 
     case APNDR:{	/* Append element from right */
-	struct object *hd = 0, **hdp = &hd, *r;
+    struct object *hd = 0;
+    struct object **hdp = &hd;
+    struct object *r;
 
 	if(
 	    (obj->o_type != T_LIST) ||
@@ -321,7 +326,8 @@ do_intrinsics(struct symtab *act, struct object *obj)
     }
 
     case ROTL:{		/* Rotate left */
-	struct object *hd = 0, **hdp = &hd;
+    struct object *hd = 0;
+    struct object **hdp = &hd;
 
 	    /*
 	     * Wanna list
@@ -359,7 +365,8 @@ do_intrinsics(struct symtab *act, struct object *obj)
     }
 
     case ROTR:{		/* Rotate right */
-	struct object *hd = 0, **hdp = &hd;
+    struct object *hd = 0;
+    struct object **hdp = &hd;
 
 	    /*
 	     * Wanna list
@@ -398,7 +405,9 @@ do_intrinsics(struct symtab *act, struct object *obj)
     }
 
     case CONCAT:{		/* Concatenate several lists */
-	struct object *hd = 0, **hdp = &hd, *r;
+    struct object *hd = 0;
+    struct object **hdp = &hd;
+    struct object *r;
 
 	if( obj->o_type != T_LIST ){
 	    obj_unref(obj);
@@ -536,7 +545,9 @@ do_intrinsics(struct symtab *act, struct object *obj)
 	}
     
     case PAIR:{		/* Pair up successive elements of a list */
-	struct object *hd = 0, **hdp = &hd, *r;
+    struct object *hd = 0;
+    struct object **hdp = &hd;
+    struct object *r;
 	int x;
 
 	if(
@@ -567,7 +578,9 @@ do_intrinsics(struct symtab *act, struct object *obj)
 
     case SPLIT:{	/* Split list into two (roughly) equal halves */
 	int l,x;
-	struct object *hd = 0, **hdp = &hd, *top;
+    struct object *hd = 0;
+    struct object **hdp = &hd;
+    struct object *top;
 
 	if(
 	    (obj->o_type != T_LIST) ||
@@ -700,8 +713,10 @@ do_dist(
         struct object *obj, /* Source object */
         int side)   /* Which side to stick on */
 {
-    struct object *r, *r2;
-    struct object *hd, **hdp = &hd;
+    struct object *r;
+    struct object *r2;
+    struct object *hd;
+    struct object **hdp = &hd;
 
     if( !car(lst) ){		/* Distributing over NULL list */
 	lst->o_refs += 1;
@@ -761,8 +776,11 @@ static struct object *
 do_trans(struct object *obj)
 {
     int len = 0, x, y;
-    struct object *p, *q, *r;
-    struct object *hd = 0, **hdp = &hd;
+    struct object *p;
+    struct object *q;
+    struct object *r;
+    struct object *hd = 0;
+    struct object **hdp = &hd;
 
 	/*
 	 * Check argument, make sure first element is a list.
@@ -810,7 +828,9 @@ do_trans(struct object *obj)
 	 *	about it because I never use this blinking function.
 	 */
     for( x = 0; x < len; ++x ){
-	struct object *s = obj_alloc(T_LIST), *hd2 = 0, **hdp2 = &hd2;
+    struct object *s = obj_alloc(T_LIST);
+    struct object *hd2 = 0;
+    struct object **hdp2 = &hd2;
 
 	*hdp = s;
 	hdp = &CDR(s);
@@ -837,7 +857,8 @@ do_trans(struct object *obj)
 static struct object *
 do_bool(struct object *obj, int op)
 {
-    struct object *p, *q;
+    struct object *p;
+    struct object *q;
     struct object *r;
     int i;
 
