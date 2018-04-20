@@ -29,16 +29,6 @@ hash(const char *p)
 }
 
     /*
-     * Allocate a new entry, fill in the salient fields
-     */
-static sym_ptr
-new_entry(const char *n)
-{
-    sym_ptr p = new symtab{n};
-    return(p);
-}
-
-    /*
      * Given a string, go find the entry.  Allocate an entry if there
      *	was none.
      */
