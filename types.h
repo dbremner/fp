@@ -81,8 +81,9 @@ struct symtab {
     }
     
     symtab(const char *pname)
-    : symtab(pname, SYM_NEW)
     {
+        sym_pname = strdup(pname);
+        sym_type = SYM_NEW;
     }
 };
 
