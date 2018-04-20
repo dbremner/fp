@@ -20,10 +20,10 @@
      * same()--looks at two objects and tells whether they are the same.
      *	We recurse if it is a list.
      */
-static int
+static bool
 same(obj_ptr o1, obj_ptr o2)
 {
-    if( o1 == o2 ) return( 1 );
+    if( o1 == o2 ) return(true);
     if( o1->o_type != o2->o_type ){
 	if( o1->o_type == T_INT )
 	    if( o2->o_type == T_FLOAT )
@@ -31,7 +31,7 @@ same(obj_ptr o1, obj_ptr o2)
 	if( o2->o_type == T_INT )
 	    if( o1->o_type == T_FLOAT )
 		return( o2->o_val.o_int == o1->o_val.o_double );
-	return( 0 );
+	return(false);
     }
     switch( o1->o_type ){
     case T_INT:
@@ -50,14 +50,14 @@ same(obj_ptr o1, obj_ptr o2)
     /*
      * ispair()--tell if our argument object is a list of two elements
      */
-static int
+static bool
 ispair(obj_ptr obj)
 {
-    if( obj->o_type != T_LIST ) return( 0 );
-    if( car(obj) == NULL ) return( 0 );
-    if( cdr(obj) == NULL ) return( 0 );
-    if( cdr(cdr(obj)) ) return( 0 );
-    return( 1 );
+    if( obj->o_type != T_LIST ) return(false);
+    if( car(obj) == NULL ) return(false);
+    if( cdr(obj) == NULL ) return(false);
+    if( cdr(cdr(obj)) ) return(false);
+    return(true);
 }
 
     /*
