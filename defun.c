@@ -11,7 +11,7 @@
      * Define a function
      */
 void
-defun(struct symtab *name, struct ast *def)
+defun(struct symtab *name, ast_ptr def)
 {
 	/*
 	 * Check what we're defining, handle redefining

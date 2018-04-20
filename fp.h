@@ -19,14 +19,14 @@
 
 #include "types.h"
 
-struct ast *ast_alloc(int atag, struct ast *l, struct ast *m, struct ast *r);
+ast_ptr ast_alloc(int atag, ast_ptr l, ast_ptr m, ast_ptr r);
 struct object *obj_alloc(uint32_t);
-struct object *execute(struct ast * act, struct object *obj);
+struct object *execute(ast_ptr  act, struct object *obj);
 struct object *invoke(struct symtab *def, struct object *obj);
-void ast_free(struct ast *p);
-void ast_freetree(struct ast *p);
+void ast_free(ast_ptr p);
+void ast_freetree(ast_ptr p);
 noreturn void fatal_err(const char *msg);
-void defun(struct symtab *name, struct ast *def);
+void defun(struct symtab *name, ast_ptr def);
 void symtab_init(void);
 void obj_prtree(struct object *p);
 void obj_free(struct object *p);
@@ -58,7 +58,7 @@ static inline bool isnum(struct object *x)
 }
 
 //charfn.c
-struct object *do_charfun(struct ast *act, struct object *obj);
+struct object *do_charfun(ast_ptr act, struct object *obj);
 struct object *eqobj(struct object *obj);
 int numargs(struct object *obj);
 

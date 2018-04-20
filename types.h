@@ -34,7 +34,7 @@ struct object {
 typedef union {
     int YYint;
     double YYdouble;
-    struct ast *YYast;
+    ast_ptr YYast;
     struct object *YYobj;
     struct list *YYlist;
     struct symtab *YYsym;
@@ -48,9 +48,9 @@ struct ast {
     int tag;
     int padding;
     YYSTYPE val;
-    struct ast *left;
-    struct ast *middle;
-    struct ast *right;
+    ast_ptr left;
+    ast_ptr middle;
+    ast_ptr right;
 };
 
 /*

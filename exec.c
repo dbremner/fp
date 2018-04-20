@@ -18,15 +18,15 @@
 #define CAR(x) ( ((x)->o_val).o_list.car )
 #define CDR(x) ( ((x)->o_val).o_list.cdr )
 
-static struct object *do_rinsert(struct ast *act, struct object *obj);
-static struct object *do_binsert(struct ast *act, struct object *obj);
+static struct object *do_rinsert(ast_ptr act, struct object *obj);
+static struct object *do_binsert(ast_ptr act, struct object *obj);
 
     /*
      * Given an AST for an action, and an object to do the action upon,
      *	execute the action and return the result.
      */
 struct object *
-execute(struct ast * act, struct object *obj )
+execute(ast_ptr act, struct object *obj )
 {
     struct object *p, *q;
     int x;
@@ -233,7 +233,7 @@ execute(struct ast * act, struct object *obj )
      * Local function to handle the tedious right-inserting
      */
 static struct object *
-do_rinsert(struct ast *act, struct object *obj)
+do_rinsert(ast_ptr act, struct object *obj)
 {
     struct object *p, *q;
 
@@ -323,7 +323,7 @@ do_rinsert(struct ast *act, struct object *obj)
      * Local function to handle the tedious binary inserting
      */
 static struct object *
-do_binsert(struct ast *act, struct object *obj)
+do_binsert(ast_ptr act, struct object *obj)
 {
     struct object *p, *q;
     struct object *hd, **hdp, *r;

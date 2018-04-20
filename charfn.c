@@ -99,7 +99,7 @@ noteqobj(struct object *obj)
      * do_charfun()--execute the action of a binary function
      */
 struct object *
-do_charfun(struct ast *act, struct object *obj)
+do_charfun(ast_ptr act, struct object *obj)
 {
     struct object *p;
     double f;

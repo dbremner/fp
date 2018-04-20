@@ -7,7 +7,7 @@
 #include "fp.h"
 #include <stdio.h>
 
-#define NULLAST ((struct ast *)0)
+#define NULLAST ((ast_ptr)0)
 extern char prompt;
 static char had_undef = 0;
 void fp_cmd(void);

@@ -7,7 +7,7 @@
 #include "y.tab.h"
 #include <stdlib.h>
 
-static struct ast *ast_list = 0;
+static ast_ptr ast_list = 0;
 
 #ifdef MEMSTAT
 int ast_out = 0;
@@ -16,10 +16,10 @@ int ast_out = 0;
     /*
      * Get a node
      */
-struct ast *
-ast_alloc(int atag, struct ast *l, struct ast *m, struct ast *r)
+ast_ptr
+ast_alloc(int atag, ast_ptr l, ast_ptr m, ast_ptr r)
 {
-    struct ast *p;
+    ast_ptr p;
 
 #ifdef MEMSTAT
     ast_out++;
@@ -28,7 +28,7 @@ ast_alloc(int atag, struct ast *l, struct ast *m, struct ast *r)
     if(p){
 	ast_list = p->left;
     } else {
-	p = (struct ast *)malloc(sizeof(struct ast));
+	p = (ast_ptr)malloc(sizeof(struct ast));
     }
     if( p == 0 ) fatal_err("Out of mem in ast_alloc()");
     p->tag = atag;
@@ -42,7 +42,7 @@ ast_alloc(int atag, struct ast *l, struct ast *m, struct ast *r)
      * Free a node
      */
 void
-ast_free(struct ast *p)
+ast_free(ast_ptr p)
 {
 #ifdef MEMSTAT
     ast_out--;
@@ -56,7 +56,7 @@ ast_free(struct ast *p)
      * Free a whole tree
      */
 void
-ast_freetree(struct ast *p)
+ast_freetree(ast_ptr p)
 {
     if( !p ) return;
     ast_freetree(p->left);
