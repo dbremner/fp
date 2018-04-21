@@ -25,7 +25,6 @@ ast_ptr ast_alloc(int atag, ast_ptr l, ast_ptr m, ast_ptr r);
 obj_ptr obj_alloc(obj_type);
 obj_ptr execute(ast_ptr  act, obj_ptr obj);
 obj_ptr invoke(sym_ptr def, obj_ptr obj);
-void ast_free(ast_ptr p);
 void ast_freetree(ast_ptr p);
 [[noreturn]] void fatal_err(const char *msg);
 void defun(sym_ptr name, ast_ptr def);

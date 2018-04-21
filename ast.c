@@ -40,7 +40,7 @@ ast_alloc(int atag, ast_ptr l, ast_ptr m, ast_ptr r)
     /*
      * Free a node
      */
-void
+static void
 ast_free(ast_ptr p)
 {
 #ifdef MEMSTAT
