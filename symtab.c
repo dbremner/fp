@@ -50,7 +50,7 @@ lookup(const char *name)
 	 * Had hits, work way down list
 	 */
     while( p ){
-	if( strcmp(p->sym_pname,name) == 0 ) return(p);
+	if( (p->sym_pname == name)) return(p);
 	old = p;
 	p = p->sym_next;
     }

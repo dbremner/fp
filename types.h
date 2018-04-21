@@ -1,7 +1,7 @@
 #ifndef TYPES_H
 #define TYPES_H
 
-#include <string.h>
+#include <string>
 
 typedef struct ast* ast_ptr;
 typedef struct object* obj_ptr;
@@ -105,10 +105,10 @@ struct symtab {
     uint32_t padding = 0;
     YYstype sym_val{};
     sym_ptr sym_next = nullptr;
-    char *sym_pname = nullptr;
+    std::string sym_pname;
     
     symtab(const char *pname)
-    :   sym_pname{strdup(pname)},
+    :   sym_pname{pname},
         sym_type{symtype::SYM_NEW}
     {
     }
