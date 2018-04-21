@@ -32,38 +32,26 @@ execute(ast_ptr act, obj_ptr obj )
     obj_ptr q;
     int x;
 
-	/*
-	 * Broad categories of executable entities
-	 */
+	// Broad categories of executable entities
     switch( act->tag ){
 
-	/*
-	 * Invoke a user-defined function
-	 */
+	// Invoke a user-defined function
     case 'U':
 	return( invoke( act->val.YYsym, obj) );
 
-	/*
-	 * Right-insert operator
-	 */
+	// Right-insert operator
     case '!':
 	return( do_rinsert(act->left,obj) );
 
-	/*
-	 * Binary-insert operator
-	 */
+	// Binary-insert operator
     case '|':
 	return( do_binsert(act->left,obj) );
 
-	/*
-	 * Intrinsics
-	 */
+	// Intrinsics
     case 'i':
 	return( do_intrinsics(act->val.YYsym, obj) );
 
-	/*
-	 * Select one element from a list
-	 */
+	// Select one element from a list
     case 'S':
 	if(
 	    (obj->o_type != obj_type::T_LIST) ||
@@ -78,9 +66,7 @@ execute(ast_ptr act, obj_ptr obj )
 	    return undefined();
 	}
 
-	    /*
-	     * Negative selectors count from end of list
-	     */
+	    // Negative selectors count from end of list
 	if( x < 0 ){
 	    int tmp = listlen(p);
 
@@ -138,15 +124,11 @@ execute(ast_ptr act, obj_ptr obj )
 	return(hd);
     }
 
-	/*
-	 * These are the single-character operations (+, -, etc.)
-	 */
+	// These are the single-character operations (+, -, etc.)
     case 'c':
 	return(do_charfun(act,obj));
 
-	/*
-	 * Conditional.  Evaluate & return one of the two paths
-	 */
+	// Conditional.  Evaluate & return one of the two paths
     case '>':
 	obj->inc_ref();
 	p = execute(act->left,obj);
@@ -164,9 +146,7 @@ execute(ast_ptr act, obj_ptr obj )
 	obj_unref(p);
 	return(q);
 
-	/*
-	 * Apply the action to each member of a list
-	 */
+	// Apply the action to each member of a list
     case '&': {
     obj_ptr hd;
     obj_ptr *hdp = &hd;
@@ -192,9 +172,7 @@ execute(ast_ptr act, obj_ptr obj )
 	return(hd);
     }
 
-	/*
-	 * Introduce an object
-	 */
+	// Introduce an object
     case '%':
 	if( obj->o_type == obj_type::T_UNDEF ) return(obj);
 	obj_unref(obj);
@@ -202,9 +180,7 @@ execute(ast_ptr act, obj_ptr obj )
 	p->inc_ref();
 	return(p);
     
-	/*
-	 * Do a while loop
-	 */
+	// Do a while loop
     case 'W':
 	while( 1 ){
 	    if( obj->o_type == obj_type::T_UNDEF ){
@@ -232,9 +208,7 @@ execute(ast_ptr act, obj_ptr obj )
     }
 }
 
-    /*
-     * Local function to handle the tedious right-inserting
-     */
+    // Local function to handle the tedious right-inserting
 static obj_ptr
 do_rinsert(ast_ptr act, obj_ptr obj)
 {
@@ -286,9 +260,7 @@ do_rinsert(ast_ptr act, obj_ptr obj)
 	return(p);
     }
 
-	/*
-	 * If the list has only one element, we return that element.
-	 */
+	// If the list has only one element, we return that element.
     if( !(p = cdr_(obj)) ){
 	p = car_(obj);
 	p->inc_ref();
@@ -296,9 +268,7 @@ do_rinsert(ast_ptr act, obj_ptr obj)
 	return(p);
     }
 
-	/*
-	 * If the list has two elements, we apply our operator and reduce
-	 */
+	// If the list has two elements, we apply our operator and reduce
     if( !cdr_(p) ){
 	return( execute(act,obj) );
     }
@@ -323,9 +293,7 @@ do_rinsert(ast_ptr act, obj_ptr obj)
     return( execute(act,q) );
 }
 
-    /*
-     * Local function to handle the tedious binary inserting
-     */
+    // Local function to handle the tedious binary inserting
 static obj_ptr
 do_binsert(ast_ptr act, obj_ptr obj)
 {
@@ -381,9 +349,7 @@ do_binsert(ast_ptr act, obj_ptr obj)
 	return(p);
     }
 
-	/*
-	 * If the list has only one element, we return that element.
-	 */
+	// If the list has only one element, we return that element.
     if( !(p = cdr_(obj)) ){
 	p = car_(obj);
 	p->inc_ref();
@@ -391,9 +357,7 @@ do_binsert(ast_ptr act, obj_ptr obj)
 	return(p);
     }
 
-	/*
-	 * If the list has two elements, we apply our operator and reduce
-	 */
+	// If the list has two elements, we apply our operator and reduce
     if( !cdr_(p) ){
 	return( execute(act,obj) );
     }

@@ -33,18 +33,14 @@ static void decobjcount(void)
 }
 #endif
 
-    /*
-     * Allocate an object
-     */
+    // Allocate an object
 obj_ptr
 obj_alloc(obj_type ty)
 {
     obj_ptr p;
 
     incobjcount();
-	/*
-	 * Have a free one on the list
-	 */
+	// Have a free one on the list
     p = free_objs;
     if(p){
 	free_objs = (p->o_val).o_list.car;
@@ -58,9 +54,7 @@ obj_alloc(obj_type ty)
     return(p);
 }
 
-    /*
-     * Free an object
-     */
+    // Free an object
 static void
 obj_free(obj_ptr p)
 {

@@ -26,65 +26,47 @@ static const size_t MAXNEST = 5;
 static FILE *fstack[MAXNEST];	// For nested loads
 static int fpos = 0;
 
-    /*
-     * Skip leading white space in current input stream
-     */
+    // Skip leading white space in current input stream
 static void
 skipwhite(){
     int c;
 
-	/*
-	 * Skip leading blank space
-	 */
+	// Skip leading blank space
     while( (c = nextc()) != EOF )
         if( !isspace(c) ) break;
     ungetc(c,cur_in);
 }
 
-    /*
-     * Lexical analyzer for YACC
-     */
+    // Lexical analyzer for YACC
 int
 yylex(void){
     char *p = buf;
     int c;
     int c1;
 
-	/*
-	 * Skip over white space
-	 */
+	// Skip over white space
     skipwhite();
     c = nextc();
 
-	/*
-	 * Return EOF
-	 */
+	// Return EOF
     if( c == EOF )
         return(c);
 
-	/*
-	 * An "identifier"?
-	 */
+	// An "identifier"?
     if( isalpha(c) ){
         sym_ptr q;
 
-	    /*
-	     * Assemble a "word" out of the input stream, symbol table it
-	     */
+	    // Assemble a "word" out of the input stream, symbol table it
         *p++ = c;
         while( isalnum(c = nextc()) ) *p++ = c;
         ungetc(c,cur_in);
         *p = '\0';
         q = lookup(buf);
 
-            /*
-             * yylval is always set to the symbol table entry
-             */
+            // yylval is always set to the symbol table entry
         yylval.YYsym = q;
 
-            /*
-             * For built-ins, return the token value
-             */
+            // For built-ins, return the token value
         if( q->sym_type == symtype::SYM_BUILTIN ) return( q->sym_val.YYint );
 
             /*
@@ -94,9 +76,7 @@ yylex(void){
         return( UDEF );
     }
 
-	/*
-	 * For numbers, call our number routine.
-	 */
+	// For numbers, call our number routine.
     if( isdigit(c) )
         return( donum(c) );
 
@@ -195,9 +175,7 @@ nextc(void){
                 continue;
             }
         }
-        /*
-         * Pop up a level of indirection on EOF
-         */
+        // Pop up a level of indirection on EOF
         if( c == EOF ){
             if( cur_in != stdin ){
                 fclose(cur_in);
@@ -252,9 +230,7 @@ fp_cmd(void){
     int c;
     FILE *newf;
 
-	/*
-	 * Assemble a word, the command
-	 */
+	// Assemble a word, the command
     skipwhite();
     if( (c = nextc()) == EOF )
         return;
@@ -266,14 +242,10 @@ fp_cmd(void){
             break;
     *p = '\0';
 
-	/*
-	 * Process the command
-	 */
+	// Process the command
     if( strcmp(cmd,"load") == 0 ){	// Load command
 
-            /*
-             * Get next word, the file to load
-             */
+            // Get next word, the file to load
         skipwhite();
         p = arg;
         while( (c = nextc()) != EOF )
@@ -283,25 +255,19 @@ fp_cmd(void){
                 *p++ = c;
         *p = '\0';
 
-            /*
-             * Can we push down any more?
-             */
+            // Can we push down any more?
         if( fpos == MAXNEST-1 ){
             printf(")load'ed files nested too deep\n");
             return;
         }
 
-            /*
-             * Try and open the file
-             */
+            // Try and open the file
         if( (newf = fopen(arg,"r")) == 0 ){
             perror(arg);
             return;
         }
 
-            /*
-             * Pushdown the current file, make this one it.
-             */
+            // Pushdown the current file, make this one it.
         fstack[fpos++] = cur_in;
         cur_in = newf;
         return;

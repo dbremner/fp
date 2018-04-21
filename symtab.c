@@ -9,15 +9,11 @@
 
 static const int SYMTABSIZE = 101;
 
-    /*
-     * Our hash table
-     */
+    // Our hash table
 static struct symtab
     *stab[SYMTABSIZE];
 
-    /*
-     * Generate a hash value for a string
-     */
+    // Generate a hash value for a string
 static int
 hash(const char *p)
 {
@@ -39,31 +35,23 @@ lookup(const char *name)
     sym_ptr p = stab[h];
 	sym_ptr old = nullptr;
 
-	/*
-	 * No hash hits, must be a new entry
-	 */
+	// No hash hits, must be a new entry
     if( p == nullptr ){
 	return( stab[h] = new symtab(name) );
     }
 
-	/*
-	 * Had hits, work way down list
-	 */
+	// Had hits, work way down list
     while( p ){
 	if( (p->sym_pname == name)) return(p);
 	old = p;
 	p = p->sym_next;
     }
 
-	/*
-	 * No hits, add to end of chain
-	 */
+	// No hits, add to end of chain
     return( old->sym_next = new symtab(name) );
 }
 
-    /*
-     * Local function to do built-in stuffing
-     */
+    // Local function to do built-in stuffing
 static void
 stuff(const char *sym, int val)
 {
@@ -74,9 +62,7 @@ stuff(const char *sym, int val)
     p->sym_val.YYint = val;
 }
 
-    /*
-     * Fill in symbol table with built-ins
-     */
+    // Fill in symbol table with built-ins
 void
 symtab_init(void){
     stuff( "and", AND );

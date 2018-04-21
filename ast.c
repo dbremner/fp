@@ -12,9 +12,7 @@ static ast_ptr ast_list = nullptr;
 int ast_out = 0;
 #endif
 
-    /*
-     * Get a node
-     */
+    // Get a node
 ast_ptr
 ast_alloc(int atag, ast_ptr l, ast_ptr m, ast_ptr r)
 {
@@ -36,9 +34,7 @@ ast_alloc(int atag, ast_ptr l, ast_ptr m, ast_ptr r)
     return( p );
 }
 
-    /*
-     * Free a node
-     */
+    // Free a node
 static void
 ast_free(ast_ptr p)
 {
@@ -50,9 +46,7 @@ ast_free(ast_ptr p)
     ast_list = p;
 }
 
-    /*
-     * Free a whole tree
-     */
+    // Free a whole tree
 void
 ast_freetree(ast_ptr p)
 {

@@ -46,9 +46,7 @@ same(obj_ptr o1, obj_ptr o2)
     }
 }
 
-    /*
-     * ispair()--tell if our argument object is a list of two elements
-     */
+    // ispair()--tell if our argument object is a list of two elements
 static bool
 ispair(obj_ptr obj)
 {
@@ -81,9 +79,7 @@ eqobj(obj_ptr obj)
     return(p);
 }
 
-    /*
-     * noteqobj()--just like eqobj(), but not equal
-     */
+    // noteqobj()--just like eqobj(), but not equal
 static obj_ptr
 noteqobj(obj_ptr obj)
 {
@@ -94,9 +90,7 @@ noteqobj(obj_ptr obj)
     return(p);
 }
 
-    /*
-     * do_charfun()--execute the action of a binary function
-     */
+    // do_charfun()--execute the action of a binary function
 obj_ptr
 do_charfun(ast_ptr act, obj_ptr obj)
 {
@@ -248,9 +242,7 @@ numargs(obj_ptr obj)
     obj_ptr p;
     obj_ptr q;
 
-	/*
-	 * Don't have a well-formed list, so illegal
-	 */
+	// Don't have a well-formed list, so illegal
     if( !ispair(obj) ) return(obj_type::T_UNDEF);
 
 	/*

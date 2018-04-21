@@ -7,9 +7,7 @@
  *	Copyright (c) 1986 by Andy Valencia
  */
 
-    /*
-     * The symbolic names for the different types
-     */
+    // The symbolic names for the different types
 
 enum class obj_type {
     T_INT = 1,      // Integer

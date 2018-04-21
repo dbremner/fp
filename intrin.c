@@ -28,9 +28,7 @@ do_dist(obj_ptr elem, obj_ptr lst, obj_ptr obj, int side);
 static obj_ptr do_trans(obj_ptr obj);
 static obj_ptr do_bool(obj_ptr obj, int op);
 
-    /*
-     * Main intrinsic processing routine
-     */
+    // Main intrinsic processing routine
 obj_ptr
 do_intrinsics(sym_ptr act, obj_ptr obj)
 {
@@ -117,9 +115,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
     case PICK:{		// Parameterized selection
 	int x;
 
-	    /*
-	     * Verify all elements which we will use
-	     */
+	    // Verify all elements which we will use
 	if(
 	    (obj->o_type != obj_type::T_LIST) ||
 	    ( (p = car_(obj))->o_type != obj_type::T_INT ) ||
@@ -131,9 +127,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    return undefined();
 	}
 
-	    /*
-	     * If x is negative, we are counting from the end
-	     */
+	    // If x is negative, we are counting from the end
 	if( x < 0 ){
 	    int tmp = listlen(q);
 
@@ -144,25 +138,19 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    }
 	}
 
-	    /*
-	     * Loop along the list until our count is expired
-	     */
+	    // Loop along the list until our count is expired
 	for( ; x > 1; --x ){
 	    if( !q ) break;
 	    q = cdr_(q);
 	}
 
-	    /*
-	     * If fell off the list, error
-	     */
+	    // If fell off the list, error
 	if( !q || !(q = car_(q)) ){
 	    obj_unref(obj);
 	    return undefined();
 	}
 
-	    /*
-	     * Add a reference to the named object, release the old object
-	     */
+	    // Add a reference to the named object, release the old object
 	q->inc_ref();
 	obj_unref(obj);
 	return(q);
@@ -294,9 +282,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    q = CDR(q);
 	}
 
-	    /*
-	     * Tack the element onto the end of the built list
-	     */
+	    // Tack the element onto the end of the built list
 	*hdp = p = obj_alloc(obj_type::T_LIST);
 	CAR(p) = r;
 	obj_unref(obj);
@@ -329,17 +315,13 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
     obj_ptr hd = nullptr;
     obj_ptr *hdp = &hd;
 
-	    /*
-	     * Wanna list
-	     */
+	    // Wanna list
 	if( obj->o_type != obj_type::T_LIST ){
 	    obj_unref(obj);
 	    return undefined();
 	}
 
-	    /*
-	     * Need two elems, otherwise be ID function
-	     */
+	    // Need two elems, otherwise be ID function
 	if(
 	    !(car_(obj)) ||
 	    !(q = cdr_(obj)) ||
@@ -348,9 +330,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    return(obj);
 	}
 
-	    /*
-	     * Loop, starting from second.  Build parallel list.
-	     */
+	    // Loop, starting from second.  Build parallel list.
 	for( /* q has cdr_(obj) */ ; q; q = cdr_(q) ){
 	    *hdp = p = obj_alloc(obj_type::T_LIST);
 	    hdp = &CDR(p);
@@ -368,17 +348,13 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
     obj_ptr hd = nullptr;
     obj_ptr *hdp = &hd;
 
-	    /*
-	     * Wanna list
-	     */
+	    // Wanna list
 	if( obj->o_type != obj_type::T_LIST ){
 	    obj_unref(obj);
 	    return undefined();
 	}
 
-	    /*
-	     * Need two elems, otherwise be ID function
-	     */
+	    // Need two elems, otherwise be ID function
 	if(
 	    !(car_(obj)) ||
 	    !(q = cdr_(obj)) ||
@@ -387,9 +363,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    return(obj);
 	}
 
-	    /*
-	     * Loop over list.  Stop one short of end.
-	     */
+	    // Loop over list.  Stop one short of end.
 	for( q = obj; cdr_(q); q = cdr_(q) ){
 	    *hdp = p = obj_alloc(obj_type::T_LIST);
 	    hdp = &CDR(p);
@@ -687,9 +661,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
     } // Switch()
 }
 
-    /*
-     * listlen()--return length of a list
-     */
+    // listlen()--return length of a list
 int
 listlen(obj_ptr p)
 {
@@ -702,9 +674,7 @@ listlen(obj_ptr p)
     return(l);
 }
 
-    /*
-     * Common code between distribute-left and -right
-     */
+    // Common code between distribute-left and -right
 static obj_ptr
 do_dist(
         obj_ptr elem,
@@ -768,9 +738,7 @@ do_dist(
     return(hd);
 }
 
-    /*
-     * do_trans()--transpose the elements of the "matrix"
-     */
+    // do_trans()--transpose the elements of the "matrix"
 static obj_ptr
 do_trans(obj_ptr obj)
 {
@@ -781,9 +749,7 @@ do_trans(obj_ptr obj)
     obj_ptr hd = nullptr;
     obj_ptr *hdp = &hd;
 
-	/*
-	 * Check argument, make sure first element is a list.
-	 */
+	// Check argument, make sure first element is a list.
     if(
 	( (p = obj)->o_type != obj_type::T_LIST) ||
 	!( p = car_(obj) ) ||
@@ -793,9 +759,7 @@ do_trans(obj_ptr obj)
 	return undefined();
     }
 
-	/*
-	 * Get how many down (len)
-	 */
+	// Get how many down (len)
     len = listlen(p);
 
 	/*
@@ -813,9 +777,7 @@ do_trans(obj_ptr obj)
 	}
     }
 
-	/*
-	 * By definition, list of NULL lists returns <>
-	 */
+	// By definition, list of NULL lists returns <>
     if( len == 0 ){
 	obj_unref(obj);
 	return( obj_alloc(obj_type::T_LIST) );
@@ -850,9 +812,7 @@ do_trans(obj_ptr obj)
     return(hd);
 }
 
-    /*
-     * do_bool()--do the three boolean binary operators
-     */
+    // do_bool()--do the three boolean binary operators
 static obj_ptr
 do_bool(obj_ptr obj, int op)
 {

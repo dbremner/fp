@@ -7,15 +7,11 @@
 #include "symtab.h"
 #include <stdio.h>
 
-    /*
-     * Define a function
-     */
+    // Define a function
 void
 defun(sym_ptr name, ast_ptr def)
 {
-	/*
-	 * Check what we're defining, handle redefining
-	 */
+	// Check what we're defining, handle redefining
     switch( name->sym_type ){
     case symtype::SYM_DEF:
 	printf("%s: redefined.\n",name->sym_pname.c_str());
@@ -36,23 +32,17 @@ defun(sym_ptr name, ast_ptr def)
     name->sym_type = symtype::SYM_DEF;
 }
 
-    /*
-     * Call a previously-defined user function, or error
-     */
+    // Call a previously-defined user function, or error
 obj_ptr
 invoke(sym_ptr def, obj_ptr obj)
 {
-	/*
-	 * Must be a defined function
-	 */
+	// Must be a defined function
     if( def->sym_type != symtype::SYM_DEF ){
 	printf("%s: undefined\n",def->sym_pname.c_str());
 	obj_unref(obj);
 	return( obj_alloc(obj_type::T_UNDEF) );
     }
 
-	/*
-	 * Call it with the object
-	 */
+	// Call it with the object
     return( execute( def->sym_val.YYast, obj ) );
 }
