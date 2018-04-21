@@ -32,7 +32,6 @@ obj_ptr eqobj(obj_ptr obj);
 obj_type numargs(obj_ptr obj);
 
 //defun.c
-obj_ptr invoke(sym_ptr def, obj_ptr obj);
 void defun(sym_ptr name, ast_ptr def);
 
 //exec.c

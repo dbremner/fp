@@ -18,6 +18,7 @@
 #define CAR(x) ( ((x)->o_val).o_list.car )
 #define CDR(x) ( ((x)->o_val).o_list.cdr )
 
+static obj_ptr invoke(sym_ptr def, obj_ptr obj);
 static obj_ptr do_rinsert(ast_ptr act, obj_ptr obj);
 static obj_ptr do_binsert(ast_ptr act, obj_ptr obj);
 
@@ -206,6 +207,21 @@ execute(ast_ptr act, obj_ptr obj )
     default:
 	fatal_err("Undefined AST tag in execute()");
     }
+}
+
+/// Call a previously-defined user function, or error
+static obj_ptr
+invoke(sym_ptr def, obj_ptr obj)
+{
+    // Must be a defined function
+    if( def->sym_type != symtype::SYM_DEF ){
+        printf("%s: undefined\n",def->sym_pname.c_str());
+        obj_unref(obj);
+        return( obj_alloc(obj_type::T_UNDEF) );
+    }
+    
+    // Call it with the object
+    return( execute( def->sym_val.YYast, obj ) );
 }
 
 /// Local function to handle the tedious right-inserting

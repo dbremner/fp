@@ -31,18 +31,3 @@ defun(sym_ptr name, ast_ptr def)
     name->sym_val.YYast = def;
     name->sym_type = symtype::SYM_DEF;
 }
-
-/// Call a previously-defined user function, or error
-obj_ptr
-invoke(sym_ptr def, obj_ptr obj)
-{
-	// Must be a defined function
-    if( def->sym_type != symtype::SYM_DEF ){
-        printf("%s: undefined\n",def->sym_pname.c_str());
-        obj_unref(obj);
-        return( obj_alloc(obj_type::T_UNDEF) );
-    }
-
-	// Call it with the object
-    return( execute( def->sym_val.YYast, obj ) );
-}
