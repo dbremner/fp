@@ -506,7 +506,8 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    int x1, x2;
 
 	    x1 = NUMVAL(obj->car());
-	    if( (x2 = NUMVAL(obj->cadr())) == 0 ){
+        x2 = NUMVAL(obj->cadr());
+	    if( x2 == 0 ){
 		obj_unref(obj);
 		return undefined();
 	    }
@@ -622,7 +623,8 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    int x1, x2;
 
 	    x1 = NUMVAL(obj->car());
-	    if( (x2 = NUMVAL(obj->cadr())) == 0 ){
+        x2 = NUMVAL(obj->cadr());
+	    if( x2 == 0 ){
 		obj_unref(obj);
 		return undefined();
 	    }
