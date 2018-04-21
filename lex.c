@@ -192,7 +192,7 @@ again:
                 }
             }
             if (newline) {
-                goto again;
+                continue;
             }
         }
         /*
@@ -202,7 +202,7 @@ again:
             if( cur_in != stdin ){
                 fclose(cur_in);
                 cur_in = fstack[--fpos];
-                goto again;
+                continue;
             } else {
                 saw_eof++;
             }
