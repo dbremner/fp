@@ -53,8 +53,6 @@ obj_unref(obj_ptr p)
 	obj_unref( (p->o_val).o_list.cdr );
 	obj_free(p);
 	return;
-    default:
-	fatal_err("Unknown type in obj_unref()");
     }
 }
 
