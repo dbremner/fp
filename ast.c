@@ -5,8 +5,6 @@
  */
 #include "fp.h"
 
-static ast_ptr ast_list = nullptr;
-
 #ifdef MEMSTAT
 int ast_out = 0;
 static void inc_count() { ast_out++;}
@@ -22,14 +20,7 @@ ast_alloc(int atag, ast_ptr l, ast_ptr m, ast_ptr r)
 {
     inc_count();
     
-    if (!ast_list) {
-        ast_ptr p = new ast{};
-        p->init(atag, l, m, r);
-        return( p );
-    }
-    
-    ast_ptr p = ast_list;
-    ast_list = p->left;
+    ast_ptr p = new ast{};
     p->init(atag, l, m, r);
     return( p );
 }
@@ -39,9 +30,7 @@ static void
 ast_free(ast_ptr p)
 {
     dec_count();
-    if( !p ) fatal_err("NULL node in ast_free()");
-    p->left = ast_list;
-    ast_list = p;
+    delete p;
 }
 
 /// Free a whole tree
