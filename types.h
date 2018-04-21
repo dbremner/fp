@@ -5,7 +5,7 @@
 
 typedef struct ast* ast_ptr;
 typedef struct object* obj_ptr;
-typedef struct symtab* sym_ptr;
+typedef struct symtab_entry* sym_ptr;
 
 /// A list of arbitrary objects
 struct list {
@@ -44,14 +44,14 @@ struct ast {
 #include "symtype.hpp"
 
 /// A symbol table entry for an identifier
-struct symtab {
+struct symtab_entry {
     symtype sym_type;
     unsigned padding = 0;
     YYstype sym_val{};
     sym_ptr sym_next = nullptr;
     std::string sym_pname;
     
-    symtab(const char *pname)
+    symtab_entry(const char *pname)
     :   sym_pname{pname},
         sym_type{symtype::SYM_NEW}
     {

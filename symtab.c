@@ -10,7 +10,7 @@
 static const int SYMTABSIZE = 101;
 
 /// Our hash table
-static struct symtab
+static struct symtab_entry
     *stab[SYMTABSIZE];
 
 /// Generate a hash value for a string
@@ -38,7 +38,7 @@ lookup(const char *name)
 
 	// No hash hits, must be a new entry
     if( p == nullptr ){
-        return( stab[h] = new symtab(name) );
+        return( stab[h] = new symtab_entry(name) );
     }
 
 	// Had hits, work way down list
@@ -50,7 +50,7 @@ lookup(const char *name)
     }
 
 	// No hits, add to end of chain
-    return( old->sym_next = new symtab(name) );
+    return( old->sym_next = new symtab_entry(name) );
 }
 
 /// Local function to do built-in stuffing
