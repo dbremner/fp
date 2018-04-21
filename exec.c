@@ -413,7 +413,9 @@ do_binsert(ast_ptr act, obj_ptr obj)
 	 */
     p = obj_alloc(obj_type::T_LIST);
     p->car(do_binsert(act,hd));
-    CAR(CDR(p) = obj_alloc(obj_type::T_LIST)) = do_binsert(act,q);
+    obj_ptr new_list = obj_alloc(obj_type::T_LIST);
+    obj_ptr result = do_binsert(act,q);
+    CAR(CDR(p) = new_list) = result;
     obj_unref(obj);
     return(execute(act,p));
 }
