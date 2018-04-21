@@ -12,7 +12,7 @@ enum class obj_type {
     /// The undefined object
     T_UNDEF = 4,
     /// A boolean value
-    T_BOOL = 5,
+    T_BOOL = 5
 };
 
 #endif
