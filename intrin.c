@@ -54,7 +54,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    obj_unref(obj);
 	    return undefined();
 	}
-	for( p = obj, l = 0; p && car(p); p = cdr(p) ) l++;
+	for( p = obj, l = 0; p && car_(p); p = cdr_(p) ) l++;
 	obj_unref(obj);
 	p = obj_alloc(obj_type::T_INT);
 	p->o_val.o_int = l;
@@ -74,16 +74,16 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	if( obj->o_type != obj_type::T_LIST ){
 	    obj_unref(obj); return undefined();
 	}
-	if( !(p = car(obj)) ) return(obj);
+	if( !(p = car_(obj)) ) return(obj);
 	p->inc_ref();
 	obj_unref(obj);
 	return(p);
 
     case TL:		/* Remainder of list */
-	if( (obj->o_type != obj_type::T_LIST) || !car(obj) ){
+	if( (obj->o_type != obj_type::T_LIST) || !car_(obj) ){
 	    obj_unref(obj); return undefined();
 	}
-	if( !(p = cdr(obj)) ){
+	if( !(p = cdr_(obj)) ){
 	    p = obj_alloc(obj_type::T_LIST);
 	} else {
 	    p->inc_ref();
@@ -122,9 +122,9 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	     */
 	if(
 	    (obj->o_type != obj_type::T_LIST) ||
-	    ( (p = car(obj))->o_type != obj_type::T_INT ) ||
-	    !(q = cdr(obj)) ||
-	    ( (q = car(q))->o_type != obj_type::T_LIST) ||
+	    ( (p = car_(obj))->o_type != obj_type::T_INT ) ||
+	    !(q = cdr_(obj)) ||
+	    ( (q = car_(q))->o_type != obj_type::T_LIST) ||
 	    ( (x = p->o_val.o_int) == 0 )
 	){
 	    obj_unref(obj);
@@ -149,13 +149,13 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	     */
 	for( ; x > 1; --x ){
 	    if( !q ) break;
-	    q = cdr(q);
+	    q = cdr_(q);
 	}
 
 	    /*
 	     * If fell off the list, error
 	     */
-	if( !q || !(q = car(q)) ){
+	if( !q || !(q = car_(q)) ){
 	    obj_unref(obj);
 	    return undefined();
 	}
@@ -173,9 +173,9 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    obj_unref(obj);
 	    return undefined();
 	}
-	if( !car(obj) ) return(obj);
-    while( (p = cdr(q)) ) q = p;
-	q = car(q);
+	if( !car_(obj) ) return(obj);
+    while( (p = cdr_(q)) ) q = p;
+	q = car_(q);
 	q->inc_ref();
 	obj_unref(obj);
 	return(q);
@@ -187,18 +187,18 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 
 	if(
 	    ((q = obj)->o_type != obj_type::T_LIST) ||
-	    !car(obj)
+	    !car_(obj)
 	){
 	    obj_unref(obj);
 	    return undefined();
 	}
-	while( cdr(q) ){
+	while( cdr_(q) ){
 	    *hdp = p = obj_alloc(obj_type::T_LIST);
-        if( (CAR(p) = car(q)) ){
-		car(p)->inc_ref();
+        if( (CAR(p) = car_(q)) ){
+		car_(p)->inc_ref();
 	    }
 	    hdp = &CDR(p);
-	    q = cdr(q);
+	    q = cdr_(q);
 	}
 	obj_unref(obj);
 	if( !hd ) return( obj_alloc(obj_type::T_LIST) );
@@ -208,9 +208,9 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
     case DISTL:		/* Distribute from left-most element */
 	if(
 	    (obj->o_type != obj_type::T_LIST) ||
-	    ( !(q = car(obj)) ) ||
-	    (!cdr(obj)) ||
-	    (!(p = car(cdr(obj))) ) ||
+	    ( !(q = car_(obj)) ) ||
+	    (!cdr_(obj)) ||
+	    (!(p = car_(cdr_(obj))) ) ||
 	    (p->o_type != obj_type::T_LIST)
 	){
 	    obj_unref(obj);
@@ -221,9 +221,9 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
     case DISTR:		/* Distribute from left-most element */
 	if(
 	    (obj->o_type != obj_type::T_LIST) ||
-	    ( !(q = car(obj)) ) ||
-	    (!cdr(obj)) ||
-	    (!(p = car(cdr(obj))) ) ||
+	    ( !(q = car_(obj)) ) ||
+	    (!cdr_(obj)) ||
+	    (!(p = car_(cdr_(obj))) ) ||
 	    (q->o_type != obj_type::T_LIST)
 	){
 	    obj_unref(obj);
@@ -236,16 +236,16 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 
 	if(
 	    (obj->o_type != obj_type::T_LIST) ||
-	    ( !(q = car(obj)) ) ||
-	    (!cdr(obj)) ||
-	    (!(p = car(cdr(obj))) ) ||
+	    ( !(q = car_(obj)) ) ||
+	    (!cdr_(obj)) ||
+	    (!(p = car_(cdr_(obj))) ) ||
 	    (p->o_type != obj_type::T_LIST)
 	){
 	    obj_unref(obj);
 	    return undefined();
 	}
 	q->inc_ref();
-	if( !car(p) ){		/* Null list? */
+	if( !car_(p) ){		/* Null list? */
 	    obj_unref(obj);
 	    p = obj_alloc(obj_type::T_LIST);
 	    CAR(p) = q;
@@ -266,16 +266,16 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 
 	if(
 	    (obj->o_type != obj_type::T_LIST) ||
-	    ( !(q = car(obj)) ) ||
-	    (!cdr(obj)) ||
-	    (!(r = car(cdr(obj))) ) ||
+	    ( !(q = car_(obj)) ) ||
+	    (!cdr_(obj)) ||
+	    (!(r = car_(cdr_(obj))) ) ||
 	    (q->o_type != obj_type::T_LIST)
 	){
 	    obj_unref(obj);
 	    return undefined();
 	}
 	r->inc_ref();
-	if( !car(q) ){		/* Empty list */
+	if( !car_(q) ){		/* Empty list */
 	    obj_unref(obj);
 	    p = obj_alloc(obj_type::T_LIST);
 	    CAR(p) = r;
@@ -288,8 +288,8 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	     */
 	while( q ){
 	    *hdp = p = obj_alloc(obj_type::T_LIST);
-	    car(q)->inc_ref();
-	    CAR(p) = car(q);
+	    car_(q)->inc_ref();
+	    CAR(p) = car_(q);
 	    hdp = &CDR(p);
 	    q = CDR(q);
 	}
@@ -313,13 +313,13 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    obj_unref(obj);
 	    return undefined();
 	}
-	if( !car(obj) ) return(obj);
-	for( p = nullptr, q = obj; q; q = cdr(q) ){
+	if( !car_(obj) ) return(obj);
+	for( p = nullptr, q = obj; q; q = cdr_(q) ){
 	    r = obj_alloc(obj_type::T_LIST);
 	    CDR(r) = p;
 	    p = r;
-	    CAR(p) = car(q);
-	    car(q)->inc_ref();
+	    CAR(p) = car_(q);
+	    car_(q)->inc_ref();
 	}
 	obj_unref(obj);
 	return(p);
@@ -341,9 +341,9 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	     * Need two elems, otherwise be ID function
 	     */
 	if(
-	    !(car(obj)) ||
-	    !(q = cdr(obj)) ||
-	    !(car(q))
+	    !(car_(obj)) ||
+	    !(q = cdr_(obj)) ||
+	    !(car_(q))
 	){
 	    return(obj);
 	}
@@ -351,15 +351,15 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    /*
 	     * Loop, starting from second.  Build parallel list.
 	     */
-	for( /* q has cdr(obj) */ ; q; q = cdr(q) ){
+	for( /* q has cdr_(obj) */ ; q; q = cdr_(q) ){
 	    *hdp = p = obj_alloc(obj_type::T_LIST);
 	    hdp = &CDR(p);
-	    CAR(p) = car(q);
-	    car(q)->inc_ref();
+	    CAR(p) = car_(q);
+	    car_(q)->inc_ref();
 	}
 	*hdp = p = obj_alloc(obj_type::T_LIST);
-	CAR(p) = car(obj);
-	car(obj)->inc_ref();
+	CAR(p) = car_(obj);
+	car_(obj)->inc_ref();
 	obj_unref(obj);
 	return(hd);
     }
@@ -380,9 +380,9 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	     * Need two elems, otherwise be ID function
 	     */
 	if(
-	    !(car(obj)) ||
-	    !(q = cdr(obj)) ||
-	    !(car(q))
+	    !(car_(obj)) ||
+	    !(q = cdr_(obj)) ||
+	    !(car_(q))
 	){
 	    return(obj);
 	}
@@ -390,15 +390,15 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    /*
 	     * Loop over list.  Stop one short of end.
 	     */
-	for( q = obj; cdr(q); q = cdr(q) ){
+	for( q = obj; cdr_(q); q = cdr_(q) ){
 	    *hdp = p = obj_alloc(obj_type::T_LIST);
 	    hdp = &CDR(p);
-	    CAR(p) = car(q);
-	    car(q)->inc_ref();
+	    CAR(p) = car_(q);
+	    car_(q)->inc_ref();
 	}
 	p = obj_alloc(obj_type::T_LIST);
-	CAR(p) = car(q);
-	car(q)->inc_ref();
+	CAR(p) = car_(q);
+	car_(q)->inc_ref();
 	CDR(p) = hd;
 	obj_unref(obj);
 	return(p);
@@ -413,20 +413,20 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    obj_unref(obj);
 	    return undefined();
 	}
-	if( !car(obj) ) return(obj);
-	for( p = obj; p; p = cdr(p) ){
-	    q = car(p);
+	if( !car_(obj) ) return(obj);
+	for( p = obj; p; p = cdr_(p) ){
+	    q = car_(p);
 	    if( q->o_type != obj_type::T_LIST ){
 		obj_unref(obj);
 		obj_unref(hd);
 		return undefined();
 	    }
-	    if( !car(q) ) continue;
-	    for( ; q; q = cdr(q) ){
+	    if( !car_(q) ) continue;
+	    for( ; q; q = cdr_(q) ){
 		*hdp = r = obj_alloc(obj_type::T_LIST);
 		hdp = &CDR(r);
-		CAR(r) = car(q);
-		car(q)->inc_ref();
+		CAR(r) = car_(q);
+		car_(q)->inc_ref();
 	    }
 	}
 	obj_unref(obj);
@@ -532,8 +532,8 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	case obj_type::T_INT:{
 	    int x1, x2;
 
-	    x1 = NUMVAL(car(obj));
-	    if( (x2 = NUMVAL(car(cdr(obj)))) == 0 ){
+	    x1 = NUMVAL(car_(obj));
+	    if( (x2 = NUMVAL(car_(cdr_(obj)))) == 0 ){
 		obj_unref(obj);
 		return undefined();
 	    }
@@ -552,23 +552,23 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 
 	if(
 	    (obj->o_type != obj_type::T_LIST) ||
-	    !car(obj)
+	    !car_(obj)
 	){
 	    obj_unref(obj);
 	    return undefined();
 	}
-	for( p = obj, x = 0; p; p = cdr(p) ){
+	for( p = obj, x = 0; p; p = cdr_(p) ){
 	    if( x == 0 ){
 		*hdp = q = obj_alloc(obj_type::T_LIST);
 		hdp = &CDR(q);
 		CAR(q) = r = obj_alloc(obj_type::T_LIST);
-		CAR(r) = car(p);
-		car(p)->inc_ref();
+		CAR(r) = car_(p);
+		car_(p)->inc_ref();
 		x++;
 	    } else {
 		CDR(r) = q = obj_alloc(obj_type::T_LIST);
-		CAR(q) = car(p);
-		car(p)->inc_ref();
+		CAR(q) = car_(p);
+		car_(p)->inc_ref();
 		x = 0;
 	    }
 	}
@@ -590,20 +590,20 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    return undefined();
 	}
 	l = ((l-1) >> 1)+1;
-	for( x = 0, p = obj; x < l; ++x, p = cdr(p) ){
+	for( x = 0, p = obj; x < l; ++x, p = cdr_(p) ){
 	    *hdp = q = obj_alloc(obj_type::T_LIST);
 	    hdp = &CDR(q);
-	    CAR(q) = car(p);
-	    car(p)->inc_ref();
+	    CAR(q) = car_(p);
+	    car_(p)->inc_ref();
 	}
 	CAR(top = obj_alloc(obj_type::T_LIST)) = hd;
 	hd = nullptr; hdp = &hd;
 	while(p){
 	    *hdp = q = obj_alloc(obj_type::T_LIST);
 	    hdp = &CDR(q);
-	    CAR(q) = car(p);
-	    car(p)->inc_ref();
-	    p = cdr(p);
+	    CAR(q) = car_(p);
+	    car_(p)->inc_ref();
+	    p = cdr_(p);
 	}
 	if( !hd ) hd = obj_alloc(obj_type::T_LIST);
 	CAR(CDR(top) = obj_alloc(obj_type::T_LIST)) = hd;
@@ -640,8 +640,8 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	case obj_type::T_INT:{
 	    int x1, x2;
 
-	    x1 = NUMVAL(car(obj));
-	    if( (x2 = NUMVAL(car(cdr(obj)))) == 0 ){
+	    x1 = NUMVAL(car_(obj));
+	    if( (x2 = NUMVAL(car_(cdr_(obj)))) == 0 ){
 		obj_unref(obj);
 		return undefined();
 	    }
@@ -659,7 +659,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    return undefined();
 	}
 	p = obj_alloc(obj_type::T_BOOL);
-	if( car(obj) ) p->o_val.o_int = 0;
+	if( car_(obj) ) p->o_val.o_int = 0;
 	else p->o_val.o_int = 1;
 	obj_unref(obj);
 	return(p);
@@ -695,9 +695,9 @@ listlen(obj_ptr p)
 {
     int l = 0;
 
-    while( p && car(p) ){
+    while( p && car_(p) ){
 	++l;
-	p = cdr(p);
+	p = cdr_(p);
     }
     return(l);
 }
@@ -717,7 +717,7 @@ do_dist(
     obj_ptr hd;
     obj_ptr *hdp = &hd;
 
-    if( !car(lst) ){		/* Distributing over NULL list */
+    if( !car_(lst) ){		/* Distributing over NULL list */
 	lst->inc_ref();
 	obj_unref(obj);
 	return(lst);
@@ -747,13 +747,13 @@ do_dist(
 	    CAR(r) = elem;
 	    elem->inc_ref();
 	} else {
-	    CAR(r) = car(lst);
-	    car(lst)->inc_ref();
+	    CAR(r) = car_(lst);
+	    car_(lst)->inc_ref();
 	}
 	r2 = CDR(r) = obj_alloc(obj_type::T_LIST);
 	if( !side ){
-	    CAR(r2) = car(lst);
-	    car(lst)->inc_ref();
+	    CAR(r2) = car_(lst);
+	    car_(lst)->inc_ref();
 	} else {
 	    CAR(r2) = elem;
 	    elem->inc_ref();
@@ -762,7 +762,7 @@ do_dist(
 	CAR(*hdp) = r;
 	hdp = &CDR(*hdp);
 
-	lst = cdr(lst);
+	lst = cdr_(lst);
     }
     obj_unref(obj);
     return(hd);
@@ -786,7 +786,7 @@ do_trans(obj_ptr obj)
 	 */
     if(
 	( (p = obj)->o_type != obj_type::T_LIST) ||
-	!( p = car(obj) ) ||
+	!( p = car_(obj) ) ||
 	( p->o_type != obj_type::T_LIST )
     ){
 	obj_unref(obj);
@@ -802,8 +802,8 @@ do_trans(obj_ptr obj)
 	 * Verify the structure.  Make sure each across is a list,
 	 *	and of the same length.
 	 */
-    for( q = obj; q ; q = cdr(q) ){
-	r = car(q);
+    for( q = obj; q ; q = cdr_(q) ){
+	r = car_(q);
 	if(
 	    (r->o_type != obj_type::T_LIST) ||
 	    (listlen(r) != len)
@@ -833,11 +833,11 @@ do_trans(obj_ptr obj)
 
 	*hdp = s;
 	hdp = &CDR(s);
-	for( p = obj; p; p = cdr(p) ){
-	    q = car(p);
+	for( p = obj; p; p = cdr_(p) ){
+	    q = car_(p);
 	    for( y = 0; y < x; ++y )
-		q = cdr(q);
-	    q = car(q);
+		q = cdr_(q);
+	    q = car_(q);
 	    r = obj_alloc(obj_type::T_LIST);
 	    *hdp2 = r;
 	    hdp2 = &CDR(r);
@@ -863,8 +863,8 @@ do_bool(obj_ptr obj, int op)
 
     if(
 	(obj->o_type != obj_type::T_LIST) ||
-	( (p = car(obj))->o_type != obj_type::T_BOOL) ||
-	( (q = car(cdr(obj)))->o_type != obj_type::T_BOOL)
+	( (p = car_(obj))->o_type != obj_type::T_BOOL) ||
+	( (q = car_(cdr_(obj)))->o_type != obj_type::T_BOOL)
     ){
 	obj_unref(obj);
 	return undefined();

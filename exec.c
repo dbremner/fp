@@ -92,13 +92,13 @@ execute(ast_ptr act, obj_ptr obj )
 	}
 	while( --x ){		/* Scan down list X times */
 	    if( !p ) break;
-	    p = cdr(p);
+	    p = cdr_(p);
 	}
 	if( !p ){		/* Fell off bottom of list */
 	    obj_unref(obj);
 	    return undefined();
 	}
-	p = car(p);
+	p = car_(p);
 	p->inc_ref();		/* Add reference to this elem */
 	obj_unref(obj);		/* Unreference list as a whole */
 	return(p);
@@ -177,10 +177,10 @@ execute(ast_ptr act, obj_ptr obj )
 	    obj_unref(obj);
 	    return undefined();
 	}
-	if( !car(obj) ) return(obj);
-	for( p = obj; p; p = cdr(p) ){
+	if( !car_(obj) ) return(obj);
+	for( p = obj; p; p = cdr_(p) ){
 	    (p->o_val.o_list.car)->inc_ref();
-	    if( (q = execute(act->left,car(p)))->o_type == obj_type::T_UNDEF ){
+	    if( (q = execute(act->left,car_(p)))->o_type == obj_type::T_UNDEF ){
 		obj_unref(hd); obj_unref(obj);
 		return(q);
 	    }
@@ -251,7 +251,7 @@ do_rinsert(ast_ptr act, obj_ptr obj)
 	 *	operator.  If it's one for which we have an identity,
 	 *	return the identity.  Otherwise, undefined.  Bletch.
 	 */
-    if( !car(obj) ){
+    if( !car_(obj) ){
 	obj_unref(obj);
 	if( act->tag == 'c' ){
 	    switch( act->val.YYint ){
@@ -289,8 +289,8 @@ do_rinsert(ast_ptr act, obj_ptr obj)
 	/*
 	 * If the list has only one element, we return that element.
 	 */
-    if( !(p = cdr(obj)) ){
-	p = car(obj);
+    if( !(p = cdr_(obj)) ){
+	p = car_(obj);
 	p->inc_ref();
 	obj_unref(obj);
 	return(p);
@@ -299,7 +299,7 @@ do_rinsert(ast_ptr act, obj_ptr obj)
 	/*
 	 * If the list has two elements, we apply our operator and reduce
 	 */
-    if( !cdr(p) ){
+    if( !cdr_(p) ){
 	return( execute(act,obj) );
     }
 
@@ -309,15 +309,15 @@ do_rinsert(ast_ptr act, obj_ptr obj)
 	 *	first linked onto the result.  Normal business over undefined
 	 *	objects popping up.
 	 */
-    cdr(obj)->inc_ref();
-    p = do_rinsert(act,cdr(obj));
+    cdr_(obj)->inc_ref();
+    p = do_rinsert(act,cdr_(obj));
     if( p->o_type == obj_type::T_UNDEF ){
 	obj_unref(obj);
 	return(p);
     }
     q = obj_alloc(obj_type::T_LIST);
-    CAR(q) = car(obj);
-    car(obj)->inc_ref();
+    CAR(q) = car_(obj);
+    car_(obj)->inc_ref();
     CAR(CDR(q) = obj_alloc(obj_type::T_LIST)) = p;
     obj_unref(obj);
     return( execute(act,q) );
@@ -346,7 +346,7 @@ do_binsert(ast_ptr act, obj_ptr obj)
 	 *	operator.  If it's one for which we have an identity,
 	 *	return the identity.  Otherwise, undefined.  Bletch.
 	 */
-    if( !car(obj) ){
+    if( !car_(obj) ){
 	obj_unref(obj);
 	if( act->tag == 'c' ){
 	    switch( act->val.YYint ){
@@ -384,8 +384,8 @@ do_binsert(ast_ptr act, obj_ptr obj)
 	/*
 	 * If the list has only one element, we return that element.
 	 */
-    if( !(p = cdr(obj)) ){
-	p = car(obj);
+    if( !(p = cdr_(obj)) ){
+	p = car_(obj);
 	p->inc_ref();
 	obj_unref(obj);
 	return(p);
@@ -394,7 +394,7 @@ do_binsert(ast_ptr act, obj_ptr obj)
 	/*
 	 * If the list has two elements, we apply our operator and reduce
 	 */
-    if( !cdr(p) ){
+    if( !cdr_(p) ){
 	return( execute(act,obj) );
     }
 
@@ -407,27 +407,27 @@ do_binsert(ast_ptr act, obj_ptr obj)
     x = 0;
     hd = nullptr;
     hdp = &hd;
-    for( q = obj; p; p = cdr(p) ){
+    for( q = obj; p; p = cdr_(p) ){
 	if( x ){
 	    *hdp = r = obj_alloc(obj_type::T_LIST);
 	    hdp = &CDR(r);
-	    CAR(r) = car(q);
-	    car(q)->inc_ref();
-	    q = cdr(q);
+	    CAR(r) = car_(q);
+	    car_(q)->inc_ref();
+	    q = cdr_(q);
 	    x = 0;
 	} else
 	    x = 1;
     }
     *hdp = p = obj_alloc(obj_type::T_LIST);
-    CAR(p) = car(q);
-    car(q)->inc_ref();
+    CAR(p) = car_(q);
+    car_(q)->inc_ref();
 
 	/*
 	 * 'q' names the second half, but we must add a reference, otherwise
 	 *	our use of it via execute() will consume it (and obj still
 	 *	references it...).
 	 */
-    q = cdr(q);
+    q = cdr_(q);
     q->inc_ref();
 
 	/*
