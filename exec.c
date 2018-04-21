@@ -7,12 +7,10 @@
 #include "y.tab.h"
 
     /*
-     * This ugly set of macros makes access to objects easier.
+     * This ugly macro makes access to objects easier.
      *
-     * CAR manipulates the object as a list & gives its first part
      * CDR is like CAR but gives all but the first
      */
-#define CAR(x) ( ((x)->o_val).o_list.car )
 #define CDR(x) ( ((x)->o_val).o_list.cdr )
 
 static obj_ptr invoke(sym_ptr def, obj_ptr obj);
