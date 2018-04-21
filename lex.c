@@ -183,10 +183,15 @@ again:
     }
     c = fgetc(cur_in);
     if( c == '#' ){
-        while( (c = fgetc(cur_in)) != EOF ) {            
+        bool newline = false;
+        while( (c = fgetc(cur_in)) != EOF ) {
             if( c == '\n' ) {
-                goto again;
+                newline = true;
+                break;
             }
+        }
+        if (newline) {
+            goto again;
         }
     }
 	/*
