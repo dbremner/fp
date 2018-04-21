@@ -6,8 +6,6 @@
 #include "fp.h"
 #include <stdio.h>
 
-static obj_ptr free_objs = nullptr;
-
 #ifdef MEMSTAT
 int obj_out = 0;
 static void incobjcount(void) { obj_out++;}
@@ -23,15 +21,7 @@ obj_alloc(obj_type ty)
 {
     incobjcount();
     
-    if (!free_objs) {
-        return ::new object{ty};
-    }
-    
-	// Have a free one on the list
-    obj_ptr p = free_objs;
-    free_objs = (p->o_val).o_list.car;
-    p->init(ty);
-    return(p);
+    return ::new object{ty};
 }
 
 /// Free an object
@@ -39,9 +29,7 @@ static void
 obj_free(obj_ptr p)
 {
     decobjcount();
-    if( !p ) fatal_err("Null object to obj_free()");
-    (p->o_val).o_list.car = free_objs;
-    free_objs = p;
+    delete p;
 }
 
     /*
