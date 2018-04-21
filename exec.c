@@ -159,7 +159,7 @@ execute(ast_ptr act, obj_ptr obj )
 	if( !obj->car() ) return(obj);
 	for( p = obj; p; p = p->cdr() ){
 	    (p->o_val.o_list.car)->inc_ref();
-	    if( (q = execute(act->left,car_(p)))->o_type == obj_type::T_UNDEF ){
+	    if( (q = execute(act->left,p->car()))->o_type == obj_type::T_UNDEF ){
 		obj_unref(hd); obj_unref(obj);
 		return(q);
 	    }
@@ -300,7 +300,7 @@ do_rinsert(ast_ptr act, obj_ptr obj)
 	return(p);
     }
     q = obj_alloc(obj_type::T_LIST);
-    CAR(q) = car_(obj);
+    q->car(obj->car());
     obj->car()->inc_ref();
     CAR(CDR(q) = obj_alloc(obj_type::T_LIST)) = p;
     obj_unref(obj);
