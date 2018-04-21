@@ -539,8 +539,9 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    if( x == 0 ){
 		*hdp = q = obj_alloc(obj_type::T_LIST);
 		hdp = &CDR(q);
-		CAR(q) = r = obj_alloc(obj_type::T_LIST);
-		CAR(r) = p->car();
+        r = obj_alloc(obj_type::T_LIST);
+        q->car(r);
+        r->car(p->car());
 		p->car()->inc_ref();
 		x++;
 	    } else {
