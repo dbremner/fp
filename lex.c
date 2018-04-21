@@ -175,6 +175,7 @@ nextc(void){
     static int saw_eof = 0;
 
 again:
+    do {
     if( cur_in == stdin ){
         if( saw_eof )
             return(EOF);
@@ -194,9 +195,9 @@ again:
             goto again;
         }
     }
-	/*
-	 * Pop up a level of indirection on EOF
-	 */
+    /*
+     * Pop up a level of indirection on EOF
+     */
     if( c == EOF ){
         if( cur_in != stdin ){
             fclose(cur_in);
@@ -206,6 +207,7 @@ again:
             saw_eof++;
         }
     }
+    } while(0);
     return(c);
 }
 
