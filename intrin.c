@@ -279,7 +279,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    q->car()->inc_ref();
 	    p->car(q->car());
 	    hdp = &CDR(p);
-	    q = CDR(q);
+	    q = q->cdr();
 	}
 
 	    // Tack the element onto the end of the built list
