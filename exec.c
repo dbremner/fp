@@ -53,7 +53,7 @@ execute(ast_ptr act, obj_ptr obj )
     case 'S':
 	if(
 	    (obj->o_type != obj_type::T_LIST) ||
-	    !CAR(obj)
+	    !obj->car()
 	){
 	    obj_unref(obj);
 	    return undefined();
@@ -115,7 +115,7 @@ execute(ast_ptr act, obj_ptr obj )
 	    }
 	    *hdp = q = obj_alloc(obj_type::T_LIST);
 	    hdp = &(CDR(q));
-	    CAR(q) = p;
+        q->car(p);
 	    act = act->right;
 	}
 	obj_unref(obj);
@@ -388,7 +388,7 @@ do_binsert(ast_ptr act, obj_ptr obj)
 	if( x ){
 	    *hdp = r = obj_alloc(obj_type::T_LIST);
 	    hdp = &CDR(r);
-	    CAR(r) = q->car();
+        r->car(q->car());
 	    q->car()->inc_ref();
 	    q = q->cdr();
 	    x = 0;
@@ -396,7 +396,7 @@ do_binsert(ast_ptr act, obj_ptr obj)
 	    x = 1;
     }
     *hdp = p = obj_alloc(obj_type::T_LIST);
-    CAR(p) = q->car();
+    p->car(q->car());
     q->car()->inc_ref();
 
 	/*
