@@ -29,7 +29,6 @@ ast_alloc(int atag, ast_ptr l, ast_ptr m, ast_ptr r)
     } else {
     p = new ast{};
     }
-    if( p == nullptr ) fatal_err("Out of mem in ast_alloc()");
     p->tag = atag;
     p->left = l;
     p->middle = m;

@@ -50,8 +50,6 @@ obj_alloc(obj_type ty)
 	free_objs = (p->o_val).o_list.car;
     } else {
         p = new object{ty};
-        if( (p) == nullptr )
-            fatal_err("out of memory in obj_alloc()");
     }
     if( p->o_type == obj_type::T_LIST )
 	p->o_val.o_list.car = p->o_val.o_list.cdr = nullptr;
