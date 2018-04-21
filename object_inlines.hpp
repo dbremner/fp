@@ -13,12 +13,6 @@ static inline obj_ptr car_(obj_ptr x)
     return (x->o_val).o_list.car;
 }
 
-///CDR is like CAR but gives all but the first
-static inline obj_ptr cdr_(obj_ptr x)
-{
-    return ((x)->o_val).o_list.cdr;
-}
-
 ///(car (cdr x))
 static inline obj_ptr cadr_(obj_ptr x)
 {
