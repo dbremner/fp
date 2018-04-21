@@ -176,37 +176,37 @@ nextc(void){
 
 again:
     do {
-    if( cur_in == stdin ){
-        if( saw_eof )
-            return(EOF);
-        if( 0 /*!stdin->_cnt*/ ) //TODO
-            putchar(prompt);
-    }
-    c = fgetc(cur_in);
-    if( c == '#' ){
-        bool newline = false;
-        while( (c = fgetc(cur_in)) != EOF ) {
-            if( c == '\n' ) {
-                newline = true;
-                break;
+        if( cur_in == stdin ){
+            if( saw_eof )
+                return(EOF);
+            if( 0 /*!stdin->_cnt*/ ) //TODO
+                putchar(prompt);
+        }
+        c = fgetc(cur_in);
+        if( c == '#' ){
+            bool newline = false;
+            while( (c = fgetc(cur_in)) != EOF ) {
+                if( c == '\n' ) {
+                    newline = true;
+                    break;
+                }
+            }
+            if (newline) {
+                goto again;
             }
         }
-        if (newline) {
-            goto again;
+        /*
+         * Pop up a level of indirection on EOF
+         */
+        if( c == EOF ){
+            if( cur_in != stdin ){
+                fclose(cur_in);
+                cur_in = fstack[--fpos];
+                goto again;
+            } else {
+                saw_eof++;
+            }
         }
-    }
-    /*
-     * Pop up a level of indirection on EOF
-     */
-    if( c == EOF ){
-        if( cur_in != stdin ){
-            fclose(cur_in);
-            cur_in = fstack[--fpos];
-            goto again;
-        } else {
-            saw_eof++;
-        }
-    }
     } while(0);
     return(c);
 }
