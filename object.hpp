@@ -76,7 +76,7 @@ struct object {
     double num_val() const
     {
         return ( (o_type == obj_type::T_INT) ? \
-                ((o_val).o_int) : ((o_val).o_double) );
+                (o_val.o_int) : (o_val.o_double) );
     }
 };
 
