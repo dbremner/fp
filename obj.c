@@ -61,7 +61,7 @@ obj_alloc(obj_type ty)
     /*
      * Free an object
      */
-void
+static void
 obj_free(obj_ptr p)
 {
     decobjcount();

@@ -30,7 +30,6 @@ void ast_freetree(ast_ptr p);
 void defun(sym_ptr name, ast_ptr def);
 void symtab_init(void);
 void obj_prtree(obj_ptr p);
-void obj_free(obj_ptr p);
 void obj_unref(obj_ptr p);
 sym_ptr lookup(const char *name);
 
