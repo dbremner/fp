@@ -72,6 +72,13 @@ struct object {
     {
         return ( (o_type == obj_type::T_INT) || (o_type == obj_type::T_FLOAT) );
     }
+    
+    double num_val() const
+    {
+        auto x = this;
+        return ( (x->o_type == obj_type::T_INT) ? \
+                ((x->o_val).o_int) : ((x->o_val).o_double) );
+    }
 };
 
 #endif
