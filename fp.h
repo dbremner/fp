@@ -53,6 +53,12 @@ static inline obj_ptr cdr_(obj_ptr x)
     return ((x)->o_val).o_list.cdr;
 }
 
+///(car (cdr x))
+static inline obj_ptr cadr_(obj_ptr x)
+{
+    return car_(cdr_(x));
+}
+
 //charfn.c
 obj_ptr do_charfun(ast_ptr act, obj_ptr obj);
 obj_ptr eqobj(obj_ptr obj);
