@@ -39,6 +39,14 @@ struct ast {
     ast_ptr left = nullptr;
     ast_ptr middle = nullptr;
     ast_ptr right = nullptr;
+    
+    void init(int tag_, ast_ptr left_, ast_ptr middle_, ast_ptr right_)
+    {
+        tag = tag_;
+        left = left_;
+        middle = middle_;
+        right = right_;
+    }
 };
 
 #include "symtype.hpp"

@@ -27,10 +27,7 @@ ast_alloc(int atag, ast_ptr l, ast_ptr m, ast_ptr r)
     } else {
     p = new ast{};
     }
-    p->tag = atag;
-    p->left = l;
-    p->middle = m;
-    p->right = r;
+    p->init(atag, l, m, r);
     return( p );
 }
 
