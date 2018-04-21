@@ -28,8 +28,8 @@ struct object {
     } o_val{};
     
     object(obj_type type)
+    : o_type{type}
     {
-        o_type = type;
     }
     
     ///CAR manipulates the object as a list & gives its first part
