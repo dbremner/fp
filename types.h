@@ -57,7 +57,7 @@ struct symtab_entry {
     unsigned padding = 0;
     YYstype sym_val{};
     sym_ptr sym_next = nullptr;
-    std::string sym_pname;
+    const std::string sym_pname;
     
     symtab_entry(const char *pname)
     :   sym_pname{pname},
