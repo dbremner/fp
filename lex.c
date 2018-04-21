@@ -21,7 +21,8 @@ void fp_cmd(void);
 
 char prompt;
 
-#define MAXNEST 5		// How deep can we get?
+// How deep can we get?
+#define MAXNEST 5
 static FILE *fstack[MAXNEST];	// For nested loads
 static int fpos = 0;
 
