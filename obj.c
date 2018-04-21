@@ -24,7 +24,7 @@ obj_alloc(obj_type ty)
     incobjcount();
 	// Have a free one on the list
     obj_ptr p = free_objs;
-    if(p){
+    if(free_objs){
         free_objs = (p->o_val).o_list.car;
         p->init(ty);
         return(p);
