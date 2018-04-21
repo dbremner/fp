@@ -10,8 +10,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-extern char prompt;
-
 static jmp_buf restart;
 
 [[noreturn]] void
@@ -25,7 +23,7 @@ void
 yyerror(const char *msg)
 {
     printf("yyerror() reports '%s'\n",msg);
-    prompt = '\t';
+    set_prompt('\t');
 }
 
 extern "C" [[noreturn]] void badmath(int ignored);
@@ -35,7 +33,7 @@ extern "C"
 [[noreturn]] void
 badmath(int /*ignored*/){
     printf("Floating exception\n");
-    prompt = '\t';
+    set_prompt('\t');
     signal(SIGFPE, badmath);
     longjmp(restart,1);
 }
@@ -47,7 +45,7 @@ extern "C"
 [[noreturn]] void
 intr(int /*ignored*/){
     printf("Interrupt\n");
-    prompt = '\t';
+    set_prompt('\t');
     signal(SIGINT, intr);
     longjmp(restart,1);
 }
@@ -55,7 +53,7 @@ intr(int /*ignored*/){
 int
 main(void) {
     symtab_init();
-    prompt = '\t';
+    set_prompt('\t');
 
     signal(SIGFPE, badmath);
     signal(SIGINT, intr);

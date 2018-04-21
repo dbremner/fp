@@ -8,7 +8,6 @@
 #include <stdio.h>
 
 #define NULLAST ((ast_ptr)0)
-extern char prompt;
 static char had_undef = 0;
 void fp_cmd(void);
 
@@ -66,17 +65,17 @@ fpInput
 	;
 
 fnDef	:	'{'
-		    { prompt = '>'; }
+		    { set_prompt('>'); }
 		name funForm
 		'}'
 		    {
 			defun($3.YYsym,$4.YYast);
-			prompt = '\t';
+			set_prompt('\t');
 		    }
 	;
 
 application
-	:	    { prompt = '-'; }
+	:	    { set_prompt('-'); }
 	    funForm ':' object
 		    {
 			obj_ptr p = execute($2.YYast,$4.YYobj);
@@ -85,7 +84,7 @@ application
 			printf("\n");
 			obj_unref(p);
 			ast_freetree($2.YYast);
-			prompt = '\t';
+			set_prompt('\t');
 		    }
 	;
 

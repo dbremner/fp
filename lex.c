@@ -19,7 +19,7 @@ static int nextc(void);
 
 void fp_cmd(void);
 
-char prompt;
+static char prompt;
 
 /// How deep can we get?
 static const size_t MAXNEST = 5;
