@@ -27,8 +27,7 @@ ast_alloc(int atag, ast_ptr l, ast_ptr m, ast_ptr r)
         p->init(atag, l, m, r);
         return( p );
     } else {
-        ast_ptr p = ast_list;
-        p = new ast{};
+        ast_ptr p = new ast{};
         p->init(atag, l, m, r);
         return( p );
     }
