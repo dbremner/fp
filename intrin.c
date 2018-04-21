@@ -107,7 +107,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    *hdp = p = obj_alloc(obj_type::T_LIST);
 	    q = obj_alloc(obj_type::T_INT);
 	    q->o_val.o_int = x;
-	    CAR(p) = q;
+	    p->car(q);
 	    hdp = &CDR(p);
 	}
 	return(hd);
@@ -237,13 +237,13 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	if( !p->car() ){		// Null list?
 	    obj_unref(obj);
 	    p = obj_alloc(obj_type::T_LIST);
-	    CAR(p) = q;
+	    p->car(q);
 	    return(p);		// Just return element
 	}
 	p->inc_ref();
 	r = obj_alloc(obj_type::T_LIST);
     r->cdr(p);
-	CAR(r) = q;
+	r->car(q);
 	obj_unref(obj);
 	return(r);
     }
@@ -810,7 +810,7 @@ do_trans(obj_ptr obj)
 	    r = obj_alloc(obj_type::T_LIST);
 	    *hdp2 = r;
 	    hdp2 = &CDR(r);
-	    CAR(r) = q;
+	    r->car(q);
 	    q->inc_ref();
 	}
 	CAR(s) = hd2;

@@ -164,7 +164,7 @@ execute(ast_ptr act, obj_ptr obj )
 		return(q);
 	    }
 	    *hdp = r = obj_alloc(obj_type::T_LIST);
-	    CAR(r) = q;
+	    r->car(q);
 	    hdp = &CDR(r);
 	}
 	obj_unref(obj);
