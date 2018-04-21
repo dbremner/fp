@@ -22,6 +22,11 @@ obj_ptr
 obj_alloc(obj_type ty)
 {
     incobjcount();
+    
+    if (!free_objs) {
+        return ::new object{ty};
+    }
+    
 	// Have a free one on the list
     if(free_objs){
         obj_ptr p = free_objs;
