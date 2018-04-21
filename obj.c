@@ -25,7 +25,8 @@ obj_alloc(obj_type ty)
 	// Have a free one on the list
     obj_ptr p = free_objs;
     if(p){
-	free_objs = (p->o_val).o_list.car;
+        free_objs = (p->o_val).o_list.car;
+        p->init(ty);
     } else {
         p = ::new object{ty};
     }

@@ -21,6 +21,14 @@ struct object {
     {
     }
     
+    void init(obj_type type)
+    {
+        o_type = type;
+        o_refs = 1;
+        o_val.o_list.car = nullptr;
+        o_val.o_list.cdr = nullptr;
+    }
+    
     ///CAR manipulates the object as a list & gives its first part
     obj_ptr car()
     {
