@@ -183,9 +183,11 @@ again:
     }
     c = fgetc(cur_in);
     if( c == '#' ){
-        while( (c = fgetc(cur_in)) != EOF )
-            if( c == '\n' )
+        while( (c = fgetc(cur_in)) != EOF ) {            
+            if( c == '\n' ) {
                 goto again;
+            }
+        }
     }
 	/*
 	 * Pop up a level of indirection on EOF
