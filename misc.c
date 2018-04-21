@@ -4,6 +4,7 @@
  *	Copyright (c) 1986 by Andy Valencia
  */
 #include "fp.h"
+#include "symtab.h"
 #include <setjmp.h>
 #include <signal.h>
 #include <stdio.h>

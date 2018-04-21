@@ -30,10 +30,8 @@ obj_ptr invoke(sym_ptr def, obj_ptr obj);
 void ast_freetree(ast_ptr p);
 [[noreturn]] void fatal_err(const char *msg);
 void defun(sym_ptr name, ast_ptr def);
-void symtab_init(void);
 void obj_prtree(obj_ptr p);
 void obj_unref(obj_ptr p);
-sym_ptr lookup(const char *name);
 
 ///generates the undefined object & returns it
 static inline obj_ptr undefined(void)
