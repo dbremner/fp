@@ -19,7 +19,8 @@ hash(const char *p)
     int s = 0;
     int c;
 
-    while( (c = *p++) ) s += c;
+    while( (c = *p++) )
+        s += c;
     return( s % SYMTABSIZE );
 }
 
@@ -36,14 +37,15 @@ lookup(const char *name)
 
 	// No hash hits, must be a new entry
     if( p == nullptr ){
-	return( stab[h] = new symtab(name) );
+        return( stab[h] = new symtab(name) );
     }
 
 	// Had hits, work way down list
     while( p ){
-	if( (p->sym_pname == name)) return(p);
-	old = p;
-	p = p->sym_next;
+        if( (p->sym_pname == name))
+            return(p);
+        old = p;
+        p = p->sym_next;
     }
 
 	// No hits, add to end of chain
@@ -56,7 +58,8 @@ stuff(const char *sym, int val)
 {
     sym_ptr p = lookup(sym);
 
-    if( p->sym_type != symtype::SYM_NEW ) fatal_err("Dup init in stuff()");
+    if( p->sym_type != symtype::SYM_NEW )
+        fatal_err("Dup init in stuff()");
     p->sym_type = symtype::SYM_BUILTIN;
     p->sym_val.YYint = val;
 }
