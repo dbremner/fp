@@ -12,11 +12,11 @@
      */
 
 enum class obj_type {
-    T_INT = 1,      /* Integer */
-    T_FLOAT = 2,    /* Floating point */
-    T_LIST = 3,     /* A LISP-style list */
-    T_UNDEF = 4,    /* The undefined object */
-    T_BOOL = 5,     /* A boolean value */
+    T_INT = 1,      // Integer
+    T_FLOAT = 2,    // Floating point
+    T_LIST = 3,     // A LISP-style list
+    T_UNDEF = 4,    // The undefined object
+    T_BOOL = 5,     // A boolean value
 };
 
 #include "types.h"

@@ -47,7 +47,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	 */
     switch( act->sym_val.YYint ){
 
-    case LENGTH:{	/* Length of a list */
+    case LENGTH:{	// Length of a list
 	int l;
 
 	if( obj->o_type != obj_type::T_LIST ){
@@ -61,16 +61,16 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	return(p);
     }
 
-    case ID:		/* Identity */
+    case ID:		// Identity
 	return(obj);
-    case OUT:		/* Identity, but print debug line too */
+    case OUT:		// Identity, but print debug line too
 	printf("out: ");
 	obj_prtree(obj);
 	putchar('\n');
 	return(obj);
     
     case FIRST:
-    case HD:		/* First elem of a list */
+    case HD:		// First elem of a list
 	if( obj->o_type != obj_type::T_LIST ){
 	    obj_unref(obj); return undefined();
 	}
@@ -79,7 +79,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	obj_unref(obj);
 	return(p);
 
-    case TL:		/* Remainder of list */
+    case TL:		// Remainder of list
 	if( (obj->o_type != obj_type::T_LIST) || !car_(obj) ){
 	    obj_unref(obj); return undefined();
 	}
@@ -91,7 +91,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	obj_unref(obj);
 	return(p);
 
-    case IOTA:{		/* Given arg N, generate <1..N> */
+    case IOTA:{		// Given arg N, generate <1..N>
 	int x, l;
     obj_ptr hd;
     obj_ptr *hdp = &hd;
@@ -112,9 +112,9 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    hdp = &CDR(p);
 	}
 	return(hd);
-    } /* Local block for IOTA */
+    } // Local block for IOTA
 
-    case PICK:{		/* Parameterized selection */
+    case PICK:{		// Parameterized selection
 	int x;
 
 	    /*
@@ -168,7 +168,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	return(q);
     }
 
-    case LAST:		/* Return last element of list */
+    case LAST:		// Return last element of list
 	if( (q = obj)->o_type != obj_type::T_LIST ){
 	    obj_unref(obj);
 	    return undefined();
@@ -181,7 +181,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	return(q);
     
     case FRONT:
-    case TLR:{		/* Return a list of all but list */
+    case TLR:{		// Return a list of all but list
     obj_ptr hd = nullptr;
     obj_ptr *hdp = &hd;
 
@@ -205,7 +205,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	else return(hd);
     }
 
-    case DISTL:		/* Distribute from left-most element */
+    case DISTL:		// Distribute from left-most element
 	if(
 	    (obj->o_type != obj_type::T_LIST) ||
 	    ( !(q = car_(obj)) ) ||
@@ -218,7 +218,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	}
 	return( do_dist(q,p,obj,0) );
 
-    case DISTR:		/* Distribute from left-most element */
+    case DISTR:		// Distribute from left-most element
 	if(
 	    (obj->o_type != obj_type::T_LIST) ||
 	    ( !(q = car_(obj)) ) ||
@@ -231,7 +231,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	}
 	return( do_dist(p,q,obj,1) );
     
-    case APNDL:{	/* Append element from left */
+    case APNDL:{	// Append element from left
 	obj_ptr r;
 
 	if(
@@ -245,11 +245,11 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    return undefined();
 	}
 	q->inc_ref();
-	if( !car_(p) ){		/* Null list? */
+	if( !car_(p) ){		// Null list?
 	    obj_unref(obj);
 	    p = obj_alloc(obj_type::T_LIST);
 	    CAR(p) = q;
-	    return(p);		/* Just return element */
+	    return(p);		// Just return element
 	}
 	p->inc_ref();
 	r = obj_alloc(obj_type::T_LIST);
@@ -259,7 +259,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	return(r);
     }
 
-    case APNDR:{	/* Append element from right */
+    case APNDR:{	// Append element from right
     obj_ptr hd = nullptr;
     obj_ptr *hdp = &hd;
     obj_ptr r;
@@ -275,11 +275,11 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    return undefined();
 	}
 	r->inc_ref();
-	if( !car_(q) ){		/* Empty list */
+	if( !car_(q) ){		// Empty list
 	    obj_unref(obj);
 	    p = obj_alloc(obj_type::T_LIST);
 	    CAR(p) = r;
-	    return(p);		/* Just return elem */
+	    return(p);		// Just return elem
 	}
 
 	    /*
@@ -303,10 +303,10 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	return(hd);
     }
 
-    case TRANS:		/* Transposition */
+    case TRANS:		// Transposition
 	return( do_trans(obj) );
     
-    case REVERSE:{	/* Reverse all elements of a list */
+    case REVERSE:{	// Reverse all elements of a list
 	obj_ptr r;
 
 	if( obj->o_type != obj_type::T_LIST ){
@@ -325,7 +325,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	return(p);
     }
 
-    case ROTL:{		/* Rotate left */
+    case ROTL:{		// Rotate left
     obj_ptr hd = nullptr;
     obj_ptr *hdp = &hd;
 
@@ -364,7 +364,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	return(hd);
     }
 
-    case ROTR:{		/* Rotate right */
+    case ROTR:{		// Rotate right
     obj_ptr hd = nullptr;
     obj_ptr *hdp = &hd;
 
@@ -404,7 +404,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	return(p);
     }
 
-    case CONCAT:{		/* Concatenate several lists */
+    case CONCAT:{		// Concatenate several lists
     obj_ptr hd = nullptr;
     obj_ptr *hdp = &hd;
     obj_ptr r;
@@ -435,7 +435,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	return(hd);
     }
 
-    case SIN:		/* sin() function */
+    case SIN:		// sin() function
 	if( !obj->is_num() ){
 	    obj_unref(obj);
 	    return undefined();
@@ -446,7 +446,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	obj_unref(obj);
 	return(p);
 
-    case COS:		/* cos() function */
+    case COS:		// cos() function
 	if( !obj->is_num() ){
 	    obj_unref(obj);
 	    return undefined();
@@ -457,7 +457,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	obj_unref(obj);
 	return(p);
 
-    case TAN:		/* tan() function */
+    case TAN:		// tan() function
 	if( !obj->is_num() ){
 	    obj_unref(obj);
 	    return undefined();
@@ -468,7 +468,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	obj_unref(obj);
 	return(p);
 
-    case ASIN:		/* asin() function */
+    case ASIN:		// asin() function
 	if( !obj->is_num() ){
 	    obj_unref(obj);
 	    return undefined();
@@ -479,7 +479,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	obj_unref(obj);
 	return(p);
 
-    case ACOS:		/* acos() function */
+    case ACOS:		// acos() function
 	if( !obj->is_num() ){
 	    obj_unref(obj);
 	    return undefined();
@@ -490,7 +490,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	obj_unref(obj);
 	return(p);
 
-    case ATAN:		/* atan() function */
+    case ATAN:		// atan() function
 	if( !obj->is_num() ){
 	    obj_unref(obj);
 	    return undefined();
@@ -501,7 +501,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	obj_unref(obj);
 	return(p);
     
-    case EXP:		/* exp() function */
+    case EXP:		// exp() function
 	if( !obj->is_num() ){
 	    obj_unref(obj);
 	    return undefined();
@@ -512,7 +512,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	obj_unref(obj);
 	return(p);
     
-    case LOG:		/* log() function */
+    case LOG:		// log() function
 	if( !obj->is_num() ){
 	    obj_unref(obj);
 	    return undefined();
@@ -523,7 +523,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	obj_unref(obj);
 	return(p);
     
-    case MOD:		/* Modulo */
+    case MOD:		// Modulo
 	switch( numargs(obj) ){
 	case obj_type::T_UNDEF:
 	    obj_unref(obj);
@@ -544,7 +544,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	}
 	}
     
-    case PAIR:{		/* Pair up successive elements of a list */
+    case PAIR:{		// Pair up successive elements of a list
     obj_ptr hd = nullptr;
     obj_ptr *hdp = &hd;
     obj_ptr r;
@@ -576,7 +576,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	return(hd);
     }
 
-    case SPLIT:{	/* Split list into two (roughly) equal halves */
+    case SPLIT:{	// Split list into two (roughly) equal halves
 	int l,x;
     obj_ptr hd = nullptr;
     obj_ptr *hdp = &hd;
@@ -631,7 +631,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	return(p);
     }
 
-    case DIV:		/* Like '/', but forces integer operation */
+    case DIV:		// Like '/', but forces integer operation
 	switch( numargs(obj) ){
 	case obj_type::T_UNDEF:
 	    obj_unref(obj);
@@ -684,7 +684,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
     
     default:
 	fatal_err("Unrecognized symbol in do_intrinsics()");
-    } /* Switch() */
+    } // Switch()
 }
 
     /*
@@ -709,15 +709,15 @@ static obj_ptr
 do_dist(
         obj_ptr elem,
         obj_ptr lst,
-        obj_ptr obj, /* Source object */
-        int side)   /* Which side to stick on */
+        obj_ptr obj, // Source object
+        int side)   // Which side to stick on
 {
     obj_ptr r;
     obj_ptr r2;
     obj_ptr hd;
     obj_ptr *hdp = &hd;
 
-    if( !car_(lst) ){		/* Distributing over NULL list */
+    if( !car_(lst) ){		// Distributing over NULL list
 	lst->inc_ref();
 	obj_unref(obj);
 	return(lst);

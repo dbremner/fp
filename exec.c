@@ -90,17 +90,17 @@ execute(ast_ptr act, obj_ptr obj )
 		return undefined();
 	    }
 	}
-	while( --x ){		/* Scan down list X times */
+	while( --x ){		// Scan down list X times
 	    if( !p ) break;
 	    p = cdr_(p);
 	}
-	if( !p ){		/* Fell off bottom of list */
+	if( !p ){		// Fell off bottom of list
 	    obj_unref(obj);
 	    return undefined();
 	}
 	p = car_(p);
-	p->inc_ref();		/* Add reference to this elem */
-	obj_unref(obj);		/* Unreference list as a whole */
+	p->inc_ref();		// Add reference to this elem
+	obj_unref(obj);		// Unreference list as a whole
 	return(p);
 
 	/*

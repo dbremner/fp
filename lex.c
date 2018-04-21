@@ -21,8 +21,8 @@ void fp_cmd(void);
 
 char prompt;
 
-#define MAXNEST 5		/* How deep can we get? */
-static FILE *fstack[MAXNEST];	/* For nested loads */
+#define MAXNEST 5		// How deep can we get?
+static FILE *fstack[MAXNEST];	// For nested loads
 static int fpos = 0;
 
     /*
@@ -268,7 +268,7 @@ fp_cmd(void){
 	/*
 	 * Process the command
 	 */
-    if( strcmp(cmd,"load") == 0 ){	/* Load command */
+    if( strcmp(cmd,"load") == 0 ){	// Load command
 
             /*
              * Get next word, the file to load
@@ -306,15 +306,15 @@ fp_cmd(void){
         return;
     }
 
-    if( strcmp(cmd,"quit") == 0 ){	/* Leave */
+    if( strcmp(cmd,"quit") == 0 ){	// Leave
         quit();
     }
-    if( strcmp(cmd,"help") == 0 ){	/* Give help */
+    if( strcmp(cmd,"help") == 0 ){	// Give help
         help();
         return;
     }
 #ifdef YYDEBUG
-    if( strcmp(cmd,"yydebug") == 0 ){	/* Toggle parser trace */
+    if( strcmp(cmd,"yydebug") == 0 ){	// Toggle parser trace
         flipyydebug();
         return;
     }
