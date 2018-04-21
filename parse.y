@@ -186,22 +186,22 @@ funForm	:	simpFn
 
 simpFn	:	IdFns
 		    {
-			$$.YYast = ast_alloc('i', nullptr, nullptr, nullptr);
+			$$.YYast = ast_alloc('i');
 			(($$.YYast)->val).YYsym = $1.YYsym;
 		    }
 	|	INT
 		    {
-			$$.YYast = ast_alloc('S', nullptr, nullptr, nullptr);
+			$$.YYast = ast_alloc('S');
 			(($$.YYast)->val).YYint = $1.YYint;
 		    }
 	|	binaryFn
 		    {
-			$$.YYast = ast_alloc('c', nullptr, nullptr, nullptr);
+			$$.YYast = ast_alloc('c');
 			(($$.YYast)->val).YYint = $1.YYint;
 		    }
 	|	name
 		    {
-			$$.YYast = ast_alloc('U', nullptr, nullptr, nullptr);
+			$$.YYast = ast_alloc('U');
 			(($$.YYast)->val).YYsym = $1.YYsym;
 		    }
 	;
@@ -271,14 +271,14 @@ composition
 construction
 	:	'[' formList ']'
 		    {
-			$$.YYast = ast_alloc('[',$2.YYast,nullptr,nullptr);
+			$$.YYast = ast_alloc('[',$2.YYast);
 		    }
 	;
 
 formList
 	:	funForm
 		    {
-			$$.YYast = ast_alloc('[',$1.YYast,nullptr,nullptr);
+			$$.YYast = ast_alloc('[',$1.YYast);
 		    }
 	|	funForm OptComma formList
 		    {
@@ -296,7 +296,7 @@ conditional
 constantFn
 	:	'%' object
 		    {
-			$$.YYast = ast_alloc('%',nullptr,nullptr,nullptr);
+			$$.YYast = ast_alloc('%');
 			(($$.YYast)->val).YYobj = $2.YYobj;
 		    }
 	;
@@ -304,17 +304,17 @@ constantFn
 insertion
 	:	'!' funForm
 		    {
-			$$.YYast = ast_alloc('!',$2.YYast,nullptr,nullptr);
+			$$.YYast = ast_alloc('!',$2.YYast);
 		    }
 	|	'|' funForm
 		    {
-			$$.YYast = ast_alloc('|',$2.YYast,nullptr,nullptr);
+			$$.YYast = ast_alloc('|',$2.YYast);
 		    }
 	;
 
 alpha	:	'&' funForm
 		    {
-			$$.YYast = ast_alloc('&',$2.YYast,nullptr,nullptr);
+			$$.YYast = ast_alloc('&',$2.YYast);
 		    }
 	;
 
