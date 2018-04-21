@@ -64,13 +64,11 @@ ispair(obj_ptr obj)
 obj_ptr
 eqobj(obj_ptr obj)
 {
-    obj_ptr p;
-
     if( !ispair(obj) ){
 	obj_unref(obj);
 	return undefined();
     }
-    p = obj_alloc(obj_type::T_BOOL);
+    obj_ptr p = obj_alloc(obj_type::T_BOOL);
     if( same(car_(obj),car_(cdr_(obj))) )
 	p->o_val.o_int = 1;
     else
@@ -239,18 +237,15 @@ do_charfun(ast_ptr act, obj_ptr obj)
 obj_type
 numargs(obj_ptr obj)
 {
-    obj_ptr p;
-    obj_ptr q;
-
-	// Don't have a well-formed list, so illegal
+    // Don't have a well-formed list, so illegal
     if( !ispair(obj) ) return(obj_type::T_UNDEF);
 
 	/*
 	 * So it's a list of two.  Verify type of both elements.
 	 *	'p' gets the first object, 'q' gets second.
 	 */
-    p = car_(obj);
-    q = car_(cdr_(obj));
+    obj_ptr p = car_(obj);
+    obj_ptr q = car_(cdr_(obj));
     if( !p->is_num() || !q->is_num() ) return(obj_type::T_UNDEF);
     if( (p->o_type == obj_type::T_FLOAT) || (q->o_type == obj_type::T_FLOAT) )
 	return(obj_type::T_FLOAT);

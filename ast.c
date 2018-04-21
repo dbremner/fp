@@ -16,12 +16,10 @@ int ast_out = 0;
 ast_ptr
 ast_alloc(int atag, ast_ptr l, ast_ptr m, ast_ptr r)
 {
-    ast_ptr p;
-
 #ifdef MEMSTAT
     ast_out++;
 #endif
-    p = ast_list;
+    ast_ptr p = ast_list;
     if(p){
 	ast_list = p->left;
     } else {
