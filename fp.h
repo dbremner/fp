@@ -7,14 +7,18 @@
  *	Copyright (c) 1986 by Andy Valencia
  */
 
-    // The symbolic names for the different types
-
+// The symbolic names for the different types
 enum class obj_type {
-    T_INT = 1,      // Integer
-    T_FLOAT = 2,    // Floating point
-    T_LIST = 3,     // A LISP-style list
-    T_UNDEF = 4,    // The undefined object
-    T_BOOL = 5,     // A boolean value
+    // Integer
+    T_INT = 1,
+    // Floating point
+    T_FLOAT = 2,
+    // A LISP-style list
+    T_LIST = 3,
+    // The undefined object
+    T_UNDEF = 4,
+    // A boolean value
+    T_BOOL = 5,
 };
 
 #include "types.h"

@@ -28,7 +28,7 @@ do_dist(obj_ptr elem, obj_ptr lst, obj_ptr obj, int side);
 static obj_ptr do_trans(obj_ptr obj);
 static obj_ptr do_bool(obj_ptr obj, int op);
 
-    // Main intrinsic processing routine
+// Main intrinsic processing routine
 obj_ptr
 do_intrinsics(sym_ptr act, obj_ptr obj)
 {
@@ -661,7 +661,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
     } // Switch()
 }
 
-    // listlen()--return length of a list
+// listlen()--return length of a list
 int
 listlen(obj_ptr p)
 {
@@ -674,7 +674,7 @@ listlen(obj_ptr p)
     return(l);
 }
 
-    // Common code between distribute-left and -right
+// Common code between distribute-left and -right
 static obj_ptr
 do_dist(
         obj_ptr elem,
@@ -738,7 +738,7 @@ do_dist(
     return(hd);
 }
 
-    // do_trans()--transpose the elements of the "matrix"
+// do_trans()--transpose the elements of the "matrix"
 static obj_ptr
 do_trans(obj_ptr obj)
 {
@@ -812,7 +812,7 @@ do_trans(obj_ptr obj)
     return(hd);
 }
 
-    // do_bool()--do the three boolean binary operators
+// do_bool()--do the three boolean binary operators
 static obj_ptr
 do_bool(obj_ptr obj, int op)
 {

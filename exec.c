@@ -208,7 +208,7 @@ execute(ast_ptr act, obj_ptr obj )
     }
 }
 
-    // Local function to handle the tedious right-inserting
+// Local function to handle the tedious right-inserting
 static obj_ptr
 do_rinsert(ast_ptr act, obj_ptr obj)
 {
@@ -293,7 +293,7 @@ do_rinsert(ast_ptr act, obj_ptr obj)
     return( execute(act,q) );
 }
 
-    // Local function to handle the tedious binary inserting
+// Local function to handle the tedious binary inserting
 static obj_ptr
 do_binsert(ast_ptr act, obj_ptr obj)
 {

@@ -29,7 +29,7 @@ yyerror(const char *msg)
 
 extern "C" [[noreturn]] void badmath(int ignored);
 
-    // Floating exception handler
+// Floating exception handler
 extern "C"
 [[noreturn]] void
 badmath(int /*ignored*/){
@@ -41,7 +41,7 @@ badmath(int /*ignored*/){
 
 extern "C" [[noreturn]] void intr(int ignored);
 
-    // User interrupt handler
+// User interrupt handler
 extern "C"
 [[noreturn]] void
 intr(int /*ignored*/){

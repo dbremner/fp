@@ -9,18 +9,25 @@ typedef struct symtab* sym_ptr;
 
 // A list of arbitrary objects
 struct list {
-    obj_ptr car;        // Head of list
-    obj_ptr cdr;        // and Tail
+    // Head of list
+    obj_ptr car;
+    // and Tail
+    obj_ptr cdr;
 };
 
 // An object's structure
 struct object {
-    obj_type o_type;        // Type for selecting
-    uint32_t o_refs = 1;    // Number of current refs, for GC
+    // Type for selecting
+    obj_type o_type;
+    // Number of current refs, for GC
+    uint32_t o_refs = 1;
     union {
-        int o_int;        // T_INT, T_BOOL
-        double o_double;        // T_FLOAT
-        struct list o_list;    // T_LIST
+        // T_INT, T_BOOL
+        int o_int;
+        // T_FLOAT
+        double o_double;
+        // T_LIST
+        struct list o_list;
     } o_val{};
     
     object(obj_type type)
@@ -92,11 +99,13 @@ struct ast {
 };
 
 // sym_type values
-
 enum class symtype {
-    SYM_BUILTIN = 1, // A built-in
-    SYM_DEF = 2, // User-defined
-    SYM_NEW = 3 // Never seen before!
+    // A built-in
+    SYM_BUILTIN = 1,
+    // User-defined
+    SYM_DEF = 2,
+    // Never seen before!
+    SYM_NEW = 3
 };
 
 // A symbol table entry for an identifier

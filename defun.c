@@ -7,7 +7,7 @@
 #include "symtab.h"
 #include <stdio.h>
 
-    // Define a function
+// Define a function
 void
 defun(sym_ptr name, ast_ptr def)
 {
@@ -32,7 +32,7 @@ defun(sym_ptr name, ast_ptr def)
     name->sym_type = symtype::SYM_DEF;
 }
 
-    // Call a previously-defined user function, or error
+// Call a previously-defined user function, or error
 obj_ptr
 invoke(sym_ptr def, obj_ptr obj)
 {
