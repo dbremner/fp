@@ -41,7 +41,7 @@ same(obj_ptr o1, obj_ptr o2)
         case obj_type::T_FLOAT:
             return( o1->o_val.o_double == o2->o_val.o_double );
         case obj_type::T_LIST:
-            return( same(car_(o1),car_(o2)) && same(cdr_(o1),cdr_(o2)) );
+            return( same(o1->car(),o2->car()) && same(cdr_(o1),cdr_(o2)) );
         case obj_type::T_UNDEF:
             fatal_err("Bad AST type in same()");
     }
@@ -53,7 +53,7 @@ ispair(obj_ptr obj)
 {
     if( obj->o_type != obj_type::T_LIST )
         return(false);
-    if( car_(obj) == nullptr )
+    if( obj->car() == nullptr )
         return(false);
     if( cdr_(obj) == nullptr )
         return(false);
@@ -74,7 +74,7 @@ eqobj(obj_ptr obj)
         return undefined();
     }
     obj_ptr p = obj_alloc(obj_type::T_BOOL);
-    if( same(car_(obj),cadr_(obj)) )
+    if( same(obj->car(),cadr_(obj)) )
         p->o_val.o_int = 1;
     else
         p->o_val.o_int = 0;
@@ -273,7 +273,7 @@ numargs(obj_ptr obj)
 	 * So it's a list of two.  Verify type of both elements.
 	 *	'p' gets the first object, 'q' gets second.
 	 */
-    obj_ptr p = car_(obj);
+    obj_ptr p = obj->car();
     obj_ptr q = cadr_(obj);
     if( !p->is_num() || !q->is_num() ) return(obj_type::T_UNDEF);
     if( (p->o_type == obj_type::T_FLOAT) || (q->o_type == obj_type::T_FLOAT) )

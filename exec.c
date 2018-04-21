@@ -83,7 +83,7 @@ execute(ast_ptr act, obj_ptr obj )
 	    obj_unref(obj);
 	    return undefined();
 	}
-	p = car_(p);
+	p = p->car();
 	p->inc_ref();		// Add reference to this elem
 	obj_unref(obj);		// Unreference list as a whole
 	return(p);
@@ -156,7 +156,7 @@ execute(ast_ptr act, obj_ptr obj )
 	    obj_unref(obj);
 	    return undefined();
 	}
-	if( !car_(obj) ) return(obj);
+	if( !obj->car() ) return(obj);
 	for( p = obj; p; p = cdr_(p) ){
 	    (p->o_val.o_list.car)->inc_ref();
 	    if( (q = execute(act->left,car_(p)))->o_type == obj_type::T_UNDEF ){
@@ -239,7 +239,7 @@ do_rinsert(ast_ptr act, obj_ptr obj)
 	 *	operator.  If it's one for which we have an identity,
 	 *	return the identity.  Otherwise, undefined.  Bletch.
 	 */
-    if( !car_(obj) ){
+    if( !obj->car() ){
 	obj_unref(obj);
 	if( act->tag == 'c' ){
 	    switch( act->val.YYint ){
@@ -276,7 +276,7 @@ do_rinsert(ast_ptr act, obj_ptr obj)
 
 	// If the list has only one element, we return that element.
     if( !(p = cdr_(obj)) ){
-	p = car_(obj);
+	p = obj->car();
 	p->inc_ref();
 	obj_unref(obj);
 	return(p);
@@ -301,7 +301,7 @@ do_rinsert(ast_ptr act, obj_ptr obj)
     }
     q = obj_alloc(obj_type::T_LIST);
     CAR(q) = car_(obj);
-    car_(obj)->inc_ref();
+    obj->car()->inc_ref();
     CAR(CDR(q) = obj_alloc(obj_type::T_LIST)) = p;
     obj_unref(obj);
     return( execute(act,q) );
@@ -328,7 +328,7 @@ do_binsert(ast_ptr act, obj_ptr obj)
 	 *	operator.  If it's one for which we have an identity,
 	 *	return the identity.  Otherwise, undefined.  Bletch.
 	 */
-    if( !car_(obj) ){
+    if( !obj->car() ){
 	obj_unref(obj);
 	if( act->tag == 'c' ){
 	    switch( act->val.YYint ){
@@ -365,7 +365,7 @@ do_binsert(ast_ptr act, obj_ptr obj)
 
 	// If the list has only one element, we return that element.
     if( !(p = cdr_(obj)) ){
-	p = car_(obj);
+	p = obj->car();
 	p->inc_ref();
 	obj_unref(obj);
 	return(p);
@@ -389,16 +389,16 @@ do_binsert(ast_ptr act, obj_ptr obj)
 	if( x ){
 	    *hdp = r = obj_alloc(obj_type::T_LIST);
 	    hdp = &CDR(r);
-	    CAR(r) = car_(q);
-	    car_(q)->inc_ref();
+	    CAR(r) = q->car();
+	    q->car()->inc_ref();
 	    q = cdr_(q);
 	    x = 0;
 	} else
 	    x = 1;
     }
     *hdp = p = obj_alloc(obj_type::T_LIST);
-    CAR(p) = car_(q);
-    car_(q)->inc_ref();
+    CAR(p) = q->car();
+    q->car()->inc_ref();
 
 	/*
 	 * 'q' names the second half, but we must add a reference, otherwise
