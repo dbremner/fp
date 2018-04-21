@@ -182,7 +182,8 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	}
 	while( q->cdr() ){
 	    *hdp = p = obj_alloc(obj_type::T_LIST);
-        if( (CAR(p) = q->car()) ){
+        p->car(q->car());
+        if( p->car() ){
 		p->car()->inc_ref();
 	    }
 	    hdp = &CDR(p);
