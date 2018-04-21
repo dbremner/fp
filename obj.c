@@ -24,6 +24,11 @@ obj_alloc(obj_type ty)
     return ::new object{ty};
 }
 
+obj_ptr undefined(void)
+{
+    return(obj_alloc(obj_type::T_UNDEF));
+}
+
 /// Free an object
 static void
 obj_free(obj_ptr p)

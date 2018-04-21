@@ -38,6 +38,8 @@ void yyerror(const char *msg);
 
 //obj.c
 obj_ptr obj_alloc(obj_type);
+///generates the undefined object & returns it
+obj_ptr undefined(void);
 void obj_prtree(obj_ptr p);
 void obj_unref(obj_ptr p);
 
