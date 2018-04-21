@@ -30,10 +30,6 @@ obj_alloc(obj_type ty)
     } else {
         p = ::new object{ty};
     }
-    if( p->o_type == obj_type::T_LIST ) {
-        p->o_val.o_list.car = nullptr;
-        p->o_val.o_list.cdr = nullptr;
-    }
     return(p);
 }
 
