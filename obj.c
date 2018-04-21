@@ -5,7 +5,6 @@
  */
 #include "fp.h"
 #include <stdio.h>
-#include <stdlib.h>
 
 static obj_ptr free_objs = nullptr;
 
