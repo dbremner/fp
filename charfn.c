@@ -74,7 +74,7 @@ eqobj(obj_ptr obj)
         return undefined();
     }
     obj_ptr p = obj_alloc(obj_type::T_BOOL);
-    if( same(car_(obj),car_(cdr_(obj))) )
+    if( same(car_(obj),cadr_(obj)) )
         p->o_val.o_int = 1;
     else
         p->o_val.o_int = 0;
@@ -115,7 +115,7 @@ do_charfun(ast_ptr act, obj_ptr obj)
         case obj_type::T_FLOAT:
         case obj_type::T_INT:
             p = obj_alloc(obj_type::T_BOOL);
-            (p->o_val).o_int = NUMVAL(car_(obj)) > NUMVAL(car_(cdr_(obj)));
+            (p->o_val).o_int = NUMVAL(car_(obj)) > NUMVAL(cadr_(obj));
             obj_unref(obj);
             return(p);
 	}
@@ -128,7 +128,7 @@ do_charfun(ast_ptr act, obj_ptr obj)
         case obj_type::T_FLOAT:
         case obj_type::T_INT:
             p = obj_alloc(obj_type::T_BOOL);
-            (p->o_val).o_int = NUMVAL(car_(obj)) >= NUMVAL(car_(cdr_(obj)));
+            (p->o_val).o_int = NUMVAL(car_(obj)) >= NUMVAL(cadr_(obj));
             obj_unref(obj);
             return(p);
 	}
@@ -141,7 +141,7 @@ do_charfun(ast_ptr act, obj_ptr obj)
         case obj_type::T_FLOAT:
         case obj_type::T_INT:
             p = obj_alloc(obj_type::T_BOOL);
-            (p->o_val).o_int = NUMVAL(car_(obj)) <= NUMVAL(car_(cdr_(obj)));
+            (p->o_val).o_int = NUMVAL(car_(obj)) <= NUMVAL(cadr_(obj));
             obj_unref(obj);
             return(p);
 	}
@@ -154,7 +154,7 @@ do_charfun(ast_ptr act, obj_ptr obj)
         case obj_type::T_FLOAT:
         case obj_type::T_INT:
             p = obj_alloc(obj_type::T_BOOL);
-            (p->o_val).o_int = NUMVAL(car_(obj)) < NUMVAL(car_(cdr_(obj)));
+            (p->o_val).o_int = NUMVAL(car_(obj)) < NUMVAL(cadr_(obj));
             obj_unref(obj);
             return(p);
 	}
@@ -166,12 +166,12 @@ do_charfun(ast_ptr act, obj_ptr obj)
             return undefined();
         case obj_type::T_FLOAT:
             p = obj_alloc(obj_type::T_FLOAT);
-            (p->o_val).o_double = NUMVAL(car_(obj))+NUMVAL(car_(cdr_(obj)));
+            (p->o_val).o_double = NUMVAL(car_(obj))+NUMVAL(cadr_(obj));
             obj_unref(obj);
             return(p);
         case obj_type::T_INT:
             p = obj_alloc(obj_type::T_INT);
-            (p->o_val).o_int = NUMVAL(car_(obj))+NUMVAL(car_(cdr_(obj)));
+            (p->o_val).o_int = NUMVAL(car_(obj))+NUMVAL(cadr_(obj));
             obj_unref(obj);
             return(p);
 	}
@@ -182,12 +182,12 @@ do_charfun(ast_ptr act, obj_ptr obj)
             return undefined();
         case obj_type::T_FLOAT:
             p = obj_alloc(obj_type::T_FLOAT);
-            (p->o_val).o_double = NUMVAL(car_(obj))-NUMVAL(car_(cdr_(obj)));
+            (p->o_val).o_double = NUMVAL(car_(obj))-NUMVAL(cadr_(obj));
             obj_unref(obj);
             return(p);
         case obj_type::T_INT:
             p = obj_alloc(obj_type::T_INT);
-            (p->o_val).o_int = NUMVAL(car_(obj))-NUMVAL(car_(cdr_(obj)));
+            (p->o_val).o_int = NUMVAL(car_(obj))-NUMVAL(cadr_(obj));
             obj_unref(obj);
             return(p);
 	}
@@ -198,12 +198,12 @@ do_charfun(ast_ptr act, obj_ptr obj)
             return undefined();
         case obj_type::T_FLOAT:
             p = obj_alloc(obj_type::T_FLOAT);
-            (p->o_val).o_double = NUMVAL(car_(obj))*NUMVAL(car_(cdr_(obj)));
+            (p->o_val).o_double = NUMVAL(car_(obj))*NUMVAL(cadr_(obj));
             obj_unref(obj);
             return(p);
         case obj_type::T_INT:
             p = obj_alloc(obj_type::T_INT);
-            (p->o_val).o_int = NUMVAL(car_(obj))*NUMVAL(car_(cdr_(obj)));
+            (p->o_val).o_int = NUMVAL(car_(obj))*NUMVAL(cadr_(obj));
             obj_unref(obj);
             return(p);
 	}
@@ -214,7 +214,7 @@ do_charfun(ast_ptr act, obj_ptr obj)
             return undefined();
         case obj_type::T_FLOAT:
         case obj_type::T_INT:
-            f = NUMVAL(car_(cdr_(obj)));
+            f = NUMVAL(cadr_(obj));
             if( f == 0.0 ){
             obj_unref(obj);
             return undefined();
@@ -250,7 +250,7 @@ numargs(obj_ptr obj)
 	 *	'p' gets the first object, 'q' gets second.
 	 */
     obj_ptr p = car_(obj);
-    obj_ptr q = car_(cdr_(obj));
+    obj_ptr q = cadr_(obj);
     if( !p->is_num() || !q->is_num() ) return(obj_type::T_UNDEF);
     if( (p->o_type == obj_type::T_FLOAT) || (q->o_type == obj_type::T_FLOAT) )
 	return(obj_type::T_FLOAT);
