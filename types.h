@@ -54,6 +54,7 @@ struct object {
         o_refs--;
     }
     
+    ///ISNUM provides a boolean saying if the named object is a number
     bool is_num() const
     {
         return ( (this->o_type == obj_type::T_INT) || (this->o_type == obj_type::T_FLOAT) );
