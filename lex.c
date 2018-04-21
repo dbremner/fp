@@ -174,7 +174,6 @@ nextc(void){
     int c;
     static int saw_eof = 0;
 
-again:
     do {
         if( cur_in == stdin ){
             if( saw_eof )
