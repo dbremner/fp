@@ -28,12 +28,10 @@ obj_alloc(obj_type ty)
     }
     
 	// Have a free one on the list
-    {
-        obj_ptr p = free_objs;
-        free_objs = (p->o_val).o_list.car;
-        p->init(ty);
-        return(p);
-    }
+    obj_ptr p = free_objs;
+    free_objs = (p->o_val).o_list.car;
+    p->init(ty);
+    return(p);
 }
 
 /// Free an object
