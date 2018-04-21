@@ -727,7 +727,8 @@ do_dist(
         r->car(lst->car());
 	    lst->car()->inc_ref();
 	}
-	r2 = CDR(r) = obj_alloc(obj_type::T_LIST);
+    r->cdr(obj_alloc(obj_type::T_LIST));
+	r2 = r->cdr();
 	if( !side ){
         r2->car(lst->car());
 	    lst->car()->inc_ref();
