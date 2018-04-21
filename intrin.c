@@ -436,7 +436,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
     }
 
     case SIN:		/* sin() function */
-	if( !isnum(obj) ){
+	if( !obj->is_num() ){
 	    obj_unref(obj);
 	    return undefined();
 	}
@@ -447,7 +447,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	return(p);
 
     case COS:		/* cos() function */
-	if( !isnum(obj) ){
+	if( !obj->is_num() ){
 	    obj_unref(obj);
 	    return undefined();
 	}
@@ -458,7 +458,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	return(p);
 
     case TAN:		/* tan() function */
-	if( !isnum(obj) ){
+	if( !obj->is_num() ){
 	    obj_unref(obj);
 	    return undefined();
 	}
@@ -469,7 +469,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	return(p);
 
     case ASIN:		/* asin() function */
-	if( !isnum(obj) ){
+	if( !obj->is_num() ){
 	    obj_unref(obj);
 	    return undefined();
 	}
@@ -480,7 +480,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	return(p);
 
     case ACOS:		/* acos() function */
-	if( !isnum(obj) ){
+	if( !obj->is_num() ){
 	    obj_unref(obj);
 	    return undefined();
 	}
@@ -491,7 +491,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	return(p);
 
     case ATAN:		/* atan() function */
-	if( !isnum(obj) ){
+	if( !obj->is_num() ){
 	    obj_unref(obj);
 	    return undefined();
 	}
@@ -502,7 +502,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	return(p);
     
     case EXP:		/* exp() function */
-	if( !isnum(obj) ){
+	if( !obj->is_num() ){
 	    obj_unref(obj);
 	    return undefined();
 	}
@@ -513,7 +513,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	return(p);
     
     case LOG:		/* log() function */
-	if( !isnum(obj) ){
+	if( !obj->is_num() ){
 	    obj_unref(obj);
 	    return undefined();
 	}

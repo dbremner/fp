@@ -259,7 +259,7 @@ numargs(obj_ptr obj)
 	 */
     p = car_(obj);
     q = car_(cdr_(obj));
-    if( !isnum(p) || !isnum(q) ) return(obj_type::T_UNDEF);
+    if( !p->is_num() || !q->is_num() ) return(obj_type::T_UNDEF);
     if( (p->o_type == obj_type::T_FLOAT) || (q->o_type == obj_type::T_FLOAT) )
 	return(obj_type::T_FLOAT);
     return(obj_type::T_INT);

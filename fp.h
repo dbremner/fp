@@ -51,12 +51,6 @@ static inline obj_ptr cdr_(obj_ptr x)
     return ((x)->o_val).o_list.cdr;
 }
 
-///ISNUM provides a boolean saying if the named object is a number
-static inline bool isnum(obj_ptr x)
-{
-    return ( (x->o_type == obj_type::T_INT) || (x->o_type == obj_type::T_FLOAT) );
-}
-
 //charfn.c
 obj_ptr do_charfun(ast_ptr act, obj_ptr obj);
 obj_ptr eqobj(obj_ptr obj);
