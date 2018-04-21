@@ -53,6 +53,11 @@ struct object {
     {
         o_refs--;
     }
+    
+    bool is_num() const
+    {
+        return ( (this->o_type == obj_type::T_INT) || (this->o_type == obj_type::T_FLOAT) );
+    }
 };
 
 /*
