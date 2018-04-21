@@ -11,26 +11,11 @@ static obj_ptr free_objs = nullptr;
 
 #ifdef MEMSTAT
 int obj_out = 0;
-
-static void
-incobjcount(void)
-{
-    obj_out++;
-}
-
-static void
-decobjcount(void)
-{
-    obj_out--;
-}
+static void incobjcount(void) { obj_out++;}
+static void decobjcount(void) { obj_out--;}
 #else
-static void incobjcount(void)
-{
-}
-
-static void decobjcount(void)
-{
-}
+static void incobjcount(void) {}
+static void decobjcount(void) {}
 #endif
 
 /// Allocate an object
