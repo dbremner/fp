@@ -4,7 +4,6 @@
  *	Copyright (c) 1986 by Andy Valencia
  */
 #include "fp.h"
-#include "y.tab.h"
 
 static ast_ptr ast_list = nullptr;
 
