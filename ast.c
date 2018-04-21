@@ -21,6 +21,13 @@ ast_ptr
 ast_alloc(int atag, ast_ptr l, ast_ptr m, ast_ptr r)
 {
     inc_count();
+    
+    if (!ast_list) {
+        ast_ptr p = new ast{};
+        p->init(atag, l, m, r);
+        return( p );
+    }
+    
     if(ast_list){
         ast_ptr p = ast_list;
         ast_list = p->left;
