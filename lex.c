@@ -14,7 +14,7 @@ static char buf[80];
 static int donum(char startc);
 extern YYSTYPE yylval;
 
-static FILE *cur_in /*= stdin*/; //TODO
+static FILE *cur_in = stdin;
 static int nextc(void);
 
 void fp_cmd(void);
