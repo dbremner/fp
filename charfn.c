@@ -43,7 +43,7 @@ same(obj_ptr o1, obj_ptr o2)
             return( o1->o_val.o_double == o2->o_val.o_double );
         case obj_type::T_LIST:
             return( same(car_(o1),car_(o2)) && same(cdr_(o1),cdr_(o2)) );
-        default:
+        case obj_type::T_UNDEF:
             fatal_err("Bad AST type in same()");
     }
 }

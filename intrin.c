@@ -597,7 +597,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	case obj_type::T_FLOAT:
 	    result = 1;
 	    break;
-	default:
+    case obj_type::T_LIST:
 	    result = 0;
 	}
 	p = obj_alloc(obj_type::T_BOOL);

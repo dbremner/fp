@@ -20,7 +20,7 @@ defun(sym_ptr name, ast_ptr def)
         case symtype::SYM_NEW:
             printf("{%s}\n",name->sym_pname.c_str());
             break;
-        default:
+        case symtype::SYM_BUILTIN:
             fatal_err("Bad symbol stat in defun()");
     }
 
