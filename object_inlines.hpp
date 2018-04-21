@@ -13,10 +13,4 @@ static inline obj_ptr car_(obj_ptr x)
     return (x->o_val).o_list.car;
 }
 
-///(car (cdr x))
-static inline obj_ptr cadr_(obj_ptr x)
-{
-    return car_(x->cdr());
-}
-
 #endif
