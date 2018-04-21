@@ -59,14 +59,12 @@ yylex(void){
 
 	// An "identifier"?
     if( isalpha(c) ){
-        sym_ptr q;
-
 	    // Assemble a "word" out of the input stream, symbol table it
         *p++ = c;
         while( isalnum(c = nextc()) ) *p++ = c;
         ungetc(c,cur_in);
         *p = '\0';
-        q = lookup(buf);
+        sym_ptr q = lookup(buf);
 
             // yylval is always set to the symbol table entry
         yylval.YYsym = q;

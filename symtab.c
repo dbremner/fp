@@ -34,13 +34,13 @@ lookup(const char *name)
 {
     int h = hash(name);
     sym_ptr p = stab[h];
-	sym_ptr old = nullptr;
 
-	// No hash hits, must be a new entry
+    // No hash hits, must be a new entry
     if( p == nullptr ){
         return( stab[h] = new symtab_entry(name) );
     }
 
+    sym_ptr old = nullptr;
 	// Had hits, work way down list
     while( p ){
         if( (p->sym_pname == name))
