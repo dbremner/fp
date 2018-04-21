@@ -27,6 +27,11 @@ static const size_t MAXNEST = 5;
 static FILE *fstack[MAXNEST];
 static int fpos = 0;
 
+void set_prompt(char ch)
+{
+    prompt = ch;
+}
+
 /// Skip leading white space in current input stream
 static void
 skipwhite(){

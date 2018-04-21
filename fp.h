@@ -69,6 +69,7 @@ int listlen(obj_ptr p);
 obj_ptr do_intrinsics(sym_ptr act, obj_ptr obj);
 
 //lex.c
+void set_prompt(char ch);
 int yylex(void);
 
 //misc.c
