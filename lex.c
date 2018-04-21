@@ -229,7 +229,6 @@ void
 fp_cmd(void){
     char cmd[80], *p = cmd, arg[80];
     int c;
-    FILE *newf;
 
 	// Assemble a word, the command
     skipwhite();
@@ -263,6 +262,7 @@ fp_cmd(void){
         }
 
             // Try and open the file
+        FILE *newf;
         if( (newf = fopen(arg,"r")) == 0 ){
             perror(arg);
             return;
