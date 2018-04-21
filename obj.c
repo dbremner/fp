@@ -28,13 +28,11 @@ obj_alloc(obj_type ty)
     }
     
 	// Have a free one on the list
-    if(free_objs){
+    {
         obj_ptr p = free_objs;
         free_objs = (p->o_val).o_list.car;
         p->init(ty);
         return(p);
-    } else {
-        return ::new object{ty};
     }
 }
 
