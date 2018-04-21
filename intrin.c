@@ -199,7 +199,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    (obj->o_type != obj_type::T_LIST) ||
 	    ( !(q = obj->car()) ) ||
 	    (!obj->cdr()) ||
-	    (!(p = cadr_(obj)) ) ||
+	    (!(p = obj->cadr()) ) ||
 	    (p->o_type != obj_type::T_LIST)
 	){
 	    obj_unref(obj);
@@ -212,7 +212,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    (obj->o_type != obj_type::T_LIST) ||
 	    ( !(q = obj->car()) ) ||
 	    (!obj->cdr()) ||
-	    (!(p = cadr_(obj)) ) ||
+	    (!(p = obj->cadr()) ) ||
 	    (q->o_type != obj_type::T_LIST)
 	){
 	    obj_unref(obj);
@@ -227,7 +227,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    (obj->o_type != obj_type::T_LIST) ||
 	    ( !(q = obj->car()) ) ||
 	    (!obj->cdr()) ||
-	    (!(p = cadr_(obj)) ) ||
+	    (!(p = obj->cadr()) ) ||
 	    (p->o_type != obj_type::T_LIST)
 	){
 	    obj_unref(obj);
@@ -257,7 +257,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    (obj->o_type != obj_type::T_LIST) ||
 	    ( !(q = obj->car()) ) ||
 	    (!obj->cdr()) ||
-	    (!(r = cadr_(obj)) ) ||
+	    (!(r = obj->cadr()) ) ||
 	    (q->o_type != obj_type::T_LIST)
 	){
 	    obj_unref(obj);
@@ -508,7 +508,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    int x1, x2;
 
 	    x1 = NUMVAL(car_(obj));
-	    if( (x2 = NUMVAL(cadr_(obj))) == 0 ){
+	    if( (x2 = NUMVAL(obj->cadr())) == 0 ){
 		obj_unref(obj);
 		return undefined();
 	    }
@@ -619,7 +619,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    int x1, x2;
 
 	    x1 = NUMVAL(car_(obj));
-	    if( (x2 = NUMVAL(cadr_(obj))) == 0 ){
+	    if( (x2 = NUMVAL(obj->cadr())) == 0 ){
 		obj_unref(obj);
 		return undefined();
 	    }
@@ -831,7 +831,7 @@ do_bool(obj_ptr obj, int op)
     if(
 	(obj->o_type != obj_type::T_LIST) ||
 	( (p = obj->car())->o_type != obj_type::T_BOOL) ||
-	( (q = cadr_(obj))->o_type != obj_type::T_BOOL)
+	( (q = obj->cadr())->o_type != obj_type::T_BOOL)
     ){
 	obj_unref(obj);
 	return undefined();
