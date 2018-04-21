@@ -21,13 +21,13 @@ void fp_cmd(void);
 
 char prompt;
 
-// How deep can we get?
+/// How deep can we get?
 static const size_t MAXNEST = 5;
-// For nested loads
+/// For nested loads
 static FILE *fstack[MAXNEST];
 static int fpos = 0;
 
-// Skip leading white space in current input stream
+/// Skip leading white space in current input stream
 static void
 skipwhite(){
     int c;
@@ -38,7 +38,7 @@ skipwhite(){
     ungetc(c,cur_in);
 }
 
-// Lexical analyzer for YACC
+/// Lexical analyzer for YACC
 int
 yylex(void){
     char *p = buf;

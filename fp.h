@@ -7,17 +7,17 @@
  *	Copyright (c) 1986 by Andy Valencia
  */
 
-// The symbolic names for the different types
+/// The symbolic names for the different types
 enum class obj_type {
-    // Integer
+    /// Integer
     T_INT = 1,
-    // Floating point
+    /// Floating point
     T_FLOAT = 2,
-    // A LISP-style list
+    /// A LISP-style list
     T_LIST = 3,
-    // The undefined object
+    /// The undefined object
     T_UNDEF = 4,
-    // A boolean value
+    /// A boolean value
     T_BOOL = 5,
 };
 

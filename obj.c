@@ -33,7 +33,7 @@ static void decobjcount(void)
 }
 #endif
 
-// Allocate an object
+/// Allocate an object
 obj_ptr
 obj_alloc(obj_type ty)
 {
@@ -54,7 +54,7 @@ obj_alloc(obj_type ty)
     return(p);
 }
 
-// Free an object
+/// Free an object
 static void
 obj_free(obj_ptr p)
 {

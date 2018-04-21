@@ -7,26 +7,26 @@ typedef struct ast* ast_ptr;
 typedef struct object* obj_ptr;
 typedef struct symtab* sym_ptr;
 
-// A list of arbitrary objects
+/// A list of arbitrary objects
 struct list {
-    // Head of list
+    /// Head of list
     obj_ptr car;
-    // and Tail
+    /// and Tail
     obj_ptr cdr;
 };
 
-// An object's structure
+/// An object's structure
 struct object {
-    // Type for selecting
+    /// Type for selecting
     obj_type o_type;
-    // Number of current refs, for GC
+    /// Number of current refs, for GC
     uint32_t o_refs = 1;
     union {
-        // T_INT, T_BOOL
+        /// T_INT, T_BOOL
         int o_int;
-        // T_FLOAT
+        /// T_FLOAT
         double o_double;
-        // T_LIST
+        /// T_LIST
         struct list o_list;
     } o_val{};
     
@@ -88,7 +88,7 @@ typedef union {
 } YYstype;
 #define YYSTYPE YYstype
 
-// An AST
+/// An AST
 struct ast {
     int tag = 0;
     int padding = 0;
@@ -98,17 +98,17 @@ struct ast {
     ast_ptr right = nullptr;
 };
 
-// sym_type values
+/// sym_type values
 enum class symtype {
-    // A built-in
+    /// A built-in
     SYM_BUILTIN = 1,
-    // User-defined
+    /// User-defined
     SYM_DEF = 2,
-    // Never seen before!
+    /// Never seen before!
     SYM_NEW = 3
 };
 
-// A symbol table entry for an identifier
+/// A symbol table entry for an identifier
 struct symtab {
     symtype sym_type;
     uint32_t padding = 0;
