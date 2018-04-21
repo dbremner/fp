@@ -108,9 +108,9 @@ struct symtab {
     char *sym_pname = nullptr;
     
     symtab(const char *pname)
+    :   sym_pname{strdup(pname)},
+        sym_type{symtype::SYM_NEW}
     {
-        sym_pname = strdup(pname);
-        sym_type = symtype::SYM_NEW;
     }
 };
 
