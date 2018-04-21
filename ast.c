@@ -9,15 +9,18 @@ static ast_ptr ast_list = nullptr;
 
 #ifdef MEMSTAT
 int ast_out = 0;
+static void inc_count() { ast_out++;}
+static void dec_count() { ast_out--;}
+#else
+static void inc_count() {}
+static void dec_count() {}
 #endif
 
 /// Get a node
 ast_ptr
 ast_alloc(int atag, ast_ptr l, ast_ptr m, ast_ptr r)
 {
-#ifdef MEMSTAT
-    ast_out++;
-#endif
+    inc_count();
     ast_ptr p = ast_list;
     if(p){
 	ast_list = p->left;
@@ -35,9 +38,7 @@ ast_alloc(int atag, ast_ptr l, ast_ptr m, ast_ptr r)
 static void
 ast_free(ast_ptr p)
 {
-#ifdef MEMSTAT
-    ast_out--;
-#endif
+    dec_count();
     if( !p ) fatal_err("NULL node in ast_free()");
     p->left = ast_list;
     ast_list = p;
