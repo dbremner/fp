@@ -109,7 +109,7 @@ execute(ast_ptr act, obj_ptr obj )
     obj_ptr *hdp = &hd;
 
 	act = act->left;
-	hd = (obj_ptr)0;
+	hd = nullptr;
 	while( act ){
 	    obj->inc_ref();
 	    if( (p = execute(act->left,obj))->o_type == obj_type::T_UNDEF ){

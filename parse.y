@@ -7,7 +7,7 @@
 #include "fp.h"
 #include <stdio.h>
 
-#define NULLAST ((ast_ptr)0)
+#define NULLAST (nullptr)
 static char had_undef = 0;
 void fp_cmd(void);
 
