@@ -27,7 +27,7 @@ obj_alloc(obj_type ty)
     if(p){
 	free_objs = (p->o_val).o_list.car;
     } else {
-        p = new object{ty};
+        p = ::new object{ty};
     }
     if( p->o_type == obj_type::T_LIST ) {
         p->o_val.o_list.car = nullptr;
