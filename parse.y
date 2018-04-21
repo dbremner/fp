@@ -7,7 +7,6 @@
 #include "fp.h"
 #include <stdio.h>
 
-#define NULLAST (nullptr)
 static char had_undef = 0;
 void fp_cmd(void);
 
@@ -187,22 +186,22 @@ funForm	:	simpFn
 
 simpFn	:	IdFns
 		    {
-			$$.YYast = ast_alloc('i', NULLAST, NULLAST, NULLAST);
+			$$.YYast = ast_alloc('i', nullptr, nullptr, nullptr);
 			(($$.YYast)->val).YYsym = $1.YYsym;
 		    }
 	|	INT
 		    {
-			$$.YYast = ast_alloc('S', NULLAST, NULLAST, NULLAST);
+			$$.YYast = ast_alloc('S', nullptr, nullptr, nullptr);
 			(($$.YYast)->val).YYint = $1.YYint;
 		    }
 	|	binaryFn
 		    {
-			$$.YYast = ast_alloc('c', NULLAST, NULLAST, NULLAST);
+			$$.YYast = ast_alloc('c', nullptr, nullptr, nullptr);
 			(($$.YYast)->val).YYint = $1.YYint;
 		    }
 	|	name
 		    {
-			$$.YYast = ast_alloc('U', NULLAST, NULLAST, NULLAST);
+			$$.YYast = ast_alloc('U', nullptr, nullptr, nullptr);
 			(($$.YYast)->val).YYsym = $1.YYsym;
 		    }
 	;
@@ -265,25 +264,25 @@ binaryFn
 composition
 	:	funForm '@' funForm
 		    {
-			$$.YYast = ast_alloc('@',$1.YYast,NULLAST,$3.YYast);
+			$$.YYast = ast_alloc('@',$1.YYast,nullptr,$3.YYast);
 		    }
 	;
 
 construction
 	:	'[' formList ']'
 		    {
-			$$.YYast = ast_alloc('[',$2.YYast,NULLAST,NULLAST);
+			$$.YYast = ast_alloc('[',$2.YYast,nullptr,nullptr);
 		    }
 	;
 
 formList
 	:	funForm
 		    {
-			$$.YYast = ast_alloc('[',$1.YYast,NULLAST,NULLAST);
+			$$.YYast = ast_alloc('[',$1.YYast,nullptr,nullptr);
 		    }
 	|	funForm OptComma formList
 		    {
-			$$.YYast = ast_alloc('[',$1.YYast,NULLAST,$3.YYast);
+			$$.YYast = ast_alloc('[',$1.YYast,nullptr,$3.YYast);
 		    }
 	;
 
@@ -297,7 +296,7 @@ conditional
 constantFn
 	:	'%' object
 		    {
-			$$.YYast = ast_alloc('%',NULLAST,NULLAST,NULLAST);
+			$$.YYast = ast_alloc('%',nullptr,nullptr,nullptr);
 			(($$.YYast)->val).YYobj = $2.YYobj;
 		    }
 	;
@@ -305,23 +304,23 @@ constantFn
 insertion
 	:	'!' funForm
 		    {
-			$$.YYast = ast_alloc('!',$2.YYast,NULLAST,NULLAST);
+			$$.YYast = ast_alloc('!',$2.YYast,nullptr,nullptr);
 		    }
 	|	'|' funForm
 		    {
-			$$.YYast = ast_alloc('|',$2.YYast,NULLAST,NULLAST);
+			$$.YYast = ast_alloc('|',$2.YYast,nullptr,nullptr);
 		    }
 	;
 
 alpha	:	'&' funForm
 		    {
-			$$.YYast = ast_alloc('&',$2.YYast,NULLAST,NULLAST);
+			$$.YYast = ast_alloc('&',$2.YYast,nullptr,nullptr);
 		    }
 	;
 
 While	:	'(' WHILE funForm funForm ')'
 		    {
-			$$.YYast = ast_alloc('W',$3.YYast,NULLAST,$4.YYast);
+			$$.YYast = ast_alloc('W',$3.YYast,nullptr,$4.YYast);
 		    }
 	;
 
