@@ -27,10 +27,10 @@ obj_alloc(obj_type ty)
     if(p){
         free_objs = (p->o_val).o_list.car;
         p->init(ty);
+        return(p);
     } else {
         return ::new object{ty};
     }
-    return(p);
 }
 
 /// Free an object
