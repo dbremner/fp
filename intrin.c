@@ -242,7 +242,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	}
 	p->inc_ref();
 	r = obj_alloc(obj_type::T_LIST);
-	CDR(r) = p;
+    r->cdr(p);
 	CAR(r) = q;
 	obj_unref(obj);
 	return(r);
@@ -303,7 +303,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	if( !obj->car() ) return(obj);
 	for( p = nullptr, q = obj; q; q = q->cdr() ){
 	    r = obj_alloc(obj_type::T_LIST);
-	    CDR(r) = p;
+        r->cdr(p);
 	    p = r;
 	    CAR(p) = car_(q);
 	    q->car()->inc_ref();
@@ -374,7 +374,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	p = obj_alloc(obj_type::T_LIST);
 	CAR(p) = car_(q);
 	q->car()->inc_ref();
-	CDR(p) = hd;
+    p->cdr(hd);
 	obj_unref(obj);
 	return(p);
     }
