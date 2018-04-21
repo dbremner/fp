@@ -414,7 +414,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    return undefined();
 	}
 	p = obj_alloc(obj_type::T_FLOAT);
-	f = NUMVAL(obj);
+	f = obj->num_val();
 	p->o_val.o_double = sin(f);
 	obj_unref(obj);
 	return(p);
@@ -425,7 +425,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    return undefined();
 	}
 	p = obj_alloc(obj_type::T_FLOAT);
-	f = NUMVAL(obj);
+	f = obj->num_val();
 	p->o_val.o_double = cos(f);
 	obj_unref(obj);
 	return(p);
@@ -436,7 +436,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    return undefined();
 	}
 	p = obj_alloc(obj_type::T_FLOAT);
-	f = NUMVAL(obj);
+	f = obj->num_val();
 	p->o_val.o_double = tan(f);
 	obj_unref(obj);
 	return(p);
@@ -447,7 +447,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    return undefined();
 	}
 	p = obj_alloc(obj_type::T_FLOAT);
-	f = NUMVAL(obj);
+	f = obj->num_val();
 	p->o_val.o_double = asin(f);
 	obj_unref(obj);
 	return(p);
@@ -458,7 +458,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    return undefined();
 	}
 	p = obj_alloc(obj_type::T_FLOAT);
-	f = NUMVAL(obj);
+	f = obj->num_val();
 	p->o_val.o_double = acos(f);
 	obj_unref(obj);
 	return(p);
@@ -469,7 +469,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    return undefined();
 	}
 	p = obj_alloc(obj_type::T_FLOAT);
-	f = NUMVAL(obj);
+	f = obj->num_val();
 	p->o_val.o_double = atan(f);
 	obj_unref(obj);
 	return(p);
@@ -480,7 +480,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    return undefined();
 	}
 	p = obj_alloc(obj_type::T_FLOAT);
-	f = NUMVAL(obj);
+	f = obj->num_val();
 	p->o_val.o_double = exp(f);
 	obj_unref(obj);
 	return(p);
@@ -491,7 +491,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    return undefined();
 	}
 	p = obj_alloc(obj_type::T_FLOAT);
-	f = NUMVAL(obj);
+	f = obj->num_val();
 	p->o_val.o_double = log(f);
 	obj_unref(obj);
 	return(p);
