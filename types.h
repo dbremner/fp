@@ -60,8 +60,8 @@ struct symtab_entry {
     const std::string sym_pname;
     
     symtab_entry(const char *pname)
-    :   sym_pname{pname},
-        sym_type{symtype::SYM_NEW}
+    :   sym_type{symtype::SYM_NEW},
+        sym_pname{pname}
     {
     }
 };

@@ -15,9 +15,12 @@ void fp_cmd(void);
 extern int obj_out, ast_out;
 #endif
 
-//both of these are triggered by bison's generated code
+//all of these are triggered by bison's generated code
 #pragma clang diagnostic ignored "-Wunreachable-code"
 #pragma clang diagnostic ignored "-Wsign-conversion"
+#pragma clang diagnostic ignored "-Wreserved-id-macro"
+#pragma clang diagnostic ignored "-Wmissing-variable-declarations"
+#pragma clang diagnostic ignored "-Wold-style-cast"
 %}
 
 %start go

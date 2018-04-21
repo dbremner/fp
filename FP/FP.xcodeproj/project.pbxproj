@@ -307,7 +307,11 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WARNING_CFLAGS = "";
+				WARNING_CFLAGS = (
+					"-Weverything",
+					"-Wno-c++98-compat",
+					"-Wno-unused-macros",
+				);
 			};
 			name = Debug;
 		};
@@ -339,7 +343,11 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WARNING_CFLAGS = "";
+				WARNING_CFLAGS = (
+					"-Weverything",
+					"-Wno-c++98-compat",
+					"-Wno-unused-macros",
+				);
 			};
 			name = Release;
 		};
