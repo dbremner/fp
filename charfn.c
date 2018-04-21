@@ -11,7 +11,6 @@
      * This ugly set of macros makes access to objects easier.
      *
      * NUMVAL generates a value for C of the correct type
-     * CAR manipulates the object as a list & gives its first part
      */
 
 #define NUMVAL(x) ( (x->o_type == obj_type::T_INT) ? \
