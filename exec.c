@@ -301,7 +301,9 @@ do_rinsert(ast_ptr act, obj_ptr obj)
     q = obj_alloc(obj_type::T_LIST);
     q->car(obj->car());
     obj->car()->inc_ref();
-    CAR(CDR(q) = obj_alloc(obj_type::T_LIST)) = p;
+    obj_ptr result = obj_alloc(obj_type::T_LIST);
+    q->cdr(result);
+    q->cdr()->car(p);
     obj_unref(obj);
     return( execute(act,q) );
 }
