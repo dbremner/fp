@@ -505,8 +505,8 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	case obj_type::T_INT:{
 	    int x1, x2;
 
-	    x1 = NUMVAL(obj->car());
-        x2 = NUMVAL(obj->cadr());
+	    x1 = obj->car()->num_val();
+        x2 = obj->cadr()->num_val();
 	    if( x2 == 0 ){
 		obj_unref(obj);
 		return undefined();
@@ -622,8 +622,8 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	case obj_type::T_INT:{
 	    int x1, x2;
 
-	    x1 = NUMVAL(obj->car());
-        x2 = NUMVAL(obj->cadr());
+	    x1 = obj->car()->num_val();
+        x2 = obj->cadr()->num_val();
 	    if( x2 == 0 ){
 		obj_unref(obj);
 		return undefined();
