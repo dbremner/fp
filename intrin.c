@@ -575,7 +575,8 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    q->car(p->car());
 	    p->car()->inc_ref();
 	}
-	CAR(top = obj_alloc(obj_type::T_LIST)) = hd;
+    top = obj_alloc(obj_type::T_LIST);
+    top->car(hd);
 	hd = nullptr; hdp = &hd;
 	while(p){
 	    *hdp = q = obj_alloc(obj_type::T_LIST);
@@ -738,7 +739,7 @@ do_dist(
 	    elem->inc_ref();
 	}
 	*hdp = obj_alloc(obj_type::T_LIST);
-	CAR(*hdp) = r;
+    ((*hdp))->car(r);
 	hdp = &CDR(*hdp);
 
 	lst = lst->cdr();
