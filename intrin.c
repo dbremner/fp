@@ -183,7 +183,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	}
 	while( q->cdr() ){
 	    *hdp = p = obj_alloc(obj_type::T_LIST);
-        if( (CAR(p) = car_(q)) ){
+        if( (CAR(p) = q->car()) ){
 		p->car()->inc_ref();
 	    }
 	    hdp = &CDR(p);
@@ -339,7 +339,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    q->car()->inc_ref();
 	}
 	*hdp = p = obj_alloc(obj_type::T_LIST);
-	CAR(p) = car_(obj);
+	CAR(p) = obj->car();
 	obj->car()->inc_ref();
 	obj_unref(obj);
 	return(hd);
@@ -400,7 +400,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    for( ; q; q = q->cdr() ){
 		*hdp = r = obj_alloc(obj_type::T_LIST);
 		hdp = &CDR(r);
-		CAR(r) = car_(q);
+		CAR(r) = q->car();
 		q->car()->inc_ref();
 	    }
 	}
@@ -507,7 +507,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	case obj_type::T_INT:{
 	    int x1, x2;
 
-	    x1 = NUMVAL(car_(obj));
+	    x1 = NUMVAL(obj->car());
 	    if( (x2 = NUMVAL(obj->cadr())) == 0 ){
 		obj_unref(obj);
 		return undefined();
@@ -540,7 +540,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 		*hdp = q = obj_alloc(obj_type::T_LIST);
 		hdp = &CDR(q);
 		CAR(q) = r = obj_alloc(obj_type::T_LIST);
-		CAR(r) = car_(p);
+		CAR(r) = p->car();
 		p->car()->inc_ref();
 		x++;
 	    } else {
@@ -618,7 +618,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	case obj_type::T_INT:{
 	    int x1, x2;
 
-	    x1 = NUMVAL(car_(obj));
+	    x1 = NUMVAL(obj->car());
 	    if( (x2 = NUMVAL(obj->cadr())) == 0 ){
 		obj_unref(obj);
 		return undefined();
