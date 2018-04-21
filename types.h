@@ -35,13 +35,13 @@ struct object {
     ///CAR manipulates the object as a list & gives its first part
     obj_ptr car()
     {
-        return (this->o_val).o_list.car;
+        return o_val.o_list.car;
     }
     
     ///CDR is like CAR but gives all but the first
     obj_ptr cdr()
     {
-        return ((this)->o_val).o_list.cdr;
+        return o_val.o_list.cdr;
     }
     
     void inc_ref()
@@ -57,7 +57,7 @@ struct object {
     ///ISNUM provides a boolean saying if the named object is a number
     bool is_num() const
     {
-        return ( (this->o_type == obj_type::T_INT) || (this->o_type == obj_type::T_FLOAT) );
+        return ( (o_type == obj_type::T_INT) || (o_type == obj_type::T_FLOAT) );
     }
 };
 
