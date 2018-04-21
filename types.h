@@ -38,10 +38,20 @@ struct object {
         return o_val.o_list.car;
     }
     
+    void car(obj_ptr ptr)
+    {
+        o_val.o_list.car = ptr;
+    }
+    
     ///CDR is like CAR but gives all but the first
     obj_ptr cdr()
     {
         return o_val.o_list.cdr;
+    }
+    
+    void cdr(obj_ptr ptr)
+    {
+        o_val.o_list.cdr = ptr;
     }
     
     void inc_ref()
