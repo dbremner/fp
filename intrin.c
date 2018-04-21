@@ -6,7 +6,6 @@
  */
 #include "fp.h"
 #include "y.tab.h"
-#include "object_inlines.hpp"
 #include <math.h>
 #include <stdio.h>
 

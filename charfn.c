@@ -4,7 +4,6 @@
  * 	Copyright (c) 1986 by Andy Valencia
  */
 #include "fp.h"
-#include "object_inlines.hpp"
 #include "y.tab.h"
 
     /*
