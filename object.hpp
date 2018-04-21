@@ -6,7 +6,7 @@ struct object {
     /// Type for selecting
     obj_type o_type;
     /// Number of current refs, for GC
-    uint32_t o_refs = 1;
+    unsigned o_refs = 1;
     union {
         /// T_INT, T_BOOL
         int o_int;

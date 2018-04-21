@@ -54,7 +54,7 @@ enum class symtype {
 /// A symbol table entry for an identifier
 struct symtab {
     symtype sym_type;
-    uint32_t padding = 0;
+    unsigned padding = 0;
     YYstype sym_val{};
     sym_ptr sym_next = nullptr;
     std::string sym_pname;
