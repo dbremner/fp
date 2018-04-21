@@ -517,6 +517,9 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    obj_unref(obj);
 	    return(p);
 	}
+    case obj_type::T_LIST:
+    case obj_type::T_BOOL:
+        fatal_err("Unreachable switch cases");
 	}
     
     case PAIR:{		// Pair up successive elements of a list
@@ -624,6 +627,9 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    (p->o_val).o_int = x1 / x2;
 	    obj_unref(obj);
 	    return(p);
+    case obj_type::T_LIST:
+    case obj_type::T_BOOL:
+        fatal_err("Unreachable switch cases");
 	}
 	}
     

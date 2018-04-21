@@ -119,6 +119,9 @@ do_charfun(ast_ptr act, obj_ptr obj)
             (p->o_val).o_int = NUMVAL(car_(obj)) > NUMVAL(cadr_(obj));
             obj_unref(obj);
             return(p);
+        case obj_type::T_LIST:
+        case obj_type::T_BOOL:
+            fatal_err("Unreachable switch cases");
 	}
 
     case GE:
@@ -132,6 +135,9 @@ do_charfun(ast_ptr act, obj_ptr obj)
             (p->o_val).o_int = NUMVAL(car_(obj)) >= NUMVAL(cadr_(obj));
             obj_unref(obj);
             return(p);
+        case obj_type::T_LIST:
+        case obj_type::T_BOOL:
+            fatal_err("Unreachable switch cases");
 	}
 
     case LE:
@@ -145,6 +151,9 @@ do_charfun(ast_ptr act, obj_ptr obj)
             (p->o_val).o_int = NUMVAL(car_(obj)) <= NUMVAL(cadr_(obj));
             obj_unref(obj);
             return(p);
+        case obj_type::T_LIST:
+        case obj_type::T_BOOL:
+            fatal_err("Unreachable switch cases");
 	}
 
     case '<':
@@ -158,6 +167,9 @@ do_charfun(ast_ptr act, obj_ptr obj)
             (p->o_val).o_int = NUMVAL(car_(obj)) < NUMVAL(cadr_(obj));
             obj_unref(obj);
             return(p);
+        case obj_type::T_LIST:
+        case obj_type::T_BOOL:
+            fatal_err("Unreachable switch cases");
 	}
 
     case '+':
@@ -175,6 +187,9 @@ do_charfun(ast_ptr act, obj_ptr obj)
             (p->o_val).o_int = NUMVAL(car_(obj))+NUMVAL(cadr_(obj));
             obj_unref(obj);
             return(p);
+        case obj_type::T_LIST:
+        case obj_type::T_BOOL:
+            fatal_err("Unreachable switch cases");
 	}
     case '-':
 	switch( numargs(obj) ){
@@ -191,6 +206,9 @@ do_charfun(ast_ptr act, obj_ptr obj)
             (p->o_val).o_int = NUMVAL(car_(obj))-NUMVAL(cadr_(obj));
             obj_unref(obj);
             return(p);
+        case obj_type::T_LIST:
+        case obj_type::T_BOOL:
+            fatal_err("Unreachable switch cases");
 	}
     case '*':
 	switch( numargs(obj) ){
@@ -207,6 +225,9 @@ do_charfun(ast_ptr act, obj_ptr obj)
             (p->o_val).o_int = NUMVAL(car_(obj))*NUMVAL(cadr_(obj));
             obj_unref(obj);
             return(p);
+        case obj_type::T_LIST:
+        case obj_type::T_BOOL:
+            fatal_err("Unreachable switch cases");
 	}
     case '/':
 	switch( numargs(obj) ){
@@ -224,6 +245,9 @@ do_charfun(ast_ptr act, obj_ptr obj)
             (p->o_val).o_double = NUMVAL(car_(obj))/f;
             obj_unref(obj);
             return(p);
+        case obj_type::T_LIST:
+        case obj_type::T_BOOL:
+            fatal_err("Unreachable switch cases");
 	}
     default:
 	fatal_err("Undefined charop tag in execute()");
