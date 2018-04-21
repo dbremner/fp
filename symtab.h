@@ -4,8 +4,6 @@
  *	Copyright (c) 1986 by Andy Valencia
  */
 
-#include "y.tab.h"
-
 sym_ptr lookup(const char *name);
 
 void symtab_init(void);
