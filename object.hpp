@@ -51,6 +51,12 @@ struct object {
         o_val.o_list.cdr = ptr;
     }
     
+    ///(car (cdr x))
+    obj_ptr cadr()
+    {
+        return cdr()->car();
+    }
+    
     void inc_ref()
     {
         o_refs++;
