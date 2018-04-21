@@ -33,8 +33,13 @@ typedef union {
 
 /// An AST
 struct ast {
-    int tag = 0;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-private-field"
+private:
     int padding = 0;
+#pragma clang diagnostic pop
+public:
+    int tag = 0;
     YYSTYPE val{};
     ast_ptr left = nullptr;
     ast_ptr middle = nullptr;
@@ -53,8 +58,13 @@ struct ast {
 
 /// A symbol table entry for an identifier
 struct symtab_entry {
-    symtype sym_type;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-private-field"
+private:
     unsigned padding = 0;
+#pragma clang diagnostic pop
+public:
+    symtype sym_type;
     YYstype sym_val{};
     sym_ptr sym_next = nullptr;
     const std::string sym_pname;
