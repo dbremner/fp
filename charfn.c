@@ -41,7 +41,7 @@ same(obj_ptr o1, obj_ptr o2)
         case obj_type::T_FLOAT:
             return( o1->o_val.o_double == o2->o_val.o_double );
         case obj_type::T_LIST:
-            return( same(o1->car(),o2->car()) && same(cdr_(o1),cdr_(o2)) );
+            return( same(o1->car(),o2->car()) && same(o1->cdr(),o2->cdr()) );
         case obj_type::T_UNDEF:
             fatal_err("Bad AST type in same()");
     }
@@ -55,9 +55,9 @@ ispair(obj_ptr obj)
         return(false);
     if( obj->car() == nullptr )
         return(false);
-    if( cdr_(obj) == nullptr )
+    if( obj->cdr() == nullptr )
         return(false);
-    if( cdr_(cdr_(obj)) )
+    if( obj->cdr()->cdr() )
         return(false);
     return(true);
 }

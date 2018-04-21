@@ -22,7 +22,7 @@ static inline obj_ptr cdr_(obj_ptr x)
 ///(car (cdr x))
 static inline obj_ptr cadr_(obj_ptr x)
 {
-    return car_(cdr_(x));
+    return car_(x->cdr());
 }
 
 #endif

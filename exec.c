@@ -77,7 +77,7 @@ execute(ast_ptr act, obj_ptr obj )
 	}
 	while( --x ){		// Scan down list X times
 	    if( !p ) break;
-	    p = cdr_(p);
+	    p = p->cdr();
 	}
 	if( !p ){		// Fell off bottom of list
 	    obj_unref(obj);
@@ -157,7 +157,7 @@ execute(ast_ptr act, obj_ptr obj )
 	    return undefined();
 	}
 	if( !obj->car() ) return(obj);
-	for( p = obj; p; p = cdr_(p) ){
+	for( p = obj; p; p = p->cdr() ){
 	    (p->o_val.o_list.car)->inc_ref();
 	    if( (q = execute(act->left,car_(p)))->o_type == obj_type::T_UNDEF ){
 		obj_unref(hd); obj_unref(obj);
@@ -275,7 +275,7 @@ do_rinsert(ast_ptr act, obj_ptr obj)
     }
 
 	// If the list has only one element, we return that element.
-    if( !(p = cdr_(obj)) ){
+    if( !(p = obj->cdr()) ){
 	p = obj->car();
 	p->inc_ref();
 	obj_unref(obj);
@@ -283,7 +283,7 @@ do_rinsert(ast_ptr act, obj_ptr obj)
     }
 
 	// If the list has two elements, we apply our operator and reduce
-    if( !cdr_(p) ){
+    if( !p->cdr() ){
 	return( execute(act,obj) );
     }
 
@@ -293,8 +293,8 @@ do_rinsert(ast_ptr act, obj_ptr obj)
 	 *	first linked onto the result.  Normal business over undefined
 	 *	objects popping up.
 	 */
-    cdr_(obj)->inc_ref();
-    p = do_rinsert(act,cdr_(obj));
+    obj->cdr()->inc_ref();
+    p = do_rinsert(act,obj->cdr());
     if( p->o_type == obj_type::T_UNDEF ){
 	obj_unref(obj);
 	return(p);
@@ -364,7 +364,7 @@ do_binsert(ast_ptr act, obj_ptr obj)
     }
 
 	// If the list has only one element, we return that element.
-    if( !(p = cdr_(obj)) ){
+    if( !(p = obj->cdr()) ){
 	p = obj->car();
 	p->inc_ref();
 	obj_unref(obj);
@@ -372,7 +372,7 @@ do_binsert(ast_ptr act, obj_ptr obj)
     }
 
 	// If the list has two elements, we apply our operator and reduce
-    if( !cdr_(p) ){
+    if( !p->cdr() ){
 	return( execute(act,obj) );
     }
 
@@ -385,13 +385,13 @@ do_binsert(ast_ptr act, obj_ptr obj)
     x = 0;
     hd = nullptr;
     hdp = &hd;
-    for( q = obj; p; p = cdr_(p) ){
+    for( q = obj; p; p = p->cdr() ){
 	if( x ){
 	    *hdp = r = obj_alloc(obj_type::T_LIST);
 	    hdp = &CDR(r);
 	    CAR(r) = q->car();
 	    q->car()->inc_ref();
-	    q = cdr_(q);
+	    q = q->cdr();
 	    x = 0;
 	} else
 	    x = 1;
@@ -405,7 +405,7 @@ do_binsert(ast_ptr act, obj_ptr obj)
 	 *	our use of it via execute() will consume it (and obj still
 	 *	references it...).
 	 */
-    q = cdr_(q);
+    q = q->cdr();
     q->inc_ref();
 
 	/*
