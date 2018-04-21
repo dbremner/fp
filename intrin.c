@@ -543,7 +543,8 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 		p->car()->inc_ref();
 		x++;
 	    } else {
-		CDR(r) = q = obj_alloc(obj_type::T_LIST);
+        q = obj_alloc(obj_type::T_LIST);
+        r->cdr(q);
 		q->car(p->car());
 		p->car()->inc_ref();
 		x = 0;
@@ -584,7 +585,9 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    p = p->cdr();
 	}
 	if( !hd ) hd = obj_alloc(obj_type::T_LIST);
-	CAR(CDR(top) = obj_alloc(obj_type::T_LIST)) = hd;
+    obj_ptr result = obj_alloc(obj_type::T_LIST);
+    top->cdr(result);
+    top->cdr()->car(hd);
 	obj_unref(obj);
 	return(top);
     }
