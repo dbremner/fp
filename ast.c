@@ -31,8 +31,6 @@ ast_alloc(int atag, ast_ptr l, ast_ptr m, ast_ptr r)
         p->init(atag, l, m, r);
         return( p );
     }
-    p->init(atag, l, m, r);
-    return( p );
 }
 
 /// Free a node
