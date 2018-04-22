@@ -101,7 +101,7 @@ object	:	object2
 			     */
 			if( had_undef ){
 			    obj_unref($1.YYobj);
-			    $$.YYobj = obj_alloc(obj_type::T_UNDEF);
+			    $$.YYobj = undefined();
 			    had_undef = 0;
 			}
 		    }
@@ -110,7 +110,7 @@ object2	:	atom
 	|	fpSequence
 	|	'?'
 		    {
-			$$.YYobj = obj_alloc(obj_type::T_UNDEF);
+			$$.YYobj = undefined();
 			had_undef = 1;
 		    }
 	;
