@@ -89,7 +89,7 @@ struct object {
         o_refs--;
     }
     
-    ///ISNUM provides a boolean saying if the named object is a number
+    /// returns true if o_type is T_INT or T_FLOAT
     bool is_num() const
     {
         return ( (o_type == obj_type::T_INT) || (o_type == obj_type::T_FLOAT) );
