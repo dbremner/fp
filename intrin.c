@@ -175,8 +175,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    return undefined();
 	}
 	while( q->cdr() ){
-	    *hdp = p = obj_alloc(obj_type::T_LIST);
-        p->car(q->car());
+	    *hdp = p = obj_alloc(q->car());
         if( p->car() ){
 		p->car()->inc_ref();
 	    }
@@ -230,14 +229,11 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	q->inc_ref();
 	if( !p->car() ){		// Null list?
 	    obj_unref(obj);
-	    p = obj_alloc(obj_type::T_LIST);
-	    p->car(q);
+	    p = obj_alloc(q);
 	    return(p);		// Just return element
 	}
 	p->inc_ref();
-	r = obj_alloc(obj_type::T_LIST);
-    r->cdr(p);
-	r->car(q);
+	r = obj_alloc(q, p);
 	obj_unref(obj);
 	return(r);
     }
@@ -260,8 +256,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	r->inc_ref();
 	if( !q->car() ){		// Empty list
 	    obj_unref(obj);
-	    p = obj_alloc(obj_type::T_LIST);
-        p->car(r);
+	    p = obj_alloc(r);
 	    return(p);		// Just return elem
 	}
 
@@ -278,8 +273,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	}
 
 	    // Tack the element onto the end of the built list
-	*hdp = p = obj_alloc(obj_type::T_LIST);
-    p->car(r);
+	*hdp = p = obj_alloc(r);
 	obj_unref(obj);
 	return(hd);
     }
@@ -332,8 +326,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    p->car(q->car());
 	    q->car()->inc_ref();
 	}
-	*hdp = p = obj_alloc(obj_type::T_LIST);
-    p->car(obj->car());
+	*hdp = p = obj_alloc(obj->car());
 	obj->car()->inc_ref();
 	obj_unref(obj);
 	return(hd);
@@ -365,8 +358,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    p->car(q->car());
 	    q->car()->inc_ref();
 	}
-	p = obj_alloc(obj_type::T_LIST);
-	p->car(q->car());
+	p = obj_alloc(q->car());
 	q->car()->inc_ref();
     p->cdr(hd);
 	obj_unref(obj);
@@ -562,8 +554,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    q->car(p->car());
 	    p->car()->inc_ref();
 	}
-    top = obj_alloc(obj_type::T_LIST);
-    top->car(hd);
+    top = obj_alloc(hd);
 	hd = nullptr; hdp = &hd;
 	while(p){
 	    *hdp = q = obj_alloc(obj_type::T_LIST);
