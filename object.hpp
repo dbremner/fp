@@ -110,11 +110,6 @@ struct object {
     {
         return o_val.o_int;
     }
-    
-    void bool_val(bool val)
-    {
-        o_val.o_int = val;
-    }
 };
 
 #endif
