@@ -243,13 +243,11 @@ do_rinsert(ast_ptr act, obj_ptr obj)
 	    switch( act->val.YYint ){
 	    case '+':
 	    case '-':
-		p = obj_alloc(obj_type::T_INT);
-		p->o_val.o_int = 0;
+		p = obj_alloc(0);
 		break;
 	    case '/':
 	    case '*':
-		p = obj_alloc(obj_type::T_INT);
-		p->o_val.o_int = 1;
+		p = obj_alloc(1);
 		break;
 	    default:
 		return undefined();
@@ -334,13 +332,11 @@ do_binsert(ast_ptr act, obj_ptr obj)
 	    switch( act->val.YYint ){
 	    case '+':
 	    case '-':
-		p = obj_alloc(obj_type::T_INT);
-		p->o_val.o_int = 0;
+		p = obj_alloc(0);
 		break;
 	    case '/':
 	    case '*':
-		p = obj_alloc(obj_type::T_INT);
-		p->o_val.o_int = 1;
+		p = obj_alloc(1);
 		break;
 	    default:
 		return undefined();

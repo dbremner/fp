@@ -626,8 +626,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 		obj_unref(obj);
 		return undefined();
 	    }
-	    p = obj_alloc(obj_type::T_INT);
-	    (p->o_val).o_int = x1 / x2;
+	    p = obj_alloc(x1 / x2);
 	    obj_unref(obj);
 	    return(p);
     case obj_type::T_LIST:
