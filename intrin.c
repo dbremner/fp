@@ -817,7 +817,7 @@ do_bool(obj_ptr obj, int op)
     obj_ptr p;
     obj_ptr q;
     obj_ptr r;
-    int i;
+    bool i;
 
     if(
 	(obj->o_type != obj_type::T_LIST) ||
