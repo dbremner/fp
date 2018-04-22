@@ -257,12 +257,12 @@ do_rinsert(ast_ptr act, obj_ptr obj)
 	    switch( (act->val.YYsym)->sym_val.YYint ){
 	    case AND:
 		p = obj_alloc(obj_type::T_BOOL);
-		p->o_val.o_int = 1;
+		p->bool_val(true);
 		break;
 	    case OR:
 	    case XOR:
 		p = obj_alloc(obj_type::T_BOOL);
-		p->o_val.o_int = 0;
+		p->bool_val(false);
 		break;
 	    default:
 		return undefined();
@@ -348,12 +348,12 @@ do_binsert(ast_ptr act, obj_ptr obj)
 	    switch( (act->val.YYsym)->sym_val.YYint ){
 	    case AND:
 		p = obj_alloc(obj_type::T_BOOL);
-		p->o_val.o_int = 1;
+		p->bool_val(true);
 		break;
 	    case OR:
 	    case XOR:
 		p = obj_alloc(obj_type::T_BOOL);
-		p->o_val.o_int = 0;
+		p->bool_val(false);
 		break;
 	    default:
 		return undefined();
