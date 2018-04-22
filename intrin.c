@@ -89,7 +89,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
     obj_ptr hd;
     obj_ptr *hdp = &hd;
 
-	if( (obj->o_type != obj_type::T_INT) && (obj->o_type != obj_type::T_FLOAT) ){
+	if( !obj->is_num() ){
 	    obj_unref(obj);
 	    return undefined();
 	}
