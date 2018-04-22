@@ -45,6 +45,13 @@ obj_alloc(double value)
     return new object{value};
 }
 
+obj_ptr
+obj_alloc(obj_ptr car_, obj_ptr cdr_)
+{
+    incobjcount();
+    return new object{car_, cdr_};
+}
+
 obj_ptr undefined(void)
 {
     return(obj_alloc(obj_type::T_UNDEF));
