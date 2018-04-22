@@ -7,15 +7,6 @@
 #include "y.tab.h"
 
     /*
-     * This ugly set of macros makes access to objects easier.
-     *
-     * NUMVAL generates a value for C of the correct type
-     */
-
-#define NUMVAL(x) ( (x->o_type == obj_type::T_INT) ? \
-    ((x->o_val).o_int) : ((x->o_val).o_double) )
-
-    /*
      * same()--looks at two objects and tells whether they are the same.
      *	We recurse if it is a list.
      */

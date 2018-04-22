@@ -10,14 +10,11 @@
 #include <stdio.h>
 
     /*
-     * This ugly set of macros makes access to objects easier.
+     * This macro makes access to objects easier.
      *
-     * NUMVAL generates a value for C of the correct type
      * CDR is like CAR but gives all but the first
      */
 
-#define NUMVAL(x) ( (x->o_type == obj_type::T_INT) ? \
-    ((x->o_val).o_int) : ((x->o_val).o_double) )
 #define CDR(x) ( ((x)->o_val).o_list.cdr )
 
 static obj_ptr
