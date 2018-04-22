@@ -95,6 +95,11 @@ struct object {
         return ( (o_type == obj_type::T_INT) || (o_type == obj_type::T_FLOAT) );
     }
     
+    bool is_undef() const
+    {
+        return o_type == obj_type::T_UNDEF;
+    }
+    
     double num_val() const
     {
         return ( (o_type == obj_type::T_INT) ? \
