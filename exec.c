@@ -107,7 +107,7 @@ execute(ast_ptr act, obj_ptr obj )
 	hd = nullptr;
 	while( act ){
 	    obj->inc_ref();
-	    if( (p = execute(act->left,obj))->o_type == obj_type::T_UNDEF ){
+	    if( (p = execute(act->left,obj))->is_undef() ){
 		obj_unref(hd);
 		obj_unref(obj);
 		return(p);
@@ -129,7 +129,7 @@ execute(ast_ptr act, obj_ptr obj )
     case '>':
 	obj->inc_ref();
 	p = execute(act->left,obj);
-	if( p->o_type == obj_type::T_UNDEF ){
+	if( p->is_undef() ){
 	    obj_unref(obj);
 	    return(p);
 	}
@@ -157,7 +157,7 @@ execute(ast_ptr act, obj_ptr obj )
 	if( !obj->car() ) return(obj);
 	for( p = obj; p; p = p->cdr() ){
 	    (p->o_val.o_list.car)->inc_ref();
-	    if( (q = execute(act->left,p->car()))->o_type == obj_type::T_UNDEF ){
+	    if( (q = execute(act->left,p->car()))->is_undef() ){
 		obj_unref(hd); obj_unref(obj);
 		return(q);
 	    }
@@ -170,7 +170,7 @@ execute(ast_ptr act, obj_ptr obj )
 
 	// Introduce an object
     case '%':
-	if( obj->o_type == obj_type::T_UNDEF ) return(obj);
+	if( obj->is_undef() ) return(obj);
 	obj_unref(obj);
 	p = act->val.YYobj;
 	p->inc_ref();
@@ -179,7 +179,7 @@ execute(ast_ptr act, obj_ptr obj )
 	// Do a while loop
     case 'W':
 	while( 1 ){
-	    if( obj->o_type == obj_type::T_UNDEF ){
+	    if( obj->is_undef() ){
 		obj_unref(obj);
 		return undefined();
 	    }
@@ -288,7 +288,7 @@ do_rinsert(ast_ptr act, obj_ptr obj)
 	 */
     obj->cdr()->inc_ref();
     p = do_rinsert(act,obj->cdr());
-    if( p->o_type == obj_type::T_UNDEF ){
+    if( p->is_undef() ){
 	obj_unref(obj);
 	return(p);
     }
