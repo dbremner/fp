@@ -21,6 +21,24 @@ struct object {
     {
     }
     
+    explicit object(int value)
+    : object(obj_type::T_INT)
+    {
+        o_val.o_int = value;
+    }
+    
+    explicit object(bool value)
+    : object(obj_type::T_BOOL)
+    {
+        o_val.o_int = value;
+    }
+    
+    explicit object(double value)
+    : object(obj_type::T_FLOAT)
+    {
+        o_val.o_double = value;
+    }
+    
     ///CAR manipulates the object as a list & gives its first part
     obj_ptr car()
     {
