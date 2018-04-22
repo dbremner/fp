@@ -503,7 +503,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
     case PAIR:{		// Pair up successive elements of a list
     obj_ptr hd = nullptr;
     obj_ptr *hdp = &hd;
-    obj_ptr r;
+    obj_ptr r = nullptr;
 	int x;
 
 	if(
