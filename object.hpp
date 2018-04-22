@@ -105,6 +105,11 @@ struct object {
         return o_type == obj_type::T_INT;
     }
     
+    bool is_float() const
+    {
+        return o_type == obj_type::T_FLOAT;
+    }
+    
     bool is_list() const
     {
         return o_type == obj_type::T_LIST;
