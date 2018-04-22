@@ -161,8 +161,7 @@ execute(ast_ptr act, obj_ptr obj )
 		obj_unref(hd); obj_unref(obj);
 		return(q);
 	    }
-	    *hdp = r = obj_alloc(obj_type::T_LIST);
-	    r->car(q);
+	    *hdp = r = obj_alloc(q);
 	    hdp = &CDR(r);
 	}
 	obj_unref(obj);
@@ -293,8 +292,7 @@ do_rinsert(ast_ptr act, obj_ptr obj)
 	obj_unref(obj);
 	return(p);
     }
-    q = obj_alloc(obj_type::T_LIST);
-    q->car(obj->car());
+    q = obj_alloc(obj->car());
     obj->car()->inc_ref();
     obj_ptr result = obj_alloc(obj_type::T_LIST);
     q->cdr(result);
@@ -388,8 +386,7 @@ do_binsert(ast_ptr act, obj_ptr obj)
 	} else
 	    x = 1;
     }
-    *hdp = p = obj_alloc(obj_type::T_LIST);
-    p->car(q->car());
+    *hdp = p = obj_alloc(q->car());
     q->car()->inc_ref();
 
 	/*
@@ -404,8 +401,7 @@ do_binsert(ast_ptr act, obj_ptr obj)
 	 * Almost there... "hd" is the first, "q" is the second, we encase
 	 *	them in an outer list, and call execute on them.
 	 */
-    p = obj_alloc(obj_type::T_LIST);
-    p->car(do_binsert(act,hd));
+    p = obj_alloc(do_binsert(act,hd));
     obj_ptr new_list = obj_alloc(obj_type::T_LIST);
     obj_ptr result = do_binsert(act,q);
     p->cdr(new_list);
