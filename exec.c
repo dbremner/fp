@@ -255,13 +255,11 @@ do_rinsert(ast_ptr act, obj_ptr obj)
 	} else if ( act->tag == 'i' ){
 	    switch( (act->val.YYsym)->sym_val.YYint ){
 	    case AND:
-		p = obj_alloc(obj_type::T_BOOL);
-		p->bool_val(true);
+		p = obj_alloc(true);
 		break;
 	    case OR:
 	    case XOR:
-		p = obj_alloc(obj_type::T_BOOL);
-		p->bool_val(false);
+		p = obj_alloc(false);
 		break;
 	    default:
 		return undefined();
@@ -344,13 +342,11 @@ do_binsert(ast_ptr act, obj_ptr obj)
 	} else if ( act->tag == 'i' ){
 	    switch( (act->val.YYsym)->sym_val.YYint ){
 	    case AND:
-		p = obj_alloc(obj_type::T_BOOL);
-		p->bool_val(true);
+		p = obj_alloc(true);
 		break;
 	    case OR:
 	    case XOR:
-		p = obj_alloc(obj_type::T_BOOL);
-		p->bool_val(false);
+		p = obj_alloc(false);
 		break;
 	    default:
 		return undefined();

@@ -237,8 +237,7 @@ do_charfun(ast_ptr act, obj_ptr obj)
             obj_unref(obj);
             return undefined();
             }
-            p = obj_alloc(obj_type::T_FLOAT);
-            (p->o_val).o_double = obj->car()->num_val()/f;
+            p = obj_alloc(obj->car()->num_val()/f);
             obj_unref(obj);
             return(p);
         case obj_type::T_LIST:
