@@ -39,6 +39,18 @@ struct object {
         o_val.o_double = value;
     }
     
+    explicit object(obj_ptr car_)
+    : object(car_, nullptr)
+    {
+    }
+    
+    explicit object(obj_ptr car_, obj_ptr cdr_)
+    : object(obj_type::T_LIST)
+    {
+        car(car_);
+        cdr(cdr_);
+    }
+    
     ///CAR manipulates the object as a list & gives its first part
     obj_ptr car()
     {
