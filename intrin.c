@@ -592,7 +592,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
     }
 
     case ATOM:{
-	int result;
+	bool result;
 
 	switch( obj->o_type ){
 	case obj_type::T_UNDEF:
@@ -600,10 +600,10 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	case obj_type::T_INT:
 	case obj_type::T_BOOL:
 	case obj_type::T_FLOAT:
-	    result = 1;
+	    result = true;
 	    break;
     case obj_type::T_LIST:
-	    result = 0;
+	    result = false;
 	}
 	p = obj_alloc(obj_type::T_BOOL);
 	p->o_val.o_int = result;
