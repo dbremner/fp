@@ -19,10 +19,10 @@ same(obj_ptr o1, obj_ptr o2)
     assert(o2);
     if( o1->o_type != o2->o_type ){
         if( o1->is_int() )
-            if( o2->o_type == obj_type::T_FLOAT )
+            if( o2->is_float() )
             return( o1->o_val.o_int == o2->o_val.o_double );
         if( o2->is_int() )
-            if( o1->o_type == obj_type::T_FLOAT )
+            if( o1->is_float() )
             return( o2->o_val.o_int == o1->o_val.o_double );
         return(false);
     }
@@ -277,7 +277,7 @@ numargs(obj_ptr obj)
     obj_ptr p = obj->car();
     obj_ptr q = obj->cadr();
     if( !p->is_num() || !q->is_num() ) return(obj_type::T_UNDEF);
-    if( (p->o_type == obj_type::T_FLOAT) || (q->o_type == obj_type::T_FLOAT) )
+    if( (p->is_float()) || (q->is_float()) )
 	return(obj_type::T_FLOAT);
     return(obj_type::T_INT);
 }
