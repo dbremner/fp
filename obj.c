@@ -38,6 +38,13 @@ obj_alloc(bool value)
     return new object{value};
 }
 
+obj_ptr
+obj_alloc(double value)
+{
+    incobjcount();
+    return new object{value};
+}
+
 obj_ptr undefined(void)
 {
     return(obj_alloc(obj_type::T_UNDEF));

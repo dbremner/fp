@@ -44,6 +44,7 @@ void yyerror(const char *msg);
 obj_ptr obj_alloc(obj_type);
 obj_ptr obj_alloc(int value);
 obj_ptr obj_alloc(bool value);
+obj_ptr obj_alloc(double value);
 ///generates the undefined object & returns it
 obj_ptr undefined(void);
 void obj_prtree(obj_ptr p);
