@@ -70,6 +70,16 @@ struct object {
         return ( (o_type == obj_type::T_INT) ? \
                 (o_val.o_int) : (o_val.o_double) );
     }
+    
+    bool bool_val()
+    {
+        return o_val.o_int;
+    }
+    
+    void bool_val(bool val)
+    {
+        o_val.o_int = val;
+    }
 };
 
 #endif
