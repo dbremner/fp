@@ -18,10 +18,10 @@ same(obj_ptr o1, obj_ptr o2)
     assert(o1);
     assert(o2);
     if( o1->o_type != o2->o_type ){
-        if( o1->o_type == obj_type::T_INT )
+        if( o1->is_int() )
             if( o2->o_type == obj_type::T_FLOAT )
             return( o1->o_val.o_int == o2->o_val.o_double );
-        if( o2->o_type == obj_type::T_INT )
+        if( o2->is_int() )
             if( o1->o_type == obj_type::T_FLOAT )
             return( o2->o_val.o_int == o1->o_val.o_double );
         return(false);

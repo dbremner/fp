@@ -93,7 +93,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    obj_unref(obj);
 	    return undefined();
 	}
-	l = (obj->o_type == obj_type::T_INT) ? obj->o_val.o_int : obj->o_val.o_double;
+	l = (obj->is_int()) ? obj->o_val.o_int : obj->o_val.o_double;
 	obj_unref(obj);
 	if( l < 0 ) return undefined();
 	if( l == 0 ) return( obj_alloc(obj_type::T_LIST) );
