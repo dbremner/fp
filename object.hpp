@@ -100,6 +100,16 @@ struct object {
         return o_type == obj_type::T_UNDEF;
     }
     
+    bool is_int() const
+    {
+        return o_type == obj_type::T_INT;
+    }
+    
+    bool is_list() const
+    {
+        return o_type == obj_type::T_LIST;
+    }
+    
     double num_val() const
     {
         return ( (o_type == obj_type::T_INT) ? \
