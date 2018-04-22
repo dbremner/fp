@@ -27,17 +27,15 @@ obj_alloc(obj_type ty)
 obj_ptr
 obj_alloc(int value)
 {
-    obj_ptr obj = obj_alloc(obj_type::T_INT);
-    obj->o_val.o_int = value;
-    return obj;
+    incobjcount();
+    return new object{value};
 }
 
 obj_ptr
 obj_alloc(bool value)
 {
-    obj_ptr obj = obj_alloc(obj_type::T_BOOL);
-    obj->o_val.o_int = value;
-    return obj;
+    incobjcount();
+    return new object{value};
 }
 
 obj_ptr undefined(void)
