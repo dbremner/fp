@@ -24,6 +24,22 @@ obj_alloc(obj_type ty)
     return ::new object{ty};
 }
 
+obj_ptr
+obj_alloc(int value)
+{
+    obj_ptr obj = obj_alloc(obj_type::T_INT);
+    obj->o_val.o_int = value;
+    return obj;
+}
+
+obj_ptr
+obj_alloc(bool value)
+{
+    obj_ptr obj = obj_alloc(obj_type::T_BOOL);
+    obj->o_val.o_int = value;
+    return obj;
+}
+
 obj_ptr undefined(void)
 {
     return(obj_alloc(obj_type::T_UNDEF));
