@@ -42,8 +42,11 @@ void yyerror(const char *msg);
 
 //obj.c
 obj_ptr obj_alloc(obj_type);
+/// constructs a T_INT
 obj_ptr obj_alloc(int value);
+/// constructs a T_BOOL
 obj_ptr obj_alloc(bool value);
+/// constructs a T_FLOAT
 obj_ptr obj_alloc(double value);
 ///generates the undefined object & returns it
 obj_ptr undefined(void);
