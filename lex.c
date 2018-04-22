@@ -28,6 +28,7 @@ static int fpos = 0;
 
 void set_prompt(char ch)
 {
+    assert(isascii(ch));
     prompt = ch;
 }
 

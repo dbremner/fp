@@ -24,6 +24,7 @@ static obj_ptr do_binsert(ast_ptr act, obj_ptr obj);
 obj_ptr
 execute(ast_ptr act, obj_ptr obj )
 {
+    assert(act);
     obj_ptr p;
     obj_ptr q;
     int x;

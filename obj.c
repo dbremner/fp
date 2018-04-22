@@ -49,6 +49,7 @@ obj_ptr undefined(void)
 static void
 obj_free(obj_ptr p)
 {
+    assert(p);
     decobjcount();
     delete p;
 }

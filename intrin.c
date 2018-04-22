@@ -27,6 +27,7 @@ static obj_ptr do_bool(obj_ptr obj, int op);
 obj_ptr
 do_intrinsics(sym_ptr act, obj_ptr obj)
 {
+    assert(act);
     obj_ptr p;
     obj_ptr q;
     double f;

@@ -15,6 +15,8 @@ static jmp_buf restart;
 [[noreturn]] void
 fatal_err(const char *msg)
 {
+    assert(msg);
+    assert(strlen(msg) > 0);
     printf("Fatal error: %s\n",msg);
     exit( 1 );
 }
@@ -22,6 +24,8 @@ fatal_err(const char *msg)
 void
 yyerror(const char *msg)
 {
+    assert(msg);
+    assert(strlen(msg) > 0);
     printf("yyerror() reports '%s'\n",msg);
     set_prompt('\t');
 }

@@ -15,6 +15,8 @@ same(obj_ptr o1, obj_ptr o2)
 {
     if( o1 == o2 )
         return(true);
+    assert(o1);
+    assert(o2);
     if( o1->o_type != o2->o_type ){
         if( o1->o_type == obj_type::T_INT )
             if( o2->o_type == obj_type::T_FLOAT )
@@ -41,6 +43,7 @@ same(obj_ptr o1, obj_ptr o2)
 static bool
 ispair(obj_ptr obj)
 {
+    assert(obj);
     if( obj->o_type != obj_type::T_LIST )
         return(false);
     if( obj->car() == nullptr )
@@ -59,6 +62,7 @@ ispair(obj_ptr obj)
 obj_ptr
 eqobj(obj_ptr obj)
 {
+    assert(obj);
     if( !ispair(obj) ){
         obj_unref(obj);
         return undefined();
@@ -76,6 +80,7 @@ eqobj(obj_ptr obj)
 static obj_ptr
 noteqobj(obj_ptr obj)
 {
+    assert(obj);
     obj_ptr p = eqobj(obj);
 
     if( p->o_type == obj_type::T_BOOL )
@@ -87,6 +92,8 @@ noteqobj(obj_ptr obj)
 obj_ptr
 do_charfun(ast_ptr act, obj_ptr obj)
 {
+    assert(act);
+    assert(obj);
     obj_ptr p;
     double f;
 
@@ -256,6 +263,7 @@ do_charfun(ast_ptr act, obj_ptr obj)
 obj_type
 numargs(obj_ptr obj)
 {
+    assert(obj);
     // Don't have a well-formed list, so illegal
     if( !ispair(obj) ) return(obj_type::T_UNDEF);
 

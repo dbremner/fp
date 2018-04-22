@@ -40,6 +40,7 @@ ast_alloc(int atag, ast_ptr l, ast_ptr m, ast_ptr r)
 static void
 ast_free(ast_ptr p)
 {
+    assert(p);
     dec_count();
     delete p;
 }

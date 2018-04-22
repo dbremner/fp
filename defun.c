@@ -11,6 +11,8 @@
 void
 defun(sym_ptr name, ast_ptr def)
 {
+    assert(name);
+    assert(def);
 	// Check what we're defining, handle redefining
     switch( name->sym_type ){
         case symtype::SYM_DEF:

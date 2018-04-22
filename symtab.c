@@ -17,6 +17,8 @@ static struct symtab_entry
 static int
 hash(const char *p)
 {
+    assert(p);
+    assert(strlen(p) > 0);
     int s = 0;
     int c;
 
@@ -32,6 +34,8 @@ hash(const char *p)
 sym_ptr
 lookup(const char *name)
 {
+    assert(name);
+    assert(strlen(name) > 0);
     int h = hash(name);
     sym_ptr p = stab[h];
 
@@ -57,6 +61,8 @@ lookup(const char *name)
 static void
 stuff(const char *sym, int val)
 {
+    assert(sym);
+    assert(strlen(sym) > 0);
     sym_ptr p = lookup(sym);
 
     if( p->sym_type != symtype::SYM_NEW )
