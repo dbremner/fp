@@ -110,11 +110,12 @@ do_charfun(ast_ptr act, obj_ptr obj)
             obj_unref(obj);
             return undefined();
         case obj_type::T_FLOAT:
-        case obj_type::T_INT:
+        case obj_type::T_INT: {
             p = obj_alloc(obj_type::T_BOOL);
             (p->o_val).o_int = obj->car()->num_val() > obj->cadr()->num_val();
             obj_unref(obj);
             return(p);
+        }
         case obj_type::T_LIST:
         case obj_type::T_BOOL:
             fatal_err("Unreachable switch cases");
@@ -126,11 +127,12 @@ do_charfun(ast_ptr act, obj_ptr obj)
             obj_unref(obj);
             return undefined();
         case obj_type::T_FLOAT:
-        case obj_type::T_INT:
+        case obj_type::T_INT: {
             p = obj_alloc(obj_type::T_BOOL);
             (p->o_val).o_int = obj->car()->num_val() >= obj->cadr()->num_val();
             obj_unref(obj);
             return(p);
+        }
         case obj_type::T_LIST:
         case obj_type::T_BOOL:
             fatal_err("Unreachable switch cases");
@@ -142,11 +144,12 @@ do_charfun(ast_ptr act, obj_ptr obj)
             obj_unref(obj);
             return undefined();
         case obj_type::T_FLOAT:
-        case obj_type::T_INT:
+        case obj_type::T_INT: {
             p = obj_alloc(obj_type::T_BOOL);
             (p->o_val).o_int = obj->car()->num_val() <= obj->cadr()->num_val();
             obj_unref(obj);
             return(p);
+        }
         case obj_type::T_LIST:
         case obj_type::T_BOOL:
             fatal_err("Unreachable switch cases");
@@ -158,11 +161,12 @@ do_charfun(ast_ptr act, obj_ptr obj)
             obj_unref(obj);
             return undefined();
         case obj_type::T_FLOAT:
-        case obj_type::T_INT:
+        case obj_type::T_INT: {
             p = obj_alloc(obj_type::T_BOOL);
             (p->o_val).o_int = obj->car()->num_val() < obj->cadr()->num_val();
             obj_unref(obj);
             return(p);
+        }
         case obj_type::T_LIST:
         case obj_type::T_BOOL:
             fatal_err("Unreachable switch cases");
