@@ -4,6 +4,10 @@
  *	Copyright (c) 1986 by Andy Valencia
  */
 
+//enable assertions in all builds
+#undef NDEBUG
+#include <assert.h>
+
 #include "obj_type.hpp"
 #include "types.h"
 
