@@ -305,18 +305,17 @@ do_rinsert(ast_ptr act, obj_ptr obj)
 static obj_ptr
 do_binsert(ast_ptr act, obj_ptr obj)
 {
+    if( obj->o_type != obj_type::T_LIST ){
+    obj_unref(obj);
+    return undefined();
+    }
+
     obj_ptr p;
     obj_ptr q;
     obj_ptr hd;
     obj_ptr *hdp;
     obj_ptr r;
     int x;
-
-    if( obj->o_type != obj_type::T_LIST ){
-	obj_unref(obj);
-	return undefined();
-    }
-
 	/*
 	 * If the list is empty, then we need to look at the applied
 	 *	operator.  If it's one for which we have an identity,
