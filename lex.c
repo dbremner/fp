@@ -61,8 +61,8 @@ yylex(void){
 	// An "identifier"?
     if( isalpha(c) ){
 	    // Assemble a "word" out of the input stream, symbol table it
-        *p++ = c;
-        while( isalnum(c = nextc()) ) *p++ = c;
+        *p++ = static_cast<char>(c);
+        while( isalnum(c = nextc()) ) *p++ = static_cast<char>(c);
         ungetc(c,cur_in);
         *p = '\0';
         sym_ptr q = lookup(buf);
@@ -82,7 +82,7 @@ yylex(void){
 
 	// For numbers, call our number routine.
     if( isdigit(c) )
-        return( donum(c) );
+        return( donum(static_cast<char>(c)) );
 
 	/*
 	 * For possible unary operators, see if a digit
@@ -93,7 +93,7 @@ yylex(void){
 
         ungetc(c2,cur_in);
         if( isdigit(c2) )
-            return( donum(c) );
+            return( donum(static_cast<char>(c)) );
     }
 
 	/*
@@ -127,7 +127,7 @@ donum(char startc)
 
     *p++ = startc;
     for(;;){
-        c = nextc();
+        c = static_cast<char>(nextc());
         if( isdigit(c) ){
             *p++ = c;
             continue;
@@ -237,10 +237,10 @@ fp_cmd(void){
     skipwhite();
     if( (c = nextc()) == EOF )
         return;
-    *p++ = c;
+    *p++ = static_cast<char>(c);
     while( (c = nextc()) != EOF )
         if( isalpha(c) )
-            *p++ = c;
+            *p++ = static_cast<char>(c);
         else
             break;
     *p = '\0';
@@ -255,7 +255,7 @@ fp_cmd(void){
             if( isspace(c) )
                 break;
             else
-                *p++ = c;
+                *p++ = static_cast<char>(c);
         *p = '\0';
 
             // Can we push down any more?

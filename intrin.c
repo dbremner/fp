@@ -93,7 +93,7 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	    obj_unref(obj);
 	    return undefined();
 	}
-	l = (obj->is_int()) ? obj->o_val.o_int : obj->o_val.o_double;
+	l = (obj->is_int()) ? obj->o_val.o_int : static_cast<int>(obj->o_val.o_double);
 	obj_unref(obj);
 	if( l < 0 ) return undefined();
 	if( l == 0 ) return( obj_alloc(obj_type::T_LIST) );
@@ -485,8 +485,8 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	case obj_type::T_INT:{
 	    int x1, x2;
 
-	    x1 = obj->car()->num_val();
-        x2 = obj->cadr()->num_val();
+	    x1 = static_cast<int>(obj->car()->num_val());
+        x2 = static_cast<int>(obj->cadr()->num_val());
 	    if( x2 == 0 ){
 		obj_unref(obj);
 		return undefined();
@@ -599,8 +599,8 @@ do_intrinsics(sym_ptr act, obj_ptr obj)
 	case obj_type::T_INT:{
 	    int x1, x2;
 
-	    x1 = obj->car()->num_val();
-        x2 = obj->cadr()->num_val();
+	    x1 = static_cast<int>(obj->car()->num_val());
+        x2 = static_cast<int>(obj->cadr()->num_val());
 	    if( x2 == 0 ){
 		obj_unref(obj);
 		return undefined();
