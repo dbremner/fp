@@ -21,7 +21,7 @@ obj_alloc(obj_type ty)
 {
     incobjcount();
     
-    return ::new object{ty};
+    return new object{ty};
 }
 
 obj_ptr
