@@ -161,10 +161,12 @@ nextc(void){
 
     do {
         if( cur_in == stdin ){
-            if( saw_eof )
+            if( saw_eof ) {
                 return(EOF);
-            if( 0 /*!stdin->_cnt*/ ) //TODO
+            }
+            if( 0 /*!stdin->_cnt*/ ) {//TODO
                 putchar(prompt);
+            }
         }
         c = fgetc(cur_in);
         if( c == '#' ){
