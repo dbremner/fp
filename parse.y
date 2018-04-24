@@ -20,6 +20,7 @@ extern int obj_out, ast_out;
 #pragma clang diagnostic ignored "-Wreserved-id-macro"
 #pragma clang diagnostic ignored "-Wmissing-variable-declarations"
 #pragma clang diagnostic ignored "-Wold-style-cast"
+#pragma clang diagnostic ignored "-Wconversion"
 %}
 
 %start go
