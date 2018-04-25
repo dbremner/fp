@@ -37,6 +37,7 @@
 		363F9D80208BBE4500ECFA2A /* symtype.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = symtype.hpp; path = ../../symtype.hpp; sourceTree = "<group>"; };
 		363F9D8620904D2E00ECFA2A /* symtab_entry.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = symtab_entry.hpp; path = ../../symtab_entry.hpp; sourceTree = "<group>"; };
 		363F9D8720904E6A00ECFA2A /* obj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = obj.h; path = ../../obj.h; sourceTree = "<group>"; };
+		363F9D8820904FD200ECFA2A /* list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = list.h; path = ../../list.h; sourceTree = "<group>"; };
 		36B05E522086F2EB0084D970 /* FP */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FP; sourceTree = BUILT_PRODUCTS_DIR; };
 		36B05E5C2086F34E0084D970 /* ast.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ast.c; path = ../../ast.c; sourceTree = "<group>"; };
 		36B05E5D2086F34E0084D970 /* defun.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = defun.c; path = ../../defun.c; sourceTree = "<group>"; };
@@ -90,6 +91,7 @@
 				36B05E602086F34F0084D970 /* fp.h */,
 				36B05E622086F34F0084D970 /* intrin.c */,
 				36B05E632086F34F0084D970 /* lex.c */,
+				363F9D8820904FD200ECFA2A /* list.h */,
 				36B05E662086F34F0084D970 /* misc.c */,
 				36B05E672086F3500084D970 /* obj.c */,
 				363F9D8720904E6A00ECFA2A /* obj.h */,
