@@ -5,6 +5,7 @@
  */
 #include "fp.h"
 #include "intrin.h"
+#include "obj_type.hpp"
 #include "charfn.h"
 #include "obj.h"
 #include "object.hpp"

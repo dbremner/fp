@@ -6,6 +6,7 @@
     */
 #include <stdio.h>
 #include "fp.h"
+#include "obj_type.hpp"
 #include "obj.h"
 #include "object.hpp"
 

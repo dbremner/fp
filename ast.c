@@ -4,6 +4,7 @@
  *	Copyright (c) 1986 by Andy Valencia
  */
 #include "fp.h"
+#include "obj_type.hpp"
 #include "obj.h"
 
 #ifdef MEMSTAT

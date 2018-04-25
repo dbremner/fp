@@ -8,8 +8,6 @@
 #undef NDEBUG
 #include <assert.h>
 
-#include "obj_type.hpp"
-
 #include "typedefs.h"
 
 #include "list.h"
