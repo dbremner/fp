@@ -49,7 +49,7 @@ same(obj_ptr o1, obj_ptr o2)
 
 /// ispair()--tell if our argument object is a list of two elements
 static bool
-ispair(obj_ptr obj)
+ispair(live_obj_ptr obj)
 {
     assert(obj);
     if( obj->o_type != obj_type::T_LIST )
@@ -67,15 +67,15 @@ ispair(obj_ptr obj)
      * eqobj()--tell if the two objects in the list are equal.
      *	undefined on ill-formed list, etc.
      */
-obj_ptr
-eqobj(obj_ptr obj)
+live_obj_ptr
+eqobj(live_obj_ptr obj)
 {
     assert(obj);
     if( !ispair(obj) ){
         obj_unref(obj);
         return undefined();
     }
-    obj_ptr p = obj_alloc(obj_type::T_BOOL);
+    auto p = obj_alloc(obj_type::T_BOOL);
     if( same(obj->car(),obj->cadr()) )
         p->o_val.o_int = 1;
     else
@@ -85,11 +85,11 @@ eqobj(obj_ptr obj)
 }
 
 /// noteqobj()--just like eqobj(), but not equal
-static obj_ptr
-noteqobj(obj_ptr obj)
+static live_obj_ptr
+noteqobj(live_obj_ptr obj)
 {
     assert(obj);
-    obj_ptr p = eqobj(obj);
+    auto p = eqobj(obj);
 
     if( p->o_type == obj_type::T_BOOL )
         p->o_val.o_int = (p->o_val.o_int ? 0 : 1);
@@ -97,8 +97,8 @@ noteqobj(obj_ptr obj)
 }
 
 /// do_charfun()--execute the action of a binary function
-obj_ptr
-do_charfun(ast_ptr act, obj_ptr obj)
+live_obj_ptr
+do_charfun(ast_ptr act, live_obj_ptr obj)
 {
     assert(act);
     assert(obj);
@@ -278,7 +278,7 @@ do_charfun(ast_ptr act, obj_ptr obj)
      *	can allocate the right type of object.
      */
 obj_type
-numargs(obj_ptr obj)
+numargs(live_obj_ptr obj)
 {
     assert(obj);
     // Don't have a well-formed list, so illegal
