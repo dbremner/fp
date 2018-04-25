@@ -7,6 +7,7 @@
 #include <math.h>
 #include <stdio.h>
 #include "fp.h"
+#include "intrin.h"
 #include "charfn.h"
 #include "obj.h"
 #include "object.hpp"
