@@ -165,7 +165,7 @@ atom	:	T
 		    {
 			obj_ptr p = 
 			    $$.YYobj = obj_alloc(obj_type::T_LIST);
-			(p->o_val).o_list.car =
+                (p->o_val).o_list.car = 0;
 			    (p->o_val).o_list.cdr = 0;
 		    }
 	|	INT
