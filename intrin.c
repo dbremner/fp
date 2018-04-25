@@ -828,21 +828,21 @@ do_bool(obj_ptr obj, int op)
 	obj_unref(obj);
 	return undefined();
     }
-    r = obj_alloc(obj_type::T_BOOL);
     switch( op ){
     case AND:
-	i = p->o_val.o_int && q->o_val.o_int;
-	break;
+    i = p->o_val.o_int && q->o_val.o_int;
+    break;
     case OR:
-	i = p->o_val.o_int || q->o_val.o_int;
-	break;
+    i = p->o_val.o_int || q->o_val.o_int;
+    break;
     case XOR:
-	i = (p->o_val.o_int || q->o_val.o_int) &&
-	    !(p->o_val.o_int && q->o_val.o_int);
-	break;
+    i = (p->o_val.o_int || q->o_val.o_int) &&
+        !(p->o_val.o_int && q->o_val.o_int);
+    break;
     default:
-	fatal_err("Illegal binary logical op in do_bool()");
+    fatal_err("Illegal binary logical op in do_bool()");
     }
+    r = obj_alloc(obj_type::T_BOOL);
     r->o_val.o_int = i;
     obj_unref(obj);
     return(r);
