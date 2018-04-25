@@ -5,7 +5,6 @@
  */
 #include <stdio.h>
 #include "fp.h"
-#include "symtab.h"
 #include "symtab_entry.hpp"
 
 /// Define a function
