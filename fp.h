@@ -28,9 +28,7 @@ void defun(sym_ptr name, ast_ptr def);
 //exec.c
 obj_ptr execute(ast_ptr  act, obj_ptr obj);
 
-//intrin.c
-int listlen(obj_ptr p);
-obj_ptr do_intrinsics(sym_ptr act, obj_ptr obj);
+#include "intrin.h"
 
 //lex.c
 void set_prompt(char ch);
