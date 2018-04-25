@@ -24,7 +24,7 @@ void ast_freetree(ast_ptr p);
 void defun(sym_ptr name, ast_ptr def);
 
 //exec.c
-obj_ptr execute(ast_ptr  act, obj_ptr obj);
+obj_ptr execute(ast_ptr act, obj_ptr obj);
 
 //lex.c
 void set_prompt(char ch);
