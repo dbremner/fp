@@ -8,6 +8,7 @@
 #include <string.h>
 #include "typedefs.h"
 #include "fp.h"
+#include "lex.h"
 #include "symtab.h"
 #include "symtab_entry.hpp"
 #include "y.tab.h"

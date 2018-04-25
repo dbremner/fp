@@ -10,6 +10,7 @@
 #include <string.h>
 #include "typedefs.h"
 #include "fp.h"
+#include "lex.h"
 #include "misc.h"
 #include "symtab.h"
 
