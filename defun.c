@@ -4,6 +4,7 @@
  *	Copyright (c) 1986 by Andy Valencia
  */
 #include <stdio.h>
+#include "typedefs.h"
 #include "fp.h"
 #include "misc.h"
 #include "symtab_entry.hpp"

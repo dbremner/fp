@@ -3,6 +3,7 @@
  *
  *	Copyright (c) 1986 by Andy Valencia
  */
+#include "typedefs.h"
 #include "fp.h"
 #include "ast.hpp"
 #include "intrin.h"

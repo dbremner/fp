@@ -6,6 +6,7 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
+#include "typedefs.h"
 #include "fp.h"
 #include "symtab.h"
 #include "symtab_entry.hpp"

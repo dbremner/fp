@@ -8,8 +8,6 @@
 #undef NDEBUG
 #include <assert.h>
 
-#include "typedefs.h"
-
 #include "list.h"
 
 #include "types.h"
