@@ -1,3 +1,6 @@
+#ifndef FPASSERT_H
+#define FPASSERT_H
+
 /*
  * Common definitions for FP
  *
@@ -7,3 +10,5 @@
 //enable assertions in all builds
 #undef NDEBUG
 #include <assert.h>
+
+#endif
