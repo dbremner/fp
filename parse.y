@@ -5,10 +5,9 @@
     *	Copyright (c) 1986 by Andy Valencia
     */
 #include <stdio.h>
-#include "typedefs.h"
+#include "fpcommon.h"
 #include "defun.h"
 #include "exec.h"
-#include "fpassert.h"
 #include "list.h"
 #include "lex.h"
 #include "yystype.h"

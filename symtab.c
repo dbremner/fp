@@ -4,8 +4,7 @@
  *	Copyright (c) 1986 by Andy Valencia
  */
 #include <string.h>
-#include "typedefs.h"
-#include "fpassert.h"
+#include "fpcommon.h"
 #include "misc.h"
 #include "symtab.h"
 #include "yystype.h"

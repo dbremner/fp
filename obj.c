@@ -4,8 +4,7 @@
  *	Copyright (c) 1986 by Andy Valencia
  */
 #include <stdio.h>
-#include "typedefs.h"
-#include "fpassert.h"
+#include "fpcommon.h"
 #include "list.h"
 #include "obj_type.hpp"
 #include "obj.h"

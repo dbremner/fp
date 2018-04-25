@@ -4,10 +4,9 @@
  *	Copyright (c) 1986 by Andy Valencia
  */
 #include <stdio.h>
-#include "typedefs.h"
+#include "fpcommon.h"
 #include "ast.h"
 #include "defun.h"
-#include "fpassert.h"
 #include "misc.h"
 #include "yystype.h"
 #include "symtab_entry.hpp"
