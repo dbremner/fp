@@ -187,8 +187,8 @@ do_charfun(ast_ptr act, obj_ptr obj)
             obj_unref(obj);
             return undefined();
         case obj_type::T_FLOAT: {
-            p = obj_alloc(obj_type::T_FLOAT);
-            (p->o_val).o_double = obj->car()->num_val()+obj->cadr()->num_val();
+            const auto value = obj->car()->num_val()+obj->cadr()->num_val();
+            p = obj_alloc(value);
             obj_unref(obj);
             return(p);
         }
@@ -208,8 +208,8 @@ do_charfun(ast_ptr act, obj_ptr obj)
             obj_unref(obj);
             return undefined();
         case obj_type::T_FLOAT: {
-            p = obj_alloc(obj_type::T_FLOAT);
-            (p->o_val).o_double = obj->car()->num_val()-obj->cadr()->num_val();
+            const auto value = obj->car()->num_val()-obj->cadr()->num_val();
+            p = obj_alloc(value);
             obj_unref(obj);
             return(p);
         }
@@ -229,8 +229,8 @@ do_charfun(ast_ptr act, obj_ptr obj)
             obj_unref(obj);
             return undefined();
         case obj_type::T_FLOAT: {
-            p = obj_alloc(obj_type::T_FLOAT);
-            (p->o_val).o_double = obj->car()->num_val()*obj->cadr()->num_val();
+            const auto value = obj->car()->num_val()*obj->cadr()->num_val();
+            p = obj_alloc(value);
             obj_unref(obj);
             return(p);
         }
