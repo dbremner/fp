@@ -33,7 +33,7 @@ static obj_ptr do_binsert(live_ast_ptr act, obj_ptr obj);
      *	execute the action and return the result.
      */
 obj_ptr
-execute(ast_ptr act, obj_ptr obj )
+execute(live_ast_ptr act, obj_ptr obj )
 {
     assert(act);
     obj_ptr p;
