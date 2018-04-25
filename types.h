@@ -1,12 +1,6 @@
 #ifndef TYPES_H
 #define TYPES_H
 
-#include "typedefs.h"
-
-#include "list.h"
-
-#include "object.hpp"
-
 /*
  * To alleviate typing in YACC, this type embodies all the
  *    types which "yylval" might receive.
@@ -43,9 +37,5 @@ public:
         right = right_;
     }
 };
-
-#include "symtype.hpp"
-
-#include "symtab_entry.hpp"
 
 #endif

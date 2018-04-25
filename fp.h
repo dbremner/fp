@@ -9,7 +9,18 @@
 #include <assert.h>
 
 #include "obj_type.hpp"
+
+#include "typedefs.h"
+
+#include "list.h"
+
+#include "object.hpp"
+
 #include "types.h"
+
+#include "symtype.hpp"
+
+#include "symtab_entry.hpp"
 
 //ast.c
 ast_ptr ast_alloc(int atag);
