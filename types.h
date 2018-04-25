@@ -10,7 +10,7 @@ typedef union {
     double YYdouble;
     ast_ptr YYast;
     obj_ptr YYobj;
-    struct list *YYlist;
+    list_ptr YYlist;
     sym_ptr YYsym;
 } YYstype;
 #define YYSTYPE YYstype
