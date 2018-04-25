@@ -5,13 +5,7 @@ typedef struct ast* ast_ptr;
 typedef struct object* obj_ptr;
 typedef struct symtab_entry* sym_ptr;
 
-/// A list of arbitrary objects
-struct list {
-    /// Head of list
-    obj_ptr car;
-    /// and Tail
-    obj_ptr cdr;
-};
+#include "list.h"
 
 #include "object.hpp"
 
