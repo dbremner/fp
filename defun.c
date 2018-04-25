@@ -5,6 +5,7 @@
  */
 #include <stdio.h>
 #include "typedefs.h"
+#include "ast.h"
 #include "defun.h"
 #include "fp.h"
 #include "misc.h"
