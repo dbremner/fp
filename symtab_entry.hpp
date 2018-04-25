@@ -1,6 +1,8 @@
 #ifndef SYMTAB_ENTRY_HPP
 #define SYMTAB_ENTRY_HPP
 
+#include <string>
+
 /// A symbol table entry for an identifier
 struct symtab_entry {
 #pragma clang diagnostic push
