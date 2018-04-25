@@ -617,10 +617,10 @@ do_intrinsics(sym_ptr act, live_obj_ptr obj)
 	    p = obj_alloc(x1 / x2);
 	    obj_unref(obj);
 	    return(p);
+    }
     case obj_type::T_LIST:
     case obj_type::T_BOOL:
         fatal_err("Unreachable switch cases");
-	}
 	}
     
 
