@@ -5,6 +5,7 @@
  */
 #include "typedefs.h"
 #include "fp.h"
+#include "exec.h"
 #include "list.h"
 #include "yystype.h"
 #include "ast.hpp"
