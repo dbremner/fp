@@ -6,6 +6,7 @@
     */
 #include <stdio.h>
 #include "typedefs.h"
+#include "defun.h"
 #include "fp.h"
 #include "list.h"
 #include "lex.h"

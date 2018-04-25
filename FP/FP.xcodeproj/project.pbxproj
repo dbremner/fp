@@ -44,6 +44,7 @@
 		363F9D8C209119D300ECFA2A /* misc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = misc.h; path = ../../misc.h; sourceTree = "<group>"; };
 		363F9D8D20911B2800ECFA2A /* ast.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ast.hpp; path = ../../ast.hpp; sourceTree = "<group>"; };
 		363F9D8E20911D9E00ECFA2A /* lex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lex.h; path = ../../lex.h; sourceTree = "<group>"; };
+		363F9D8F209120B000ECFA2A /* defun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = defun.h; path = ../../defun.h; sourceTree = "<group>"; };
 		36B05E522086F2EB0084D970 /* FP */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FP; sourceTree = BUILT_PRODUCTS_DIR; };
 		36B05E5C2086F34E0084D970 /* ast.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ast.c; path = ../../ast.c; sourceTree = "<group>"; };
 		36B05E5D2086F34E0084D970 /* defun.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = defun.c; path = ../../defun.c; sourceTree = "<group>"; };
@@ -95,6 +96,7 @@
 				36B05E5F2086F34E0084D970 /* charfn.c */,
 				363F9D8A2090E32E00ECFA2A /* charfn.h */,
 				36B05E5D2086F34E0084D970 /* defun.c */,
+				363F9D8F209120B000ECFA2A /* defun.h */,
 				36B05E5E2086F34E0084D970 /* exec.c */,
 				36B05E602086F34F0084D970 /* fp.h */,
 				36B05E622086F34F0084D970 /* intrin.c */,
