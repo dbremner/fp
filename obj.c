@@ -20,7 +20,7 @@ static void decobjcount(void) {}
 #endif
 
 /// Allocate an object
-obj_ptr
+live_obj_ptr
 obj_alloc(obj_type ty)
 {
     incobjcount();
@@ -28,35 +28,35 @@ obj_alloc(obj_type ty)
     return new object{ty};
 }
 
-obj_ptr
+live_obj_ptr
 obj_alloc(int value)
 {
     incobjcount();
     return new object{value};
 }
 
-obj_ptr
+live_obj_ptr
 obj_alloc(bool value)
 {
     incobjcount();
     return new object{value};
 }
 
-obj_ptr
+live_obj_ptr
 obj_alloc(double value)
 {
     incobjcount();
     return new object{value};
 }
 
-obj_ptr
+live_obj_ptr
 obj_alloc(obj_ptr car_, obj_ptr cdr_)
 {
     incobjcount();
     return new object{car_, cdr_};
 }
 
-obj_ptr undefined(void)
+live_obj_ptr undefined(void)
 {
     return(obj_alloc(obj_type::T_UNDEF));
 }

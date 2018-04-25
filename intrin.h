@@ -2,6 +2,6 @@
 #define INTRIN_H
 
 int listlen(obj_ptr p);
-obj_ptr do_intrinsics(sym_ptr act, obj_ptr obj);
+obj_ptr do_intrinsics(sym_ptr act, live_obj_ptr obj);
 
 #endif
