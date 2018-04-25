@@ -731,25 +731,25 @@ do_dist(
 static obj_ptr
 do_trans(obj_ptr obj)
 {
-    int len = 0, x, y;
     obj_ptr p;
+
+    // Check argument, make sure first element is a list.
+    if(
+    ( (p = obj)->o_type != obj_type::T_LIST) ||
+    !( p = obj->car() ) ||
+    ( p->o_type != obj_type::T_LIST )
+    ){
+    obj_unref(obj);
+    return undefined();
+    }
+
+    int x, y;
     obj_ptr q;
     obj_ptr r;
     obj_ptr hd = nullptr;
     obj_ptr *hdp = &hd;
-
-	// Check argument, make sure first element is a list.
-    if(
-	( (p = obj)->o_type != obj_type::T_LIST) ||
-	!( p = obj->car() ) ||
-	( p->o_type != obj_type::T_LIST )
-    ){
-	obj_unref(obj);
-	return undefined();
-    }
-
 	// Get how many down (len)
-    len = listlen(p);
+    int len = listlen(p);
 
 	/*
 	 * Verify the structure.  Make sure each across is a list,
