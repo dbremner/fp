@@ -23,7 +23,7 @@ void fp_cmd(void);
 static char prompt;
 
 /// How deep can we get?
-static const size_t MAXNEST = 5;
+constexpr size_t MAXNEST = 5;
 /// For nested loads
 static FILE *fstack[MAXNEST];
 static int fpos = 0;
