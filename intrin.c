@@ -6,6 +6,7 @@
  */
 #include "fp.h"
 #include "obj.h"
+#include "object.hpp"
 #include "y.tab.h"
 #include <math.h>
 #include <stdio.h>

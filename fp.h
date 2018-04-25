@@ -14,8 +14,6 @@
 
 #include "list.h"
 
-#include "object.hpp"
-
 #include "types.h"
 
 #include "symtype.hpp"

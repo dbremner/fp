@@ -5,6 +5,7 @@
  */
 #include "fp.h"
 #include "obj.h"
+#include "object.hpp"
 #include <stdio.h>
 
 #ifdef MEMSTAT
