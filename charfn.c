@@ -107,16 +107,19 @@ do_charfun(ast_ptr act, live_obj_ptr obj)
 
     switch( (act->val).YYint ){
 
-    case '=':
-            return( eqobj(obj) );
-    case NE:
-            return( noteqobj(obj) );
+    case '=': {
+        return( eqobj(obj) );
+    }
+    case NE: {
+        return( noteqobj(obj) );
+    }
 
     case '>':
 	switch( numargs(obj) ){
-        case obj_type::T_UNDEF:
+        case obj_type::T_UNDEF: {
             obj_unref(obj);
             return undefined();
+        }
         case obj_type::T_FLOAT:
         case obj_type::T_INT: {
             bool result = obj->car()->num_val() > obj->cadr()->num_val();
@@ -125,15 +128,17 @@ do_charfun(ast_ptr act, live_obj_ptr obj)
             return(p);
         }
         case obj_type::T_LIST:
-        case obj_type::T_BOOL:
+        case obj_type::T_BOOL: {
             fatal_err("Unreachable switch cases");
+        }
 	}
 
     case GE:
 	switch( numargs(obj) ){
-        case obj_type::T_UNDEF:
+        case obj_type::T_UNDEF: {
             obj_unref(obj);
             return undefined();
+        }
         case obj_type::T_FLOAT:
         case obj_type::T_INT: {
             bool result = obj->car()->num_val() >= obj->cadr()->num_val();
@@ -142,15 +147,17 @@ do_charfun(ast_ptr act, live_obj_ptr obj)
             return(p);
         }
         case obj_type::T_LIST:
-        case obj_type::T_BOOL:
+        case obj_type::T_BOOL: {
             fatal_err("Unreachable switch cases");
+        }
 	}
 
     case LE:
 	switch( numargs(obj) ){
-        case obj_type::T_UNDEF:
+        case obj_type::T_UNDEF: {
             obj_unref(obj);
             return undefined();
+        }
         case obj_type::T_FLOAT:
         case obj_type::T_INT: {
             bool result = obj->car()->num_val() <= obj->cadr()->num_val();
@@ -159,15 +166,17 @@ do_charfun(ast_ptr act, live_obj_ptr obj)
             return(p);
         }
         case obj_type::T_LIST:
-        case obj_type::T_BOOL:
+        case obj_type::T_BOOL: {
             fatal_err("Unreachable switch cases");
+        }
 	}
 
     case '<':
 	switch( numargs(obj) ){
-        case obj_type::T_UNDEF:
+        case obj_type::T_UNDEF: {
             obj_unref(obj);
             return undefined();
+        }
         case obj_type::T_FLOAT:
         case obj_type::T_INT: {
             bool result = obj->car()->num_val() < obj->cadr()->num_val();
@@ -176,15 +185,17 @@ do_charfun(ast_ptr act, live_obj_ptr obj)
             return(p);
         }
         case obj_type::T_LIST:
-        case obj_type::T_BOOL:
+        case obj_type::T_BOOL: {
             fatal_err("Unreachable switch cases");
+        }
 	}
 
     case '+':
 	switch( numargs(obj) ){
-        case obj_type::T_UNDEF:
+        case obj_type::T_UNDEF: {
             obj_unref(obj);
             return undefined();
+        }
         case obj_type::T_FLOAT: {
             const auto value = obj->car()->num_val()+obj->cadr()->num_val();
             p = obj_alloc(value);
@@ -198,14 +209,16 @@ do_charfun(ast_ptr act, live_obj_ptr obj)
             return(p);
         }
         case obj_type::T_LIST:
-        case obj_type::T_BOOL:
+        case obj_type::T_BOOL: {
             fatal_err("Unreachable switch cases");
+        }
 	}
     case '-':
 	switch( numargs(obj) ){
-        case obj_type::T_UNDEF:
+        case obj_type::T_UNDEF: {
             obj_unref(obj);
             return undefined();
+        }
         case obj_type::T_FLOAT: {
             const auto value = obj->car()->num_val()-obj->cadr()->num_val();
             p = obj_alloc(value);
@@ -219,8 +232,9 @@ do_charfun(ast_ptr act, live_obj_ptr obj)
             return(p);
         }
         case obj_type::T_LIST:
-        case obj_type::T_BOOL:
+        case obj_type::T_BOOL: {
             fatal_err("Unreachable switch cases");
+        }
 	}
     case '*':
 	switch( numargs(obj) ){
@@ -240,16 +254,18 @@ do_charfun(ast_ptr act, live_obj_ptr obj)
             return(p);
         }
         case obj_type::T_LIST:
-        case obj_type::T_BOOL:
+        case obj_type::T_BOOL: {
             fatal_err("Unreachable switch cases");
+        }
 	}
     case '/':
 	switch( numargs(obj) ){
-        case obj_type::T_UNDEF:
+        case obj_type::T_UNDEF: {
             obj_unref(obj);
             return undefined();
+        }
         case obj_type::T_FLOAT:
-        case obj_type::T_INT:
+        case obj_type::T_INT: {
             f = obj->cadr()->num_val();
             if( f == 0.0 ){
             obj_unref(obj);
@@ -258,9 +274,11 @@ do_charfun(ast_ptr act, live_obj_ptr obj)
             p = obj_alloc(obj->car()->num_val()/f);
             obj_unref(obj);
             return(p);
+        }
         case obj_type::T_LIST:
-        case obj_type::T_BOOL:
+        case obj_type::T_BOOL: {
             fatal_err("Unreachable switch cases");
+        }
 	}
     default:
 	fatal_err("Undefined charop tag in execute()");
