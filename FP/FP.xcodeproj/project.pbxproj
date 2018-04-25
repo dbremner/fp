@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		363F9D94209133CD00ECFA2A /* signal_handling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 363F9D93209133CD00ECFA2A /* signal_handling.cpp */; };
 		36B05E682086F3500084D970 /* ast.c in Sources */ = {isa = PBXBuildFile; fileRef = 36B05E5C2086F34E0084D970 /* ast.c */; };
 		36B05E692086F3500084D970 /* defun.c in Sources */ = {isa = PBXBuildFile; fileRef = 36B05E5D2086F34E0084D970 /* defun.c */; };
 		36B05E6A2086F3500084D970 /* exec.c in Sources */ = {isa = PBXBuildFile; fileRef = 36B05E5E2086F34E0084D970 /* exec.c */; };
@@ -48,6 +49,8 @@
 		363F9D902091229700ECFA2A /* exec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = exec.h; path = ../../exec.h; sourceTree = "<group>"; };
 		363F9D912091260C00ECFA2A /* ast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ast.h; path = ../../ast.h; sourceTree = "<group>"; };
 		363F9D9220912D1800ECFA2A /* fpcommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fpcommon.h; path = ../../fpcommon.h; sourceTree = "<group>"; };
+		363F9D93209133CD00ECFA2A /* signal_handling.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = signal_handling.cpp; path = ../../signal_handling.cpp; sourceTree = "<group>"; };
+		363F9D952091351F00ECFA2A /* signal_handling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = signal_handling.h; path = ../../signal_handling.h; sourceTree = "<group>"; };
 		36B05E522086F2EB0084D970 /* FP */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FP; sourceTree = BUILT_PRODUCTS_DIR; };
 		36B05E5C2086F34E0084D970 /* ast.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ast.c; path = ../../ast.c; sourceTree = "<group>"; };
 		36B05E5D2086F34E0084D970 /* defun.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = defun.c; path = ../../defun.c; sourceTree = "<group>"; };
@@ -117,6 +120,8 @@
 				363F9D7F208BBD5D00ECFA2A /* obj_type.hpp */,
 				363F9D7D208BAA6000ECFA2A /* object.hpp */,
 				36B05E642086F34F0084D970 /* parse.y */,
+				363F9D93209133CD00ECFA2A /* signal_handling.cpp */,
+				363F9D952091351F00ECFA2A /* signal_handling.h */,
 				36B05E612086F34F0084D970 /* symtab.c */,
 				36B05E652086F34F0084D970 /* symtab.h */,
 				363F9D8620904D2E00ECFA2A /* symtab_entry.hpp */,
@@ -185,6 +190,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				36B05E692086F3500084D970 /* defun.c in Sources */,
+				363F9D94209133CD00ECFA2A /* signal_handling.cpp in Sources */,
 				36B05E6F2086F3500084D970 /* parse.y in Sources */,
 				36B05E6C2086F3500084D970 /* symtab.c in Sources */,
 				36B05E702086F3500084D970 /* misc.c in Sources */,

@@ -4,16 +4,16 @@
  *	Copyright (c) 1986 by Andy Valencia
  */
 #include <setjmp.h>
-#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "fpcommon.h"
 #include "lex.h"
 #include "misc.h"
+#include "signal_handling.h"
 #include "symtab.h"
 
-static jmp_buf restart;
+jmp_buf restart;
 
 [[noreturn]] void
 fatal_err(const char *msg)
@@ -33,30 +33,6 @@ yyerror(const char *msg)
     set_prompt('\t');
 }
 
-extern "C" [[noreturn]] void badmath(int ignored);
-
-/// Floating exception handler
-extern "C"
-[[noreturn]] void
-badmath(int /*ignored*/){
-    printf("Floating exception\n");
-    set_prompt('\t');
-    signal(SIGFPE, badmath);
-    longjmp(restart,1);
-}
-
-extern "C" [[noreturn]] void intr(int ignored);
-
-/// User interrupt handler
-extern "C"
-[[noreturn]] void
-intr(int /*ignored*/){
-    printf("Interrupt\n");
-    set_prompt('\t');
-    signal(SIGINT, intr);
-    longjmp(restart,1);
-}
-
 //YACC runtime
 int yyparse(void);
 
@@ -65,8 +41,7 @@ main(void) {
     symtab_init();
     set_prompt('\t');
 
-    signal(SIGFPE, badmath);
-    signal(SIGINT, intr);
+    set_signal_handlers();
 
     if( setjmp(restart) == 0 )
 	printf("FP v0.0\n");
