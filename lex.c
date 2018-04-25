@@ -203,7 +203,7 @@ nextc(void){
 quit(void)
 {
     printf("\nDone\n");
-    exit( 0 );
+    exit(EXIT_SUCCESS);
 }
 
 static void

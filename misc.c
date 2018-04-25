@@ -21,7 +21,7 @@ fatal_err(const char *msg)
     assert(msg);
     assert(strlen(msg) > 0);
     printf("Fatal error: %s\n",msg);
-    exit( 1 );
+    exit(EXIT_FAILURE);
 }
 
 void
@@ -74,5 +74,5 @@ main(void) {
 	printf("FP restarted\n");
     yyparse();
     printf("\nFP done\n");
-    exit( 0 );
+    exit(EXIT_SUCCESS);
 }
