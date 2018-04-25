@@ -5,7 +5,7 @@
  */
 #include <string.h>
 #include "typedefs.h"
-#include "fp.h"
+#include "fpassert.h"
 #include "misc.h"
 #include "symtab.h"
 #include "yystype.h"

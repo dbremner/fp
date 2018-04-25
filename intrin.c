@@ -7,7 +7,7 @@
 #include <math.h>
 #include <stdio.h>
 #include "typedefs.h"
-#include "fp.h"
+#include "fpassert.h"
 #include "list.h"
 #include "intrin.h"
 #include "misc.h"

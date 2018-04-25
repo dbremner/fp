@@ -8,7 +8,7 @@
 #include "typedefs.h"
 #include "defun.h"
 #include "exec.h"
-#include "fp.h"
+#include "fpassert.h"
 #include "list.h"
 #include "lex.h"
 #include "yystype.h"

@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "typedefs.h"
-#include "fp.h"
+#include "fpassert.h"
 #include "lex.h"
 #include "symtab.h"
 #include "yystype.h"

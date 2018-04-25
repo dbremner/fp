@@ -52,7 +52,7 @@
 		36B05E5D2086F34E0084D970 /* defun.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = defun.c; path = ../../defun.c; sourceTree = "<group>"; };
 		36B05E5E2086F34E0084D970 /* exec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = exec.c; path = ../../exec.c; sourceTree = "<group>"; };
 		36B05E5F2086F34E0084D970 /* charfn.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = charfn.c; path = ../../charfn.c; sourceTree = "<group>"; };
-		36B05E602086F34F0084D970 /* fp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fp.h; path = ../../fp.h; sourceTree = "<group>"; };
+		36B05E602086F34F0084D970 /* fpassert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fpassert.h; path = ../../fpassert.h; sourceTree = "<group>"; };
 		36B05E612086F34F0084D970 /* symtab.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = symtab.c; path = ../../symtab.c; sourceTree = "<group>"; };
 		36B05E622086F34F0084D970 /* intrin.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = intrin.c; path = ../../intrin.c; sourceTree = "<group>"; };
 		36B05E632086F34F0084D970 /* lex.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = lex.c; path = ../../lex.c; sourceTree = "<group>"; };
@@ -102,7 +102,7 @@
 				363F9D8F209120B000ECFA2A /* defun.h */,
 				36B05E5E2086F34E0084D970 /* exec.c */,
 				363F9D902091229700ECFA2A /* exec.h */,
-				36B05E602086F34F0084D970 /* fp.h */,
+				36B05E602086F34F0084D970 /* fpassert.h */,
 				36B05E622086F34F0084D970 /* intrin.c */,
 				363F9D8B2090E44C00ECFA2A /* intrin.h */,
 				36B05E632086F34F0084D970 /* lex.c */,

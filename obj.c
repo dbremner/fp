@@ -5,7 +5,7 @@
  */
 #include <stdio.h>
 #include "typedefs.h"
-#include "fp.h"
+#include "fpassert.h"
 #include "list.h"
 #include "obj_type.hpp"
 #include "obj.h"

@@ -4,7 +4,7 @@
  *	Copyright (c) 1986 by Andy Valencia
  */
 #include "typedefs.h"
-#include "fp.h"
+#include "fpassert.h"
 #include "ast.h"
 #include "yystype.h"
 #include "ast.hpp"

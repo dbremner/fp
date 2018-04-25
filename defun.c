@@ -7,7 +7,7 @@
 #include "typedefs.h"
 #include "ast.h"
 #include "defun.h"
-#include "fp.h"
+#include "fpassert.h"
 #include "misc.h"
 #include "yystype.h"
 #include "symtab_entry.hpp"
