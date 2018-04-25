@@ -1,8 +1,6 @@
 #ifndef OBJECT_HPP
 #define OBJECT_HPP
 
-#include "obj_type.hpp"
-
 /// An object's structure
 struct object {
     /// Type for selecting
