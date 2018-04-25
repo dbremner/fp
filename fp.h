@@ -16,8 +16,6 @@
 
 #include "types.h"
 
-#include "symtype.hpp"
-
 #include "symtab_entry.hpp"
 
 //ast.c

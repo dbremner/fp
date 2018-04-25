@@ -1,6 +1,8 @@
 #ifndef SYMTAB_ENTRY_HPP
 #define SYMTAB_ENTRY_HPP
 
+#include "symtype.hpp"
+
 #include <string>
 
 /// A symbol table entry for an identifier
