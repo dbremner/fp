@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include "fp.h"
 #include "intrin.h"
+#include "misc.h"
 #include "obj_type.hpp"
 #include "charfn.h"
 #include "obj.h"

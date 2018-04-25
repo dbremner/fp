@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "fp.h"
+#include "misc.h"
 #include "symtab.h"
 
 static jmp_buf restart;

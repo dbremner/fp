@@ -29,8 +29,3 @@ obj_ptr execute(ast_ptr act, obj_ptr obj);
 //lex.c
 void set_prompt(char ch);
 int yylex(void);
-
-//misc.c
-[[noreturn]] void fatal_err(const char *msg);
-void yyerror(const char *msg);
-

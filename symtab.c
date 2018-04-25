@@ -5,6 +5,7 @@
  */
 #include <string.h>
 #include "fp.h"
+#include "misc.h"
 #include "symtab.h"
 #include "symtab_entry.hpp"
 #include "y.tab.h"

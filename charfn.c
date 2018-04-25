@@ -6,6 +6,7 @@
 #include "fp.h"
 #include "obj_type.hpp"
 #include "charfn.h"
+#include "misc.h"
 #include "obj.h"
 #include "object.hpp"
 #include "y.tab.h"
