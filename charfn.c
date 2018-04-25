@@ -102,8 +102,6 @@ do_charfun(ast_ptr act, live_obj_ptr obj)
 {
     assert(act);
     assert(obj);
-    obj_ptr p;
-    double f;
 
     switch( (act->val).YYint ){
 
@@ -123,7 +121,7 @@ do_charfun(ast_ptr act, live_obj_ptr obj)
         case obj_type::T_FLOAT:
         case obj_type::T_INT: {
             bool result = obj->car()->num_val() > obj->cadr()->num_val();
-            p = obj_alloc(result);
+            auto p = obj_alloc(result);
             obj_unref(obj);
             return(p);
         }
@@ -142,7 +140,7 @@ do_charfun(ast_ptr act, live_obj_ptr obj)
         case obj_type::T_FLOAT:
         case obj_type::T_INT: {
             bool result = obj->car()->num_val() >= obj->cadr()->num_val();
-            p = obj_alloc(result);
+            auto p = obj_alloc(result);
             obj_unref(obj);
             return(p);
         }
@@ -161,7 +159,7 @@ do_charfun(ast_ptr act, live_obj_ptr obj)
         case obj_type::T_FLOAT:
         case obj_type::T_INT: {
             bool result = obj->car()->num_val() <= obj->cadr()->num_val();
-            p = obj_alloc(result);
+            auto p = obj_alloc(result);
             obj_unref(obj);
             return(p);
         }
@@ -180,7 +178,7 @@ do_charfun(ast_ptr act, live_obj_ptr obj)
         case obj_type::T_FLOAT:
         case obj_type::T_INT: {
             bool result = obj->car()->num_val() < obj->cadr()->num_val();
-            p = obj_alloc(result);
+            auto p = obj_alloc(result);
             obj_unref(obj);
             return(p);
         }
@@ -198,12 +196,12 @@ do_charfun(ast_ptr act, live_obj_ptr obj)
         }
         case obj_type::T_FLOAT: {
             const auto value = obj->car()->num_val()+obj->cadr()->num_val();
-            p = obj_alloc(value);
+            auto p = obj_alloc(value);
             obj_unref(obj);
             return(p);
         }
         case obj_type::T_INT: {
-            p = obj_alloc(obj_type::T_INT);
+            auto p = obj_alloc(obj_type::T_INT);
             (p->o_val).o_int = obj->car()->num_val()+obj->cadr()->num_val();
             obj_unref(obj);
             return(p);
@@ -221,12 +219,12 @@ do_charfun(ast_ptr act, live_obj_ptr obj)
         }
         case obj_type::T_FLOAT: {
             const auto value = obj->car()->num_val()-obj->cadr()->num_val();
-            p = obj_alloc(value);
+            auto p = obj_alloc(value);
             obj_unref(obj);
             return(p);
         }
         case obj_type::T_INT: {
-            p = obj_alloc(obj_type::T_INT);
+            auto p = obj_alloc(obj_type::T_INT);
             (p->o_val).o_int = obj->car()->num_val()-obj->cadr()->num_val();
             obj_unref(obj);
             return(p);
@@ -243,12 +241,12 @@ do_charfun(ast_ptr act, live_obj_ptr obj)
             return undefined();
         case obj_type::T_FLOAT: {
             const auto value = obj->car()->num_val()*obj->cadr()->num_val();
-            p = obj_alloc(value);
+            auto p = obj_alloc(value);
             obj_unref(obj);
             return(p);
         }
         case obj_type::T_INT: {
-            p = obj_alloc(obj_type::T_INT);
+            auto p = obj_alloc(obj_type::T_INT);
             (p->o_val).o_int = obj->car()->num_val()*obj->cadr()->num_val();
             obj_unref(obj);
             return(p);
@@ -266,12 +264,12 @@ do_charfun(ast_ptr act, live_obj_ptr obj)
         }
         case obj_type::T_FLOAT:
         case obj_type::T_INT: {
-            f = obj->cadr()->num_val();
+            auto f = obj->cadr()->num_val();
             if( f == 0.0 ){
             obj_unref(obj);
             return undefined();
             }
-            p = obj_alloc(obj->car()->num_val()/f);
+            auto p = obj_alloc(obj->car()->num_val()/f);
             obj_unref(obj);
             return(p);
         }
