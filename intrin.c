@@ -7,6 +7,7 @@
 #include <math.h>
 #include <stdio.h>
 #include "fp.h"
+#include "charfn.h"
 #include "obj.h"
 #include "object.hpp"
 #include "symtab_entry.hpp"

@@ -4,6 +4,7 @@
  *	Copyright (c) 1986 by Andy Valencia
  */
 #include "fp.h"
+#include "charfn.h"
 #include "obj.h"
 #include "object.hpp"
 #include "symtab_entry.hpp"
