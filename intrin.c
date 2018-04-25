@@ -51,12 +51,11 @@ do_intrinsics(sym_ptr act, live_obj_ptr obj)
     switch( act->sym_val.YYint ){
 
     case LENGTH:{	// Length of a list
-        int l;
-
         if( obj->o_type != obj_type::T_LIST ){
             obj_unref(obj);
             return undefined();
         }
+        int l;
         for( p = obj, l = 0; p && p->car(); p = p->cdr() ) l++;
         obj_unref(obj);
         p = obj_alloc(l);
@@ -94,7 +93,6 @@ do_intrinsics(sym_ptr act, live_obj_ptr obj)
         return(p);
 
     case IOTA:{		// Given arg N, generate <1..N>
-        int x, l;
         obj_ptr hd;
         obj_ptr *hdp = &hd;
 
@@ -102,11 +100,11 @@ do_intrinsics(sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        l = (obj->is_int()) ? obj->o_val.o_int : static_cast<int>(obj->o_val.o_double);
+        int l = (obj->is_int()) ? obj->o_val.o_int : static_cast<int>(obj->o_val.o_double);
         obj_unref(obj);
         if( l < 0 ) return undefined();
         if( l == 0 ) return( obj_alloc(obj_type::T_LIST) );
-        for( x = 1; x <= l; x++ ){
+        for(int x = 1; x <= l; x++ ){
             *hdp = p = obj_alloc(obj_type::T_LIST);
             q = obj_alloc(x);
             p->car(q);
@@ -173,9 +171,6 @@ do_intrinsics(sym_ptr act, live_obj_ptr obj)
     
     case FRONT:
     case TLR:{		// Return a list of all but list
-        obj_ptr hd = nullptr;
-        obj_ptr *hdp = &hd;
-
         if(
             ((q = obj)->o_type != obj_type::T_LIST) ||
             !obj->car()
@@ -183,6 +178,8 @@ do_intrinsics(sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
+        obj_ptr hd = nullptr;
+        obj_ptr *hdp = &hd;
         while( q->cdr() ){
             *hdp = p = obj_alloc(q->car());
             if( p->car() ){
@@ -291,12 +288,12 @@ do_intrinsics(sym_ptr act, live_obj_ptr obj)
         return( do_trans(obj) );
     
     case REVERSE:{	// Reverse all elements of a list
-        obj_ptr r;
 
         if( obj->o_type != obj_type::T_LIST ){
             obj_unref(obj);
             return undefined();
         }
+        obj_ptr r;
         if( !obj->car() ) return(obj);
         for( p = nullptr, q = obj; q; q = q->cdr() ){
             r = obj_alloc(obj_type::T_LIST);
@@ -492,10 +489,8 @@ do_intrinsics(sym_ptr act, live_obj_ptr obj)
             return undefined();
         case obj_type::T_FLOAT:
         case obj_type::T_INT:{
-            int x1, x2;
-
-            x1 = static_cast<int>(obj->car()->num_val());
-            x2 = static_cast<int>(obj->cadr()->num_val());
+            int x1 = static_cast<int>(obj->car()->num_val());
+            int x2 = static_cast<int>(obj->cadr()->num_val());
             if( x2 == 0 ){
             obj_unref(obj);
             return undefined();
@@ -512,8 +507,6 @@ do_intrinsics(sym_ptr act, live_obj_ptr obj)
     case PAIR:{		// Pair up successive elements of a list
         obj_ptr hd = nullptr;
         obj_ptr *hdp = &hd;
-        obj_ptr r = nullptr;
-        int x;
 
         if(
             (obj->o_type != obj_type::T_LIST) ||
@@ -522,6 +515,8 @@ do_intrinsics(sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
+        obj_ptr r = nullptr;
+        int x;
         for( p = obj, x = 0; p; p = p->cdr() ){
             if( x == 0 ){
             *hdp = q = obj_alloc(obj_type::T_LIST);
@@ -544,10 +539,9 @@ do_intrinsics(sym_ptr act, live_obj_ptr obj)
     }
 
     case SPLIT:{	// Split list into two (roughly) equal halves
-        int l,x;
+        int l;
         obj_ptr hd = nullptr;
         obj_ptr *hdp = &hd;
-        obj_ptr top;
 
         if(
             (obj->o_type != obj_type::T_LIST) ||
@@ -557,13 +551,14 @@ do_intrinsics(sym_ptr act, live_obj_ptr obj)
             return undefined();
         }
         l = ((l-1) >> 1)+1;
+        int x;
         for( x = 0, p = obj; x < l; ++x, p = p->cdr() ){
             *hdp = q = obj_alloc(obj_type::T_LIST);
             hdp = &CDR(q);
             q->car(p->car());
             p->car()->inc_ref();
         }
-        top = obj_alloc(hd);
+        obj_ptr top = obj_alloc(hd);
         hd = nullptr; hdp = &hd;
         while(p){
             *hdp = q = obj_alloc(obj_type::T_LIST);
@@ -606,10 +601,8 @@ do_intrinsics(sym_ptr act, live_obj_ptr obj)
             return undefined();
         case obj_type::T_FLOAT:
         case obj_type::T_INT:{
-            int x1, x2;
-
-            x1 = static_cast<int>(obj->car()->num_val());
-            x2 = static_cast<int>(obj->cadr()->num_val());
+            int x1 = static_cast<int>(obj->car()->num_val());
+            int x2 = static_cast<int>(obj->cadr()->num_val());
             if( x2 == 0 ){
             obj_unref(obj);
             return undefined();
@@ -678,17 +671,16 @@ do_dist(
         obj_ptr obj, // Source object
         int side)   // Which side to stick on
 {
+    if( !lst->car() ){        // Distributing over NULL list
+    lst->inc_ref();
+    obj_unref(obj);
+    return(lst);
+    }
+
     obj_ptr r;
     obj_ptr r2;
     obj_ptr hd;
     obj_ptr *hdp = &hd;
-
-    if( !lst->car() ){		// Distributing over NULL list
-	lst->inc_ref();
-	obj_unref(obj);
-	return(lst);
-    }
-
 	/*
 	 * Evil C!  Line-by-line, here's what's happening
 	 * 1. Get the first list element for the "lower" list
@@ -815,17 +807,16 @@ do_bool(live_obj_ptr obj, int op)
 {
     obj_ptr p;
     obj_ptr q;
-    live_obj_ptr r;
-    bool i;
 
     if(
-	(obj->o_type != obj_type::T_LIST) ||
-	( (p = obj->car())->o_type != obj_type::T_BOOL) ||
-	( (q = obj->cadr())->o_type != obj_type::T_BOOL)
+    (obj->o_type != obj_type::T_LIST) ||
+    ( (p = obj->car())->o_type != obj_type::T_BOOL) ||
+    ( (q = obj->cadr())->o_type != obj_type::T_BOOL)
     ){
-	obj_unref(obj);
-	return undefined();
+    obj_unref(obj);
+    return undefined();
     }
+    bool i;
     switch( op ){
     case AND:
     i = p->o_val.o_int && q->o_val.o_int;
@@ -840,7 +831,7 @@ do_bool(live_obj_ptr obj, int op)
     default:
     fatal_err("Illegal binary logical op in do_bool()");
     }
-    r = obj_alloc(i);
+    auto r = obj_alloc(i);
     obj_unref(obj);
     return(r);
 }
