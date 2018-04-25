@@ -10,7 +10,7 @@
 
 #include "list.h"
 
-#include "types.h"
+#include "yystype.h"
 
 //ast.c
 ast_ptr ast_alloc(int atag);
