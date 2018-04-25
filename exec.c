@@ -4,6 +4,7 @@
  *	Copyright (c) 1986 by Andy Valencia
  */
 #include "fp.h"
+#include "ast.hpp"
 #include "intrin.h"
 #include "misc.h"
 #include "obj_type.hpp"
