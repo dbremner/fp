@@ -16,8 +16,6 @@
 
 #include "types.h"
 
-#include "symtab_entry.hpp"
-
 //ast.c
 ast_ptr ast_alloc(int atag);
 ast_ptr ast_alloc(int atag, ast_ptr l);
