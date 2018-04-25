@@ -51,610 +51,609 @@ do_intrinsics(sym_ptr act, live_obj_ptr obj)
     switch( act->sym_val.YYint ){
 
     case LENGTH:{	// Length of a list
-	int l;
+        int l;
 
-	if( obj->o_type != obj_type::T_LIST ){
-	    obj_unref(obj);
-	    return undefined();
-	}
-	for( p = obj, l = 0; p && p->car(); p = p->cdr() ) l++;
-	obj_unref(obj);
-	p = obj_alloc(l);
-	return(p);
+        if( obj->o_type != obj_type::T_LIST ){
+            obj_unref(obj);
+            return undefined();
+        }
+        for( p = obj, l = 0; p && p->car(); p = p->cdr() ) l++;
+        obj_unref(obj);
+        p = obj_alloc(l);
+        return(p);
     }
 
     case ID:		// Identity
-	return(obj);
+            return(obj);
     case OUT:		// Identity, but print debug line too
-	printf("out: ");
-	obj_prtree(obj);
-	putchar('\n');
-	return(obj);
+        printf("out: ");
+        obj_prtree(obj);
+        putchar('\n');
+        return(obj);
     
     case FIRST:
     case HD:		// First elem of a list
-	if( obj->o_type != obj_type::T_LIST ){
-	    obj_unref(obj); return undefined();
-	}
-	if( !(p = obj->car()) ) return(obj);
-	p->inc_ref();
-	obj_unref(obj);
-	return(p);
+        if( obj->o_type != obj_type::T_LIST ){
+            obj_unref(obj); return undefined();
+        }
+        if( !(p = obj->car()) ) return(obj);
+        p->inc_ref();
+        obj_unref(obj);
+        return(p);
 
     case TL:		// Remainder of list
-	if( (obj->o_type != obj_type::T_LIST) || !obj->car() ){
-	    obj_unref(obj); return undefined();
-	}
-	if( !(p = obj->cdr()) ){
-	    p = obj_alloc(obj_type::T_LIST);
-	} else {
-	    p->inc_ref();
-	}
-	obj_unref(obj);
-	return(p);
+        if( (obj->o_type != obj_type::T_LIST) || !obj->car() ){
+            obj_unref(obj); return undefined();
+        }
+        if( !(p = obj->cdr()) ){
+            p = obj_alloc(obj_type::T_LIST);
+        } else {
+            p->inc_ref();
+        }
+        obj_unref(obj);
+        return(p);
 
     case IOTA:{		// Given arg N, generate <1..N>
-	int x, l;
-    obj_ptr hd;
-    obj_ptr *hdp = &hd;
+        int x, l;
+        obj_ptr hd;
+        obj_ptr *hdp = &hd;
 
-	if( !obj->is_num() ){
-	    obj_unref(obj);
-	    return undefined();
-	}
-	l = (obj->is_int()) ? obj->o_val.o_int : static_cast<int>(obj->o_val.o_double);
-	obj_unref(obj);
-	if( l < 0 ) return undefined();
-	if( l == 0 ) return( obj_alloc(obj_type::T_LIST) );
-	for( x = 1; x <= l; x++ ){
-	    *hdp = p = obj_alloc(obj_type::T_LIST);
-	    q = obj_alloc(x);
-	    p->car(q);
-	    hdp = &CDR(p);
-	}
-	return(hd);
+        if( !obj->is_num() ){
+            obj_unref(obj);
+            return undefined();
+        }
+        l = (obj->is_int()) ? obj->o_val.o_int : static_cast<int>(obj->o_val.o_double);
+        obj_unref(obj);
+        if( l < 0 ) return undefined();
+        if( l == 0 ) return( obj_alloc(obj_type::T_LIST) );
+        for( x = 1; x <= l; x++ ){
+            *hdp = p = obj_alloc(obj_type::T_LIST);
+            q = obj_alloc(x);
+            p->car(q);
+            hdp = &CDR(p);
+        }
+        return(hd);
     } // Local block for IOTA
 
     case PICK:{		// Parameterized selection
-	int x;
+        int x;
 
-	    // Verify all elements which we will use
-	if(
-	    (obj->o_type != obj_type::T_LIST) ||
-	    ( (p = obj->car())->o_type != obj_type::T_INT ) ||
-	    !(q = obj->cdr()) ||
-	    ( (q = q->car())->o_type != obj_type::T_LIST) ||
-	    ( (x = p->o_val.o_int) == 0 )
-	){
-	    obj_unref(obj);
-	    return undefined();
-	}
+            // Verify all elements which we will use
+        if(
+            (obj->o_type != obj_type::T_LIST) ||
+            ( (p = obj->car())->o_type != obj_type::T_INT ) ||
+            !(q = obj->cdr()) ||
+            ( (q = q->car())->o_type != obj_type::T_LIST) ||
+            ( (x = p->o_val.o_int) == 0 )
+        ){
+            obj_unref(obj);
+            return undefined();
+        }
 
-	    // If x is negative, we are counting from the end
-	if( x < 0 ){
-	    int tmp = listlen(q);
+            // If x is negative, we are counting from the end
+        if( x < 0 ){
+            int tmp = listlen(q);
 
-	    x += (tmp + 1);
-	    if( x < 1 ){
-		obj_unref(obj);
-		return undefined();
-	    }
-	}
+            x += (tmp + 1);
+            if( x < 1 ){
+            obj_unref(obj);
+            return undefined();
+            }
+        }
 
-	    // Loop along the list until our count is expired
-	for( ; x > 1; --x ){
-	    if( !q ) break;
-	    q = q->cdr();
-	}
+            // Loop along the list until our count is expired
+        for( ; x > 1; --x ){
+            if( !q ) break;
+            q = q->cdr();
+        }
 
-	    // If fell off the list, error
-	if( !q || !(q = q->car()) ){
-	    obj_unref(obj);
-	    return undefined();
-	}
+            // If fell off the list, error
+        if( !q || !(q = q->car()) ){
+            obj_unref(obj);
+            return undefined();
+        }
 
-	    // Add a reference to the named object, release the old object
-	q->inc_ref();
-	obj_unref(obj);
-	return(q);
+            // Add a reference to the named object, release the old object
+        q->inc_ref();
+        obj_unref(obj);
+        return(q);
     }
 
     case LAST:		// Return last element of list
-	if( (q = obj)->o_type != obj_type::T_LIST ){
-	    obj_unref(obj);
-	    return undefined();
-	}
-	if( !obj->car() ) return(obj);
-    while( (p = q->cdr()) ) q = p;
-	q = q->car();
-	q->inc_ref();
-	obj_unref(obj);
-	return(q);
+        if( (q = obj)->o_type != obj_type::T_LIST ){
+            obj_unref(obj);
+            return undefined();
+        }
+        if( !obj->car() ) return(obj);
+        while( (p = q->cdr()) ) q = p;
+        q = q->car();
+        q->inc_ref();
+        obj_unref(obj);
+        return(q);
     
     case FRONT:
     case TLR:{		// Return a list of all but list
-    obj_ptr hd = nullptr;
-    obj_ptr *hdp = &hd;
+        obj_ptr hd = nullptr;
+        obj_ptr *hdp = &hd;
 
-	if(
-	    ((q = obj)->o_type != obj_type::T_LIST) ||
-	    !obj->car()
-	){
-	    obj_unref(obj);
-	    return undefined();
-	}
-	while( q->cdr() ){
-	    *hdp = p = obj_alloc(q->car());
-        if( p->car() ){
-		p->car()->inc_ref();
-	    }
-	    hdp = &CDR(p);
-	    q = q->cdr();
-	}
-	obj_unref(obj);
-	if( !hd ) return( obj_alloc(obj_type::T_LIST) );
-	else return(hd);
+        if(
+            ((q = obj)->o_type != obj_type::T_LIST) ||
+            !obj->car()
+        ){
+            obj_unref(obj);
+            return undefined();
+        }
+        while( q->cdr() ){
+            *hdp = p = obj_alloc(q->car());
+            if( p->car() ){
+            p->car()->inc_ref();
+            }
+            hdp = &CDR(p);
+            q = q->cdr();
+        }
+        obj_unref(obj);
+        if( !hd ) return( obj_alloc(obj_type::T_LIST) );
+        else return(hd);
     }
 
     case DISTL:		// Distribute from left-most element
-	if(
-	    (obj->o_type != obj_type::T_LIST) ||
-	    ( !(q = obj->car()) ) ||
-	    (!obj->cdr()) ||
-	    (!(p = obj->cadr()) ) ||
-	    (p->o_type != obj_type::T_LIST)
-	){
-	    obj_unref(obj);
-	    return undefined();
-	}
-	return( do_dist(q,p,obj,0) );
+        if(
+            (obj->o_type != obj_type::T_LIST) ||
+            ( !(q = obj->car()) ) ||
+            (!obj->cdr()) ||
+            (!(p = obj->cadr()) ) ||
+            (p->o_type != obj_type::T_LIST)
+        ){
+            obj_unref(obj);
+            return undefined();
+        }
+        return( do_dist(q,p,obj,0) );
 
     case DISTR:		// Distribute from left-most element
-	if(
-	    (obj->o_type != obj_type::T_LIST) ||
-	    ( !(q = obj->car()) ) ||
-	    (!obj->cdr()) ||
-	    (!(p = obj->cadr()) ) ||
-	    (q->o_type != obj_type::T_LIST)
-	){
-	    obj_unref(obj);
-	    return undefined();
-	}
-	return( do_dist(p,q,obj,1) );
+        if(
+            (obj->o_type != obj_type::T_LIST) ||
+            ( !(q = obj->car()) ) ||
+            (!obj->cdr()) ||
+            (!(p = obj->cadr()) ) ||
+            (q->o_type != obj_type::T_LIST)
+        ){
+            obj_unref(obj);
+            return undefined();
+        }
+        return( do_dist(p,q,obj,1) );
     
     case APNDL:{	// Append element from left
-	obj_ptr r;
+        obj_ptr r;
 
-	if(
-	    (obj->o_type != obj_type::T_LIST) ||
-	    ( !(q = obj->car()) ) ||
-	    (!obj->cdr()) ||
-	    (!(p = obj->cadr()) ) ||
-	    (p->o_type != obj_type::T_LIST)
-	){
-	    obj_unref(obj);
-	    return undefined();
-	}
-	q->inc_ref();
-	if( !p->car() ){		// Null list?
-	    obj_unref(obj);
-	    p = obj_alloc(q);
-	    return(p);		// Just return element
-	}
-	p->inc_ref();
-	r = obj_alloc(q, p);
-	obj_unref(obj);
-	return(r);
+        if(
+            (obj->o_type != obj_type::T_LIST) ||
+            ( !(q = obj->car()) ) ||
+            (!obj->cdr()) ||
+            (!(p = obj->cadr()) ) ||
+            (p->o_type != obj_type::T_LIST)
+        ){
+            obj_unref(obj);
+            return undefined();
+        }
+        q->inc_ref();
+        if( !p->car() ){		// Null list?
+            obj_unref(obj);
+            p = obj_alloc(q);
+            return(p);		// Just return element
+        }
+        p->inc_ref();
+        r = obj_alloc(q, p);
+        obj_unref(obj);
+        return(r);
     }
 
     case APNDR:{	// Append element from right
-    obj_ptr hd = nullptr;
-    obj_ptr *hdp = &hd;
-    obj_ptr r;
+        obj_ptr hd = nullptr;
+        obj_ptr *hdp = &hd;
+        obj_ptr r;
 
-	if(
-	    (obj->o_type != obj_type::T_LIST) ||
-	    ( !(q = obj->car()) ) ||
-	    (!obj->cdr()) ||
-	    (!(r = obj->cadr()) ) ||
-	    (q->o_type != obj_type::T_LIST)
-	){
-	    obj_unref(obj);
-	    return undefined();
-	}
-	r->inc_ref();
-	if( !q->car() ){		// Empty list
-	    obj_unref(obj);
-	    p = obj_alloc(r);
-	    return(p);		// Just return elem
-	}
+        if(
+            (obj->o_type != obj_type::T_LIST) ||
+            ( !(q = obj->car()) ) ||
+            (!obj->cdr()) ||
+            (!(r = obj->cadr()) ) ||
+            (q->o_type != obj_type::T_LIST)
+        ){
+            obj_unref(obj);
+            return undefined();
+        }
+        r->inc_ref();
+        if( !q->car() ){		// Empty list
+            obj_unref(obj);
+            p = obj_alloc(r);
+            return(p);		// Just return elem
+        }
 
-	    /*
-	     * Loop through list, building a new one.  We can't just reuse
-	     *	the old one because we're modifying its end.
-	     */
-	while( q ){
-	    *hdp = p = obj_alloc(obj_type::T_LIST);
-	    q->car()->inc_ref();
-	    p->car(q->car());
-	    hdp = &CDR(p);
-	    q = q->cdr();
-	}
+            /*
+             * Loop through list, building a new one.  We can't just reuse
+             *	the old one because we're modifying its end.
+             */
+        while( q ){
+            *hdp = p = obj_alloc(obj_type::T_LIST);
+            q->car()->inc_ref();
+            p->car(q->car());
+            hdp = &CDR(p);
+            q = q->cdr();
+        }
 
-	    // Tack the element onto the end of the built list
-	*hdp = p = obj_alloc(r);
-	obj_unref(obj);
-	return(hd);
+            // Tack the element onto the end of the built list
+        *hdp = p = obj_alloc(r);
+        obj_unref(obj);
+        return(hd);
     }
 
     case TRANS:		// Transposition
-	return( do_trans(obj) );
+        return( do_trans(obj) );
     
     case REVERSE:{	// Reverse all elements of a list
-	obj_ptr r;
+        obj_ptr r;
 
-	if( obj->o_type != obj_type::T_LIST ){
-	    obj_unref(obj);
-	    return undefined();
-	}
-	if( !obj->car() ) return(obj);
-	for( p = nullptr, q = obj; q; q = q->cdr() ){
-	    r = obj_alloc(obj_type::T_LIST);
-        r->cdr(p);
-	    p = r;
-	    p->car(q->car());
-	    q->car()->inc_ref();
-	}
-	obj_unref(obj);
-	return(p);
+        if( obj->o_type != obj_type::T_LIST ){
+            obj_unref(obj);
+            return undefined();
+        }
+        if( !obj->car() ) return(obj);
+        for( p = nullptr, q = obj; q; q = q->cdr() ){
+            r = obj_alloc(obj_type::T_LIST);
+            r->cdr(p);
+            p = r;
+            p->car(q->car());
+            q->car()->inc_ref();
+        }
+        obj_unref(obj);
+        return(p);
     }
 
     case ROTL:{		// Rotate left
-    obj_ptr hd = nullptr;
-    obj_ptr *hdp = &hd;
+        obj_ptr hd = nullptr;
+        obj_ptr *hdp = &hd;
 
-	    // Wanna list
-	if( obj->o_type != obj_type::T_LIST ){
-	    obj_unref(obj);
-	    return undefined();
-	}
+            // Wanna list
+        if( obj->o_type != obj_type::T_LIST ){
+            obj_unref(obj);
+            return undefined();
+        }
 
-	    // Need two elems, otherwise be ID function
-	if(
-	    !(obj->car()) ||
-	    !(q = obj->cdr()) ||
-	    !(q->car())
-	){
-	    return(obj);
-	}
+            // Need two elems, otherwise be ID function
+        if(
+            !(obj->car()) ||
+            !(q = obj->cdr()) ||
+            !(q->car())
+        ){
+            return(obj);
+        }
 
-	    // Loop, starting from second.  Build parallel list.
-	for( /* q has obj->cdr() */ ; q; q = q->cdr() ){
-	    *hdp = p = obj_alloc(obj_type::T_LIST);
-	    hdp = &CDR(p);
-	    p->car(q->car());
-	    q->car()->inc_ref();
-	}
-	*hdp = p = obj_alloc(obj->car());
-	obj->car()->inc_ref();
-	obj_unref(obj);
-	return(hd);
+            // Loop, starting from second.  Build parallel list.
+        for( /* q has obj->cdr() */ ; q; q = q->cdr() ){
+            *hdp = p = obj_alloc(obj_type::T_LIST);
+            hdp = &CDR(p);
+            p->car(q->car());
+            q->car()->inc_ref();
+        }
+        *hdp = p = obj_alloc(obj->car());
+        obj->car()->inc_ref();
+        obj_unref(obj);
+        return(hd);
     }
 
     case ROTR:{		// Rotate right
-    obj_ptr hd = nullptr;
-    obj_ptr *hdp = &hd;
+        obj_ptr hd = nullptr;
+        obj_ptr *hdp = &hd;
 
-	    // Wanna list
-	if( obj->o_type != obj_type::T_LIST ){
-	    obj_unref(obj);
-	    return undefined();
-	}
+            // Wanna list
+        if( obj->o_type != obj_type::T_LIST ){
+            obj_unref(obj);
+            return undefined();
+        }
 
-	    // Need two elems, otherwise be ID function
-	if(
-	    !(obj->car()) ||
-	    !(q = obj->cdr()) ||
-	    !(q->car())
-	){
-	    return(obj);
-	}
+            // Need two elems, otherwise be ID function
+        if(
+            !(obj->car()) ||
+            !(q = obj->cdr()) ||
+            !(q->car())
+        ){
+            return(obj);
+        }
 
-	    // Loop over list.  Stop one short of end.
-	for( q = obj; q->cdr(); q = q->cdr() ){
-	    *hdp = p = obj_alloc(obj_type::T_LIST);
-	    hdp = &CDR(p);
-	    p->car(q->car());
-	    q->car()->inc_ref();
-	}
-	p = obj_alloc(q->car());
-	q->car()->inc_ref();
-    p->cdr(hd);
-	obj_unref(obj);
-	return(p);
+            // Loop over list.  Stop one short of end.
+        for( q = obj; q->cdr(); q = q->cdr() ){
+            *hdp = p = obj_alloc(obj_type::T_LIST);
+            hdp = &CDR(p);
+            p->car(q->car());
+            q->car()->inc_ref();
+        }
+        p = obj_alloc(q->car());
+        q->car()->inc_ref();
+        p->cdr(hd);
+        obj_unref(obj);
+        return(p);
     }
 
     case CONCAT:{		// Concatenate several lists
-    obj_ptr hd = nullptr;
-    obj_ptr *hdp = &hd;
-    obj_ptr r;
+        obj_ptr hd = nullptr;
+        obj_ptr *hdp = &hd;
+        obj_ptr r;
 
-	if( obj->o_type != obj_type::T_LIST ){
-	    obj_unref(obj);
-	    return undefined();
-	}
-	if( !obj->car() ) return(obj);
-	for( p = obj; p; p = p->cdr() ){
-	    q = p->car();
-	    if( q->o_type != obj_type::T_LIST ){
-		obj_unref(obj);
-		obj_unref(hd);
-		return undefined();
-	    }
-	    if( !q->car() ) continue;
-	    for( ; q; q = q->cdr() ){
-		*hdp = r = obj_alloc(obj_type::T_LIST);
-		hdp = &CDR(r);
-        r->car(q->car());
-		q->car()->inc_ref();
-	    }
-	}
-	obj_unref(obj);
-	if( !hd )
-	    return(obj_alloc(obj_type::T_LIST));
-	return(hd);
+        if( obj->o_type != obj_type::T_LIST ){
+            obj_unref(obj);
+            return undefined();
+        }
+        if( !obj->car() ) return(obj);
+        for( p = obj; p; p = p->cdr() ){
+            q = p->car();
+            if( q->o_type != obj_type::T_LIST ){
+            obj_unref(obj);
+            obj_unref(hd);
+            return undefined();
+            }
+            if( !q->car() ) continue;
+            for( ; q; q = q->cdr() ){
+            *hdp = r = obj_alloc(obj_type::T_LIST);
+            hdp = &CDR(r);
+            r->car(q->car());
+            q->car()->inc_ref();
+            }
+        }
+        obj_unref(obj);
+        if( !hd )
+            return(obj_alloc(obj_type::T_LIST));
+        return(hd);
     }
 
     case SIN:		// sin() function
-	if( !obj->is_num() ){
-	    obj_unref(obj);
-	    return undefined();
-	}
-	f = obj->num_val();
-    p = obj_alloc(sin(f));
-	obj_unref(obj);
-	return(p);
+        if( !obj->is_num() ){
+            obj_unref(obj);
+            return undefined();
+        }
+        f = obj->num_val();
+        p = obj_alloc(sin(f));
+        obj_unref(obj);
+        return(p);
 
     case COS:		// cos() function
-	if( !obj->is_num() ){
-	    obj_unref(obj);
-	    return undefined();
-	}
-	f = obj->num_val();
-    p = obj_alloc(cos(f));
-	obj_unref(obj);
-	return(p);
+        if( !obj->is_num() ){
+            obj_unref(obj);
+            return undefined();
+        }
+        f = obj->num_val();
+        p = obj_alloc(cos(f));
+        obj_unref(obj);
+        return(p);
 
     case TAN:		// tan() function
-	if( !obj->is_num() ){
-	    obj_unref(obj);
-	    return undefined();
-	}
-	f = obj->num_val();
-    p = obj_alloc(tan(f));
-	obj_unref(obj);
-	return(p);
+        if( !obj->is_num() ){
+            obj_unref(obj);
+            return undefined();
+        }
+        f = obj->num_val();
+        p = obj_alloc(tan(f));
+        obj_unref(obj);
+        return(p);
 
     case ASIN:		// asin() function
-	if( !obj->is_num() ){
-	    obj_unref(obj);
-	    return undefined();
-	}
-    f = obj->num_val();
-    p = obj_alloc(asin(f));
-	obj_unref(obj);
-	return(p);
+        if( !obj->is_num() ){
+            obj_unref(obj);
+            return undefined();
+        }
+        f = obj->num_val();
+        p = obj_alloc(asin(f));
+        obj_unref(obj);
+        return(p);
 
     case ACOS:		// acos() function
-	if( !obj->is_num() ){
-	    obj_unref(obj);
-	    return undefined();
-	}
-    f = obj->num_val();
-    p = obj_alloc(acos(f));
-	obj_unref(obj);
-	return(p);
+        if( !obj->is_num() ){
+            obj_unref(obj);
+            return undefined();
+        }
+        f = obj->num_val();
+        p = obj_alloc(acos(f));
+        obj_unref(obj);
+        return(p);
 
     case ATAN:		// atan() function
-	if( !obj->is_num() ){
-	    obj_unref(obj);
-	    return undefined();
-	}
-	f = obj->num_val();
-    p = obj_alloc(atan(f));
-	obj_unref(obj);
-	return(p);
+        if( !obj->is_num() ){
+            obj_unref(obj);
+            return undefined();
+        }
+        f = obj->num_val();
+        p = obj_alloc(atan(f));
+        obj_unref(obj);
+        return(p);
     
     case EXP:		// exp() function
-	if( !obj->is_num() ){
-	    obj_unref(obj);
-	    return undefined();
-	}
-	f = obj->num_val();
-    p = obj_alloc(exp(f));
-	obj_unref(obj);
-	return(p);
+        if( !obj->is_num() ){
+            obj_unref(obj);
+            return undefined();
+        }
+        f = obj->num_val();
+        p = obj_alloc(exp(f));
+        obj_unref(obj);
+        return(p);
     
     case LOG:		// log() function
-	if( !obj->is_num() ){
-	    obj_unref(obj);
-	    return undefined();
-	}
-	f = obj->num_val();
-    p = obj_alloc(log(f));
-	obj_unref(obj);
-	return(p);
+        if( !obj->is_num() ){
+            obj_unref(obj);
+            return undefined();
+        }
+        f = obj->num_val();
+        p = obj_alloc(log(f));
+        obj_unref(obj);
+        return(p);
     
     case MOD:		// Modulo
-	switch( numargs(obj) ){
-	case obj_type::T_UNDEF:
-	    obj_unref(obj);
-	    return undefined();
-	case obj_type::T_FLOAT:
-	case obj_type::T_INT:{
-	    int x1, x2;
+        switch( numargs(obj) ){
+        case obj_type::T_UNDEF:
+            obj_unref(obj);
+            return undefined();
+        case obj_type::T_FLOAT:
+        case obj_type::T_INT:{
+            int x1, x2;
 
-	    x1 = static_cast<int>(obj->car()->num_val());
-        x2 = static_cast<int>(obj->cadr()->num_val());
-	    if( x2 == 0 ){
-		obj_unref(obj);
-		return undefined();
-	    }
-	    p = obj_alloc(x1 % x2);
-	    obj_unref(obj);
-	    return(p);
-	}
-    case obj_type::T_LIST:
-    case obj_type::T_BOOL:
-        fatal_err("Unreachable switch cases");
-	}
+            x1 = static_cast<int>(obj->car()->num_val());
+            x2 = static_cast<int>(obj->cadr()->num_val());
+            if( x2 == 0 ){
+            obj_unref(obj);
+            return undefined();
+            }
+            p = obj_alloc(x1 % x2);
+            obj_unref(obj);
+            return(p);
+        }
+        case obj_type::T_LIST:
+        case obj_type::T_BOOL:
+            fatal_err("Unreachable switch cases");
+        }
     
     case PAIR:{		// Pair up successive elements of a list
-    obj_ptr hd = nullptr;
-    obj_ptr *hdp = &hd;
-    obj_ptr r = nullptr;
-	int x;
+        obj_ptr hd = nullptr;
+        obj_ptr *hdp = &hd;
+        obj_ptr r = nullptr;
+        int x;
 
-	if(
-	    (obj->o_type != obj_type::T_LIST) ||
-	    !obj->car()
-	){
-	    obj_unref(obj);
-	    return undefined();
-	}
-	for( p = obj, x = 0; p; p = p->cdr() ){
-	    if( x == 0 ){
-		*hdp = q = obj_alloc(obj_type::T_LIST);
-		hdp = &CDR(q);
-        r = obj_alloc(obj_type::T_LIST);
-        q->car(r);
-        r->car(p->car());
-		p->car()->inc_ref();
-		x++;
-	    } else {
-        q = obj_alloc(obj_type::T_LIST);
-        r->cdr(q);
-		q->car(p->car());
-		p->car()->inc_ref();
-		x = 0;
-	    }
-	}
-	obj_unref(obj);
-	return(hd);
+        if(
+            (obj->o_type != obj_type::T_LIST) ||
+            !obj->car()
+        ){
+            obj_unref(obj);
+            return undefined();
+        }
+        for( p = obj, x = 0; p; p = p->cdr() ){
+            if( x == 0 ){
+            *hdp = q = obj_alloc(obj_type::T_LIST);
+            hdp = &CDR(q);
+            r = obj_alloc(obj_type::T_LIST);
+            q->car(r);
+            r->car(p->car());
+            p->car()->inc_ref();
+            x++;
+            } else {
+            q = obj_alloc(obj_type::T_LIST);
+            r->cdr(q);
+            q->car(p->car());
+            p->car()->inc_ref();
+            x = 0;
+            }
+        }
+        obj_unref(obj);
+        return(hd);
     }
 
     case SPLIT:{	// Split list into two (roughly) equal halves
-	int l,x;
-    obj_ptr hd = nullptr;
-    obj_ptr *hdp = &hd;
-    obj_ptr top;
+        int l,x;
+        obj_ptr hd = nullptr;
+        obj_ptr *hdp = &hd;
+        obj_ptr top;
 
-	if(
-	    (obj->o_type != obj_type::T_LIST) ||
-	    ( (l = listlen(obj)) == 0 )
-	){
-	    obj_unref(obj);
-	    return undefined();
-	}
-	l = ((l-1) >> 1)+1;
-	for( x = 0, p = obj; x < l; ++x, p = p->cdr() ){
-	    *hdp = q = obj_alloc(obj_type::T_LIST);
-	    hdp = &CDR(q);
-	    q->car(p->car());
-	    p->car()->inc_ref();
-	}
-    top = obj_alloc(hd);
-	hd = nullptr; hdp = &hd;
-	while(p){
-	    *hdp = q = obj_alloc(obj_type::T_LIST);
-	    hdp = &CDR(q);
-	    q->car(p->car());
-	    p->car()->inc_ref();
-	    p = p->cdr();
-	}
-	if( !hd ) hd = obj_alloc(obj_type::T_LIST);
-    obj_ptr result = obj_alloc(obj_type::T_LIST);
-    top->cdr(result);
-    top->cdr()->car(hd);
-	obj_unref(obj);
-	return(top);
+        if(
+            (obj->o_type != obj_type::T_LIST) ||
+            ( (l = listlen(obj)) == 0 )
+        ){
+            obj_unref(obj);
+            return undefined();
+        }
+        l = ((l-1) >> 1)+1;
+        for( x = 0, p = obj; x < l; ++x, p = p->cdr() ){
+            *hdp = q = obj_alloc(obj_type::T_LIST);
+            hdp = &CDR(q);
+            q->car(p->car());
+            p->car()->inc_ref();
+        }
+        top = obj_alloc(hd);
+        hd = nullptr; hdp = &hd;
+        while(p){
+            *hdp = q = obj_alloc(obj_type::T_LIST);
+            hdp = &CDR(q);
+            q->car(p->car());
+            p->car()->inc_ref();
+            p = p->cdr();
+        }
+        if( !hd ) hd = obj_alloc(obj_type::T_LIST);
+        obj_ptr result = obj_alloc(obj_type::T_LIST);
+        top->cdr(result);
+        top->cdr()->car(hd);
+        obj_unref(obj);
+        return(top);
     }
 
     case ATOM:{
-	bool result;
+        bool result;
 
-	switch( obj->o_type ){
-	case obj_type::T_UNDEF:
-	    return(obj);
-	case obj_type::T_INT:
-	case obj_type::T_BOOL:
-	case obj_type::T_FLOAT:
-	    result = true;
-	    break;
-    case obj_type::T_LIST:
-	    result = false;
-	}
-	p = obj_alloc(result);
-	obj_unref(obj);
-	return(p);
+        switch( obj->o_type ){
+        case obj_type::T_UNDEF:
+            return(obj);
+        case obj_type::T_INT:
+        case obj_type::T_BOOL:
+        case obj_type::T_FLOAT:
+            result = true;
+            break;
+        case obj_type::T_LIST:
+            result = false;
+        }
+        p = obj_alloc(result);
+        obj_unref(obj);
+        return(p);
     }
 
     case DIV:		// Like '/', but forces integer operation
-	switch( numargs(obj) ){
-	case obj_type::T_UNDEF:
-	    obj_unref(obj);
-	    return undefined();
-	case obj_type::T_FLOAT:
-	case obj_type::T_INT:{
-	    int x1, x2;
+        switch( numargs(obj) ){
+        case obj_type::T_UNDEF:
+            obj_unref(obj);
+            return undefined();
+        case obj_type::T_FLOAT:
+        case obj_type::T_INT:{
+            int x1, x2;
 
-	    x1 = static_cast<int>(obj->car()->num_val());
-        x2 = static_cast<int>(obj->cadr()->num_val());
-	    if( x2 == 0 ){
-		obj_unref(obj);
-		return undefined();
-	    }
-	    p = obj_alloc(x1 / x2);
-	    obj_unref(obj);
-	    return(p);
-    }
-    case obj_type::T_LIST:
-    case obj_type::T_BOOL:
-        fatal_err("Unreachable switch cases");
-	}
-    
+            x1 = static_cast<int>(obj->car()->num_val());
+            x2 = static_cast<int>(obj->cadr()->num_val());
+            if( x2 == 0 ){
+            obj_unref(obj);
+            return undefined();
+            }
+            p = obj_alloc(x1 / x2);
+            obj_unref(obj);
+            return(p);
+        }
+        case obj_type::T_LIST:
+        case obj_type::T_BOOL:
+            fatal_err("Unreachable switch cases");
+        }
 
     case NIL:
-	if( obj->o_type != obj_type::T_LIST ){
-	    obj_unref(obj);
-	    return undefined();
-	}
-	p = obj_alloc(obj_type::T_BOOL);
-	if( obj->car() ) p->o_val.o_int = 0;
-	else p->o_val.o_int = 1;
-	obj_unref(obj);
-	return(p);
+        if( obj->o_type != obj_type::T_LIST ){
+            obj_unref(obj);
+            return undefined();
+        }
+        p = obj_alloc(obj_type::T_BOOL);
+        if( obj->car() ) p->o_val.o_int = 0;
+        else p->o_val.o_int = 1;
+        obj_unref(obj);
+        return(p);
     
     case EQ:
-	return( eqobj(obj) );
+            return( eqobj(obj) );
     
     case AND:
-	return( do_bool(obj,AND) );
+            return( do_bool(obj,AND) );
     case OR:
-	return( do_bool(obj,OR) );
+            return( do_bool(obj,OR) );
     case XOR:
-	return( do_bool(obj,XOR) );
+            return( do_bool(obj,XOR) );
     case NOT:
-	if( obj->o_type != obj_type::T_BOOL ){
-	    obj_unref(obj);
-	    return undefined();
-	}
-	(p = obj_alloc(obj_type::T_BOOL))->o_val.o_int = !obj->o_val.o_int;
-	obj_unref(obj);
-	return(p);
+        if( obj->o_type != obj_type::T_BOOL ){
+            obj_unref(obj);
+            return undefined();
+        }
+        (p = obj_alloc(obj_type::T_BOOL))->o_val.o_int = !obj->o_val.o_int;
+        obj_unref(obj);
+        return(p);
     
     default:
-	fatal_err("Unrecognized symbol in do_intrinsics()");
+            fatal_err("Unrecognized symbol in do_intrinsics()");
     } // Switch()
 }
 
