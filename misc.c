@@ -3,13 +3,13 @@
  *
  *	Copyright (c) 1986 by Andy Valencia
  */
-#include "fp.h"
-#include "symtab.h"
 #include <setjmp.h>
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "fp.h"
+#include "symtab.h"
 
 static jmp_buf restart;
 

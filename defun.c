@@ -3,10 +3,10 @@
  *
  *	Copyright (c) 1986 by Andy Valencia
  */
+#include <stdio.h>
 #include "fp.h"
 #include "symtab.h"
 #include "symtab_entry.hpp"
-#include <stdio.h>
 
 /// Define a function
 void

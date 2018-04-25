@@ -4,10 +4,10 @@
     *
     *	Copyright (c) 1986 by Andy Valencia
     */
+#include <stdio.h>
 #include "fp.h"
 #include "obj.h"
 #include "object.hpp"
-#include <stdio.h>
 
 static char had_undef = 0;
 void fp_cmd(void);

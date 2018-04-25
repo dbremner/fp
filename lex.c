@@ -3,13 +3,13 @@
  *
  *	Copyright (c) 1986 by Andy Valencia
  */
+#include <ctype.h>
+#include <stdio.h>
+#include <string.h>
 #include "fp.h"
 #include "symtab.h"
 #include "symtab_entry.hpp"
 #include "y.tab.h"
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
 
 static char buf[80];
 static int donum(char startc);

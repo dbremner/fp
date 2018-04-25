@@ -3,10 +3,10 @@
  *
  *	Copyright (c) 1986 by Andy Valencia
  */
+#include <stdio.h>
 #include "fp.h"
 #include "obj.h"
 #include "object.hpp"
-#include <stdio.h>
 
 #ifdef MEMSTAT
 int obj_out = 0;
