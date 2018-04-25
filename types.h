@@ -1,9 +1,7 @@
 #ifndef TYPES_H
 #define TYPES_H
 
-typedef struct ast* ast_ptr;
-typedef struct object* obj_ptr;
-typedef struct symtab_entry* sym_ptr;
+#include "typedefs.h"
 
 #include "list.h"
 
