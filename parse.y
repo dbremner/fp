@@ -5,6 +5,7 @@
     *	Copyright (c) 1986 by Andy Valencia
     */
 #include "fp.h"
+#include "obj.h"
 #include <stdio.h>
 
 static char had_undef = 0;

@@ -5,6 +5,7 @@
  * 	Copyright (c) 1986 by Andy Valencia
  */
 #include "fp.h"
+#include "obj.h"
 #include "y.tab.h"
 #include <math.h>
 #include <stdio.h>

@@ -51,7 +51,5 @@ int yylex(void);
 [[noreturn]] void fatal_err(const char *msg);
 void yyerror(const char *msg);
 
-#include "obj.h"
-
 //YACC runtime
 int yyparse(void);

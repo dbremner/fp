@@ -4,6 +4,7 @@
  *	Copyright (c) 1986 by Andy Valencia
  */
 #include "fp.h"
+#include "obj.h"
 
 #ifdef MEMSTAT
 int ast_out = 0;
