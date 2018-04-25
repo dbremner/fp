@@ -25,8 +25,8 @@
 #define CDR(x) ( ((x)->o_val).o_list.cdr )
 
 static obj_ptr invoke(sym_ptr def, obj_ptr obj);
-static obj_ptr do_rinsert(ast_ptr act, obj_ptr obj);
-static obj_ptr do_binsert(ast_ptr act, obj_ptr obj);
+static obj_ptr do_rinsert(live_ast_ptr act, obj_ptr obj);
+static obj_ptr do_binsert(live_ast_ptr act, obj_ptr obj);
 
     /*
      * Given an AST for an action, and an object to do the action upon,
@@ -232,7 +232,7 @@ invoke(sym_ptr def, obj_ptr obj)
 
 /// Local function to handle the tedious right-inserting
 static obj_ptr
-do_rinsert(ast_ptr act, obj_ptr obj)
+do_rinsert(live_ast_ptr act, obj_ptr obj)
 {
     obj_ptr p;
     obj_ptr q;
@@ -314,7 +314,7 @@ do_rinsert(ast_ptr act, obj_ptr obj)
 
 /// Local function to handle the tedious binary inserting
 static obj_ptr
-do_binsert(ast_ptr act, obj_ptr obj)
+do_binsert(live_ast_ptr act, obj_ptr obj)
 {
     if( obj->o_type != obj_type::T_LIST ){
     obj_unref(obj);

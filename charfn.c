@@ -98,7 +98,7 @@ noteqobj(live_obj_ptr obj)
 
 /// do_charfun()--execute the action of a binary function
 live_obj_ptr
-do_charfun(ast_ptr act, live_obj_ptr obj)
+do_charfun(live_ast_ptr act, live_obj_ptr obj)
 {
     assert(act);
     assert(obj);
