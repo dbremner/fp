@@ -842,8 +842,7 @@ do_bool(obj_ptr obj, int op)
     default:
     fatal_err("Illegal binary logical op in do_bool()");
     }
-    r = obj_alloc(obj_type::T_BOOL);
-    r->o_val.o_int = i;
+    r = obj_alloc(i);
     obj_unref(obj);
     return(r);
 }
