@@ -55,6 +55,9 @@ intr(int /*ignored*/){
     longjmp(restart,1);
 }
 
+//YACC runtime
+int yyparse(void);
+
 int
 main(void) {
     symtab_init();

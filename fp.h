@@ -34,5 +34,3 @@ int yylex(void);
 [[noreturn]] void fatal_err(const char *msg);
 void yyerror(const char *msg);
 
-//YACC runtime
-int yyparse(void);
