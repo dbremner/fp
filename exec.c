@@ -5,6 +5,7 @@
  */
 #include "typedefs.h"
 #include "fp.h"
+#include "list.h"
 #include "ast.hpp"
 #include "intrin.h"
 #include "misc.h"

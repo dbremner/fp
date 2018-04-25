@@ -8,8 +8,6 @@
 #undef NDEBUG
 #include <assert.h>
 
-#include "list.h"
-
 #include "yystype.h"
 
 //ast.c

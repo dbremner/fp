@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include "typedefs.h"
 #include "fp.h"
+#include "list.h"
 #include "lex.h"
 #include "ast.hpp"
 #include "misc.h"

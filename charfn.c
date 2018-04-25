@@ -5,6 +5,7 @@
  */
 #include "typedefs.h"
 #include "fp.h"
+#include "list.h"
 #include "ast.hpp"
 #include "obj_type.hpp"
 #include "charfn.h"
