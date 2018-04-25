@@ -83,8 +83,10 @@ fnDef	:	'{'
 		name funForm
 		'}'
 		    {
-			defun($3.YYsym,$4.YYast);
-			set_prompt('\t');
+                assert($4.YYast);
+                auto live = static_cast<live_ast_ptr>($4.YYast);
+                defun($3.YYsym,live);
+                set_prompt('\t');
 		    }
 	;
 

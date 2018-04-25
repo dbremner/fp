@@ -13,7 +13,7 @@
 
 /// Define a function
 void
-defun(sym_ptr name, ast_ptr def)
+defun(sym_ptr name, live_ast_ptr def)
 {
     assert(name);
     assert(def);
