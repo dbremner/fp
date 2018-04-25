@@ -10,6 +10,7 @@
 #include "fp.h"
 #include "list.h"
 #include "lex.h"
+#include "yystype.h"
 #include "ast.hpp"
 #include "misc.h"
 #include "obj_type.hpp"

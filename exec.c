@@ -6,6 +6,7 @@
 #include "typedefs.h"
 #include "fp.h"
 #include "list.h"
+#include "yystype.h"
 #include "ast.hpp"
 #include "intrin.h"
 #include "misc.h"

@@ -10,6 +10,7 @@
 #include "fp.h"
 #include "lex.h"
 #include "symtab.h"
+#include "yystype.h"
 #include "symtab_entry.hpp"
 #include "y.tab.h"
 

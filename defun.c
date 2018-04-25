@@ -8,6 +8,7 @@
 #include "defun.h"
 #include "fp.h"
 #include "misc.h"
+#include "yystype.h"
 #include "symtab_entry.hpp"
 
 /// Define a function

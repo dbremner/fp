@@ -15,6 +15,7 @@
 #include "charfn.h"
 #include "obj.h"
 #include "object.hpp"
+#include "yystype.h"
 #include "symtab_entry.hpp"
 #include "y.tab.h"
 

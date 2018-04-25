@@ -5,6 +5,7 @@
  */
 #include "typedefs.h"
 #include "fp.h"
+#include "yystype.h"
 #include "ast.hpp"
 #include "obj_type.hpp"
 #include "obj.h"

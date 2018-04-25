@@ -8,8 +8,6 @@
 #undef NDEBUG
 #include <assert.h>
 
-#include "yystype.h"
-
 //ast.c
 ast_ptr ast_alloc(int atag);
 ast_ptr ast_alloc(int atag, ast_ptr l);
