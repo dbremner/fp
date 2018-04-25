@@ -92,7 +92,7 @@ application
 	:	    { set_prompt('-'); }
 	    funForm ':' object
 		    {
-			obj_ptr p = execute($2.YYast,$4.YYobj);
+			auto p = execute($2.YYast,$4.YYobj);
 
 			obj_prtree(p);
 			printf("\n");
@@ -130,7 +130,7 @@ object2	:	atom
 fpSequence
 	:	'<' object2 OptComma SeqBody '>'
 		    {
-			obj_ptr p = 
+			auto p =
 			    $$.YYobj = obj_alloc(obj_type::T_LIST);
 			(p->o_val).o_list.car = $2.YYobj;
 			(p->o_val).o_list.cdr = $4.YYobj;
@@ -142,7 +142,7 @@ SeqBody	:	Empty
 		    }
 	|	object2 OptComma SeqBody
 		    {
-			obj_ptr p = 
+			auto p =
 			    $$.YYobj = obj_alloc(obj_type::T_LIST);
 			(p->o_val).o_list.car = $1.YYobj;
 			(p->o_val).o_list.cdr = $3.YYobj;
@@ -151,32 +151,32 @@ SeqBody	:	Empty
 
 atom	:	T
 		    {
-			obj_ptr p = 
+			auto p =
 			    $$.YYobj = obj_alloc(obj_type::T_BOOL);
 			(p->o_val).o_int = 1;
 		    }
 	|	F
 		    {
-			obj_ptr p = 
+			auto p =
 			    $$.YYobj = obj_alloc(obj_type::T_BOOL);
 			(p->o_val).o_int = 0;
 		    }
 	|	'<' '>'
 		    {
-			obj_ptr p = 
+			auto p =
 			    $$.YYobj = obj_alloc(obj_type::T_LIST);
                 (p->o_val).o_list.car = nullptr;
 			    (p->o_val).o_list.cdr = nullptr;
 		    }
 	|	INT
 		    {
-			obj_ptr p = 
+			auto p =
 			    $$.YYobj = obj_alloc(obj_type::T_INT);
 			(p->o_val).o_int = $1.YYint;
 		    }
 	|	FLOAT
 		    {
-			obj_ptr p = 
+			auto p = 
 			    $$.YYobj = obj_alloc(obj_type::T_FLOAT);
 			(p->o_val).o_double = $1.YYdouble;
 		    }
