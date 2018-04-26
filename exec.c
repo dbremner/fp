@@ -201,27 +201,28 @@ execute(live_ast_ptr act, live_obj_ptr obj )
     }
     
 	// Do a while loop
-    case 'W':
-	while( 1 ){
-	    if( obj->is_undef() ){
-		obj_unref(obj);
-		return undefined();
-	    }
-	    obj->inc_ref();
-	    auto p = execute(act->left,obj);
-	    if( p->o_type != obj_type::T_BOOL ){
-		obj_unref(obj);
-		obj_unref(p);
-		return undefined();
-	    }
-	    if( p->o_val.o_int ){
-		obj_unref(p);
-		obj = execute(act->right,obj);
-	    } else {
-		obj_unref(p);
-		return(obj);
-	    }
-	}
+    case 'W': {
+        while( 1 ){
+            if( obj->is_undef() ){
+            obj_unref(obj);
+            return undefined();
+            }
+            obj->inc_ref();
+            auto p = execute(act->left,obj);
+            if( p->o_type != obj_type::T_BOOL ){
+            obj_unref(obj);
+            obj_unref(p);
+            return undefined();
+            }
+            if( p->o_val.o_int ){
+            obj_unref(p);
+            obj = execute(act->right,obj);
+            } else {
+            obj_unref(p);
+            return(obj);
+            }
+        }
+    }
 
     default:
 	fatal_err("Undefined AST tag in execute()");
