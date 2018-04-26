@@ -205,14 +205,14 @@ execute(live_ast_ptr act, live_obj_ptr obj )
         while( 1 ){
             if( obj->is_undef() ){
             obj_unref(obj);
-            return undefined();
+            break;
             }
             obj->inc_ref();
             auto p = execute(act->left,obj);
             if( p->o_type != obj_type::T_BOOL ){
             obj_unref(obj);
             obj_unref(p);
-            return undefined();
+            break;
             }
             if( p->o_val.o_int ){
             obj_unref(p);
@@ -222,6 +222,7 @@ execute(live_ast_ptr act, live_obj_ptr obj )
             return(obj);
             }
         }
+        return undefined();
     }
 
     default:
