@@ -37,9 +37,6 @@ obj_ptr
 do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
 {
     assert(act);
-    obj_ptr p;
-    obj_ptr q;
-    double f;
 
 	/*
 	 * Switch off the tokenal value assigned by YACC.  Depending on the
@@ -56,6 +53,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             return undefined();
         }
         int l;
+        obj_ptr p;
         for( p = obj, l = 0; p && p->car(); p = p->cdr() ) l++;
         obj_unref(obj);
         p = obj_alloc(l);
@@ -78,6 +76,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
+        obj_ptr p;
         if( !(p = obj->car()) ) return(obj);
         p->inc_ref();
         obj_unref(obj);
@@ -89,6 +88,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
+        obj_ptr p;
         if( !(p = obj->cdr()) ){
             p = obj_alloc(obj_type::T_LIST);
         } else {
@@ -110,6 +110,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         obj_unref(obj);
         if( l < 0 ) return undefined();
         if( l == 0 ) return( obj_alloc(obj_type::T_LIST) );
+        obj_ptr p;
+        obj_ptr q;
         for(int x = 1; x <= l; x++ ){
             *hdp = p = obj_alloc(obj_type::T_LIST);
             q = obj_alloc(x);
@@ -121,6 +123,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
 
     case PICK:{		// Parameterized selection
         int x;
+        obj_ptr p;
+        obj_ptr q;
 
             // Verify all elements which we will use
         if(
@@ -164,6 +168,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     }
 
     case LAST: {		// Return last element of list
+        obj_ptr p;
+        obj_ptr q;
         if( (q = obj)->o_type != obj_type::T_LIST ){
             obj_unref(obj);
             return undefined();
@@ -178,6 +184,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     
     case FRONT:
     case TLR:{		// Return a list of all but list
+        obj_ptr p;
+        obj_ptr q;
         if(
             ((q = obj)->o_type != obj_type::T_LIST) ||
             !obj->car()
@@ -201,6 +209,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     }
 
     case DISTL: {		// Distribute from left-most element
+        obj_ptr p;
+        obj_ptr q;
         if(
             (obj->o_type != obj_type::T_LIST) ||
             ( !(q = obj->car()) ) ||
@@ -215,6 +225,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     }
 
     case DISTR:	{	// Distribute from left-most element
+        obj_ptr p;
+        obj_ptr q;
         if(
             (obj->o_type != obj_type::T_LIST) ||
             ( !(q = obj->car()) ) ||
@@ -229,6 +241,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     }
     
     case APNDL:{	// Append element from left
+        obj_ptr p;
+        obj_ptr q;
         obj_ptr r;
 
         if(
@@ -256,6 +270,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     case APNDR:{	// Append element from right
         obj_ptr hd = nullptr;
         obj_ptr *hdp = &hd;
+        obj_ptr p;
+        obj_ptr q;
         obj_ptr r;
 
         if(
@@ -303,6 +319,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
+        obj_ptr p;
+        obj_ptr q;
         obj_ptr r;
         if( !obj->car() ) return(obj);
         for( p = nullptr, q = obj; q; q = q->cdr() ){
@@ -326,6 +344,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             return undefined();
         }
 
+        obj_ptr p;
+        obj_ptr q;
             // Need two elems, otherwise be ID function
         if(
             !(obj->car()) ||
@@ -358,6 +378,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             return undefined();
         }
 
+        obj_ptr p;
+        obj_ptr q;
             // Need two elems, otherwise be ID function
         if(
             !(obj->car()) ||
@@ -391,6 +413,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             return undefined();
         }
         if( !obj->car() ) return(obj);
+        obj_ptr p;
+        obj_ptr q;
         for( p = obj; p; p = p->cdr() ){
             q = p->car();
             if( q->o_type != obj_type::T_LIST ){
@@ -417,8 +441,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        f = obj->num_val();
-        p = obj_alloc(sin(f));
+        auto f = obj->num_val();
+        auto p = obj_alloc(sin(f));
         obj_unref(obj);
         return(p);
     }
@@ -428,8 +452,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        f = obj->num_val();
-        p = obj_alloc(cos(f));
+        auto f = obj->num_val();
+        auto p = obj_alloc(cos(f));
         obj_unref(obj);
         return(p);
     }
@@ -439,8 +463,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        f = obj->num_val();
-        p = obj_alloc(tan(f));
+        auto f = obj->num_val();
+        auto p = obj_alloc(tan(f));
         obj_unref(obj);
         return(p);
     }
@@ -450,8 +474,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        f = obj->num_val();
-        p = obj_alloc(asin(f));
+        auto f = obj->num_val();
+        auto p = obj_alloc(asin(f));
         obj_unref(obj);
         return(p);
     }
@@ -461,8 +485,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        f = obj->num_val();
-        p = obj_alloc(acos(f));
+        auto f = obj->num_val();
+        auto p = obj_alloc(acos(f));
         obj_unref(obj);
         return(p);
     }
@@ -472,8 +496,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        f = obj->num_val();
-        p = obj_alloc(atan(f));
+        auto f = obj->num_val();
+        auto p = obj_alloc(atan(f));
         obj_unref(obj);
         return(p);
     }
@@ -483,8 +507,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        f = obj->num_val();
-        p = obj_alloc(exp(f));
+        auto f = obj->num_val();
+        auto p = obj_alloc(exp(f));
         obj_unref(obj);
         return(p);
     }
@@ -494,8 +518,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        f = obj->num_val();
-        p = obj_alloc(log(f));
+        auto f = obj->num_val();
+        auto p = obj_alloc(log(f));
         obj_unref(obj);
         return(p);
     }
@@ -513,7 +537,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
             }
-            p = obj_alloc(x1 % x2);
+            auto p = obj_alloc(x1 % x2);
             obj_unref(obj);
             return(p);
         }
@@ -534,9 +558,11 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
+        obj_ptr q;
         obj_ptr r = nullptr;
         int x;
-        for( p = obj, x = 0; p; p = p->cdr() ){
+        auto p = obj;
+        for(x = 0; p; p = p->cdr() ){
             if( x == 0 ){
             *hdp = q = obj_alloc(obj_type::T_LIST);
             hdp = &CDR(q);
@@ -571,7 +597,9 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         }
         l = ((l-1) >> 1)+1;
         int x;
-        for( x = 0, p = obj; x < l; ++x, p = p->cdr() ){
+        auto p = obj;
+        obj_ptr q;
+        for( x = 0; x < l; ++x, p = p->cdr() ){
             *hdp = q = obj_alloc(obj_type::T_LIST);
             hdp = &CDR(q);
             q->car(p->car());
@@ -609,7 +637,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         case obj_type::T_LIST:
             result = false;
         }
-        p = obj_alloc(result);
+        auto p = obj_alloc(result);
         obj_unref(obj);
         return(p);
     }
@@ -627,7 +655,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
             }
-            p = obj_alloc(x1 / x2);
+            auto p = obj_alloc(x1 / x2);
             obj_unref(obj);
             return(p);
         }
@@ -642,7 +670,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        p = obj_alloc(obj_type::T_BOOL);
+        auto p = obj_alloc(obj_type::T_BOOL);
         if( obj->car() ) p->o_val.o_int = 0;
         else p->o_val.o_int = 1;
         obj_unref(obj);
@@ -667,7 +695,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        (p = obj_alloc(obj_type::T_BOOL))->o_val.o_int = !obj->o_val.o_int;
+        auto p = obj_alloc(obj_type::T_BOOL);
+        (p)->o_val.o_int = !obj->o_val.o_int;
         obj_unref(obj);
         return(p);
     }
