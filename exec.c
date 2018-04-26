@@ -59,8 +59,11 @@ execute(live_ast_ptr act, obj_ptr obj )
 	return( do_binsert(act->left,obj) );
 
 	// Intrinsics
-    case 'i':
-	return( do_intrinsics(act->val.YYsym, obj) );
+    case 'i': {
+        assert(act->val.YYsym);
+        auto live = static_cast<live_sym_ptr>(act->val.YYsym);
+        return( do_intrinsics(live, obj) );
+    }
 
 	// Select one element from a list
     case 'S':
