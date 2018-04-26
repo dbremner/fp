@@ -7,7 +7,7 @@ struct object {
     obj_type o_type;
     /// Number of current refs, for GC
     unsigned o_refs = 1;
-    union {
+    struct {
         /// T_INT, T_BOOL
         int o_int;
         /// T_FLOAT
