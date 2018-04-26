@@ -62,16 +62,18 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         return(p);
     }
 
-    case ID:		// Identity
+    case ID: {		// Identity
             return(obj);
-    case OUT:		// Identity, but print debug line too
+    }
+    case OUT: {		// Identity, but print debug line too
         printf("out: ");
         obj_prtree(obj);
         putchar('\n');
         return(obj);
+    }
     
     case FIRST:
-    case HD:		// First elem of a list
+    case HD: {		// First elem of a list
         if( obj->o_type != obj_type::T_LIST ){
             obj_unref(obj);
             return undefined();
@@ -80,8 +82,9 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         p->inc_ref();
         obj_unref(obj);
         return(p);
+    }
 
-    case TL:		// Remainder of list
+    case TL: {		// Remainder of list
         if( (obj->o_type != obj_type::T_LIST) || !obj->car() ){
             obj_unref(obj);
             return undefined();
@@ -93,6 +96,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         }
         obj_unref(obj);
         return(p);
+    }
 
     case IOTA:{		// Given arg N, generate <1..N>
         obj_ptr hd;
@@ -159,7 +163,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         return(q);
     }
 
-    case LAST:		// Return last element of list
+    case LAST: {		// Return last element of list
         if( (q = obj)->o_type != obj_type::T_LIST ){
             obj_unref(obj);
             return undefined();
@@ -170,6 +174,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         q->inc_ref();
         obj_unref(obj);
         return(q);
+    }
     
     case FRONT:
     case TLR:{		// Return a list of all but list
@@ -195,7 +200,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         else return(hd);
     }
 
-    case DISTL:		// Distribute from left-most element
+    case DISTL: {		// Distribute from left-most element
         if(
             (obj->o_type != obj_type::T_LIST) ||
             ( !(q = obj->car()) ) ||
@@ -207,8 +212,9 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             return undefined();
         }
         return( do_dist(q,p,obj,0) );
+    }
 
-    case DISTR:		// Distribute from left-most element
+    case DISTR:	{	// Distribute from left-most element
         if(
             (obj->o_type != obj_type::T_LIST) ||
             ( !(q = obj->car()) ) ||
@@ -220,6 +226,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             return undefined();
         }
         return( do_dist(p,q,obj,1) );
+    }
     
     case APNDL:{	// Append element from left
         obj_ptr r;
@@ -286,8 +293,9 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         return(hd);
     }
 
-    case TRANS:		// Transposition
+    case TRANS:	{	// Transposition
         return( do_trans(obj) );
+    }
     
     case REVERSE:{	// Reverse all elements of a list
 
@@ -404,7 +412,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         return(hd);
     }
 
-    case SIN:		// sin() function
+    case SIN: {		// sin() function
         if( !obj->is_num() ){
             obj_unref(obj);
             return undefined();
@@ -413,8 +421,9 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         p = obj_alloc(sin(f));
         obj_unref(obj);
         return(p);
+    }
 
-    case COS:		// cos() function
+    case COS: {		// cos() function
         if( !obj->is_num() ){
             obj_unref(obj);
             return undefined();
@@ -423,8 +432,9 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         p = obj_alloc(cos(f));
         obj_unref(obj);
         return(p);
+    }
 
-    case TAN:		// tan() function
+    case TAN: {		// tan() function
         if( !obj->is_num() ){
             obj_unref(obj);
             return undefined();
@@ -433,8 +443,9 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         p = obj_alloc(tan(f));
         obj_unref(obj);
         return(p);
+    }
 
-    case ASIN:		// asin() function
+    case ASIN: {		// asin() function
         if( !obj->is_num() ){
             obj_unref(obj);
             return undefined();
@@ -443,8 +454,9 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         p = obj_alloc(asin(f));
         obj_unref(obj);
         return(p);
+    }
 
-    case ACOS:		// acos() function
+    case ACOS: {		// acos() function
         if( !obj->is_num() ){
             obj_unref(obj);
             return undefined();
@@ -453,8 +465,9 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         p = obj_alloc(acos(f));
         obj_unref(obj);
         return(p);
+    }
 
-    case ATAN:		// atan() function
+    case ATAN: {		// atan() function
         if( !obj->is_num() ){
             obj_unref(obj);
             return undefined();
@@ -463,8 +476,9 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         p = obj_alloc(atan(f));
         obj_unref(obj);
         return(p);
+    }
     
-    case EXP:		// exp() function
+    case EXP: {		// exp() function
         if( !obj->is_num() ){
             obj_unref(obj);
             return undefined();
@@ -473,8 +487,9 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         p = obj_alloc(exp(f));
         obj_unref(obj);
         return(p);
+    }
     
-    case LOG:		// log() function
+    case LOG: {		// log() function
         if( !obj->is_num() ){
             obj_unref(obj);
             return undefined();
@@ -483,8 +498,9 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         p = obj_alloc(log(f));
         obj_unref(obj);
         return(p);
+    }
     
-    case MOD:		// Modulo
+    case MOD: {		// Modulo
         switch( numargs(obj) ){
         case obj_type::T_UNDEF:
             obj_unref(obj);
@@ -505,6 +521,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         case obj_type::T_BOOL:
             fatal_err("Unreachable switch cases");
         }
+    }
     
     case PAIR:{		// Pair up successive elements of a list
         obj_ptr hd = nullptr;
@@ -597,7 +614,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         return(p);
     }
 
-    case DIV:		// Like '/', but forces integer operation
+    case DIV: {		// Like '/', but forces integer operation
         switch( numargs(obj) ){
         case obj_type::T_UNDEF:
             obj_unref(obj);
@@ -618,8 +635,9 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         case obj_type::T_BOOL:
             fatal_err("Unreachable switch cases");
         }
+    }
 
-    case NIL:
+    case NIL: {
         if( obj->o_type != obj_type::T_LIST ){
             obj_unref(obj);
             return undefined();
@@ -629,17 +647,22 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         else p->o_val.o_int = 1;
         obj_unref(obj);
         return(p);
+    }
     
-    case EQ:
-            return( eqobj(obj) );
+    case EQ: {
+        return( eqobj(obj) );
+    }
     
-    case AND:
-            return( do_bool(obj,AND) );
-    case OR:
-            return( do_bool(obj,OR) );
-    case XOR:
-            return( do_bool(obj,XOR) );
-    case NOT:
+    case AND: {
+        return( do_bool(obj,AND) );
+    }
+    case OR: {
+        return( do_bool(obj,OR) );
+    }
+    case XOR: {
+        return( do_bool(obj,XOR) );
+    }
+    case NOT: {
         if( obj->o_type != obj_type::T_BOOL ){
             obj_unref(obj);
             return undefined();
@@ -647,6 +670,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         (p = obj_alloc(obj_type::T_BOOL))->o_val.o_int = !obj->o_val.o_int;
         obj_unref(obj);
         return(p);
+    }
     
     default:
             fatal_err("Unrecognized symbol in do_intrinsics()");
