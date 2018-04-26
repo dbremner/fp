@@ -558,7 +558,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             q->car(p->car());
             p->car()->inc_ref();
         }
-        obj_ptr top = obj_alloc(hd);
+        auto top = obj_alloc(hd);
         hd = nullptr; hdp = &hd;
         while(p){
             *hdp = q = obj_alloc(obj_type::T_LIST);

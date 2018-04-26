@@ -69,7 +69,7 @@ yylex(void){
         while( isalnum(c = nextc()) ) *p++ = static_cast<char>(c);
         ungetc(c,cur_in);
         *p = '\0';
-        sym_ptr q = lookup(buf);
+        auto q = lookup(buf);
 
             // yylval is always set to the symbol table entry
         yylval.YYsym = q;
