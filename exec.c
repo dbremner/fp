@@ -53,7 +53,7 @@ execute(live_ast_ptr act, live_obj_ptr obj )
 
 	// Binary-insert operator
     case '|': {
-            return( do_binsert(act->left,obj) );
+        return( do_binsert(act->left,obj) );
     }
 
 	// Intrinsics
