@@ -9,7 +9,7 @@ typedef union {
     int YYint;
     double YYdouble;
     live_ast_ptr YYast;
-    obj_ptr YYobj;
+    live_obj_ptr YYobj;
     list_ptr YYlist;
     live_sym_ptr YYsym;
 } YYstype;
