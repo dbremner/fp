@@ -250,7 +250,6 @@ static obj_ptr
 do_rinsert(live_ast_ptr act, obj_ptr obj)
 {
     obj_ptr p;
-    obj_ptr q;
 
     if( obj->o_type != obj_type::T_LIST ){
         obj_unref(obj);
@@ -318,7 +317,7 @@ do_rinsert(live_ast_ptr act, obj_ptr obj)
         obj_unref(obj);
         return(p);
     }
-    q = obj_alloc(obj->car());
+    auto q = obj_alloc(obj->car());
     obj->car()->inc_ref();
     obj_ptr result = obj_alloc(obj_type::T_LIST);
     q->cdr(result);
