@@ -76,8 +76,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        obj_ptr p;
-        if( !(p = obj->car()) ) return(obj);
+        obj_ptr p = obj->car();
+        if(!p) return(obj);
         p->inc_ref();
         obj_unref(obj);
         return(p);
@@ -88,8 +88,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        obj_ptr p;
-        if( !(p = obj->cdr()) ){
+        obj_ptr p = obj->cdr();
+        if(!p){
             p = obj_alloc(obj_type::T_LIST);
         } else {
             p->inc_ref();
