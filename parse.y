@@ -86,8 +86,7 @@ fnDef	:	'{'
                 assert($3.YYsym);
                 assert($4.YYast);
                 auto live = static_cast<live_ast_ptr>($4.YYast);
-                auto sym = static_cast<live_sym_ptr>($3.YYsym);
-                defun(sym,live);
+                defun($3.YYsym,live);
                 set_prompt('\t');
 		    }
 	;

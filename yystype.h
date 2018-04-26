@@ -11,7 +11,7 @@ typedef union {
     ast_ptr YYast;
     obj_ptr YYobj;
     list_ptr YYlist;
-    sym_ptr YYsym;
+    live_sym_ptr YYsym;
 } YYstype;
 #define YYSTYPE YYstype
 

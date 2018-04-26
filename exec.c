@@ -46,8 +46,7 @@ execute(live_ast_ptr act, obj_ptr obj )
 	// Invoke a user-defined function
     case 'U': {
         assert(act->val.YYsym);
-        auto live = static_cast<live_sym_ptr>(act->val.YYsym);
-        return( invoke(live, obj) );
+        return( invoke(act->val.YYsym, obj) );
     }
 
 	// Right-insert operator
@@ -61,8 +60,7 @@ execute(live_ast_ptr act, obj_ptr obj )
 	// Intrinsics
     case 'i': {
         assert(act->val.YYsym);
-        auto live = static_cast<live_sym_ptr>(act->val.YYsym);
-        return( do_intrinsics(live, obj) );
+        return( do_intrinsics(act->val.YYsym, obj) );
     }
 
 	// Select one element from a list
