@@ -33,7 +33,7 @@ static obj_ptr do_trans(obj_ptr obj);
 static live_obj_ptr do_bool(live_obj_ptr obj, int op);
 
 /// Main intrinsic processing routine
-obj_ptr
+live_obj_ptr
 do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
 {
     assert(act);

@@ -24,15 +24,15 @@
      */
 #define CDR(x) ( ((x)->o_val).o_list.cdr )
 
-static obj_ptr invoke(live_sym_ptr def, live_obj_ptr obj);
-static obj_ptr do_rinsert(live_ast_ptr act, obj_ptr obj);
-static obj_ptr do_binsert(live_ast_ptr act, obj_ptr obj);
+static live_obj_ptr invoke(live_sym_ptr def, live_obj_ptr obj);
+static live_obj_ptr do_rinsert(live_ast_ptr act, obj_ptr obj);
+static live_obj_ptr do_binsert(live_ast_ptr act, obj_ptr obj);
 
     /*
      * Given an AST for an action, and an object to do the action upon,
      *	execute the action and return the result.
      */
-obj_ptr
+live_obj_ptr
 execute(live_ast_ptr act, live_obj_ptr obj )
 {
     assert(act);
@@ -231,7 +231,7 @@ execute(live_ast_ptr act, live_obj_ptr obj )
 }
 
 /// Call a previously-defined user function, or error
-static obj_ptr
+static live_obj_ptr
 invoke(live_sym_ptr def, live_obj_ptr obj)
 {
     // Must be a defined function
@@ -246,7 +246,7 @@ invoke(live_sym_ptr def, live_obj_ptr obj)
 }
 
 /// Local function to handle the tedious right-inserting
-static obj_ptr
+static live_obj_ptr
 do_rinsert(live_ast_ptr act, obj_ptr obj)
 {
     obj_ptr p;
@@ -327,7 +327,7 @@ do_rinsert(live_ast_ptr act, obj_ptr obj)
 }
 
 /// Local function to handle the tedious binary inserting
-static obj_ptr
+static live_obj_ptr
 do_binsert(live_ast_ptr act, obj_ptr obj)
 {
     if( obj->o_type != obj_type::T_LIST ){
