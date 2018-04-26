@@ -204,22 +204,22 @@ execute(live_ast_ptr act, live_obj_ptr obj )
     case 'W': {
         while( 1 ){
             if( obj->is_undef() ){
-            obj_unref(obj);
-            break;
+                obj_unref(obj);
+                break;
             }
             obj->inc_ref();
             auto p = execute(act->left,obj);
             if( p->o_type != obj_type::T_BOOL ){
-            obj_unref(obj);
-            obj_unref(p);
-            break;
+                obj_unref(obj);
+                obj_unref(p);
+                break;
             }
             if( p->o_val.o_int ){
-            obj_unref(p);
-            obj = execute(act->right,obj);
+                obj_unref(p);
+                obj = execute(act->right,obj);
             } else {
-            obj_unref(p);
-            return(obj);
+                obj_unref(p);
+                return(obj);
             }
         }
         return undefined();
