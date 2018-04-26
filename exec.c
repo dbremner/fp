@@ -50,12 +50,14 @@ execute(live_ast_ptr act, obj_ptr obj )
     }
 
 	// Right-insert operator
-    case '!':
-	return( do_rinsert(act->left,obj) );
+    case '!': {
+        return( do_rinsert(act->left,obj) );
+    }
 
 	// Binary-insert operator
-    case '|':
-	return( do_binsert(act->left,obj) );
+    case '|': {
+            return( do_binsert(act->left,obj) );
+    }
 
 	// Intrinsics
     case 'i': {
@@ -64,50 +66,52 @@ execute(live_ast_ptr act, obj_ptr obj )
     }
 
 	// Select one element from a list
-    case 'S':
-	if(
-	    (obj->o_type != obj_type::T_LIST) ||
-	    !obj->car()
-	){
-	    obj_unref(obj);
-	    return undefined();
-	}
-	p = obj;
-	if( (x = act->val.YYint) == 0 ){
-	    obj_unref(obj);
-	    return undefined();
-	}
+    case 'S': {
+        if(
+            (obj->o_type != obj_type::T_LIST) ||
+            !obj->car()
+        ){
+            obj_unref(obj);
+            return undefined();
+        }
+        p = obj;
+        if( (x = act->val.YYint) == 0 ){
+            obj_unref(obj);
+            return undefined();
+        }
 
-	    // Negative selectors count from end of list
-	if( x < 0 ){
-	    int tmp = listlen(p);
+            // Negative selectors count from end of list
+        if( x < 0 ){
+            int tmp = listlen(p);
 
-	    x += (tmp+1);
-	    if( x < 0 ){
-		obj_unref(obj);
-		return undefined();
-	    }
-	}
-	while( --x ){		// Scan down list X times
-	    if( !p ) break;
-	    p = p->cdr();
-	}
-	if( !p ){		// Fell off bottom of list
-	    obj_unref(obj);
-	    return undefined();
-	}
-	p = p->car();
-	p->inc_ref();		// Add reference to this elem
-	obj_unref(obj);		// Unreference list as a whole
-	return(p);
+            x += (tmp+1);
+            if( x < 0 ){
+            obj_unref(obj);
+            return undefined();
+            }
+        }
+        while( --x ){		// Scan down list X times
+            if( !p ) break;
+            p = p->cdr();
+        }
+        if( !p ){		// Fell off bottom of list
+            obj_unref(obj);
+            return undefined();
+        }
+        p = p->car();
+        p->inc_ref();		// Add reference to this elem
+        obj_unref(obj);		// Unreference list as a whole
+        return(p);
+    }
 
 	/*
 	 * Apply the action on the left to the result of executing
 	 *	the action on the right against the object.
 	 */
-    case '@':
-	p = execute( act->right, obj );
-	return( execute( act->left, p ) );
+    case '@': {
+        p = execute( act->right, obj );
+        return( execute( act->left, p ) );
+    }
 
 	/*
 	 * Build a new list by applying the listed actions to the object
@@ -115,81 +119,84 @@ execute(live_ast_ptr act, obj_ptr obj )
 	 *	the presence of T_UNDEF popping up along the way.
 	 */
     case '[':{
-    obj_ptr hd;
-    obj_ptr *hdp = &hd;
+        obj_ptr hd;
+        obj_ptr *hdp = &hd;
 
-	act = act->left;
-	hd = nullptr;
-	while( act ){
-	    obj->inc_ref();
-	    if( (p = execute(act->left,obj))->is_undef() ){
-		obj_unref(hd);
-		obj_unref(obj);
-		return(p);
-	    }
-	    *hdp = q = obj_alloc(obj_type::T_LIST);
-	    hdp = &(CDR(q));
-        q->car(p);
-	    act = act->right;
-	}
-	obj_unref(obj);
-	return(hd);
+        act = act->left;
+        hd = nullptr;
+        while( act ){
+            obj->inc_ref();
+            if( (p = execute(act->left,obj))->is_undef() ){
+            obj_unref(hd);
+            obj_unref(obj);
+            return(p);
+            }
+            *hdp = q = obj_alloc(obj_type::T_LIST);
+            hdp = &(CDR(q));
+            q->car(p);
+            act = act->right;
+        }
+        obj_unref(obj);
+        return(hd);
     }
 
 	// These are the single-character operations (+, -, etc.)
-    case 'c':
-	return(do_charfun(act,obj));
+    case 'c': {
+        return(do_charfun(act,obj));
+    }
 
 	// Conditional.  Evaluate & return one of the two paths
-    case '>':
-	obj->inc_ref();
-	p = execute(act->left,obj);
-	if( p->is_undef() ){
-	    obj_unref(obj);
-	    return(p);
-	}
-	if( p->o_type != obj_type::T_BOOL ){
-	    obj_unref(obj);
-	    obj_unref(p);
-	    return undefined();
-	}
-	if( p->o_val.o_int ) q = execute(act->middle,obj);
-	else q = execute(act->right,obj);
-	obj_unref(p);
-	return(q);
+    case '>': {
+        obj->inc_ref();
+        p = execute(act->left,obj);
+        if( p->is_undef() ){
+            obj_unref(obj);
+            return(p);
+        }
+        if( p->o_type != obj_type::T_BOOL ){
+            obj_unref(obj);
+            obj_unref(p);
+            return undefined();
+        }
+        if( p->o_val.o_int ) q = execute(act->middle,obj);
+        else q = execute(act->right,obj);
+        obj_unref(p);
+        return(q);
+    }
 
 	// Apply the action to each member of a list
     case '&': {
-    obj_ptr hd;
-    obj_ptr *hdp = &hd;
+        obj_ptr hd;
+        obj_ptr *hdp = &hd;
 
-    hd = nullptr;
-    if( obj->o_type != obj_type::T_LIST ){
+        hd = nullptr;
+        if( obj->o_type != obj_type::T_LIST ){
+            obj_unref(obj);
+            return undefined();
+        }
+        obj_ptr r;
+        if( !obj->car() ) return(obj);
+        for( p = obj; p; p = p->cdr() ){
+            (p->o_val.o_list.car)->inc_ref();
+            if( (q = execute(act->left,p->car()))->is_undef() ){
+            obj_unref(hd); obj_unref(obj);
+            return(q);
+            }
+            *hdp = r = obj_alloc(q);
+            hdp = &CDR(r);
+        }
         obj_unref(obj);
-        return undefined();
-    }
-    obj_ptr r;
-	if( !obj->car() ) return(obj);
-	for( p = obj; p; p = p->cdr() ){
-	    (p->o_val.o_list.car)->inc_ref();
-	    if( (q = execute(act->left,p->car()))->is_undef() ){
-		obj_unref(hd); obj_unref(obj);
-		return(q);
-	    }
-	    *hdp = r = obj_alloc(q);
-	    hdp = &CDR(r);
-	}
-	obj_unref(obj);
-	return(hd);
+        return(hd);
     }
 
 	// Introduce an object
-    case '%':
-	if( obj->is_undef() ) return(obj);
-	obj_unref(obj);
-	p = act->val.YYobj;
-	p->inc_ref();
-	return(p);
+    case '%': {
+        if( obj->is_undef() ) return(obj);
+        obj_unref(obj);
+        p = act->val.YYobj;
+        p->inc_ref();
+        return(p);
+    }
     
 	// Do a while loop
     case 'W':
@@ -242,8 +249,8 @@ do_rinsert(live_ast_ptr act, obj_ptr obj)
     obj_ptr q;
 
     if( obj->o_type != obj_type::T_LIST ){
-	obj_unref(obj);
-	return undefined();
+        obj_unref(obj);
+        return undefined();
     }
 
 	/*
@@ -252,47 +259,47 @@ do_rinsert(live_ast_ptr act, obj_ptr obj)
 	 *	return the identity.  Otherwise, undefined.  Bletch.
 	 */
     if( !obj->car() ){
-	obj_unref(obj);
-	if( act->tag == 'c' ){
-	    switch( act->val.YYint ){
-	    case '+':
-	    case '-':
-		p = obj_alloc(0);
-		break;
-	    case '/':
-	    case '*':
-		p = obj_alloc(1);
-		break;
-	    default:
-		return undefined();
-	    }
-	} else if ( act->tag == 'i' ){
-	    switch( (act->val.YYsym)->sym_val.YYint ){
-	    case AND:
-		p = obj_alloc(true);
-		break;
-	    case OR:
-	    case XOR:
-		p = obj_alloc(false);
-		break;
-	    default:
-		return undefined();
-	    }
-	} else return undefined();
-	return(p);
+        obj_unref(obj);
+        if( act->tag == 'c' ){
+            switch( act->val.YYint ){
+            case '+':
+            case '-':
+            p = obj_alloc(0);
+            break;
+            case '/':
+            case '*':
+            p = obj_alloc(1);
+            break;
+            default:
+            return undefined();
+            }
+        } else if ( act->tag == 'i' ){
+            switch( (act->val.YYsym)->sym_val.YYint ){
+            case AND:
+            p = obj_alloc(true);
+            break;
+            case OR:
+            case XOR:
+            p = obj_alloc(false);
+            break;
+            default:
+            return undefined();
+            }
+        } else return undefined();
+        return(p);
     }
 
 	// If the list has only one element, we return that element.
     if( !(p = obj->cdr()) ){
-	p = obj->car();
-	p->inc_ref();
-	obj_unref(obj);
-	return(p);
+        p = obj->car();
+        p->inc_ref();
+        obj_unref(obj);
+        return(p);
     }
 
 	// If the list has two elements, we apply our operator and reduce
     if( !p->cdr() ){
-	return( execute(act,obj) );
+        return( execute(act,obj) );
     }
 
 	/*
@@ -304,8 +311,8 @@ do_rinsert(live_ast_ptr act, obj_ptr obj)
     obj->cdr()->inc_ref();
     p = do_rinsert(act,obj->cdr());
     if( p->is_undef() ){
-	obj_unref(obj);
-	return(p);
+        obj_unref(obj);
+        return(p);
     }
     q = obj_alloc(obj->car());
     obj->car()->inc_ref();
@@ -321,8 +328,8 @@ static obj_ptr
 do_binsert(live_ast_ptr act, obj_ptr obj)
 {
     if( obj->o_type != obj_type::T_LIST ){
-    obj_unref(obj);
-    return undefined();
+        obj_unref(obj);
+        return undefined();
     }
 
     obj_ptr p;
@@ -337,47 +344,47 @@ do_binsert(live_ast_ptr act, obj_ptr obj)
 	 *	return the identity.  Otherwise, undefined.  Bletch.
 	 */
     if( !obj->car() ){
-	obj_unref(obj);
-	if( act->tag == 'c' ){
-	    switch( act->val.YYint ){
-	    case '+':
-	    case '-':
-		p = obj_alloc(0);
-		break;
-	    case '/':
-	    case '*':
-		p = obj_alloc(1);
-		break;
-	    default:
-		return undefined();
-	    }
-	} else if ( act->tag == 'i' ){
-	    switch( (act->val.YYsym)->sym_val.YYint ){
-	    case AND:
-		p = obj_alloc(true);
-		break;
-	    case OR:
-	    case XOR:
-		p = obj_alloc(false);
-		break;
-	    default:
-		return undefined();
-	    }
-	} else return undefined();
-	return(p);
+        obj_unref(obj);
+        if( act->tag == 'c' ){
+            switch( act->val.YYint ){
+            case '+':
+            case '-':
+            p = obj_alloc(0);
+            break;
+            case '/':
+            case '*':
+            p = obj_alloc(1);
+            break;
+            default:
+            return undefined();
+            }
+        } else if ( act->tag == 'i' ){
+            switch( (act->val.YYsym)->sym_val.YYint ){
+            case AND:
+            p = obj_alloc(true);
+            break;
+            case OR:
+            case XOR:
+            p = obj_alloc(false);
+            break;
+            default:
+            return undefined();
+            }
+        } else return undefined();
+        return(p);
     }
 
 	// If the list has only one element, we return that element.
     if( !(p = obj->cdr()) ){
-	p = obj->car();
-	p->inc_ref();
-	obj_unref(obj);
-	return(p);
+        p = obj->car();
+        p->inc_ref();
+        obj_unref(obj);
+        return(p);
     }
 
 	// If the list has two elements, we apply our operator and reduce
     if( !p->cdr() ){
-	return( execute(act,obj) );
+        return( execute(act,obj) );
     }
 
 	/*
@@ -390,15 +397,15 @@ do_binsert(live_ast_ptr act, obj_ptr obj)
     hd = nullptr;
     hdp = &hd;
     for( q = obj; p; p = p->cdr() ){
-	if( x ){
-	    *hdp = r = obj_alloc(obj_type::T_LIST);
-	    hdp = &CDR(r);
-        r->car(q->car());
-	    q->car()->inc_ref();
-	    q = q->cdr();
-	    x = 0;
-	} else
-	    x = 1;
+        if( x ){
+            *hdp = r = obj_alloc(obj_type::T_LIST);
+            hdp = &CDR(r);
+            r->car(q->car());
+            q->car()->inc_ref();
+            q = q->cdr();
+            x = 0;
+        } else
+            x = 1;
     }
     *hdp = p = obj_alloc(q->car());
     q->car()->inc_ref();
