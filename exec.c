@@ -204,13 +204,11 @@ execute(live_ast_ptr act, live_obj_ptr obj )
     case 'W': {
         while( 1 ){
             if( obj->is_undef() ){
-                obj_unref(obj);
                 break;
             }
             obj->inc_ref();
             auto p = execute(act->left,obj);
             if( p->o_type != obj_type::T_BOOL ){
-                obj_unref(obj);
                 obj_unref(p);
                 break;
             }
@@ -222,6 +220,7 @@ execute(live_ast_ptr act, live_obj_ptr obj )
                 return(obj);
             }
         }
+        obj_unref(obj);
         return undefined();
     }
 
