@@ -36,9 +36,6 @@ obj_ptr
 execute(live_ast_ptr act, obj_ptr obj )
 {
     assert(act);
-    obj_ptr p;
-    obj_ptr q;
-    int x;
 
 	// Broad categories of executable entities
     switch( act->tag ){
@@ -74,7 +71,8 @@ execute(live_ast_ptr act, obj_ptr obj )
             obj_unref(obj);
             return undefined();
         }
-        p = obj;
+        auto p = obj;
+        int x;
         if( (x = act->val.YYint) == 0 ){
             obj_unref(obj);
             return undefined();
@@ -109,7 +107,7 @@ execute(live_ast_ptr act, obj_ptr obj )
 	 *	the action on the right against the object.
 	 */
     case '@': {
-        p = execute( act->right, obj );
+        auto p = execute( act->right, obj );
         return( execute( act->left, p ) );
     }
 
@@ -124,6 +122,8 @@ execute(live_ast_ptr act, obj_ptr obj )
 
         act = act->left;
         hd = nullptr;
+        live_obj_ptr p;
+        live_obj_ptr q;
         while( act ){
             obj->inc_ref();
             if( (p = execute(act->left,obj))->is_undef() ){
@@ -148,7 +148,8 @@ execute(live_ast_ptr act, obj_ptr obj )
 	// Conditional.  Evaluate & return one of the two paths
     case '>': {
         obj->inc_ref();
-        p = execute(act->left,obj);
+        auto p = execute(act->left,obj);
+        live_obj_ptr q;
         if( p->is_undef() ){
             obj_unref(obj);
             return(p);
@@ -175,8 +176,9 @@ execute(live_ast_ptr act, obj_ptr obj )
             return undefined();
         }
         obj_ptr r;
+        live_obj_ptr q;
         if( !obj->car() ) return(obj);
-        for( p = obj; p; p = p->cdr() ){
+        for(auto p = obj; p; p = p->cdr() ){
             (p->o_val.o_list.car)->inc_ref();
             if( (q = execute(act->left,p->car()))->is_undef() ){
             obj_unref(hd); obj_unref(obj);
@@ -193,7 +195,7 @@ execute(live_ast_ptr act, obj_ptr obj )
     case '%': {
         if( obj->is_undef() ) return(obj);
         obj_unref(obj);
-        p = act->val.YYobj;
+        auto p = act->val.YYobj;
         p->inc_ref();
         return(p);
     }
@@ -206,7 +208,7 @@ execute(live_ast_ptr act, obj_ptr obj )
 		return undefined();
 	    }
 	    obj->inc_ref();
-	    p = execute(act->left,obj);
+	    auto p = execute(act->left,obj);
 	    if( p->o_type != obj_type::T_BOOL ){
 		obj_unref(obj);
 		obj_unref(p);
