@@ -162,13 +162,13 @@ execute(live_ast_ptr act, obj_ptr obj )
     case '&': {
     obj_ptr hd;
     obj_ptr *hdp = &hd;
-    obj_ptr r;
 
-	hd = nullptr;
-	if( obj->o_type != obj_type::T_LIST ){
-	    obj_unref(obj);
-	    return undefined();
-	}
+    hd = nullptr;
+    if( obj->o_type != obj_type::T_LIST ){
+        obj_unref(obj);
+        return undefined();
+    }
+    obj_ptr r;
 	if( !obj->car() ) return(obj);
 	for( p = obj; p; p = p->cdr() ){
 	    (p->o_val.o_list.car)->inc_ref();
