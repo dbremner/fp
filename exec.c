@@ -44,8 +44,11 @@ execute(live_ast_ptr act, obj_ptr obj )
     switch( act->tag ){
 
 	// Invoke a user-defined function
-    case 'U':
-	return( invoke( act->val.YYsym, obj) );
+    case 'U': {
+        assert(act->val.YYsym);
+        auto live = static_cast<live_sym_ptr>(act->val.YYsym);
+        return( invoke(live, obj) );
+    }
 
 	// Right-insert operator
     case '!':
