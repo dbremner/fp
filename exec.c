@@ -24,7 +24,7 @@
      */
 #define CDR(x) ( ((x)->o_val).o_list.cdr )
 
-static obj_ptr invoke(sym_ptr def, obj_ptr obj);
+static obj_ptr invoke(live_sym_ptr def, obj_ptr obj);
 static obj_ptr do_rinsert(live_ast_ptr act, obj_ptr obj);
 static obj_ptr do_binsert(live_ast_ptr act, obj_ptr obj);
 
@@ -217,7 +217,7 @@ execute(live_ast_ptr act, obj_ptr obj )
 
 /// Call a previously-defined user function, or error
 static obj_ptr
-invoke(sym_ptr def, obj_ptr obj)
+invoke(live_sym_ptr def, obj_ptr obj)
 {
     // Must be a defined function
     if( def->sym_type != symtype::SYM_DEF ){

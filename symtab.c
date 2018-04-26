@@ -35,7 +35,7 @@ hash(const char *p)
      * Given a string, go find the entry.  Allocate an entry if there
      *	was none.
      */
-sym_ptr
+live_sym_ptr
 lookup(const char *name)
 {
     assert(name);
@@ -52,13 +52,15 @@ lookup(const char *name)
 	// Had hits, work way down list
     while( p ){
         if( (p->sym_pname == name))
-            return(p);
+            return(static_cast<live_sym_ptr>(p));
         old = p;
         p = p->sym_next;
     }
 
 	// No hits, add to end of chain
-    return( old->sym_next = new symtab_entry(name) );
+    live_sym_ptr tail = new symtab_entry(name);
+    old->sym_next = tail;
+    return( tail );
 }
 
 /// Local function to do built-in stuffing
@@ -67,7 +69,7 @@ stuff(const char *sym, int val)
 {
     assert(sym);
     assert(strlen(sym) > 0);
-    sym_ptr p = lookup(sym);
+    auto p = lookup(sym);
 
     if( p->sym_type != symtype::SYM_NEW )
         fatal_err("Dup init in stuff()");
