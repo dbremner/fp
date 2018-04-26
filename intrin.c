@@ -73,7 +73,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     case FIRST:
     case HD:		// First elem of a list
         if( obj->o_type != obj_type::T_LIST ){
-            obj_unref(obj); return undefined();
+            obj_unref(obj);
+            return undefined();
         }
         if( !(p = obj->car()) ) return(obj);
         p->inc_ref();
@@ -82,7 +83,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
 
     case TL:		// Remainder of list
         if( (obj->o_type != obj_type::T_LIST) || !obj->car() ){
-            obj_unref(obj); return undefined();
+            obj_unref(obj);
+            return undefined();
         }
         if( !(p = obj->cdr()) ){
             p = obj_alloc(obj_type::T_LIST);
@@ -559,7 +561,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             p->car()->inc_ref();
         }
         auto top = obj_alloc(hd);
-        hd = nullptr; hdp = &hd;
+        hd = nullptr;
+        hdp = &hd;
         while(p){
             *hdp = q = obj_alloc(obj_type::T_LIST);
             hdp = &CDR(q);

@@ -102,17 +102,21 @@ obj_prtree(obj_ptr p)
     switch( p->o_type ){
     case obj_type::T_INT:
 	last_close = 0;
-	printf("%d ",(p->o_val).o_int); return;
+	printf("%d ",(p->o_val).o_int);
+    return;
     case obj_type::T_FLOAT:
 	last_close = 0;
-	printf("%.9g ",(p->o_val).o_double); return;
+	printf("%.9g ",(p->o_val).o_double);
+    return;
     case obj_type::T_BOOL:
 	last_close = 0;
 	printf("%s ",
-	    (p->o_val).o_int ? "T" : "F"); return;
+	    (p->o_val).o_int ? "T" : "F");
+    return;
     case obj_type::T_UNDEF:
 	last_close = 0;
-	printf("? "); return;
+	printf("? ");
+    return;
     case obj_type::T_LIST:
 	printf("<");
 	last_close = 0;

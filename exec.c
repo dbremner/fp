@@ -181,7 +181,8 @@ execute(live_ast_ptr act, live_obj_ptr obj )
         for(auto p = obj; p; p = p->cdr() ){
             (p->o_val.o_list.car)->inc_ref();
             if( (q = execute(act->left,p->car()))->is_undef() ){
-            obj_unref(hd); obj_unref(obj);
+            obj_unref(hd);
+            obj_unref(obj);
             return(q);
             }
             *hdp = r = obj_alloc(q);
