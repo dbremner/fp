@@ -151,14 +151,12 @@ SeqBody	:	Empty
 atom	:	T
 		    {
 			auto p =
-			    $$.YYobj = obj_alloc(obj_type::T_BOOL);
-			(p->o_val).o_int = 1;
+			    $$.YYobj = obj_alloc(true);
 		    }
 	|	F
 		    {
 			auto p =
-			    $$.YYobj = obj_alloc(obj_type::T_BOOL);
-			(p->o_val).o_int = 0;
+			    $$.YYobj = obj_alloc(false);
 		    }
 	|	'<' '>'
 		    {
