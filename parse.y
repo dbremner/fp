@@ -134,9 +134,7 @@ fpSequence
 	:	'<' object2 OptComma SeqBody '>'
 		    {
 			auto p =
-			    $$.YYobj = obj_alloc(obj_type::T_LIST);
-			(p->o_val).o_list.car = $2.YYobj;
-			(p->o_val).o_list.cdr = $4.YYobj;
+			    $$.YYobj = obj_alloc($2.YYobj, $4.YYobj);
 		    }
 	;
 SeqBody	:	Empty
@@ -146,9 +144,7 @@ SeqBody	:	Empty
 	|	object2 OptComma SeqBody
 		    {
 			auto p =
-			    $$.YYobj = obj_alloc(obj_type::T_LIST);
-			(p->o_val).o_list.car = $1.YYobj;
-			(p->o_val).o_list.cdr = $3.YYobj;
+			    $$.YYobj = obj_alloc($1.YYobj, $3.YYobj);
 		    }
 	;
 
@@ -167,9 +163,7 @@ atom	:	T
 	|	'<' '>'
 		    {
 			auto p =
-			    $$.YYobj = obj_alloc(obj_type::T_LIST);
-                (p->o_val).o_list.car = nullptr;
-			    (p->o_val).o_list.cdr = nullptr;
+			    $$.YYobj = obj_alloc(nullptr, nullptr);
 		    }
 	|	INT
 		    {
