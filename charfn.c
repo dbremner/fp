@@ -75,11 +75,8 @@ eqobj(live_obj_ptr obj)
         obj_unref(obj);
         return undefined();
     }
-    auto p = obj_alloc(obj_type::T_BOOL);
-    if( same(obj->car(),obj->cadr()) )
-        p->o_val.o_int = 1;
-    else
-        p->o_val.o_int = 0;
+    bool result = same(obj->car(),obj->cadr());
+    auto p = obj_alloc(result);
     obj_unref(obj);
     return(p);
 }
