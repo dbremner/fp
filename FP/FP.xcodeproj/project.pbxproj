@@ -348,6 +348,7 @@
 					"-Wno-c++98-compat",
 					"-Wno-unused-macros",
 					"-Wno-nullability-extension",
+					"-Wno-padded",
 				);
 			};
 			name = Debug;
@@ -387,6 +388,7 @@
 					"-Wno-c++98-compat",
 					"-Wno-unused-macros",
 					"-Wno-nullability-extension",
+					"-Wno-padded",
 				);
 			};
 			name = Release;

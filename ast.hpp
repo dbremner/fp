@@ -3,12 +3,6 @@
 
 /// An AST
 struct ast {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-private-field"
-private:
-    int padding = 0;
-#pragma clang diagnostic pop
-public:
     int tag = 0;
     YYSTYPE val{};
     ast_ptr left = nullptr;

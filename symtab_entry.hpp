@@ -7,12 +7,6 @@
 
 /// A symbol table entry for an identifier
 struct symtab_entry {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-private-field"
-private:
-    unsigned padding = 0;
-#pragma clang diagnostic pop
-public:
     symtype sym_type;
     YYstype sym_val{};
     sym_ptr sym_next = nullptr;
