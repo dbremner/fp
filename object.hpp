@@ -176,19 +176,7 @@ public:
     }
     
     /// is_pair()--tell if our argument object is a list of two elements
-    bool
-    is_pair() const
-    {
-        if( !is_list() )
-            return(false);
-        if( car() == nullptr )
-            return(false);
-        if( cdr() == nullptr )
-            return(false);
-        if( cdr()->cdr() )
-            return(false);
-        return(true);
-    }
+    bool is_pair() const;
     
     double num_val() const
     {
