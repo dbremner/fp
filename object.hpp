@@ -14,10 +14,10 @@ private:
     int o_int = 0;
     /// T_FLOAT
     const double o_double;
-    /// T_LIST
+    /// Head of list
     obj_ptr car_ = nullptr;
 public:
-    /// T_LIST
+    /// and Tail
     obj_ptr cdr_ = nullptr;
     
     object(obj_type type)
