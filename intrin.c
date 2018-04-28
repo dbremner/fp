@@ -22,6 +22,7 @@ do_dist(obj_ptr elem, obj_ptr lst, obj_ptr obj, int side);
 
 static obj_ptr do_trans(obj_ptr obj);
 static live_obj_ptr do_bool(live_obj_ptr obj, int op);
+static live_obj_ptr do_math_func(int tag, live_obj_ptr obj);
 
 /// Pair up successive elements of a list
 static live_obj_ptr pair(live_obj_ptr obj)
@@ -889,4 +890,101 @@ do_bool(live_obj_ptr obj, int op)
     auto r = obj_alloc(i);
     obj_unref(obj);
     return(r);
+}
+
+static live_obj_ptr
+do_math_func(int tag, live_obj_ptr obj)
+{
+    switch(tag) {
+        case SIN: {        // sin() function
+            if( !obj->is_num() ){
+                obj_unref(obj);
+                return undefined();
+            }
+            const auto f = obj->num_val();
+            auto p = obj_alloc(sin(f));
+            obj_unref(obj);
+            return(p);
+        }
+            
+        case COS: {        // cos() function
+            if( !obj->is_num() ){
+                obj_unref(obj);
+                return undefined();
+            }
+            const auto f = obj->num_val();
+            auto p = obj_alloc(cos(f));
+            obj_unref(obj);
+            return(p);
+        }
+            
+        case TAN: {        // tan() function
+            if( !obj->is_num() ){
+                obj_unref(obj);
+                return undefined();
+            }
+            const auto f = obj->num_val();
+            auto p = obj_alloc(tan(f));
+            obj_unref(obj);
+            return(p);
+        }
+            
+        case ASIN: {        // asin() function
+            if( !obj->is_num() ){
+                obj_unref(obj);
+                return undefined();
+            }
+            const auto f = obj->num_val();
+            auto p = obj_alloc(asin(f));
+            obj_unref(obj);
+            return(p);
+        }
+            
+        case ACOS: {        // acos() function
+            if( !obj->is_num() ){
+                obj_unref(obj);
+                return undefined();
+            }
+            const auto f = obj->num_val();
+            auto p = obj_alloc(acos(f));
+            obj_unref(obj);
+            return(p);
+        }
+            
+        case ATAN: {        // atan() function
+            if( !obj->is_num() ){
+                obj_unref(obj);
+                return undefined();
+            }
+            const auto f = obj->num_val();
+            auto p = obj_alloc(atan(f));
+            obj_unref(obj);
+            return(p);
+        }
+            
+        case EXP: {        // exp() function
+            if( !obj->is_num() ){
+                obj_unref(obj);
+                return undefined();
+            }
+            const auto f = obj->num_val();
+            auto p = obj_alloc(exp(f));
+            obj_unref(obj);
+            return(p);
+        }
+            
+        case LOG: {        // log() function
+            if( !obj->is_num() ){
+                obj_unref(obj);
+                return undefined();
+            }
+            const auto f = obj->num_val();
+            auto p = obj_alloc(log(f));
+            obj_unref(obj);
+            return(p);
+        }
+        default: {
+            fatal_err("Unreachable case in do_trig");
+        }
+    }
 }
