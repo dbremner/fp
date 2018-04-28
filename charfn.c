@@ -28,10 +28,10 @@ same(obj_ptr o1, obj_ptr o2)
     if( o1->type() != o2->type() ){
         if( o1->is_int() )
             if( o2->is_float() )
-            return( o1->int_val() == o2->o_val.o_double );
+            return( o1->int_val() == o2->float_val() );
         if( o2->is_int() )
             if( o1->is_float() )
-            return( o2->int_val() == o1->o_val.o_double );
+            return( o2->int_val() == o1->float_val() );
         return(false);
     }
     switch( o1->type() ){
@@ -40,7 +40,7 @@ same(obj_ptr o1, obj_ptr o2)
         case obj_type::T_BOOL:
             return( o1->bool_val() == o2->bool_val() );
         case obj_type::T_FLOAT:
-            return( o1->o_val.o_double == o2->o_val.o_double );
+            return( o1->float_val() == o2->float_val() );
         case obj_type::T_LIST:
             return( same(o1->car(),o2->car()) && same(o1->cdr(),o2->cdr()) );
         case obj_type::T_UNDEF:

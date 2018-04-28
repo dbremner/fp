@@ -106,7 +106,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        int l = (obj->is_int()) ? obj->int_val() : static_cast<int>(obj->o_val.o_double);
+        int l = (obj->is_int()) ? obj->int_val() : static_cast<int>(obj->float_val());
         obj_unref(obj);
         if( l < 0 ) return undefined();
         if( l == 0 ) return( obj_alloc(obj_type::T_LIST) );
