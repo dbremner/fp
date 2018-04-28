@@ -75,7 +75,7 @@ eqobj(live_obj_ptr obj)
         obj_unref(obj);
         return undefined();
     }
-    bool result = same(obj->car(),obj->cadr());
+    const bool result = same(obj->car(),obj->cadr());
     auto p = obj_alloc(result);
     obj_unref(obj);
     return(p);
@@ -117,7 +117,7 @@ do_charfun(live_ast_ptr act, live_obj_ptr obj)
         }
         case obj_type::T_FLOAT:
         case obj_type::T_INT: {
-            bool result = obj->car()->num_val() > obj->cadr()->num_val();
+            const bool result = obj->car()->num_val() > obj->cadr()->num_val();
             auto p = obj_alloc(result);
             obj_unref(obj);
             return(p);
@@ -136,7 +136,7 @@ do_charfun(live_ast_ptr act, live_obj_ptr obj)
         }
         case obj_type::T_FLOAT:
         case obj_type::T_INT: {
-            bool result = obj->car()->num_val() >= obj->cadr()->num_val();
+            const bool result = obj->car()->num_val() >= obj->cadr()->num_val();
             auto p = obj_alloc(result);
             obj_unref(obj);
             return(p);
@@ -155,7 +155,7 @@ do_charfun(live_ast_ptr act, live_obj_ptr obj)
         }
         case obj_type::T_FLOAT:
         case obj_type::T_INT: {
-            bool result = obj->car()->num_val() <= obj->cadr()->num_val();
+            const bool result = obj->car()->num_val() <= obj->cadr()->num_val();
             auto p = obj_alloc(result);
             obj_unref(obj);
             return(p);
@@ -174,7 +174,7 @@ do_charfun(live_ast_ptr act, live_obj_ptr obj)
         }
         case obj_type::T_FLOAT:
         case obj_type::T_INT: {
-            bool result = obj->car()->num_val() < obj->cadr()->num_val();
+            const bool result = obj->car()->num_val() < obj->cadr()->num_val();
             auto p = obj_alloc(result);
             obj_unref(obj);
             return(p);
@@ -264,7 +264,7 @@ do_charfun(live_ast_ptr act, live_obj_ptr obj)
         }
         case obj_type::T_FLOAT:
         case obj_type::T_INT: {
-            auto f = obj->cadr()->num_val();
+            const auto f = obj->cadr()->num_val();
             if( f == 0.0 ){
             obj_unref(obj);
             return undefined();

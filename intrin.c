@@ -140,7 +140,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
 
             // If x is negative, we are counting from the end
         if( x < 0 ){
-            int tmp = listlen(q);
+            const int tmp = listlen(q);
 
             x += (tmp + 1);
             if( x < 1 ){
@@ -441,7 +441,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        auto f = obj->num_val();
+        const auto f = obj->num_val();
         auto p = obj_alloc(sin(f));
         obj_unref(obj);
         return(p);
@@ -452,7 +452,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        auto f = obj->num_val();
+        const auto f = obj->num_val();
         auto p = obj_alloc(cos(f));
         obj_unref(obj);
         return(p);
@@ -463,7 +463,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        auto f = obj->num_val();
+        const auto f = obj->num_val();
         auto p = obj_alloc(tan(f));
         obj_unref(obj);
         return(p);
@@ -474,7 +474,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        auto f = obj->num_val();
+        const auto f = obj->num_val();
         auto p = obj_alloc(asin(f));
         obj_unref(obj);
         return(p);
@@ -485,7 +485,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        auto f = obj->num_val();
+        const auto f = obj->num_val();
         auto p = obj_alloc(acos(f));
         obj_unref(obj);
         return(p);
@@ -496,7 +496,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        auto f = obj->num_val();
+        const auto f = obj->num_val();
         auto p = obj_alloc(atan(f));
         obj_unref(obj);
         return(p);
@@ -507,7 +507,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        auto f = obj->num_val();
+        const auto f = obj->num_val();
         auto p = obj_alloc(exp(f));
         obj_unref(obj);
         return(p);
@@ -518,7 +518,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        auto f = obj->num_val();
+        const auto f = obj->num_val();
         auto p = obj_alloc(log(f));
         obj_unref(obj);
         return(p);
@@ -531,8 +531,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             return undefined();
         case obj_type::T_FLOAT:
         case obj_type::T_INT:{
-            int x1 = static_cast<int>(obj->car()->num_val());
-            int x2 = static_cast<int>(obj->cadr()->num_val());
+            const int x1 = static_cast<int>(obj->car()->num_val());
+            const int x2 = static_cast<int>(obj->cadr()->num_val());
             if( x2 == 0 ){
             obj_unref(obj);
             return undefined();
@@ -649,8 +649,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             return undefined();
         case obj_type::T_FLOAT:
         case obj_type::T_INT:{
-            int x1 = static_cast<int>(obj->car()->num_val());
-            int x2 = static_cast<int>(obj->cadr()->num_val());
+            const int x1 = static_cast<int>(obj->car()->num_val());
+            const int x2 = static_cast<int>(obj->cadr()->num_val());
             if( x2 == 0 ){
             obj_unref(obj);
             return undefined();
