@@ -6,7 +6,6 @@
     */
 #include <stdio.h>
 #include "fpcommon.h"
-#include "defun.h"
 #include "exec.h"
 #include "lex.h"
 #include "yystype.h"
