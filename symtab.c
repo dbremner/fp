@@ -58,7 +58,7 @@ lookup(const char *name)
     }
 
 	// No hits, add to end of chain
-    live_sym_ptr tail = new symtab_entry(name);
+    auto tail = new symtab_entry(name);
     old->sym_next = tail;
     return( tail );
 }
