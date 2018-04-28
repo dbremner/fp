@@ -152,7 +152,7 @@ public:
     
     /// is_pair()--tell if our argument object is a list of two elements
     bool
-    is_pair()
+    is_pair() const
     {
         if( !is_list() )
             return(false);
