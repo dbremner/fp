@@ -134,7 +134,7 @@ public:
     double num_val() const
     {
         assert(is_num());
-        return ( (type() == obj_type::T_INT) ? \
+        return ( is_int() ? \
                 (int_val()) : (float_val()) );
     }
     
