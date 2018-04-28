@@ -4,7 +4,6 @@
  * 	Copyright (c) 1986 by Andy Valencia
  */
 #include "fpcommon.h"
-#include "list.h"
 #include "yystype.h"
 #include "ast.hpp"
 #include "obj_type.hpp"

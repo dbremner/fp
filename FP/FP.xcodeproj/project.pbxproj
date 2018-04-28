@@ -39,7 +39,6 @@
 		363F9D80208BBE4500ECFA2A /* symtype.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = symtype.hpp; path = ../../symtype.hpp; sourceTree = "<group>"; };
 		363F9D8620904D2E00ECFA2A /* symtab_entry.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = symtab_entry.hpp; path = ../../symtab_entry.hpp; sourceTree = "<group>"; };
 		363F9D8720904E6A00ECFA2A /* obj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = obj.h; path = ../../obj.h; sourceTree = "<group>"; };
-		363F9D8820904FD200ECFA2A /* list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = list.h; path = ../../list.h; sourceTree = "<group>"; };
 		363F9D892090507200ECFA2A /* typedefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = typedefs.h; path = ../../typedefs.h; sourceTree = "<group>"; };
 		363F9D8A2090E32E00ECFA2A /* charfn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = charfn.h; path = ../../charfn.h; sourceTree = "<group>"; };
 		363F9D8B2090E44C00ECFA2A /* intrin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = intrin.h; path = ../../intrin.h; sourceTree = "<group>"; };
@@ -114,7 +113,6 @@
 				363F9D8B2090E44C00ECFA2A /* intrin.h */,
 				36B05E632086F34F0084D970 /* lex.c */,
 				363F9D8E20911D9E00ECFA2A /* lex.h */,
-				363F9D8820904FD200ECFA2A /* list.h */,
 				363F9D962091373500ECFA2A /* main.cpp */,
 				36B05E662086F34F0084D970 /* misc.c */,
 				363F9D8C209119D300ECFA2A /* misc.h */,

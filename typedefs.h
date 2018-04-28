@@ -4,8 +4,6 @@
 typedef struct ast * _Nullable ast_ptr;
 typedef struct ast * _Nonnull live_ast_ptr;
 
-typedef struct list * _Nullable list_ptr;
-
 typedef struct object * _Nullable obj_ptr;
 typedef struct object * _Nonnull live_obj_ptr;
 
