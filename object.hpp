@@ -11,9 +11,9 @@ public:
     unsigned o_refs = 1;
     /// T_INT, T_BOOL
     int o_int = 0;
+    /// T_FLOAT
+    double o_double = 0.0;
     struct {
-        /// T_FLOAT
-        double o_double;
         /// T_LIST
         struct list o_list;
     } o_val{};
@@ -38,7 +38,7 @@ public:
     explicit object(double value)
     : object(obj_type::T_FLOAT)
     {
-        o_val.o_double = value;
+        o_double = value;
     }
     
     explicit object(obj_ptr car_)
@@ -133,7 +133,7 @@ public:
     double float_val() const
     {
         assert(is_float());
-        return o_val.o_double;
+        return o_double;
     }
     
     bool bool_val() const
