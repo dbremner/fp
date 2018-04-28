@@ -128,6 +128,11 @@ public:
         return o_val.o_int;
     }
     
+    void bool_val(bool value)
+    {
+        o_val.o_int = value;
+    }
+    
     int int_val() const
     {
         return o_val.o_int;
