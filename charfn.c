@@ -28,10 +28,10 @@ same(obj_ptr o1, obj_ptr o2)
     if( o1->type() != o2->type() ){
         if( o1->is_int() )
             if( o2->is_float() )
-            return( o1->o_val.o_int == o2->o_val.o_double );
+            return( o1->int_val() == o2->o_val.o_double );
         if( o2->is_int() )
             if( o1->is_float() )
-            return( o2->o_val.o_int == o1->o_val.o_double );
+            return( o2->int_val() == o1->o_val.o_double );
         return(false);
     }
     switch( o1->type() ){

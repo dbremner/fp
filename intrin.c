@@ -106,7 +106,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        int l = (obj->is_int()) ? obj->o_val.o_int : static_cast<int>(obj->o_val.o_double);
+        int l = (obj->is_int()) ? obj->int_val() : static_cast<int>(obj->o_val.o_double);
         obj_unref(obj);
         if( l < 0 ) return undefined();
         if( l == 0 ) return( obj_alloc(obj_type::T_LIST) );
@@ -132,7 +132,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             ( (p = obj->car())->type() != obj_type::T_INT ) ||
             !(q = obj->cdr()) ||
             ( (q = q->car())->type() != obj_type::T_LIST) ||
-            ( (x = p->o_val.o_int) == 0 )
+            ( (x = p->int_val()) == 0 )
         ){
             obj_unref(obj);
             return undefined();
