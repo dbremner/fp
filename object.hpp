@@ -24,13 +24,13 @@ public:
     }
     
 private:
-    explicit object(obj_type type, int value, double float_val, obj_ptr car_=nullptr, obj_ptr cdr_=nullptr)
+    explicit object(obj_type type, int value, double float_val, obj_ptr car_in=nullptr, obj_ptr cdr_in=nullptr)
     : o_type{type},
     o_int{value},
     o_double{float_val}
     {
-        car(car_);
-        cdr(cdr_);
+        car(car_in);
+        cdr(cdr_in);
     }
     
 public:
@@ -50,13 +50,13 @@ public:
     {
     }
     
-    explicit object(obj_ptr car_)
-    : object(obj_type::T_LIST, 0, 0, car_, nullptr)
+    explicit object(obj_ptr car_in)
+    : object(obj_type::T_LIST, 0, 0, car_in, nullptr)
     {
     }
     
-    explicit object(obj_ptr car_, obj_ptr cdr_)
-    : object(obj_type::T_LIST, 0, 0, car_, cdr_)
+    explicit object(obj_ptr car_in, obj_ptr cdr_in)
+    : object(obj_type::T_LIST, 0, 0, car_in, cdr_in)
     {
     }
     
