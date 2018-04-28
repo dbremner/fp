@@ -14,12 +14,10 @@ private:
     int o_int = 0;
     /// T_FLOAT
     const double o_double;
-public:
     /// T_LIST
-    struct list o_list;
-private:
     obj_ptr car_ = nullptr;
 public:
+    /// T_LIST
     obj_ptr cdr_ = nullptr;
     
     object(obj_type type)
