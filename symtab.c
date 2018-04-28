@@ -41,6 +41,8 @@ lookup(const char *name)
     assert(name);
     assert(strlen(name) > 0);
     int h = hash(name);
+    assert(h > 0);
+    assert(h < SYMTABSIZE);
     sym_ptr p = stab[h];
 
     // No hash hits, must be a new entry
