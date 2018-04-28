@@ -89,8 +89,9 @@ noteqobj(live_obj_ptr obj)
     assert(obj);
     auto p = eqobj(obj);
 
-    if( p->type() == obj_type::T_BOOL )
+    if( p->type() == obj_type::T_BOOL ) {
         p->o_val.o_int = !p->bool_val();
+    }
     return(p);
 }
 
