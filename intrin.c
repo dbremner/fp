@@ -904,50 +904,42 @@ do_math_func(int tag, live_obj_ptr obj)
     switch(tag) {
         case SIN: {        // sin() function
             p = obj_alloc(sin(f));
-            obj_unref(obj);
-            return(p);
+            break;
         }
             
         case COS: {        // cos() function
             p = obj_alloc(cos(f));
-            obj_unref(obj);
-            return(p);
+            break;
         }
             
         case TAN: {        // tan() function
             p = obj_alloc(tan(f));
-            obj_unref(obj);
-            return(p);
+            break;
         }
             
         case ASIN: {        // asin() function
             p = obj_alloc(asin(f));
-            obj_unref(obj);
-            return(p);
+            break;
         }
             
         case ACOS: {        // acos() function
             p = obj_alloc(acos(f));
-            obj_unref(obj);
-            return(p);
+            break;
         }
             
         case ATAN: {        // atan() function
             p = obj_alloc(atan(f));
-            obj_unref(obj);
-            return(p);
+            break;
         }
             
         case EXP: {        // exp() function
             p = obj_alloc(exp(f));
-            obj_unref(obj);
-            return(p);
+            break;
         }
             
         case LOG: {        // log() function
             p = obj_alloc(log(f));
-            obj_unref(obj);
-            return(p);
+            break;
         }
         default: {
             fatal_err("Unreachable case in do_trig");
