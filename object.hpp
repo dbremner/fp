@@ -133,8 +133,7 @@ public:
     
     double num_val() const
     {
-        //should not assume that object is either
-        //an int or a float
+        assert(is_num());
         return ( (type() == obj_type::T_INT) ? \
                 (int_val()) : (float_val()) );
     }
