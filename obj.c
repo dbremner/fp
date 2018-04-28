@@ -120,7 +120,7 @@ obj_prtree(obj_ptr p)
     case obj_type::T_LIST:
 	printf("<");
 	last_close = 0;
-	if( !p->o_val.o_list.car ){
+	if( !p->car() ){
 	    printf(">");
 	    last_close = 1;
 	    return;
