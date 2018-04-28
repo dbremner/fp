@@ -23,6 +23,48 @@ do_dist(obj_ptr elem, obj_ptr lst, obj_ptr obj, int side);
 static obj_ptr do_trans(obj_ptr obj);
 static live_obj_ptr do_bool(live_obj_ptr obj, int op);
 
+/// Split list into two (roughly) equal halves
+static live_obj_ptr split(live_obj_ptr obj)
+{
+    int l;
+    obj_ptr hd = nullptr;
+    obj_ptr *hdp = &hd;
+    
+    if(
+       (!obj->is_list()) ||
+       ( (l = obj->list_length()) == 0 )
+       ){
+        obj_unref(obj);
+        return undefined();
+    }
+    l = ((l-1) >> 1)+1;
+    int x;
+    auto p = obj;
+    obj_ptr q;
+    for( x = 0; x < l; ++x, p = p->cdr() ){
+        *hdp = q = obj_alloc(nullptr);
+        hdp = q->cdr_addr();
+        q->car(p->car());
+        p->car()->inc_ref();
+    }
+    auto top = obj_alloc(hd);
+    hd = nullptr;
+    hdp = &hd;
+    while(p){
+        *hdp = q = obj_alloc(nullptr);
+        hdp = q->cdr_addr();
+        q->car(p->car());
+        p->car()->inc_ref();
+        p = p->cdr();
+    }
+    if( !hd ) hd = obj_alloc(nullptr);
+    obj_ptr result = obj_alloc(nullptr);
+    top->cdr(result);
+    top->cadr(hd);
+    obj_unref(obj);
+    return(top);
+}
+
 static live_obj_ptr atom(live_obj_ptr obj)
 {
     bool result;
@@ -594,44 +636,9 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         return(hd);
     }
 
-    case SPLIT:{	// Split list into two (roughly) equal halves
-        int l;
-        obj_ptr hd = nullptr;
-        obj_ptr *hdp = &hd;
-
-        if(
-            (!obj->is_list()) ||
-            ( (l = obj->list_length()) == 0 )
-        ){
-            obj_unref(obj);
-            return undefined();
-        }
-        l = ((l-1) >> 1)+1;
-        int x;
-        auto p = obj;
-        obj_ptr q;
-        for( x = 0; x < l; ++x, p = p->cdr() ){
-            *hdp = q = obj_alloc(nullptr);
-            hdp = q->cdr_addr();
-            q->car(p->car());
-            p->car()->inc_ref();
-        }
-        auto top = obj_alloc(hd);
-        hd = nullptr;
-        hdp = &hd;
-        while(p){
-            *hdp = q = obj_alloc(nullptr);
-            hdp = q->cdr_addr();
-            q->car(p->car());
-            p->car()->inc_ref();
-            p = p->cdr();
-        }
-        if( !hd ) hd = obj_alloc(nullptr);
-        obj_ptr result = obj_alloc(nullptr);
-        top->cdr(result);
-        top->cadr(hd);
-        obj_unref(obj);
-        return(top);
+    case SPLIT:{
+        auto result = split(obj);
+        return result;
     }
 
     case ATOM:{
