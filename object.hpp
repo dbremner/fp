@@ -107,6 +107,13 @@ public:
         return cdr()->car();
     }
     
+    ///(car (cdr x))
+    obj_ptr cadr() const
+    {
+        assert(is_list());
+        return cdr()->car();
+    }
+    
     void inc_ref()
     {
         o_refs++;
