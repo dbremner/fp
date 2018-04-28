@@ -68,13 +68,15 @@ public:
         assert(is_list());
         return o_val.o_list.car;
     }
-    
+
+private:
     obj_ptr car() const
     {
         assert(is_list());
         return o_val.o_list.car;
     }
-    
+
+public:
     void car(obj_ptr ptr)
     {
         assert(is_list());
@@ -87,13 +89,15 @@ public:
         assert(is_list());
         return o_val.o_list.cdr;
     }
-    
+
+private:
     obj_ptr cdr() const
     {
         assert(is_list());
         return o_val.o_list.cdr;
     }
-    
+
+public:
     void cdr(obj_ptr ptr)
     {
         assert(is_list());
@@ -107,7 +111,8 @@ public:
         assert(cdr());
         return cdr()->car();
     }
-    
+
+private:
     ///(car (cdr x))
     obj_ptr cadr() const
     {
@@ -115,7 +120,8 @@ public:
         assert(cdr());
         return cdr()->car();
     }
-    
+
+public:
     void cadr(obj_ptr ptr)
     {
         assert(is_list());
