@@ -123,6 +123,11 @@ public:
                 (o_val.o_int) : (o_val.o_double) );
     }
     
+    double float_val() const
+    {
+        return o_val.o_double;
+    }
+    
     bool bool_val() const
     {
         return o_val.o_int;
