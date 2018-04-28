@@ -16,6 +16,7 @@
 #include "obj_type.hpp"
 #include "obj.h"
 #include "object.hpp"
+#include "symtab_entry.hpp"
 
 static char had_undef = 0;
 void fp_cmd(void);
@@ -85,7 +86,7 @@ fnDef	:	'{'
                 assert($3.YYsym);
                 assert($4.YYast);
                 auto live = static_cast<live_ast_ptr>($4.YYast);
-                defun($3.YYsym,live);
+                $3.YYsym->define(live);
                 set_prompt('\t');
 		    }
 	;
