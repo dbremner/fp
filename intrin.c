@@ -23,6 +23,44 @@ do_dist(obj_ptr elem, obj_ptr lst, obj_ptr obj, int side);
 static obj_ptr do_trans(obj_ptr obj);
 static live_obj_ptr do_bool(live_obj_ptr obj, int op);
 
+/// Pair up successive elements of a list
+static live_obj_ptr pair(live_obj_ptr obj)
+{
+    obj_ptr hd = nullptr;
+    obj_ptr *hdp = &hd;
+    
+    if(
+       (!obj->is_list()) ||
+       !obj->car()
+       ){
+        obj_unref(obj);
+        return undefined();
+    }
+    obj_ptr q;
+    obj_ptr r = nullptr;
+    int x;
+    auto p = obj;
+    for(x = 0; p; p = p->cdr() ){
+        if( x == 0 ){
+            *hdp = q = obj_alloc(nullptr);
+            hdp = q->cdr_addr();
+            r = obj_alloc(nullptr);
+            q->car(r);
+            r->car(p->car());
+            p->car()->inc_ref();
+            x++;
+        } else {
+            q = obj_alloc(nullptr);
+            r->cdr(q);
+            q->car(p->car());
+            p->car()->inc_ref();
+            x = 0;
+        }
+    }
+    obj_unref(obj);
+    return(hd);
+}
+
 /// Split list into two (roughly) equal halves
 static live_obj_ptr split(live_obj_ptr obj)
 {
@@ -600,40 +638,9 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         }
     }
     
-    case PAIR:{		// Pair up successive elements of a list
-        obj_ptr hd = nullptr;
-        obj_ptr *hdp = &hd;
-
-        if(
-            (!obj->is_list()) ||
-            !obj->car()
-        ){
-            obj_unref(obj);
-            return undefined();
-        }
-        obj_ptr q;
-        obj_ptr r = nullptr;
-        int x;
-        auto p = obj;
-        for(x = 0; p; p = p->cdr() ){
-            if( x == 0 ){
-            *hdp = q = obj_alloc(nullptr);
-            hdp = q->cdr_addr();
-            r = obj_alloc(nullptr);
-            q->car(r);
-            r->car(p->car());
-            p->car()->inc_ref();
-            x++;
-            } else {
-            q = obj_alloc(nullptr);
-            r->cdr(q);
-            q->car(p->car());
-            p->car()->inc_ref();
-            x = 0;
-            }
-        }
-        obj_unref(obj);
-        return(hd);
+    case PAIR:{
+        auto result = pair(obj);
+        return result;
     }
 
     case SPLIT:{
