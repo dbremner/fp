@@ -11,7 +11,7 @@
 #include "symtab_entry.hpp"
 #include "y.tab.h"
 
-static const int SYMTABSIZE = 101;
+static constexpr int SYMTABSIZE = 101;
 
 /// Our hash table
 static struct symtab_entry
