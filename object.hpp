@@ -131,6 +131,22 @@ public:
         return type() == obj_type::T_LIST;
     }
     
+    /// is_pair()--tell if our argument object is a list of two elements
+    bool
+    is_pair()
+    {
+        auto obj = this;
+        if( !obj->is_list() )
+            return(false);
+        if( obj->car() == nullptr )
+            return(false);
+        if( obj->cdr() == nullptr )
+            return(false);
+        if( obj->cdr()->cdr() )
+            return(false);
+        return(true);
+    }
+    
     double num_val() const
     {
         assert(is_num());
