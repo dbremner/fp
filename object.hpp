@@ -104,6 +104,7 @@ public:
     obj_ptr cadr()
     {
         assert(is_list());
+        assert(cdr());
         return cdr()->car();
     }
     
@@ -111,6 +112,7 @@ public:
     obj_ptr cadr() const
     {
         assert(is_list());
+        assert(cdr());
         return cdr()->car();
     }
     
