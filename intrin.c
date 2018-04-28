@@ -696,8 +696,9 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
+        const auto value = !obj->bool_val();
         auto p = obj_alloc(obj_type::T_BOOL);
-        (p)->o_val.o_int = !obj->o_val.o_int;
+        (p)->o_val.o_int = value;
         obj_unref(obj);
         return(p);
     }
