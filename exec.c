@@ -16,13 +16,6 @@
 #include "symtab_entry.hpp"
 #include "y.tab.h"
 
-    /*
-     * This ugly macro makes access to objects easier.
-     *
-     * CDR is like CAR but gives all but the first
-     */
-#define CDR(x) ( (x)->cdr_ )
-
 static live_obj_ptr invoke(live_sym_ptr def, live_obj_ptr obj);
 static live_obj_ptr do_rinsert(live_ast_ptr act, obj_ptr obj);
 static live_obj_ptr do_binsert(live_ast_ptr act, obj_ptr obj);
@@ -131,7 +124,7 @@ execute(live_ast_ptr act, live_obj_ptr obj )
             return(p);
             }
             *hdp = q = obj_alloc(nullptr);
-            hdp = &(CDR(q));
+            hdp = q->cdr_addr();
             q->car(p);
             act = act->right;
         }
@@ -185,7 +178,7 @@ execute(live_ast_ptr act, live_obj_ptr obj )
             return(q);
             }
             *hdp = r = obj_alloc(q);
-            hdp = &CDR(r);
+            hdp = r->cdr_addr();
         }
         obj_unref(obj);
         return(hd);
@@ -400,7 +393,7 @@ do_binsert(live_ast_ptr act, obj_ptr obj)
     for( q = obj; p; p = p->cdr() ){
         if( x ){
             *hdp = r = obj_alloc(nullptr);
-            hdp = &CDR(r);
+            hdp = r->cdr_addr();
             r->car(q->car());
             q->car()->inc_ref();
             q = q->cdr();
