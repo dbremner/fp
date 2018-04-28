@@ -38,7 +38,7 @@ same(obj_ptr o1, obj_ptr o2)
         case obj_type::T_INT:
             return( o1->o_val.o_int == o2->o_val.o_int );
         case obj_type::T_BOOL:
-            return( o1->o_val.o_int == o2->o_val.o_int );
+            return( o1->bool_val() == o2->bool_val() );
         case obj_type::T_FLOAT:
             return( o1->o_val.o_double == o2->o_val.o_double );
         case obj_type::T_LIST:
