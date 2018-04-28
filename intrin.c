@@ -901,10 +901,6 @@ do_math_func(int tag, live_obj_ptr obj)
     }
     switch(tag) {
         case SIN: {        // sin() function
-            if( !obj->is_num() ){
-                obj_unref(obj);
-                return undefined();
-            }
             const auto f = obj->num_val();
             auto p = obj_alloc(sin(f));
             obj_unref(obj);
@@ -912,10 +908,6 @@ do_math_func(int tag, live_obj_ptr obj)
         }
             
         case COS: {        // cos() function
-            if( !obj->is_num() ){
-                obj_unref(obj);
-                return undefined();
-            }
             const auto f = obj->num_val();
             auto p = obj_alloc(cos(f));
             obj_unref(obj);
@@ -923,10 +915,6 @@ do_math_func(int tag, live_obj_ptr obj)
         }
             
         case TAN: {        // tan() function
-            if( !obj->is_num() ){
-                obj_unref(obj);
-                return undefined();
-            }
             const auto f = obj->num_val();
             auto p = obj_alloc(tan(f));
             obj_unref(obj);
@@ -934,10 +922,6 @@ do_math_func(int tag, live_obj_ptr obj)
         }
             
         case ASIN: {        // asin() function
-            if( !obj->is_num() ){
-                obj_unref(obj);
-                return undefined();
-            }
             const auto f = obj->num_val();
             auto p = obj_alloc(asin(f));
             obj_unref(obj);
@@ -945,10 +929,6 @@ do_math_func(int tag, live_obj_ptr obj)
         }
             
         case ACOS: {        // acos() function
-            if( !obj->is_num() ){
-                obj_unref(obj);
-                return undefined();
-            }
             const auto f = obj->num_val();
             auto p = obj_alloc(acos(f));
             obj_unref(obj);
@@ -956,10 +936,6 @@ do_math_func(int tag, live_obj_ptr obj)
         }
             
         case ATAN: {        // atan() function
-            if( !obj->is_num() ){
-                obj_unref(obj);
-                return undefined();
-            }
             const auto f = obj->num_val();
             auto p = obj_alloc(atan(f));
             obj_unref(obj);
@@ -967,10 +943,6 @@ do_math_func(int tag, live_obj_ptr obj)
         }
             
         case EXP: {        // exp() function
-            if( !obj->is_num() ){
-                obj_unref(obj);
-                return undefined();
-            }
             const auto f = obj->num_val();
             auto p = obj_alloc(exp(f));
             obj_unref(obj);
@@ -978,10 +950,6 @@ do_math_func(int tag, live_obj_ptr obj)
         }
             
         case LOG: {        // log() function
-            if( !obj->is_num() ){
-                obj_unref(obj);
-                return undefined();
-            }
             const auto f = obj->num_val();
             auto p = obj_alloc(log(f));
             obj_unref(obj);
