@@ -133,8 +133,7 @@ object2	:	atom
 fpSequence
 	:	'<' object2 OptComma SeqBody '>'
 		    {
-			auto p =
-			    $$.YYobj = obj_alloc($2.YYobj, $4.YYobj);
+                $$.YYobj = obj_alloc($2.YYobj, $4.YYobj);
 		    }
 	;
 SeqBody	:	Empty
@@ -143,35 +142,29 @@ SeqBody	:	Empty
 		    }
 	|	object2 OptComma SeqBody
 		    {
-			auto p =
-			    $$.YYobj = obj_alloc($1.YYobj, $3.YYobj);
+                $$.YYobj = obj_alloc($1.YYobj, $3.YYobj);
 		    }
 	;
 
 atom	:	T
 		    {
-			auto p =
-			    $$.YYobj = obj_alloc(true);
+                $$.YYobj = obj_alloc(true);
 		    }
 	|	F
 		    {
-			auto p =
-			    $$.YYobj = obj_alloc(false);
+                $$.YYobj = obj_alloc(false);
 		    }
 	|	'<' '>'
 		    {
-			auto p =
-			    $$.YYobj = obj_alloc(nullptr, nullptr);
+                $$.YYobj = obj_alloc(nullptr, nullptr);
 		    }
 	|	INT
 		    {
-			auto p =
-			    $$.YYobj = obj_alloc($1.YYint);
+                $$.YYobj = obj_alloc($1.YYint);
 		    }
 	|	FLOAT
 		    {
-			auto p = 
-			    $$.YYobj = obj_alloc($1.YYdouble);
+                $$.YYobj = obj_alloc($1.YYdouble);
 		    }
 	;
 
