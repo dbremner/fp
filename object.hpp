@@ -3,8 +3,10 @@
 
 /// An object's structure
 struct object {
+private:
     /// Type for selecting
     obj_type o_type;
+public:
     /// Number of current refs, for GC
     unsigned o_refs = 1;
     struct {
