@@ -87,8 +87,8 @@ obj_unref(obj_ptr p)
 	obj_free(p);
 	return;
     case obj_type::T_LIST:
-	obj_unref( (p->o_val).o_list.car );
-	obj_unref( (p->o_val).o_list.cdr );
+	obj_unref( p->car() );
+	obj_unref( p->cdr() );
 	obj_free(p);
 	return;
     }
@@ -126,8 +126,8 @@ obj_prtree(obj_ptr p)
 	    return;
 	}
 	while( p ){
-	    obj_prtree( (p->o_val).o_list.car );
-	    p = (p->o_val).o_list.cdr;
+	    obj_prtree( p->car() );
+	    p = p->cdr();
 	}
 	if( !last_close ) putchar('\b');
 	printf("> ");
