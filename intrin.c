@@ -825,49 +825,41 @@ do_math_func(int tag, live_obj_ptr obj)
     switch(tag) {
         case SIN: {        // sin() function
             result = sin(f);
-            p = obj_alloc(sin(f));
             break;
         }
             
         case COS: {        // cos() function
             result = cos(f);
-            p = obj_alloc(cos(f));
             break;
         }
             
         case TAN: {        // tan() function
             result = tan(f);
-            p = obj_alloc(tan(f));
             break;
         }
             
         case ASIN: {        // asin() function
             result = asin(f);
-            p = obj_alloc(asin(f));
             break;
         }
             
         case ACOS: {        // acos() function
             result = acos(f);
-            p = obj_alloc(acos(f));
             break;
         }
             
         case ATAN: {        // atan() function
             result = atan(f);
-            p = obj_alloc(atan(f));
             break;
         }
             
         case EXP: {        // exp() function
             result = exp(f);
-            p = obj_alloc(exp(f));
             break;
         }
             
         case LOG: {        // log() function
             result = log(f);
-            p = obj_alloc(log(f));
             break;
         }
         default: {
