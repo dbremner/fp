@@ -25,6 +25,18 @@ public:
     {
     }
     
+private:
+    explicit object(obj_type type, int value, double float_val, obj_ptr car_, obj_ptr cdr_)
+    : o_type{type},
+    o_int{value},
+    o_double{float_val}
+    {
+        car(car_);
+        cdr(cdr_);
+    }
+    
+public:
+    
     explicit object(int value)
     : object(obj_type::T_INT)
     {
