@@ -66,21 +66,21 @@ public:
     obj_ptr car()
     {
         assert(is_list());
-        return o_list.car;
+        return car_;
     }
 
 private:
     obj_ptr car() const
     {
         assert(is_list());
-        return o_list.car;
+        return car_;
     }
 
 public:
     void car(obj_ptr ptr)
     {
         assert(is_list());
-        o_list.car = ptr;
+        car_ = ptr;
     }
     
     ///CDR is like CAR but gives all but the first
