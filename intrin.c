@@ -137,7 +137,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
 	 *	better to store a pointer to a function in with the symbol
 	 *	table...
 	 */
-    switch( act->sym_val.YYint ){
+    const int tag = act->sym_val.YYint;
+    switch( tag ){
 
     case LENGTH:{	// Length of a list
         if( !obj->is_list() ){
