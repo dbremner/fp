@@ -99,33 +99,35 @@ public:
     /// returns true if o_type is T_INT or T_FLOAT
     bool is_num() const
     {
-        return ( (o_type == obj_type::T_INT) || (o_type == obj_type::T_FLOAT) );
+        return ( (type() == obj_type::T_INT) || (type() == obj_type::T_FLOAT) );
     }
     
     bool is_undef() const
     {
-        return o_type == obj_type::T_UNDEF;
+        return type() == obj_type::T_UNDEF;
     }
     
     bool is_int() const
     {
-        return o_type == obj_type::T_INT;
+        return type() == obj_type::T_INT;
     }
     
     bool is_float() const
     {
-        return o_type == obj_type::T_FLOAT;
+        return type() == obj_type::T_FLOAT;
     }
     
     bool is_list() const
     {
-        return o_type == obj_type::T_LIST;
+        return type() == obj_type::T_LIST;
     }
     
     double num_val() const
     {
-        return ( (o_type == obj_type::T_INT) ? \
-                (o_val.o_int) : (o_val.o_double) );
+        //should not assume that object is either
+        //an int or a float
+        return ( (type() == obj_type::T_INT) ? \
+                (int_val()) : (float_val()) );
     }
     
     double float_val() const
