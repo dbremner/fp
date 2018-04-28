@@ -166,8 +166,7 @@ atom	:	T
 	|	INT
 		    {
 			auto p =
-			    $$.YYobj = obj_alloc(obj_type::T_INT);
-			(p->o_val).o_int = $1.YYint;
+			    $$.YYobj = obj_alloc($1.YYint);
 		    }
 	|	FLOAT
 		    {
