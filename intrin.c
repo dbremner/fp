@@ -25,7 +25,7 @@ static live_obj_ptr do_bool(live_obj_ptr obj, int op);
 static live_obj_ptr do_math_func(int tag, live_obj_ptr obj);
 
 /// Pair up successive elements of a list
-static live_obj_ptr pair(live_obj_ptr obj)
+static live_obj_ptr do_pair(live_obj_ptr obj)
 {
     obj_ptr hd = nullptr;
     obj_ptr *hdp = &hd;
@@ -63,7 +63,7 @@ static live_obj_ptr pair(live_obj_ptr obj)
 }
 
 /// Split list into two (roughly) equal halves
-static live_obj_ptr split(live_obj_ptr obj)
+static live_obj_ptr do_split(live_obj_ptr obj)
 {
     int l;
     obj_ptr hd = nullptr;
@@ -104,7 +104,7 @@ static live_obj_ptr split(live_obj_ptr obj)
     return(top);
 }
 
-static live_obj_ptr atom(live_obj_ptr obj)
+static live_obj_ptr do_atom(live_obj_ptr obj)
 {
     bool result;
     
@@ -564,17 +564,17 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     }
     
     case PAIR:{
-        auto result = pair(obj);
+        auto result = do_pair(obj);
         return result;
     }
 
     case SPLIT:{
-        auto result = split(obj);
+        auto result = do_split(obj);
         return result;
     }
 
     case ATOM:{
-        auto p = atom(obj);
+        auto p = do_atom(obj);
         return(p);
     }
 
