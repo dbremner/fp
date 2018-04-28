@@ -17,6 +17,8 @@ private:
 public:
     /// T_LIST
     struct list o_list;
+    obj_ptr car_ = nullptr;
+    obj_ptr cdr_ = nullptr;
     
     object(obj_type type)
     : object(type, 0, 0.0)
