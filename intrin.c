@@ -24,7 +24,7 @@
      * CDR is like CAR but gives all but the first
      */
 
-#define CDR(x) ( (x)->o_list.cdr )
+#define CDR(x) ( (x)->cdr_ )
 
 static obj_ptr
 do_dist(obj_ptr elem, obj_ptr lst, obj_ptr obj, int side);

@@ -87,21 +87,21 @@ public:
     obj_ptr cdr()
     {
         assert(is_list());
-        return o_list.cdr;
+        return cdr_;
     }
 
 private:
     obj_ptr cdr() const
     {
         assert(is_list());
-        return o_list.cdr;
+        return cdr_;
     }
 
 public:
     void cdr(obj_ptr ptr)
     {
         assert(is_list());
-        o_list.cdr = ptr;
+        cdr_ = ptr;
     }
     
     ///(car (cdr x))
