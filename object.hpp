@@ -9,9 +9,9 @@ private:
 public:
     /// Number of current refs, for GC
     unsigned o_refs = 1;
+    /// T_INT, T_BOOL
+    int o_int = 0;
     struct {
-        /// T_INT, T_BOOL
-        int o_int;
         /// T_FLOAT
         double o_double;
         /// T_LIST
@@ -26,13 +26,13 @@ public:
     explicit object(int value)
     : object(obj_type::T_INT)
     {
-        o_val.o_int = value;
+        o_int = value;
     }
     
     explicit object(bool value)
     : object(obj_type::T_BOOL)
     {
-        o_val.o_int = value;
+        o_int = value;
     }
     
     explicit object(double value)
@@ -138,17 +138,17 @@ public:
     
     bool bool_val() const
     {
-        return o_val.o_int;
+        return o_int;
     }
     
     void bool_val(bool value)
     {
-        o_val.o_int = value;
+        o_int = value;
     }
     
     int int_val() const
     {
-        return o_val.o_int;
+        return o_int;
     }
     
     obj_type type() const
