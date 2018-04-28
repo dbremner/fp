@@ -17,6 +17,9 @@ struct symtab_entry {
     sym_pname{pname}
     {
     }
+    
+    /// Define a function
+    void define(live_ast_ptr def);
 };
 
 #endif
