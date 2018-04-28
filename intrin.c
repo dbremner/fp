@@ -216,7 +216,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             ( !(q = obj->car()) ) ||
             (!obj->cdr()) ||
             (!(p = obj->cadr()) ) ||
-            (p->type() != obj_type::T_LIST)
+            (!p->is_list())
         ){
             obj_unref(obj);
             return undefined();
@@ -232,7 +232,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             ( !(q = obj->car()) ) ||
             (!obj->cdr()) ||
             (!(p = obj->cadr()) ) ||
-            (q->type() != obj_type::T_LIST)
+            (!q->is_list())
         ){
             obj_unref(obj);
             return undefined();
@@ -250,7 +250,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             ( !(q = obj->car()) ) ||
             (!obj->cdr()) ||
             (!(p = obj->cadr()) ) ||
-            (p->type() != obj_type::T_LIST)
+            (!p->is_list())
         ){
             obj_unref(obj);
             return undefined();
@@ -279,7 +279,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             ( !(q = obj->car()) ) ||
             (!obj->cdr()) ||
             (!(r = obj->cadr()) ) ||
-            (q->type() != obj_type::T_LIST)
+            (!q->is_list())
         ){
             obj_unref(obj);
             return undefined();
@@ -417,7 +417,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         obj_ptr q;
         for( p = obj; p; p = p->cdr() ){
             q = p->car();
-            if( q->type() != obj_type::T_LIST ){
+            if( !q->is_list() ){
             obj_unref(obj);
             obj_unref(hd);
             return undefined();
@@ -794,7 +794,7 @@ do_trans(obj_ptr obj)
     if(
     ( (p = obj)->type() != obj_type::T_LIST) ||
     !( p = obj->car() ) ||
-    ( p->type() != obj_type::T_LIST )
+    ( !p->is_list() )
     ){
     obj_unref(obj);
     return undefined();
@@ -815,7 +815,7 @@ do_trans(obj_ptr obj)
     for( q = obj; q ; q = q->cdr() ){
 	r = q->car();
 	if(
-	    (r->type() != obj_type::T_LIST) ||
+	    (!r->is_list()) ||
 	    (listlen(r) != len)
 	){
 	    obj_unref(obj);
