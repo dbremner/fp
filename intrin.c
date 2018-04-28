@@ -529,92 +529,15 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         return(hd);
     }
 
-    case SIN: {		// sin() function
-        if( !obj->is_num() ){
-            obj_unref(obj);
-            return undefined();
-        }
-        const auto f = obj->num_val();
-        auto p = obj_alloc(sin(f));
-        obj_unref(obj);
-        return(p);
-    }
-
-    case COS: {		// cos() function
-        if( !obj->is_num() ){
-            obj_unref(obj);
-            return undefined();
-        }
-        const auto f = obj->num_val();
-        auto p = obj_alloc(cos(f));
-        obj_unref(obj);
-        return(p);
-    }
-
-    case TAN: {		// tan() function
-        if( !obj->is_num() ){
-            obj_unref(obj);
-            return undefined();
-        }
-        const auto f = obj->num_val();
-        auto p = obj_alloc(tan(f));
-        obj_unref(obj);
-        return(p);
-    }
-
-    case ASIN: {		// asin() function
-        if( !obj->is_num() ){
-            obj_unref(obj);
-            return undefined();
-        }
-        const auto f = obj->num_val();
-        auto p = obj_alloc(asin(f));
-        obj_unref(obj);
-        return(p);
-    }
-
-    case ACOS: {		// acos() function
-        if( !obj->is_num() ){
-            obj_unref(obj);
-            return undefined();
-        }
-        const auto f = obj->num_val();
-        auto p = obj_alloc(acos(f));
-        obj_unref(obj);
-        return(p);
-    }
-
-    case ATAN: {		// atan() function
-        if( !obj->is_num() ){
-            obj_unref(obj);
-            return undefined();
-        }
-        const auto f = obj->num_val();
-        auto p = obj_alloc(atan(f));
-        obj_unref(obj);
-        return(p);
-    }
-    
-    case EXP: {		// exp() function
-        if( !obj->is_num() ){
-            obj_unref(obj);
-            return undefined();
-        }
-        const auto f = obj->num_val();
-        auto p = obj_alloc(exp(f));
-        obj_unref(obj);
-        return(p);
-    }
-    
+    case SIN:
+    case COS:
+    case TAN:
+    case ASIN:
+    case ACOS:
+    case ATAN:
+    case EXP:
     case LOG: {		// log() function
-        if( !obj->is_num() ){
-            obj_unref(obj);
-            return undefined();
-        }
-        const auto f = obj->num_val();
-        auto p = obj_alloc(log(f));
-        obj_unref(obj);
-        return(p);
+        return do_math_func(tag, obj);
     }
     
     case MOD: {		// Modulo
