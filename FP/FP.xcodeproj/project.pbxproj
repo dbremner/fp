@@ -10,6 +10,7 @@
 		363F9D94209133CD00ECFA2A /* signal_handling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 363F9D93209133CD00ECFA2A /* signal_handling.cpp */; };
 		363F9D972091373500ECFA2A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 363F9D962091373500ECFA2A /* main.cpp */; };
 		363F9D99209520E800ECFA2A /* object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 363F9D98209520E700ECFA2A /* object.cpp */; };
+		363F9D9B209533D400ECFA2A /* symtab_entry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 363F9D9A209533D400ECFA2A /* symtab_entry.cpp */; };
 		36B05E682086F3500084D970 /* ast.c in Sources */ = {isa = PBXBuildFile; fileRef = 36B05E5C2086F34E0084D970 /* ast.c */; };
 		36B05E692086F3500084D970 /* defun.c in Sources */ = {isa = PBXBuildFile; fileRef = 36B05E5D2086F34E0084D970 /* defun.c */; };
 		36B05E6A2086F3500084D970 /* exec.c in Sources */ = {isa = PBXBuildFile; fileRef = 36B05E5E2086F34E0084D970 /* exec.c */; };
@@ -54,6 +55,7 @@
 		363F9D952091351F00ECFA2A /* signal_handling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = signal_handling.h; path = ../../signal_handling.h; sourceTree = "<group>"; };
 		363F9D962091373500ECFA2A /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../../main.cpp; sourceTree = "<group>"; };
 		363F9D98209520E700ECFA2A /* object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = object.cpp; path = ../../object.cpp; sourceTree = "<group>"; };
+		363F9D9A209533D400ECFA2A /* symtab_entry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = symtab_entry.cpp; path = ../../symtab_entry.cpp; sourceTree = "<group>"; };
 		36B05E522086F2EB0084D970 /* FP */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FP; sourceTree = BUILT_PRODUCTS_DIR; };
 		36B05E5C2086F34E0084D970 /* ast.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ast.c; path = ../../ast.c; sourceTree = "<group>"; };
 		36B05E5D2086F34E0084D970 /* defun.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = defun.c; path = ../../defun.c; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				363F9D952091351F00ECFA2A /* signal_handling.h */,
 				36B05E612086F34F0084D970 /* symtab.c */,
 				36B05E652086F34F0084D970 /* symtab.h */,
+				363F9D9A209533D400ECFA2A /* symtab_entry.cpp */,
 				363F9D8620904D2E00ECFA2A /* symtab_entry.hpp */,
 				363F9D80208BBE4500ECFA2A /* symtype.hpp */,
 				363F9D892090507200ECFA2A /* typedefs.h */,
@@ -199,6 +202,7 @@
 				363F9D972091373500ECFA2A /* main.cpp in Sources */,
 				36B05E6F2086F3500084D970 /* parse.y in Sources */,
 				36B05E6C2086F3500084D970 /* symtab.c in Sources */,
+				363F9D9B209533D400ECFA2A /* symtab_entry.cpp in Sources */,
 				36B05E702086F3500084D970 /* misc.c in Sources */,
 				36B05E6E2086F3500084D970 /* lex.c in Sources */,
 				36B05E712086F3500084D970 /* obj.c in Sources */,
