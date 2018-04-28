@@ -36,6 +36,7 @@ same(obj_ptr o1, obj_ptr o2)
     }
     switch( o1->type() ){
         case obj_type::T_INT:
+            return( o1->o_val.o_int == o2->o_val.o_int );
         case obj_type::T_BOOL:
             return( o1->o_val.o_int == o2->o_val.o_int );
         case obj_type::T_FLOAT:
