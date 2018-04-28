@@ -69,6 +69,12 @@ public:
         return o_val.o_list.car;
     }
     
+    obj_ptr car() const
+    {
+        assert(is_list());
+        return o_val.o_list.car;
+    }
+    
     void car(obj_ptr ptr)
     {
         assert(is_list());
@@ -77,6 +83,12 @@ public:
     
     ///CDR is like CAR but gives all but the first
     obj_ptr cdr()
+    {
+        assert(is_list());
+        return o_val.o_list.cdr;
+    }
+    
+    obj_ptr cdr() const
     {
         assert(is_list());
         return o_val.o_list.cdr;
