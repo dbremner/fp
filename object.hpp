@@ -114,6 +114,12 @@ public:
         return cdr()->car();
     }
     
+    void cadr(obj_ptr ptr)
+    {
+        assert(is_list());
+        cdr()->car(ptr);
+    }
+    
     void inc_ref()
     {
         o_refs++;
