@@ -212,6 +212,9 @@ public:
     {
         return o_type;
     }
+    
+    /// list_length()--return length of a list
+    int list_length() const;
 };
 
 #endif
