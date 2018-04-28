@@ -820,7 +820,6 @@ do_math_func(int tag, live_obj_ptr obj)
         return undefined();
     }
     const auto f = obj->num_val();
-    live_obj_ptr p;
     double result;
     switch(tag) {
         case SIN: {        // sin() function
@@ -866,7 +865,7 @@ do_math_func(int tag, live_obj_ptr obj)
             fatal_err("Unreachable case in do_trig");
         }
     }
-    p = obj_alloc(result);
+    auto p = obj_alloc(result);
     obj_unref(obj);
     return(p);
 }
