@@ -267,7 +267,8 @@ do_charfun(live_ast_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
             }
-            auto p = obj_alloc(obj->car()->num_val()/f);
+            const auto value = obj->car()->num_val()/f;
+            auto p = obj_alloc(value);
             obj_unref(obj);
             return(p);
         }
