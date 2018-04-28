@@ -618,14 +618,10 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         return( eqobj(obj) );
     }
     
-    case AND: {
-        return( do_bool(obj,AND) );
-    }
-    case OR: {
-        return( do_bool(obj,OR) );
-    }
+    case AND:
+    case OR:
     case XOR: {
-        return( do_bool(obj,XOR) );
+        return( do_bool(obj,tag) );
     }
     case NOT: {
         if( !obj->is_bool() ){
