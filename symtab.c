@@ -17,7 +17,7 @@ static constexpr int SYMTABSIZE = 101;
 static sym_ptr stab[SYMTABSIZE];
 
 /// Generate a hash value for a string
-static int
+static auto
 hash(const char *p)
 {
     assert(p);
@@ -39,7 +39,7 @@ lookup(const char *name)
 {
     assert(name);
     assert(strlen(name) > 0);
-    int h = hash(name);
+    auto h = hash(name);
     assert(h > 0);
     assert(h < SYMTABSIZE);
     sym_ptr p = stab[h];
