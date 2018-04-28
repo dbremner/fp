@@ -21,7 +21,7 @@ public:
     } o_val{};
     
     object(obj_type type)
-    : o_type{type}
+    : object(type, 0, 0.0)
     {
     }
     
@@ -38,33 +38,28 @@ private:
 public:
     
     explicit object(int value)
-    : object(obj_type::T_INT)
+    : object(obj_type::T_INT, value, 0.0)
     {
-        o_int = value;
     }
     
     explicit object(bool value)
-    : object(obj_type::T_BOOL)
+    : object(obj_type::T_BOOL, value, 0.0)
     {
-        o_int = value;
     }
     
     explicit object(double value)
-    : object(obj_type::T_FLOAT)
+    : object(obj_type::T_FLOAT, 0, value)
     {
-        o_double = value;
     }
     
     explicit object(obj_ptr car_)
-    : object(car_, nullptr)
+    : object(obj_type::T_LIST, 0, 0, car_, nullptr)
     {
     }
     
     explicit object(obj_ptr car_, obj_ptr cdr_)
-    : object(obj_type::T_LIST)
+    : object(obj_type::T_LIST, 0, 0, car_, cdr_)
     {
-        car(car_);
-        cdr(cdr_);
     }
     
     ///CAR manipulates the object as a list & gives its first part
