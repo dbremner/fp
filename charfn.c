@@ -48,22 +48,6 @@ same(obj_ptr o1, obj_ptr o2)
     }
 }
 
-/// ispair()--tell if our argument object is a list of two elements
-static bool
-ispair(live_obj_ptr obj)
-{
-    assert(obj);
-    if( !obj->is_list() )
-        return(false);
-    if( obj->car() == nullptr )
-        return(false);
-    if( obj->cdr() == nullptr )
-        return(false);
-    if( obj->cdr()->cdr() )
-        return(false);
-    return(true);
-}
-
     /*
      * eqobj()--tell if the two objects in the list are equal.
      *	undefined on ill-formed list, etc.
@@ -72,7 +56,7 @@ live_obj_ptr
 eqobj(live_obj_ptr obj)
 {
     assert(obj);
-    if( !ispair(obj) ){
+    if( !obj->is_pair() ){
         obj_unref(obj);
         return undefined();
     }
@@ -299,7 +283,7 @@ numargs(live_obj_ptr obj)
 {
     assert(obj);
     // Don't have a well-formed list, so illegal
-    if( !ispair(obj) ) return(obj_type::T_UNDEF);
+    if( !obj->is_pair() ) return(obj_type::T_UNDEF);
 
 	/*
 	 * So it's a list of two.  Verify type of both elements.
