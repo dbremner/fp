@@ -124,6 +124,8 @@ private:
 public:
     void cadr(obj_ptr ptr)
     {
+        //TODO change annotation
+        assert(ptr);
         assert(is_list());
         assert(cdr());
         cdr()->car(ptr);
