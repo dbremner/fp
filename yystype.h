@@ -10,7 +10,6 @@ typedef union {
     double YYdouble;
     live_ast_ptr YYast;
     live_obj_ptr YYobj;
-    list_ptr YYlist;
     live_sym_ptr YYsym;
 } YYstype;
 #define YYSTYPE YYstype
