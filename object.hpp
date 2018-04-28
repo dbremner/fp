@@ -13,7 +13,7 @@ private:
     /// T_INT, T_BOOL
     int o_int = 0;
     /// T_FLOAT
-    double o_double = 0.0;
+    double o_double;
 public:
     struct {
         /// T_LIST
