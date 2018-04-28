@@ -90,7 +90,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         }
         obj_ptr p = obj->cdr();
         if(!p){
-            p = obj_alloc(obj_type::T_LIST);
+            p = obj_alloc(nullptr);
         } else {
             p->inc_ref();
         }
@@ -109,11 +109,11 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         int l = (obj->is_int()) ? obj->int_val() : static_cast<int>(obj->float_val());
         obj_unref(obj);
         if( l < 0 ) return undefined();
-        if( l == 0 ) return( obj_alloc(obj_type::T_LIST) );
+        if( l == 0 ) return( obj_alloc(nullptr) );
         obj_ptr p;
         obj_ptr q;
         for(int x = 1; x <= l; x++ ){
-            *hdp = p = obj_alloc(obj_type::T_LIST);
+            *hdp = p = obj_alloc(nullptr);
             q = obj_alloc(x);
             p->car(q);
             hdp = &CDR(p);
@@ -204,7 +204,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             q = q->cdr();
         }
         obj_unref(obj);
-        if( !hd ) return( obj_alloc(obj_type::T_LIST) );
+        if( !hd ) return( obj_alloc(nullptr) );
         else return(hd);
     }
 
@@ -296,7 +296,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
              *	the old one because we're modifying its end.
              */
         while( q ){
-            *hdp = p = obj_alloc(obj_type::T_LIST);
+            *hdp = p = obj_alloc(nullptr);
             q->car()->inc_ref();
             p->car(q->car());
             hdp = &CDR(p);
@@ -324,7 +324,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         obj_ptr r;
         if( !obj->car() ) return(obj);
         for( p = nullptr, q = obj; q; q = q->cdr() ){
-            r = obj_alloc(obj_type::T_LIST);
+            r = obj_alloc(nullptr);
             r->cdr(p);
             p = r;
             p->car(q->car());
@@ -357,7 +357,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
 
             // Loop, starting from second.  Build parallel list.
         for( /* q has obj->cdr() */ ; q; q = q->cdr() ){
-            *hdp = p = obj_alloc(obj_type::T_LIST);
+            *hdp = p = obj_alloc(nullptr);
             hdp = &CDR(p);
             p->car(q->car());
             q->car()->inc_ref();
@@ -391,7 +391,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
 
             // Loop over list.  Stop one short of end.
         for( q = obj; q->cdr(); q = q->cdr() ){
-            *hdp = p = obj_alloc(obj_type::T_LIST);
+            *hdp = p = obj_alloc(nullptr);
             hdp = &CDR(p);
             p->car(q->car());
             q->car()->inc_ref();
@@ -424,7 +424,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             }
             if( !q->car() ) continue;
             for( ; q; q = q->cdr() ){
-            *hdp = r = obj_alloc(obj_type::T_LIST);
+            *hdp = r = obj_alloc(nullptr);
             hdp = &CDR(r);
             r->car(q->car());
             q->car()->inc_ref();
@@ -432,7 +432,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         }
         obj_unref(obj);
         if( !hd )
-            return(obj_alloc(obj_type::T_LIST));
+            return(obj_alloc(nullptr));
         return(hd);
     }
 
@@ -564,15 +564,15 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         auto p = obj;
         for(x = 0; p; p = p->cdr() ){
             if( x == 0 ){
-            *hdp = q = obj_alloc(obj_type::T_LIST);
+            *hdp = q = obj_alloc(nullptr);
             hdp = &CDR(q);
-            r = obj_alloc(obj_type::T_LIST);
+            r = obj_alloc(nullptr);
             q->car(r);
             r->car(p->car());
             p->car()->inc_ref();
             x++;
             } else {
-            q = obj_alloc(obj_type::T_LIST);
+            q = obj_alloc(nullptr);
             r->cdr(q);
             q->car(p->car());
             p->car()->inc_ref();
@@ -600,7 +600,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         auto p = obj;
         obj_ptr q;
         for( x = 0; x < l; ++x, p = p->cdr() ){
-            *hdp = q = obj_alloc(obj_type::T_LIST);
+            *hdp = q = obj_alloc(nullptr);
             hdp = &CDR(q);
             q->car(p->car());
             p->car()->inc_ref();
@@ -609,14 +609,14 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         hd = nullptr;
         hdp = &hd;
         while(p){
-            *hdp = q = obj_alloc(obj_type::T_LIST);
+            *hdp = q = obj_alloc(nullptr);
             hdp = &CDR(q);
             q->car(p->car());
             p->car()->inc_ref();
             p = p->cdr();
         }
-        if( !hd ) hd = obj_alloc(obj_type::T_LIST);
-        obj_ptr result = obj_alloc(obj_type::T_LIST);
+        if( !hd ) hd = obj_alloc(nullptr);
+        obj_ptr result = obj_alloc(nullptr);
         top->cdr(result);
         top->cdr()->car(hd);
         obj_unref(obj);
@@ -757,7 +757,7 @@ do_dist(
 	 *  Gee, wasn't that easy?
 	 */
     while( lst ){
-	r = obj_alloc(obj_type::T_LIST);
+	r = obj_alloc(nullptr);
 	if( !side ){
         r->car(elem);
 	    elem->inc_ref();
@@ -765,7 +765,7 @@ do_dist(
         r->car(lst->car());
 	    lst->car()->inc_ref();
 	}
-    r->cdr(obj_alloc(obj_type::T_LIST));
+    r->cdr(obj_alloc(nullptr));
 	r2 = r->cdr();
 	if( !side ){
         r2->car(lst->car());
@@ -774,7 +774,7 @@ do_dist(
         r2->car(elem);
 	    elem->inc_ref();
 	}
-	*hdp = obj_alloc(obj_type::T_LIST);
+	*hdp = obj_alloc(nullptr);
     ((*hdp))->car(r);
 	hdp = &CDR(*hdp);
 
@@ -826,7 +826,7 @@ do_trans(obj_ptr obj)
 	// By definition, list of NULL lists returns <>
     if( len == 0 ){
 	obj_unref(obj);
-	return( obj_alloc(obj_type::T_LIST) );
+	return( obj_alloc(nullptr) );
     }
 
 	/*
@@ -835,7 +835,7 @@ do_trans(obj_ptr obj)
 	 *	about it because I never use this blinking function.
 	 */
     for( x = 0; x < len; ++x ){
-    obj_ptr s = obj_alloc(obj_type::T_LIST);
+    obj_ptr s = obj_alloc(nullptr);
     obj_ptr hd2 = nullptr;
     obj_ptr *hdp2 = &hd2;
 
@@ -846,7 +846,7 @@ do_trans(obj_ptr obj)
 	    for( y = 0; y < x; ++y )
 		q = q->cdr();
 	    q = q->car();
-	    r = obj_alloc(obj_type::T_LIST);
+	    r = obj_alloc(nullptr);
 	    *hdp2 = r;
 	    hdp2 = &CDR(r);
 	    r->car(q);
