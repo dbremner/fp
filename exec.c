@@ -123,9 +123,8 @@ execute(live_ast_ptr act, live_obj_ptr obj )
             obj_unref(obj);
             return(p);
             }
-            *hdp = q = obj_alloc(nullptr);
+            *hdp = q = obj_alloc(p);
             hdp = q->cdr_addr();
-            q->car(p);
             act = act->right;
         }
         obj_unref(obj);
