@@ -14,8 +14,7 @@
 static constexpr int SYMTABSIZE = 101;
 
 /// Our hash table
-static struct symtab_entry
-    *stab[SYMTABSIZE];
+static sym_ptr stab[SYMTABSIZE];
 
 /// Generate a hash value for a string
 static int
