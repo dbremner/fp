@@ -895,6 +895,10 @@ do_bool(live_obj_ptr obj, int op)
 static live_obj_ptr
 do_math_func(int tag, live_obj_ptr obj)
 {
+    if( !obj->is_num() ){
+        obj_unref(obj);
+        return undefined();
+    }
     switch(tag) {
         case SIN: {        // sin() function
             if( !obj->is_num() ){
