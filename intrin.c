@@ -900,51 +900,52 @@ do_math_func(int tag, live_obj_ptr obj)
         return undefined();
     }
     const auto f = obj->num_val();
+    live_obj_ptr p;
     switch(tag) {
         case SIN: {        // sin() function
-            auto p = obj_alloc(sin(f));
+            p = obj_alloc(sin(f));
             obj_unref(obj);
             return(p);
         }
             
         case COS: {        // cos() function
-            auto p = obj_alloc(cos(f));
+            p = obj_alloc(cos(f));
             obj_unref(obj);
             return(p);
         }
             
         case TAN: {        // tan() function
-            auto p = obj_alloc(tan(f));
+            p = obj_alloc(tan(f));
             obj_unref(obj);
             return(p);
         }
             
         case ASIN: {        // asin() function
-            auto p = obj_alloc(asin(f));
+            p = obj_alloc(asin(f));
             obj_unref(obj);
             return(p);
         }
             
         case ACOS: {        // acos() function
-            auto p = obj_alloc(acos(f));
+            p = obj_alloc(acos(f));
             obj_unref(obj);
             return(p);
         }
             
         case ATAN: {        // atan() function
-            auto p = obj_alloc(atan(f));
+            p = obj_alloc(atan(f));
             obj_unref(obj);
             return(p);
         }
             
         case EXP: {        // exp() function
-            auto p = obj_alloc(exp(f));
+            p = obj_alloc(exp(f));
             obj_unref(obj);
             return(p);
         }
             
         case LOG: {        // log() function
-            auto p = obj_alloc(log(f));
+            p = obj_alloc(log(f));
             obj_unref(obj);
             return(p);
         }
