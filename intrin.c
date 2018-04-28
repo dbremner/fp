@@ -131,7 +131,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
 
             // If x is negative, we are counting from the end
         if( x < 0 ){
-            const int tmp = listlen(q);
+            const int tmp = q->list_length();
 
             x += (tmp + 1);
             if( x < 1 ){
@@ -581,7 +581,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
 
         if(
             (!obj->is_list()) ||
-            ( (l = listlen(obj)) == 0 )
+            ( (l = obj->list_length()) == 0 )
         ){
             obj_unref(obj);
             return undefined();
@@ -797,7 +797,7 @@ do_trans(obj_ptr obj)
     obj_ptr hd = nullptr;
     obj_ptr *hdp = &hd;
 	// Get how many down (len)
-    int len = listlen(p);
+    int len = p->list_length();
 
 	/*
 	 * Verify the structure.  Make sure each across is a list,
@@ -807,7 +807,7 @@ do_trans(obj_ptr obj)
 	r = q->car();
 	if(
 	    (!r->is_list()) ||
-	    (listlen(r) != len)
+	    (r->list_length() != len)
 	){
 	    obj_unref(obj);
 	    return undefined();

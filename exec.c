@@ -72,7 +72,7 @@ execute(live_ast_ptr act, live_obj_ptr obj )
 
             // Negative selectors count from end of list
         if( x < 0 ){
-            const int tmp = listlen(p);
+            const int tmp = p->list_length();
 
             x += (tmp+1);
             if( x < 0 ){
