@@ -53,7 +53,7 @@ static bool
 ispair(live_obj_ptr obj)
 {
     assert(obj);
-    if( obj->type() != obj_type::T_LIST )
+    if( !obj->is_list() )
         return(false);
     if( obj->car() == nullptr )
         return(false);

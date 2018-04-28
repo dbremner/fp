@@ -48,7 +48,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     switch( act->sym_val.YYint ){
 
     case LENGTH:{	// Length of a list
-        if( obj->type() != obj_type::T_LIST ){
+        if( !obj->is_list() ){
             obj_unref(obj);
             return undefined();
         }
@@ -72,7 +72,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     
     case FIRST:
     case HD: {		// First elem of a list
-        if( obj->type() != obj_type::T_LIST ){
+        if( !obj->is_list() ){
             obj_unref(obj);
             return undefined();
         }
@@ -84,7 +84,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     }
 
     case TL: {		// Remainder of list
-        if( (obj->type() != obj_type::T_LIST) || !obj->car() ){
+        if( (!obj->is_list()) || !obj->car() ){
             obj_unref(obj);
             return undefined();
         }
@@ -128,7 +128,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
 
             // Verify all elements which we will use
         if(
-            (obj->type() != obj_type::T_LIST) ||
+            (!obj->is_list()) ||
             ( (p = obj->car())->type() != obj_type::T_INT ) ||
             !(q = obj->cdr()) ||
             ( (q = q->car())->type() != obj_type::T_LIST) ||
@@ -212,7 +212,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         obj_ptr p;
         obj_ptr q;
         if(
-            (obj->type() != obj_type::T_LIST) ||
+            (!obj->is_list()) ||
             ( !(q = obj->car()) ) ||
             (!obj->cdr()) ||
             (!(p = obj->cadr()) ) ||
@@ -228,7 +228,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         obj_ptr p;
         obj_ptr q;
         if(
-            (obj->type() != obj_type::T_LIST) ||
+            (!obj->is_list()) ||
             ( !(q = obj->car()) ) ||
             (!obj->cdr()) ||
             (!(p = obj->cadr()) ) ||
@@ -246,7 +246,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         obj_ptr r;
 
         if(
-            (obj->type() != obj_type::T_LIST) ||
+            (!obj->is_list()) ||
             ( !(q = obj->car()) ) ||
             (!obj->cdr()) ||
             (!(p = obj->cadr()) ) ||
@@ -275,7 +275,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         obj_ptr r;
 
         if(
-            (obj->type() != obj_type::T_LIST) ||
+            (!obj->is_list()) ||
             ( !(q = obj->car()) ) ||
             (!obj->cdr()) ||
             (!(r = obj->cadr()) ) ||
@@ -315,7 +315,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     
     case REVERSE:{	// Reverse all elements of a list
 
-        if( obj->type() != obj_type::T_LIST ){
+        if( !obj->is_list() ){
             obj_unref(obj);
             return undefined();
         }
@@ -339,7 +339,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         obj_ptr *hdp = &hd;
 
             // Wanna list
-        if( obj->type() != obj_type::T_LIST ){
+        if( !obj->is_list() ){
             obj_unref(obj);
             return undefined();
         }
@@ -373,7 +373,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         obj_ptr *hdp = &hd;
 
             // Wanna list
-        if( obj->type() != obj_type::T_LIST ){
+        if( !obj->is_list() ){
             obj_unref(obj);
             return undefined();
         }
@@ -408,7 +408,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         obj_ptr *hdp = &hd;
         obj_ptr r;
 
-        if( obj->type() != obj_type::T_LIST ){
+        if( !obj->is_list() ){
             obj_unref(obj);
             return undefined();
         }
@@ -552,7 +552,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         obj_ptr *hdp = &hd;
 
         if(
-            (obj->type() != obj_type::T_LIST) ||
+            (!obj->is_list()) ||
             !obj->car()
         ){
             obj_unref(obj);
@@ -589,7 +589,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         obj_ptr *hdp = &hd;
 
         if(
-            (obj->type() != obj_type::T_LIST) ||
+            (!obj->is_list()) ||
             ( (l = listlen(obj)) == 0 )
         ){
             obj_unref(obj);
@@ -666,7 +666,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     }
 
     case NIL: {
-        if( obj->type() != obj_type::T_LIST ){
+        if( !obj->is_list() ){
             obj_unref(obj);
             return undefined();
         }
@@ -866,7 +866,7 @@ do_bool(live_obj_ptr obj, int op)
     obj_ptr q;
 
     if(
-    (obj->type() != obj_type::T_LIST) ||
+    (!obj->is_list()) ||
     ( (p = obj->car())->type() != obj_type::T_BOOL) ||
     ( (q = obj->cadr())->type() != obj_type::T_BOOL)
     ){

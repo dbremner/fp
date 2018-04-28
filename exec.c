@@ -65,7 +65,7 @@ execute(live_ast_ptr act, live_obj_ptr obj )
 	// Select one element from a list
     case 'S': {
         if(
-            (obj->type() != obj_type::T_LIST) ||
+            (!obj->is_list()) ||
             !obj->car()
         ){
             obj_unref(obj);
@@ -171,7 +171,7 @@ execute(live_ast_ptr act, live_obj_ptr obj )
         obj_ptr *hdp = &hd;
 
         hd = nullptr;
-        if( obj->type() != obj_type::T_LIST ){
+        if( !obj->is_list() ){
             obj_unref(obj);
             return undefined();
         }
@@ -251,7 +251,7 @@ do_rinsert(live_ast_ptr act, obj_ptr obj)
 {
     obj_ptr p;
 
-    if( obj->type() != obj_type::T_LIST ){
+    if( !obj->is_list() ){
         obj_unref(obj);
         return undefined();
     }
@@ -330,7 +330,7 @@ do_rinsert(live_ast_ptr act, obj_ptr obj)
 static live_obj_ptr
 do_binsert(live_ast_ptr act, obj_ptr obj)
 {
-    if( obj->type() != obj_type::T_LIST ){
+    if( !obj->is_list() ){
         obj_unref(obj);
         return undefined();
     }
