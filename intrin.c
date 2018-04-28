@@ -17,14 +17,6 @@
 #include "symtab_entry.hpp"
 #include "y.tab.h"
 
-    /*
-     * This macro makes access to objects easier.
-     *
-     * CDR is like CAR but gives all but the first
-     */
-
-#define CDR(x) ( (x)->cdr_ )
-
 static obj_ptr
 do_dist(obj_ptr elem, obj_ptr lst, obj_ptr obj, int side);
 
@@ -115,7 +107,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             q = obj_alloc(x);
             *hdp = p = obj_alloc(nullptr);
             p->car(q);
-            hdp = &CDR(p);
+            hdp = p->cdr_addr();
         }
         return(hd);
     } // Local block for IOTA
@@ -199,7 +191,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             if( p->car() ){
             p->car()->inc_ref();
             }
-            hdp = &CDR(p);
+            hdp = p->cdr_addr();
             q = q->cdr();
         }
         obj_unref(obj);
@@ -298,7 +290,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             *hdp = p = obj_alloc(nullptr);
             q->car()->inc_ref();
             p->car(q->car());
-            hdp = &CDR(p);
+            hdp = p->cdr_addr();
             q = q->cdr();
         }
 
@@ -357,7 +349,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             // Loop, starting from second.  Build parallel list.
         for( /* q has obj->cdr() */ ; q; q = q->cdr() ){
             *hdp = p = obj_alloc(nullptr);
-            hdp = &CDR(p);
+            hdp = p->cdr_addr();
             p->car(q->car());
             q->car()->inc_ref();
         }
@@ -391,7 +383,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             // Loop over list.  Stop one short of end.
         for( q = obj; q->cdr(); q = q->cdr() ){
             *hdp = p = obj_alloc(nullptr);
-            hdp = &CDR(p);
+            hdp = p->cdr_addr();
             p->car(q->car());
             q->car()->inc_ref();
         }
@@ -424,7 +416,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             if( !q->car() ) continue;
             for( ; q; q = q->cdr() ){
             *hdp = r = obj_alloc(nullptr);
-            hdp = &CDR(r);
+            hdp = r->cdr_addr();
             r->car(q->car());
             q->car()->inc_ref();
             }
@@ -564,7 +556,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         for(x = 0; p; p = p->cdr() ){
             if( x == 0 ){
             *hdp = q = obj_alloc(nullptr);
-            hdp = &CDR(q);
+            hdp = q->cdr_addr();
             r = obj_alloc(nullptr);
             q->car(r);
             r->car(p->car());
@@ -600,7 +592,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         obj_ptr q;
         for( x = 0; x < l; ++x, p = p->cdr() ){
             *hdp = q = obj_alloc(nullptr);
-            hdp = &CDR(q);
+            hdp = q->cdr_addr();
             q->car(p->car());
             p->car()->inc_ref();
         }
@@ -609,7 +601,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         hdp = &hd;
         while(p){
             *hdp = q = obj_alloc(nullptr);
-            hdp = &CDR(q);
+            hdp = q->cdr_addr();
             q->car(p->car());
             p->car()->inc_ref();
             p = p->cdr();
@@ -775,7 +767,7 @@ do_dist(
 	}
 	*hdp = obj_alloc(nullptr);
     ((*hdp))->car(r);
-	hdp = &CDR(*hdp);
+	hdp = (*hdp)->cdr_addr();
 
 	lst = lst->cdr();
     }
@@ -839,7 +831,7 @@ do_trans(obj_ptr obj)
     obj_ptr *hdp2 = &hd2;
 
 	*hdp = s;
-	hdp = &CDR(s);
+	hdp = s->cdr_addr();
 	for( p = obj; p; p = p->cdr() ){
 	    q = p->car();
 	    for( y = 0; y < x; ++y )
@@ -847,7 +839,7 @@ do_trans(obj_ptr obj)
 	    q = q->car();
 	    r = obj_alloc(nullptr);
 	    *hdp2 = r;
-	    hdp2 = &CDR(r);
+	    hdp2 = r->cdr_addr();
 	    r->car(q);
 	    q->inc_ref();
 	}
