@@ -2,7 +2,6 @@
 #define OBJ_H
 
 //obj.c
-live_obj_ptr obj_alloc(obj_type);
 /// constructs a T_INT
 live_obj_ptr obj_alloc(int value);
 /// constructs a T_BOOL

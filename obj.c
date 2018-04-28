@@ -19,15 +19,6 @@ static void incobjcount(void) {}
 static void decobjcount(void) {}
 #endif
 
-/// Allocate an object
-live_obj_ptr
-obj_alloc(obj_type ty)
-{
-    incobjcount();
-    
-    return new object{ty};
-}
-
 live_obj_ptr
 obj_alloc(int value)
 {
