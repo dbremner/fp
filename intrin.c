@@ -953,4 +953,6 @@ do_math_func(int tag, live_obj_ptr obj)
             fatal_err("Unreachable case in do_trig");
         }
     }
+    obj_unref(obj);
+    return(p);
 }
