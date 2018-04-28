@@ -139,6 +139,11 @@ public:
         o_refs--;
     }
     
+    bool is_bool() const
+    {
+        return type() == obj_type::T_BOOL;
+    }
+    
     /// returns true if o_type is T_INT or T_FLOAT
     bool is_num() const
     {
