@@ -9,10 +9,12 @@ private:
 public:
     /// Number of current refs, for GC
     unsigned o_refs = 1;
+private:
     /// T_INT, T_BOOL
     int o_int = 0;
     /// T_FLOAT
     double o_double = 0.0;
+public:
     struct {
         /// T_LIST
         struct list o_list;
