@@ -25,7 +25,7 @@ same(obj_ptr o1, obj_ptr o2)
         return(true);
     assert(o1);
     assert(o2);
-    if( o1->o_type != o2->o_type ){
+    if( o1->type() != o2->type() ){
         if( o1->is_int() )
             if( o2->is_float() )
             return( o1->o_val.o_int == o2->o_val.o_double );
@@ -34,7 +34,7 @@ same(obj_ptr o1, obj_ptr o2)
             return( o2->o_val.o_int == o1->o_val.o_double );
         return(false);
     }
-    switch( o1->o_type ){
+    switch( o1->type() ){
         case obj_type::T_INT:
         case obj_type::T_BOOL:
             return( o1->o_val.o_int == o2->o_val.o_int );
@@ -52,7 +52,7 @@ static bool
 ispair(live_obj_ptr obj)
 {
     assert(obj);
-    if( obj->o_type != obj_type::T_LIST )
+    if( obj->type() != obj_type::T_LIST )
         return(false);
     if( obj->car() == nullptr )
         return(false);
@@ -88,7 +88,7 @@ noteqobj(live_obj_ptr obj)
     assert(obj);
     auto p = eqobj(obj);
 
-    if( p->o_type == obj_type::T_BOOL )
+    if( p->type() == obj_type::T_BOOL )
         p->o_val.o_int = (p->o_val.o_int ? 0 : 1);
     return(p);
 }

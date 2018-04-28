@@ -79,7 +79,7 @@ obj_unref(obj_ptr p)
 {
     if( !p ) return;
     if( --(p->o_refs) ) return;
-    switch( p->o_type ){
+    switch( p->type() ){
     case obj_type::T_INT:
     case obj_type::T_FLOAT:
     case obj_type::T_UNDEF:
@@ -99,7 +99,7 @@ void
 obj_prtree(obj_ptr p)
 {
     if( !p ) return;
-    switch( p->o_type ){
+    switch( p->type() ){
     case obj_type::T_INT:
 	last_close = 0;
 	printf("%d ",(p->o_val).o_int);
