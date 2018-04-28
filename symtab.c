@@ -46,7 +46,9 @@ lookup(const char *name)
 
     // No hash hits, must be a new entry
     if( p == nullptr ){
-        return( stab[h] = new symtab_entry(name) );
+        auto result = new symtab_entry(name);
+        stab[h] = result;
+        return( result );
     }
 
     sym_ptr old = nullptr;
