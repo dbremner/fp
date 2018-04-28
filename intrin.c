@@ -671,8 +671,10 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             return undefined();
         }
         auto p = obj_alloc(obj_type::T_BOOL);
-        if( obj->car() ) p->o_val.o_int = 0;
-        else p->o_val.o_int = 1;
+        bool value;
+        if( obj->car() ) value = false;
+        else value = true;
+        p->o_val.o_int = value;
         obj_unref(obj);
         return(p);
     }
