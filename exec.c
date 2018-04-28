@@ -22,7 +22,7 @@
      *
      * CDR is like CAR but gives all but the first
      */
-#define CDR(x) ( ((x)->o_val).o_list.cdr )
+#define CDR(x) ( (x)->o_list.cdr )
 
 static live_obj_ptr invoke(live_sym_ptr def, live_obj_ptr obj);
 static live_obj_ptr do_rinsert(live_ast_ptr act, obj_ptr obj);

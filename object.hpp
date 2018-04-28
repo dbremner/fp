@@ -15,10 +15,8 @@ private:
     /// T_FLOAT
     const double o_double;
 public:
-    struct {
-        /// T_LIST
-        struct list o_list;
-    } o_val{};
+    /// T_LIST
+    struct list o_list;
     
     object(obj_type type)
     : object(type, 0, 0.0)
@@ -66,42 +64,42 @@ public:
     obj_ptr car()
     {
         assert(is_list());
-        return o_val.o_list.car;
+        return o_list.car;
     }
 
 private:
     obj_ptr car() const
     {
         assert(is_list());
-        return o_val.o_list.car;
+        return o_list.car;
     }
 
 public:
     void car(obj_ptr ptr)
     {
         assert(is_list());
-        o_val.o_list.car = ptr;
+        o_list.car = ptr;
     }
     
     ///CDR is like CAR but gives all but the first
     obj_ptr cdr()
     {
         assert(is_list());
-        return o_val.o_list.cdr;
+        return o_list.cdr;
     }
 
 private:
     obj_ptr cdr() const
     {
         assert(is_list());
-        return o_val.o_list.cdr;
+        return o_list.cdr;
     }
 
 public:
     void cdr(obj_ptr ptr)
     {
         assert(is_list());
-        o_val.o_list.cdr = ptr;
+        o_list.cdr = ptr;
     }
     
     ///(car (cdr x))
