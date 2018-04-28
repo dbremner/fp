@@ -16,10 +16,10 @@ private:
     const double o_double;
     /// Head of list
     obj_ptr car_ = nullptr;
-public:
     /// and Tail
     obj_ptr cdr_ = nullptr;
     
+public:
     object(obj_type type)
     : object(type, 0, 0.0)
     {
