@@ -201,7 +201,7 @@ do_charfun(live_ast_ptr act, live_obj_ptr obj)
             return(p);
         }
         case obj_type::T_INT: {
-            const int value = obj->car()->num_val()+obj->cadr()->num_val();
+            const int value = obj->car()->int_val()+obj->cadr()->int_val();
             auto p = obj_alloc(value);
             obj_unref(obj);
             return(p);
@@ -224,7 +224,7 @@ do_charfun(live_ast_ptr act, live_obj_ptr obj)
             return(p);
         }
         case obj_type::T_INT: {
-            const int value = obj->car()->num_val()-obj->cadr()->num_val();
+            const int value = obj->car()->int_val()-obj->cadr()->int_val();
             auto p = obj_alloc(value);
             obj_unref(obj);
             return(p);
@@ -246,7 +246,7 @@ do_charfun(live_ast_ptr act, live_obj_ptr obj)
             return(p);
         }
         case obj_type::T_INT: {
-            const int value = obj->car()->num_val()*obj->cadr()->num_val();
+            const int value = obj->car()->int_val()*obj->cadr()->int_val();
             auto p = obj_alloc(value);
             obj_unref(obj);
             return(p);
