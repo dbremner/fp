@@ -135,14 +135,13 @@ public:
     bool
     is_pair()
     {
-        auto obj = this;
-        if( !obj->is_list() )
+        if( !is_list() )
             return(false);
-        if( obj->car() == nullptr )
+        if( car() == nullptr )
             return(false);
-        if( obj->cdr() == nullptr )
+        if( cdr() == nullptr )
             return(false);
-        if( obj->cdr()->cdr() )
+        if( cdr()->cdr() )
             return(false);
         return(true);
     }
