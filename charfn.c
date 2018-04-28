@@ -72,7 +72,7 @@ noteqobj(live_obj_ptr obj)
     assert(obj);
     auto p = eqobj(obj);
 
-    if( p->type() == obj_type::T_BOOL ) {
+    if( p->is_bool() ) {
         const bool old = p->bool_val();
         p->bool_val(!old);
     }

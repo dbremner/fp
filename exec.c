@@ -153,7 +153,7 @@ execute(live_ast_ptr act, live_obj_ptr obj )
             obj_unref(obj);
             return(p);
         }
-        if( p->type() != obj_type::T_BOOL ){
+        if( !p->is_bool() ){
             obj_unref(obj);
             obj_unref(p);
             return undefined();
@@ -208,7 +208,7 @@ execute(live_ast_ptr act, live_obj_ptr obj )
             }
             obj->inc_ref();
             auto p = execute(act->left,obj);
-            if( p->type() != obj_type::T_BOOL ){
+            if( !p->is_bool() ){
                 obj_unref(p);
                 break;
             }

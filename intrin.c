@@ -691,7 +691,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         return( do_bool(obj,XOR) );
     }
     case NOT: {
-        if( obj->type() != obj_type::T_BOOL ){
+        if( !obj->is_bool() ){
             obj_unref(obj);
             return undefined();
         }
