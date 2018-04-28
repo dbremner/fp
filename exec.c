@@ -317,9 +317,9 @@ do_rinsert(live_ast_ptr act, obj_ptr obj)
         obj_unref(obj);
         return(p);
     }
+    obj_ptr result = obj_alloc(nullptr);
     auto q = obj_alloc(obj->car());
     obj->car()->inc_ref();
-    obj_ptr result = obj_alloc(nullptr);
     q->cdr(result);
     q->cdr()->car(p);
     obj_unref(obj);
