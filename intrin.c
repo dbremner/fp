@@ -698,19 +698,6 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     } // Switch()
 }
 
-/// listlen()--return length of a list
-int
-listlen(obj_ptr p)
-{
-    int l = 0;
-
-    while( p && p->car() ){
-	++l;
-	p = p->cdr();
-    }
-    return(l);
-}
-
 /// Common code between distribute-left and -right
 static obj_ptr
 do_dist(
