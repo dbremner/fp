@@ -618,7 +618,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         if( !hd ) hd = obj_alloc(nullptr);
         obj_ptr result = obj_alloc(nullptr);
         top->cdr(result);
-        top->cdr()->car(hd);
+        top->cadr(hd);
         obj_unref(obj);
         return(top);
     }
