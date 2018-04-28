@@ -58,7 +58,8 @@ obj_alloc(obj_ptr car_, obj_ptr cdr_)
 
 live_obj_ptr undefined(void)
 {
-    return(obj_alloc(obj_type::T_UNDEF));
+    auto obj = obj_alloc(obj_type::T_UNDEF);
+    return(obj);
 }
 
 /// Free an object
