@@ -10,7 +10,6 @@
 void symtab_entry::define(live_ast_ptr def)
 {
     auto name = this;
-    assert(name);
     assert(def);
     // Check what we're defining, handle redefining
     switch( name->sym_type ){
