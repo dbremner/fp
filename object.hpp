@@ -56,28 +56,33 @@ public:
     ///CAR manipulates the object as a list & gives its first part
     obj_ptr car()
     {
+        assert(is_list());
         return o_val.o_list.car;
     }
     
     void car(obj_ptr ptr)
     {
+        assert(is_list());
         o_val.o_list.car = ptr;
     }
     
     ///CDR is like CAR but gives all but the first
     obj_ptr cdr()
     {
+        assert(is_list());
         return o_val.o_list.cdr;
     }
     
     void cdr(obj_ptr ptr)
     {
+        assert(is_list());
         o_val.o_list.cdr = ptr;
     }
     
     ///(car (cdr x))
     obj_ptr cadr()
     {
+        assert(is_list());
         return cdr()->car();
     }
     
@@ -125,6 +130,7 @@ public:
     
     double float_val() const
     {
+        assert(is_float());
         return o_val.o_double;
     }
     
