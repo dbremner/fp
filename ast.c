@@ -19,18 +19,6 @@ static void inc_count() {}
 static void dec_count() {}
 #endif
 
-live_ast_ptr
-ast_alloc(int atag)
-{
-    return ast_alloc(atag, nullptr);
-}
-
-live_ast_ptr
-ast_alloc(int atag, ast_ptr l)
-{
-    return ast_alloc(atag, l, nullptr, nullptr);
-}
-
 /// Get a node
 live_ast_ptr
 ast_alloc(int atag, ast_ptr l, ast_ptr m, ast_ptr r)
