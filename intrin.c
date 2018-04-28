@@ -876,14 +876,14 @@ do_bool(live_obj_ptr obj, int op)
     bool i;
     switch( op ){
     case AND:
-    i = p->o_val.o_int && q->o_val.o_int;
+    i = p->bool_val() && q->bool_val();
     break;
     case OR:
-    i = p->o_val.o_int || q->o_val.o_int;
+    i = p->bool_val() || q->bool_val();
     break;
     case XOR:
-    i = (p->o_val.o_int || q->o_val.o_int) &&
-        !(p->o_val.o_int && q->o_val.o_int);
+    i = (p->bool_val() || q->bool_val()) &&
+        !(p->bool_val() && q->bool_val());
     break;
     default:
     fatal_err("Illegal binary logical op in do_bool()");
