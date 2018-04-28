@@ -23,6 +23,26 @@ do_dist(obj_ptr elem, obj_ptr lst, obj_ptr obj, int side);
 static obj_ptr do_trans(obj_ptr obj);
 static live_obj_ptr do_bool(live_obj_ptr obj, int op);
 
+static live_obj_ptr atom(live_obj_ptr obj)
+{
+    bool result;
+    
+    switch( obj->type() ){
+        case obj_type::T_UNDEF:
+            return(obj);
+        case obj_type::T_INT:
+        case obj_type::T_BOOL:
+        case obj_type::T_FLOAT:
+            result = true;
+            break;
+        case obj_type::T_LIST:
+            result = false;
+    }
+    auto p = obj_alloc(result);
+    obj_unref(obj);
+    return(p);
+}
+
 /// Main intrinsic processing routine
 live_obj_ptr
 do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
@@ -615,21 +635,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     }
 
     case ATOM:{
-        bool result;
-
-        switch( obj->type() ){
-        case obj_type::T_UNDEF:
-            return(obj);
-        case obj_type::T_INT:
-        case obj_type::T_BOOL:
-        case obj_type::T_FLOAT:
-            result = true;
-            break;
-        case obj_type::T_LIST:
-            result = false;
-        }
-        auto p = obj_alloc(result);
-        obj_unref(obj);
+        auto p = atom(obj);
         return(p);
     }
 
