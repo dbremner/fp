@@ -129,6 +129,11 @@ public:
         cdr()->car(ptr);
     }
     
+    obj_ptr *cdr_addr()
+    {
+        return &cdr_;
+    }
+    
     void inc_ref()
     {
         o_refs++;
