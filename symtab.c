@@ -11,7 +11,7 @@
 #include "symtab_entry.hpp"
 #include "y.tab.h"
 
-static constexpr int SYMTABSIZE = 101;
+static constexpr size_t SYMTABSIZE = 101;
 
 /// Our hash table
 static sym_ptr stab[SYMTABSIZE];
@@ -22,10 +22,10 @@ hash(const char *p)
 {
     assert(p);
     assert(strlen(p) > 0);
-    int s = 0;
-    int c;
+    size_t s = 0;
+    size_t c;
 
-    while( (c = *p++) )
+    while( (c = static_cast<size_t>(*p++)) )
         s += c;
     return( s % SYMTABSIZE );
 }
