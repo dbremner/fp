@@ -171,8 +171,7 @@ atom	:	T
 	|	FLOAT
 		    {
 			auto p = 
-			    $$.YYobj = obj_alloc(obj_type::T_FLOAT);
-			(p->o_val).o_double = $1.YYdouble;
+			    $$.YYobj = obj_alloc($1.YYdouble);
 		    }
 	;
 
