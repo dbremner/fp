@@ -130,6 +130,11 @@ struct object {
     {
         return o_val.o_int;
     }
+    
+    obj_type type() const
+    {
+        return o_type;
+    }
 };
 
 #endif
