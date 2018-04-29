@@ -700,11 +700,11 @@ do_dist(
 static obj_ptr
 do_trans(obj_ptr obj)
 {
-    obj_ptr p;
+    obj_ptr p = obj;
 
     // Check argument, make sure first element is a list.
     if(
-    ( (p = obj)->type() != obj_type::T_LIST) ||
+    ( (p)->type() != obj_type::T_LIST) ||
     !( p = obj->car() ) ||
     ( !p->is_list() )
     ){
