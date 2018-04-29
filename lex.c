@@ -6,6 +6,7 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 #include "fpcommon.h"
 #include "lex.h"
 #include "symtab.h"
@@ -174,7 +175,8 @@ nextc(void){
             if( saw_eof ) {
                 return(EOF);
             }
-            if( 0 /*!stdin->_cnt*/ ) {//TODO
+            
+            if( isatty(fileno(stdin))) {//TODO
                 putchar(prompt);
             }
         }
