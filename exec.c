@@ -41,16 +41,12 @@ execute(live_ast_ptr act, live_obj_ptr obj )
 
 	// Right-insert operator
     case '!': {
-        assert(act->left);
-        auto left = static_cast<live_ast_ptr>(act->left);
-        return( do_rinsert(left, obj) );
+        return( do_rinsert(act->live_left(), obj) );
     }
 
 	// Binary-insert operator
     case '|': {
-        assert(act->left);
-        auto left = static_cast<live_ast_ptr>(act->left);
-        return( do_binsert(left, obj) );
+        return( do_binsert(act->live_left(), obj) );
     }
 
 	// Intrinsics
@@ -118,14 +114,12 @@ execute(live_ast_ptr act, live_obj_ptr obj )
 	 *	the presence of T_UNDEF popping up along the way.
 	 */
     case '[':{
-        assert(act->left);
-        act = static_cast<live_ast_ptr>(act->left);
+        act = act->live_left();
         obj_ptr hd = nullptr;
         obj_ptr *hdp = &hd;
         while( act ){
             obj->inc_ref();
-            assert(act->left);
-            auto left = static_cast<live_ast_ptr>(act->left);
+            auto left = act->live_left();
             auto p = execute(left,obj);
             if( p->is_undef() ){
             obj_unref(hd);
@@ -187,8 +181,7 @@ execute(live_ast_ptr act, live_obj_ptr obj )
         auto hdp = &hd;
         for(auto p = obj; p; p = p->cdr() ){
             (p->car())->inc_ref();
-            assert(act->left);
-            auto left = static_cast<live_ast_ptr>(act->left);
+            auto left = act->live_left();
             assert(p->car());
             auto p_car = static_cast<live_obj_ptr>(p->car());
             auto q = execute(left, p_car);
@@ -223,8 +216,7 @@ execute(live_ast_ptr act, live_obj_ptr obj )
                 break;
             }
             obj->inc_ref();
-            assert(act->left);
-            auto left = static_cast<live_ast_ptr>(act->left);
+            auto left = act->live_left();
             auto p = execute(left,obj);
             if( !p->is_bool() ){
                 obj_unref(p);
