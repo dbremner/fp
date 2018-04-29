@@ -172,7 +172,8 @@ execute(live_ast_ptr act, live_obj_ptr obj )
         if( !obj->car() ) return(obj);
         for(auto p = obj; p; p = p->cdr() ){
             (p->car())->inc_ref();
-            if( (q = execute(act->left,p->car()))->is_undef() ){
+            q = execute(act->left,p->car());
+            if( q->is_undef() ){
             obj_unref(hd);
             obj_unref(obj);
             return(q);
