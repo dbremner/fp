@@ -157,8 +157,7 @@ execute(live_ast_ptr act, live_obj_ptr obj )
         }
         live_obj_ptr q;
         if( p->bool_val() ) {
-            assert(act->middle);
-            auto middle = static_cast<live_ast_ptr>(act->middle);
+            auto middle = act->live_middle();
             q = execute(middle,obj);
         }
         else {
