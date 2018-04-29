@@ -264,8 +264,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
 
     case LAST: {		// Return last element of list
         obj_ptr p;
-        obj_ptr q;
-        if( (q = obj)->type() != obj_type::T_LIST ){
+        obj_ptr q = obj;
+        if( q->type() != obj_type::T_LIST ){
             obj_unref(obj);
             return undefined();
         }
@@ -280,9 +280,9 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     case FRONT:
     case TLR:{		// Return a list of all but list
         obj_ptr p;
-        obj_ptr q;
+        obj_ptr q = obj;
         if(
-            ((q = obj)->type() != obj_type::T_LIST) ||
+            (q->type() != obj_type::T_LIST) ||
             !obj->car()
         ){
             obj_unref(obj);
