@@ -407,7 +407,8 @@ do_binsert(live_ast_ptr act, obj_ptr obj)
         } else
             x = 1;
     }
-    *hdp = p = obj_alloc(q->car());
+    p = obj_alloc(q->car());
+    *hdp = p;
     q->car()->inc_ref();
 
 	/*
