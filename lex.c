@@ -238,7 +238,9 @@ flipyydebug(void)
      */
 void
 fp_cmd(void){
-    char cmd[LINELENGTH], *p = cmd, arg[LINELENGTH];
+    char cmd[LINELENGTH];
+    char *p = cmd;
+    char arg[LINELENGTH];
     int c;
 
 	// Assemble a word, the command
