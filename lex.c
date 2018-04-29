@@ -13,7 +13,9 @@
 #include "symtab_entry.hpp"
 #include "y.tab.h"
 
-static char buf[80];
+static constexpr size_t LINELENGTH = 80;
+
+static char buf[LINELENGTH];
 static int donum(char startc);
 extern YYSTYPE yylval;
 
@@ -236,7 +238,7 @@ flipyydebug(void)
      */
 void
 fp_cmd(void){
-    char cmd[80], *p = cmd, arg[80];
+    char cmd[LINELENGTH], *p = cmd, arg[LINELENGTH];
     int c;
 
 	// Assemble a word, the command
