@@ -387,9 +387,11 @@ do_binsert(live_ast_ptr act, obj_ptr obj)
     p = obj->cdr();
     if( !p ){
         p = obj->car();
+        assert(p);
         p->inc_ref();
         obj_unref(obj);
-        return(p);
+        auto result = static_cast<live_obj_ptr>(p);
+        return(result);
     }
 
 	// If the list has two elements, we apply our operator and reduce
