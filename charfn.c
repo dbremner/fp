@@ -7,6 +7,7 @@
 #include "yystype.h"
 #include "ast.hpp"
 #include "obj_type.hpp"
+#include "pair_type.hpp"
 #include "charfn.h"
 #include "misc.h"
 #include "obj.h"
@@ -97,156 +98,128 @@ do_charfun(live_ast_ptr act, live_obj_ptr obj)
 
     case '>':
 	switch( pairtype(obj) ){
-        case obj_type::T_UNDEF: {
+        case pair_type::T_UNDEF: {
             obj_unref(obj);
             return undefined();
         }
-        case obj_type::T_FLOAT:
-        case obj_type::T_INT: {
+        case pair_type::T_FLOAT:
+        case pair_type::T_INT: {
             const bool result = obj->car()->num_val() > obj->cadr()->num_val();
             auto p = obj_alloc(result);
             obj_unref(obj);
             return(p);
         }
-        case obj_type::T_LIST:
-        case obj_type::T_BOOL: {
-            fatal_err("Unreachable switch cases");
-        }
 	}
 
     case GE:
 	switch( pairtype(obj) ){
-        case obj_type::T_UNDEF: {
+        case pair_type::T_UNDEF: {
             obj_unref(obj);
             return undefined();
         }
-        case obj_type::T_FLOAT:
-        case obj_type::T_INT: {
+        case pair_type::T_FLOAT:
+        case pair_type::T_INT: {
             const bool result = obj->car()->num_val() >= obj->cadr()->num_val();
             auto p = obj_alloc(result);
             obj_unref(obj);
             return(p);
         }
-        case obj_type::T_LIST:
-        case obj_type::T_BOOL: {
-            fatal_err("Unreachable switch cases");
-        }
 	}
 
     case LE:
 	switch( pairtype(obj) ){
-        case obj_type::T_UNDEF: {
+        case pair_type::T_UNDEF: {
             obj_unref(obj);
             return undefined();
         }
-        case obj_type::T_FLOAT:
-        case obj_type::T_INT: {
+        case pair_type::T_FLOAT:
+        case pair_type::T_INT: {
             const bool result = obj->car()->num_val() <= obj->cadr()->num_val();
             auto p = obj_alloc(result);
             obj_unref(obj);
             return(p);
         }
-        case obj_type::T_LIST:
-        case obj_type::T_BOOL: {
-            fatal_err("Unreachable switch cases");
-        }
 	}
 
     case '<':
 	switch( pairtype(obj) ){
-        case obj_type::T_UNDEF: {
+        case pair_type::T_UNDEF: {
             obj_unref(obj);
             return undefined();
         }
-        case obj_type::T_FLOAT:
-        case obj_type::T_INT: {
+        case pair_type::T_FLOAT:
+        case pair_type::T_INT: {
             const bool result = obj->car()->num_val() < obj->cadr()->num_val();
             auto p = obj_alloc(result);
             obj_unref(obj);
             return(p);
         }
-        case obj_type::T_LIST:
-        case obj_type::T_BOOL: {
-            fatal_err("Unreachable switch cases");
-        }
 	}
 
     case '+':
 	switch( pairtype(obj) ){
-        case obj_type::T_UNDEF: {
+        case pair_type::T_UNDEF: {
             obj_unref(obj);
             return undefined();
         }
-        case obj_type::T_FLOAT: {
+        case pair_type::T_FLOAT: {
             const auto value = obj->car()->num_val()+obj->cadr()->num_val();
             auto p = obj_alloc(value);
             obj_unref(obj);
             return(p);
         }
-        case obj_type::T_INT: {
+        case pair_type::T_INT: {
             const int value = obj->car()->int_val()+obj->cadr()->int_val();
             auto p = obj_alloc(value);
             obj_unref(obj);
             return(p);
         }
-        case obj_type::T_LIST:
-        case obj_type::T_BOOL: {
-            fatal_err("Unreachable switch cases");
-        }
 	}
     case '-':
 	switch( pairtype(obj) ){
-        case obj_type::T_UNDEF: {
+        case pair_type::T_UNDEF: {
             obj_unref(obj);
             return undefined();
         }
-        case obj_type::T_FLOAT: {
+        case pair_type::T_FLOAT: {
             const auto value = obj->car()->num_val()-obj->cadr()->num_val();
             auto p = obj_alloc(value);
             obj_unref(obj);
             return(p);
         }
-        case obj_type::T_INT: {
+        case pair_type::T_INT: {
             const int value = obj->car()->int_val()-obj->cadr()->int_val();
             auto p = obj_alloc(value);
             obj_unref(obj);
             return(p);
         }
-        case obj_type::T_LIST:
-        case obj_type::T_BOOL: {
-            fatal_err("Unreachable switch cases");
-        }
 	}
     case '*':
 	switch( pairtype(obj) ){
-        case obj_type::T_UNDEF:
+        case pair_type::T_UNDEF:
             obj_unref(obj);
             return undefined();
-        case obj_type::T_FLOAT: {
+        case pair_type::T_FLOAT: {
             const auto value = obj->car()->num_val()*obj->cadr()->num_val();
             auto p = obj_alloc(value);
             obj_unref(obj);
             return(p);
         }
-        case obj_type::T_INT: {
+        case pair_type::T_INT: {
             const int value = obj->car()->int_val()*obj->cadr()->int_val();
             auto p = obj_alloc(value);
             obj_unref(obj);
             return(p);
         }
-        case obj_type::T_LIST:
-        case obj_type::T_BOOL: {
-            fatal_err("Unreachable switch cases");
-        }
 	}
     case '/':
 	switch( pairtype(obj) ){
-        case obj_type::T_UNDEF: {
+        case pair_type::T_UNDEF: {
             obj_unref(obj);
             return undefined();
         }
-        case obj_type::T_FLOAT:
-        case obj_type::T_INT: {
+        case pair_type::T_FLOAT:
+        case pair_type::T_INT: {
             const auto f = obj->cadr()->num_val();
             if( f == 0.0 ){
             obj_unref(obj);
@@ -256,10 +229,6 @@ do_charfun(live_ast_ptr act, live_obj_ptr obj)
             auto p = obj_alloc(value);
             obj_unref(obj);
             return(p);
-        }
-        case obj_type::T_LIST:
-        case obj_type::T_BOOL: {
-            fatal_err("Unreachable switch cases");
         }
 	}
     default:
@@ -277,12 +246,12 @@ do_charfun(live_ast_ptr act, live_obj_ptr obj)
      *	we tell our caller if the result will be double or int, so that he
      *	can allocate the right type of object.
      */
-obj_type
+pair_type
 pairtype(live_obj_ptr obj)
 {
     assert(obj);
     // Don't have a well-formed list, so illegal
-    if( !obj->is_pair() ) return(obj_type::T_UNDEF);
+    if( !obj->is_pair() ) return(pair_type::T_UNDEF);
 
 	/*
 	 * So it's a list of two.  Verify type of both elements.
@@ -290,8 +259,8 @@ pairtype(live_obj_ptr obj)
 	 */
     obj_ptr p = obj->car();
     obj_ptr q = obj->cadr();
-    if( !p->is_num() || !q->is_num() ) return(obj_type::T_UNDEF);
+    if( !p->is_num() || !q->is_num() ) return(pair_type::T_UNDEF);
     if( (p->is_float()) || (q->is_float()) )
-	return(obj_type::T_FLOAT);
-    return(obj_type::T_INT);
+	return(pair_type::T_FLOAT);
+    return(pair_type::T_INT);
 }

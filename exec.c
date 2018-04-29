@@ -10,6 +10,7 @@
 #include "intrin.h"
 #include "misc.h"
 #include "obj_type.hpp"
+#include "pair_type.hpp"
 #include "charfn.h"
 #include "obj.h"
 #include "object.hpp"

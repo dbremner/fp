@@ -10,6 +10,7 @@
 #include "intrin.h"
 #include "misc.h"
 #include "obj_type.hpp"
+#include "pair_type.hpp"
 #include "charfn.h"
 #include "obj.h"
 #include "object.hpp"
@@ -542,11 +543,11 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     
     case MOD: {		// Modulo
         switch( pairtype(obj) ){
-        case obj_type::T_UNDEF:
+        case pair_type::T_UNDEF:
             obj_unref(obj);
             return undefined();
-        case obj_type::T_FLOAT:
-        case obj_type::T_INT:{
+        case pair_type::T_FLOAT:
+        case pair_type::T_INT:{
             const int x1 = static_cast<int>(obj->car()->num_val());
             const int x2 = static_cast<int>(obj->cadr()->num_val());
             if( x2 == 0 ){
@@ -557,9 +558,6 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return(p);
         }
-        case obj_type::T_LIST:
-        case obj_type::T_BOOL:
-            fatal_err("Unreachable switch cases");
         }
     }
     
@@ -580,11 +578,11 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
 
     case DIV: {		// Like '/', but forces integer operation
         switch( pairtype(obj) ){
-        case obj_type::T_UNDEF:
+        case pair_type::T_UNDEF:
             obj_unref(obj);
             return undefined();
-        case obj_type::T_FLOAT:
-        case obj_type::T_INT:{
+        case pair_type::T_FLOAT:
+        case pair_type::T_INT:{
             const int x1 = static_cast<int>(obj->car()->num_val());
             const int x2 = static_cast<int>(obj->cadr()->num_val());
             if( x2 == 0 ){
@@ -595,9 +593,6 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return(p);
         }
-        case obj_type::T_LIST:
-        case obj_type::T_BOOL:
-            fatal_err("Unreachable switch cases");
         }
     }
 
