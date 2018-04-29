@@ -504,11 +504,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         if( !obj->car() ) return(obj);
         obj_ptr hd = nullptr;
         obj_ptr *hdp = &hd;
-        obj_ptr r;
-        obj_ptr p;
-        obj_ptr q;
-        for( p = obj; p; p = p->cdr() ){
-            q = p->car();
+        for(obj_ptr p = obj; p; p = p->cdr() ){
+            auto q = p->car();
             if( !q->is_list() ){
             obj_unref(obj);
             obj_unref(hd);
@@ -516,6 +513,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             }
             if( !q->car() ) continue;
             for( ; q; q = q->cdr() ){
+            obj_ptr r;
             *hdp = r = obj_alloc(nullptr);
             hdp = r->cdr_addr();
             r->car(q->car());
