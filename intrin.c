@@ -666,28 +666,28 @@ do_dist(
     obj_ptr hd;
     obj_ptr *hdp = &hd;
     while( lst ){
-	r = obj_alloc(nullptr);
-	if( !side ){
-        r->car(elem);
-	    elem->inc_ref();
-	} else {
-        r->car(lst->car());
-	    lst->car()->inc_ref();
-	}
-    r->cdr(obj_alloc(nullptr));
-	r2 = r->cdr();
-	if( !side ){
-        r2->car(lst->car());
-	    lst->car()->inc_ref();
-	} else {
-        r2->car(elem);
-	    elem->inc_ref();
-	}
-	*hdp = obj_alloc(nullptr);
-    ((*hdp))->car(r);
-	hdp = (*hdp)->cdr_addr();
+        r = obj_alloc(nullptr);
+        if( !side ){
+            r->car(elem);
+            elem->inc_ref();
+        } else {
+            r->car(lst->car());
+            lst->car()->inc_ref();
+        }
+        r->cdr(obj_alloc(nullptr));
+        r2 = r->cdr();
+        if( !side ){
+            r2->car(lst->car());
+            lst->car()->inc_ref();
+        } else {
+            r2->car(elem);
+            elem->inc_ref();
+        }
+        *hdp = obj_alloc(nullptr);
+        ((*hdp))->car(r);
+        hdp = (*hdp)->cdr_addr();
 
-	lst = lst->cdr();
+        lst = lst->cdr();
     }
     obj_unref(obj);
     return(hd);
