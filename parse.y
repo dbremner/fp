@@ -18,7 +18,6 @@
 #include "symtab_entry.hpp"
 
 static char had_undef = 0;
-void fp_cmd(void);
 
 #ifdef MEMSTAT
 extern int obj_out, ast_out;

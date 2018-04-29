@@ -3,5 +3,6 @@
 
 void set_prompt(char ch);
 int yylex(void);
+void fp_cmd(void);
 
 #endif

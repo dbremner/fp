@@ -27,8 +27,6 @@ extern YYSTYPE yylval;
 static FILE *cur_in = stdin;
 static int nextc(void);
 
-void fp_cmd(void);
-
 static char prompt;
 
 /// How deep can we get?
