@@ -168,8 +168,10 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
+        if (!obj->car()) {
+            return obj;
+        }
         obj_ptr p = obj->car();
-        if(!p) return(obj);
         p->inc_ref();
         obj_unref(obj);
         assert(p);
