@@ -295,13 +295,10 @@ static void
 help(void)
 {
     printf("Commands are:\n");
-    printf(" quit - leave FP\n");
-    printf(" help - this message\n");
-    printf(" load - redirect input from a file\n");
-#ifdef YYDEBUG
-    printf(" yydebug - toggle parser tracing\n");
-#endif
-    return;
+    for(auto it = begin(commands); it != end(commands); it++) {
+        const auto description = it->description;
+        printf("%s", description);
+    }
 }
 
 #ifdef YYDEBUG
