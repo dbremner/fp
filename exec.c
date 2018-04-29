@@ -163,10 +163,14 @@ execute(live_ast_ptr act, live_obj_ptr obj )
         }
         live_obj_ptr q;
         if( p->bool_val() ) {
-            q = execute(act->middle,obj);
+            assert(act->middle);
+            auto middle = static_cast<live_ast_ptr>(act->middle);
+            q = execute(middle,obj);
         }
         else {
-            q = execute(act->right,obj);
+            assert(act->right);
+            auto right = static_cast<live_ast_ptr>(act->right);
+            q = execute(right,obj);
         }
         obj_unref(p);
         return(q);
