@@ -269,16 +269,16 @@ do_rinsert(live_ast_ptr act, obj_ptr obj)
 	 */
     if( !obj->car() ){
         obj_unref(obj);
-        live_obj_ptr live_p;
+        live_obj_ptr result;
         if( act->tag == 'c' ){
             switch( act->val.YYint ){
             case '+':
             case '-':
-            live_p = obj_alloc(0);
+            result = obj_alloc(0);
             break;
             case '/':
             case '*':
-            live_p = obj_alloc(1);
+            result = obj_alloc(1);
             break;
             default:
             return undefined();
@@ -286,17 +286,17 @@ do_rinsert(live_ast_ptr act, obj_ptr obj)
         } else if ( act->tag == 'i' ){
             switch( (act->val.YYsym)->sym_val.YYint ){
             case AND:
-            live_p = obj_alloc(true);
+            result = obj_alloc(true);
             break;
             case OR:
             case XOR:
-            live_p = obj_alloc(false);
+            result = obj_alloc(false);
             break;
             default:
             return undefined();
             }
         } else return undefined();
-        return(live_p);
+        return(result);
     }
 
 	// If the list has only one element, we return that element.
