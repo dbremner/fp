@@ -172,7 +172,9 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         if(!p) return(obj);
         p->inc_ref();
         obj_unref(obj);
-        return(p);
+        assert(p);
+        auto result = static_cast<live_obj_ptr>(p);
+        return(result);
     }
 
     case TL: {		// Remainder of list
@@ -187,7 +189,9 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             p->inc_ref();
         }
         obj_unref(obj);
-        return(p);
+        assert(p);
+        auto result = static_cast<live_obj_ptr>(p);
+        return(result);
     }
 
     case IOTA:{		// Given arg N, generate <1..N>
