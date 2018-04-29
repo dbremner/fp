@@ -65,8 +65,8 @@ execute(live_ast_ptr act, live_obj_ptr obj )
             return undefined();
         }
         auto p = obj;
-        int x;
-        if( (x = act->val.YYint) == 0 ){
+        int x = act->val.YYint;
+        if( x == 0 ){
             obj_unref(obj);
             return undefined();
         }
