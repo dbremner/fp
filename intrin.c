@@ -144,9 +144,9 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        int l;
+        int l = 0;
         obj_ptr p;
-        for( p = obj, l = 0; p && p->car(); p = p->cdr() ) l++;
+        for( p = obj; p && p->car(); p = p->cdr() ) l++;
         obj_unref(obj);
         p = obj_alloc(l);
         return(p);
