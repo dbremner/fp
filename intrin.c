@@ -725,7 +725,6 @@ do_trans(live_obj_ptr obj)
     }
 
     obj_ptr q;
-    obj_ptr r;
     obj_ptr hd = nullptr;
     obj_ptr *hdp = &hd;
 	// Get how many down (len)
@@ -736,7 +735,7 @@ do_trans(live_obj_ptr obj)
 	 *	and of the same length.
 	 */
     for( q = obj; q ; q = q->cdr() ){
-        r = q->car();
+        auto r = q->car();
         if(
             (!r->is_list()) ||
             (r->list_length() != len)
@@ -769,7 +768,7 @@ do_trans(live_obj_ptr obj)
             for(int y = 0; y < x; ++y )
                 q = q->cdr();
             q = q->car();
-            r = obj_alloc(nullptr);
+            auto r = obj_alloc(nullptr);
             *hdp2 = r;
             hdp2 = r->cdr_addr();
             r->car(q);
