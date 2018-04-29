@@ -300,7 +300,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         obj_ptr hd = nullptr;
         obj_ptr *hdp = &hd;
         while( q->cdr() ){
-            *hdp = p = obj_alloc(q->car());
+            p = obj_alloc(q->car());
+            *hdp = p;
             if( p->car() ){
                 p->car()->inc_ref();
             }
