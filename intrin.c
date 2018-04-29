@@ -719,7 +719,6 @@ do_trans(live_obj_ptr obj)
         return undefined();
     }
 
-    int x, y;
     obj_ptr q;
     obj_ptr r;
     obj_ptr hd = nullptr;
@@ -753,7 +752,7 @@ do_trans(live_obj_ptr obj)
 	 *	Loop over each depth, building across.  I'm so debonnair
 	 *	about it because I never use this blinking function.
 	 */
-    for( x = 0; x < len; ++x ){
+    for(int x = 0; x < len; ++x ){
         obj_ptr s = obj_alloc(nullptr);
         obj_ptr hd2 = nullptr;
         obj_ptr *hdp2 = &hd2;
@@ -762,7 +761,7 @@ do_trans(live_obj_ptr obj)
         hdp = s->cdr_addr();
         for( p = obj; p; p = p->cdr() ){
             q = p->car();
-            for( y = 0; y < x; ++y )
+            for(int y = 0; y < x; ++y )
                 q = q->cdr();
             q = q->car();
             r = obj_alloc(nullptr);
