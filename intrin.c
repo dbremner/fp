@@ -262,7 +262,9 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             // Add a reference to the named object, release the old object
         q->inc_ref();
         obj_unref(obj);
-        return(q);
+        assert(q);
+        auto result = static_cast<live_obj_ptr>(q);
+        return(result);
     }
 
     case LAST: {		// Return last element of list
@@ -279,7 +281,9 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         q = q->car();
         q->inc_ref();
         obj_unref(obj);
-        return(q);
+        assert(q);
+        auto result = static_cast<live_obj_ptr>(q);
+        return(result);
     }
     
     case FRONT:
