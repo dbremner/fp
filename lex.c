@@ -213,11 +213,14 @@ load()
     skipwhite();
     char *p = arg;
     int c;
-    while( (c = nextc()) != EOF )
-        if( isspace(c) )
+    while( (c = nextc()) != EOF ) {
+        if( isspace(c) ) {
             break;
-        else
+        }
+        else {
             *p++ = static_cast<char>(c);
+        }
+    }
     *p = '\0';
     
     // Can we push down any more?
@@ -299,14 +302,18 @@ fp_cmd(void){
     // Assemble a word, the command
     skipwhite();
     c = nextc();
-    if( c == EOF )
+    if( c == EOF ) {
         return;
+    }
     *p++ = static_cast<char>(c);
-    while( (c = nextc()) != EOF )
-        if( isalpha(c) )
+    while( (c = nextc()) != EOF ) {
+        if( isalpha(c) ) {
             *p++ = static_cast<char>(c);
-        else
+        }
+        else {
             break;
+        }
+    }
     *p = '\0';
     
     for(auto iter = begin(commands); iter != end(commands); iter++)
