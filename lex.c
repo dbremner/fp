@@ -298,15 +298,16 @@ struct command
 {
     const char * _Nonnull const name;
     void (* _Nonnull func)(void);
+    const char * _Nonnull const description;
 };
 
 static const command commands[] =
 {
-    {"load", load}, // Load command
-    {"quit", quit}, // Leave
-    {"help", help}, // Give help
+    {"load", load, " load - redirect input from a file\n"},
+    {"quit", quit, " quit - leave FP\n"},
+    {"help", help, " help - this message\n"}, // Give help
 #ifdef YYDEBUG
-    {"yydebug", flipyydebug}, // Toggle parser trace
+    {"yydebug", flipyydebug, " yydebug - toggle parser tracing\n"}, // Toggle parser trace
 #endif
 };
 
