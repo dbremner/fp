@@ -41,12 +41,16 @@ execute(live_ast_ptr act, live_obj_ptr obj )
 
 	// Right-insert operator
     case '!': {
-        return( do_rinsert(act->left,obj) );
+        assert(act->left);
+        auto left = static_cast<live_ast_ptr>(act->left);
+        return( do_rinsert(left, obj) );
     }
 
 	// Binary-insert operator
     case '|': {
-        return( do_binsert(act->left,obj) );
+        assert(act->left);
+        auto left = static_cast<live_ast_ptr>(act->left);
+        return( do_binsert(left, obj) );
     }
 
 	// Intrinsics
@@ -100,8 +104,12 @@ execute(live_ast_ptr act, live_obj_ptr obj )
 	 *	the action on the right against the object.
 	 */
     case '@': {
-        auto p = execute( act->right, obj );
-        return( execute( act->left, p ) );
+        assert(act->left);
+        assert(act->right);
+        auto left = static_cast<live_ast_ptr>(act->left);
+        auto right = static_cast<live_ast_ptr>(act->right);
+        auto p = execute(right, obj );
+        return( execute(left, p ) );
     }
 
 	/*
