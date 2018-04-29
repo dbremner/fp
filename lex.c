@@ -49,8 +49,9 @@ skipwhite(){
     int c;
 
 	// Skip leading blank space
-    while( (c = nextc()) != EOF )
+    while( (c = nextc()) != EOF ) {
         if( !isspace(c) ) break;
+    }
     ungetc(c,cur_in);
 }
 
@@ -66,14 +67,17 @@ yylex(void){
     c = nextc();
 
 	// Return EOF
-    if( c == EOF )
+    if( c == EOF ) {
         return(c);
+    }
 
 	// An "identifier"?
     if( isalpha(c) ){
 	    // Assemble a "word" out of the input stream, symbol table it
         buf[index++] = static_cast<char>(c);
-        while( isalnum(c = nextc()) ) buf[index++] = static_cast<char>(c);
+        while( isalnum(c = nextc()) ) {
+            buf[index++] = static_cast<char>(c);
+        }
         ungetc(c,cur_in);
         buf[index] = '\0';
         auto q = lookup(buf);
@@ -82,7 +86,9 @@ yylex(void){
         yylval.YYsym = q;
 
             // For built-ins, return the token value
-        if( q->sym_type == symtype::SYM_BUILTIN ) return( q->sym_val.YYint );
+        if( q->sym_type == symtype::SYM_BUILTIN ) {
+            return( q->sym_val.YYint );
+        }
 
             /*
              * For user-defined (or new),
@@ -92,8 +98,9 @@ yylex(void){
     }
 
 	// For numbers, call our number routine.
-    if( isdigit(c) )
+    if( isdigit(c) ) {
         return( donum(static_cast<char>(c)) );
+    }
 
 	/*
 	 * For possible unary operators, see if a digit
@@ -103,8 +110,9 @@ yylex(void){
         char c2 = nextc();
 
         ungetc(c2,cur_in);
-        if( isdigit(c2) )
+        if( isdigit(c2) ) {
             return( donum(static_cast<char>(c)) );
+        }
     }
 
 	/*
@@ -113,20 +121,30 @@ yylex(void){
 	 */
     yylval.YYint = c;
     switch( c ){
-        case '<':
-            if( (c1 = nextc()) == '=' ) return( yylval.YYint = LE );
+        case '<': {
+            if( (c1 = nextc()) == '=' ) {
+                return( yylval.YYint = LE );
+            }
             ungetc( c1, cur_in );
             return(c);
-        case '>':
-            if( (c1 = nextc()) == '=' ) return( yylval.YYint = GE );
+        }
+        case '>': {
+            if( (c1 = nextc()) == '=' ) {
+                return( yylval.YYint = GE );
+            }
             ungetc( c1, cur_in );
             return(c);
-        case '~':
-            if( (c1 = nextc()) == '=' ) return( yylval.YYint = NE );
+        }
+        case '~': {
+            if( (c1 = nextc()) == '=' ) {
+                return( yylval.YYint = NE );
+            }
             ungetc( c1, cur_in );
             return(c);
-        default:
+        }
+        default: {
             return(c);
+        }
     }
 }
 
