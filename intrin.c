@@ -204,12 +204,11 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         obj_unref(obj);
         if( l < 0 ) return undefined();
         if( l == 0 ) return( obj_alloc(nullptr) );
-        obj_ptr p;
         obj_ptr hd;
         obj_ptr *hdp = &hd;
         for(int x = 1; x <= l; x++ ){
             auto q = obj_alloc(x);
-            p = obj_alloc(nullptr);
+            auto p = obj_alloc(nullptr);
             *hdp = p;
             p->car(q);
             hdp = p->cdr_addr();
@@ -269,14 +268,14 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     }
 
     case LAST: {		// Return last element of list
-        obj_ptr p;
-        obj_ptr q = obj;
         if( !obj->is_list() ){
             obj_unref(obj);
             return undefined();
         }
         if( !obj->car() )
             return(obj);
+        obj_ptr p;
+        obj_ptr q = obj;
         while( (p = q->cdr()) )
             q = p;
         q = q->car();
