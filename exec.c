@@ -157,10 +157,8 @@ execute(live_ast_ptr act, live_obj_ptr obj )
 
 	// Apply the action to each member of a list
     case '&': {
-        obj_ptr hd;
+        obj_ptr hd = nullptr;
         obj_ptr *hdp = &hd;
-
-        hd = nullptr;
         if( !obj->is_list() ){
             obj_unref(obj);
             return undefined();
