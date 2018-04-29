@@ -39,9 +39,8 @@ static live_obj_ptr do_pair(live_obj_ptr obj)
     obj_ptr *hdp = &hd;
     obj_ptr q;
     obj_ptr r = nullptr;
-    int x;
     obj_ptr p = obj;
-    for(x = 0; p; p = p->cdr() ){
+    for(int x = 0; p; p = p->cdr() ){
         if( x == 0 ){
             q = obj_alloc(nullptr);
             *hdp = q;
