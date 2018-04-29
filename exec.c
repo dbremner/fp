@@ -398,13 +398,12 @@ do_binsert(live_ast_ptr act, live_obj_ptr obj)
 	 *	half, and 'hd' names a copy of the first.
 	 */
     obj_ptr q;
-    obj_ptr r;
     int x = 0;
     obj_ptr hd = nullptr;
     auto hdp = &hd;
     for( q = obj; p; p = p->cdr() ){
         if( x ){
-            r = obj_alloc(nullptr);
+            auto r = obj_alloc(nullptr);
             *hdp = r;
             hdp = r->cdr_addr();
             r->car(q->car());

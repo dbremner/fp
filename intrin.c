@@ -79,9 +79,8 @@ static live_obj_ptr do_split(live_obj_ptr obj)
     l = ((l-1) >> 1)+1;
     int x;
     auto p = obj;
-    obj_ptr q;
     for( x = 0; x < l; ++x, p = p->cdr() ){
-        q = obj_alloc(nullptr);
+        auto q = obj_alloc(nullptr);
         *hdp = q;
         hdp = q->cdr_addr();
         q->car(p->car());
@@ -91,7 +90,7 @@ static live_obj_ptr do_split(live_obj_ptr obj)
     hd = nullptr;
     hdp = &hd;
     while(p){
-        q = obj_alloc(nullptr);
+        auto q = obj_alloc(nullptr);
         *hdp = q;
         hdp = q->cdr_addr();
         q->car(p->car());
@@ -99,7 +98,7 @@ static live_obj_ptr do_split(live_obj_ptr obj)
         p = p->cdr();
     }
     if( !hd ) hd = obj_alloc(nullptr);
-    obj_ptr result = obj_alloc(nullptr);
+    auto result = obj_alloc(nullptr);
     top->cdr(result);
     top->cadr(hd);
     obj_unref(obj);
@@ -186,7 +185,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        obj_ptr p = obj->cdr();
+        auto p = obj->cdr();
         if(!p){
             p = obj_alloc(nullptr);
         } else {
@@ -389,7 +388,6 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     case APNDR:{	// Append element from right
         obj_ptr hd = nullptr;
         obj_ptr *hdp = &hd;
-        obj_ptr p;
         obj_ptr q;
         obj_ptr r;
 
@@ -415,7 +413,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
              *	the old one because we're modifying its end.
              */
         while( q ){
-            p = obj_alloc(nullptr);
+            auto p = obj_alloc(nullptr);
             *hdp = p;
             q->car()->inc_ref();
             p->car(q->car());
@@ -424,7 +422,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         }
 
             // Tack the element onto the end of the built list
-        p = obj_alloc(r);
+        auto p = obj_alloc(r);
         *hdp = p;
         obj_unref(obj);
         assert(hd);
@@ -444,11 +442,10 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         }
         obj_ptr p;
         obj_ptr q;
-        obj_ptr r;
         if( !obj->car() )
             return(obj);
         for( p = nullptr, q = obj; q; q = q->cdr() ){
-            r = obj_alloc(nullptr);
+            auto r = obj_alloc(nullptr);
             r->cdr(p);
             p = r;
             p->car(q->car());
