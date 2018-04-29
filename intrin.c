@@ -343,7 +343,6 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     case APNDL:{	// Append element from left
         obj_ptr p;
         obj_ptr q;
-        obj_ptr r;
 
         if(
             (!obj->is_list()) ||
@@ -358,13 +357,13 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         q->inc_ref();
         if( !p->car() ){		// Null list?
             obj_unref(obj);
-            p = obj_alloc(q);
-            return(p);		// Just return element
+            auto result = obj_alloc(q);
+            return(result);		// Just return element
         }
         p->inc_ref();
-        r = obj_alloc(q, p);
+        auto result = obj_alloc(q, p);
         obj_unref(obj);
-        return(r);
+        return(result);
     }
 
     case APNDR:{	// Append element from right
@@ -387,8 +386,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         r->inc_ref();
         if( !q->car() ){		// Empty list
             obj_unref(obj);
-            p = obj_alloc(r);
-            return(p);		// Just return elem
+            auto result = obj_alloc(r);
+            return(result);		// Just return elem
         }
 
             /*
@@ -495,10 +494,10 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             p->car(q->car());
             q->car()->inc_ref();
         }
-        p = obj_alloc(q->car(), hd);
+        auto result = obj_alloc(q->car(), hd);
         q->car()->inc_ref();
         obj_unref(obj);
-        return(p);
+        return(result);
     }
 
     case CONCAT:{		// Concatenate several lists
@@ -529,7 +528,9 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         obj_unref(obj);
         if( !hd )
             return(obj_alloc(nullptr));
-        return(hd);
+        assert(hd);
+        auto result = static_cast<live_obj_ptr>(hd);
+        return(result);
     }
 
     case SIN:

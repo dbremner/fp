@@ -118,7 +118,8 @@ execute(live_ast_ptr act, live_obj_ptr obj )
 	 *	the presence of T_UNDEF popping up along the way.
 	 */
     case '[':{
-        act = act->left;
+        assert(act->left);
+        act = static_cast<live_ast_ptr>(act->left);
         obj_ptr hd = nullptr;
         obj_ptr *hdp = &hd;
         while( act ){
