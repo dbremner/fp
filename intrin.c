@@ -333,7 +333,11 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        return( do_dist(q,p,obj,0) );
+        assert(p);
+        auto live_p = static_cast<live_obj_ptr>(p);
+        assert(q);
+        auto live_q = static_cast<live_obj_ptr>(q);
+        return( do_dist(live_q,live_p,obj,0) );
     }
 
     case DISTR:	{	// Distribute from left-most element
@@ -349,7 +353,11 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        return( do_dist(p,q,obj,1) );
+        assert(p);
+        auto live_p = static_cast<live_obj_ptr>(p);
+        assert(q);
+        auto live_q = static_cast<live_obj_ptr>(q);
+        return( do_dist(live_p,live_q,obj,1) );
     }
     
     case APNDL:{	// Append element from left
