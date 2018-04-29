@@ -416,9 +416,9 @@ do_binsert(live_ast_ptr act, obj_ptr obj)
 	 * Almost there... "hd" is the first, "q" is the second, we encase
 	 *	them in an outer list, and call execute on them.
 	 */
-    obj_ptr new_list = obj_alloc(nullptr);
+    auto new_list = obj_alloc(nullptr);
     p = obj_alloc(do_binsert(act,hd), new_list);
-    obj_ptr result = do_binsert(act,q);
+    auto result = do_binsert(act,q);
     p->cadr(result);
     obj_unref(obj);
     return(execute(act,p));
