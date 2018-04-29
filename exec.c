@@ -289,7 +289,8 @@ do_rinsert(live_ast_ptr act, obj_ptr obj)
     }
 
 	// If the list has only one element, we return that element.
-    if( !(p = obj->cdr()) ){
+    p = obj->cdr();
+    if( !p ){
         p = obj->car();
         p->inc_ref();
         obj_unref(obj);
@@ -373,7 +374,8 @@ do_binsert(live_ast_ptr act, obj_ptr obj)
     }
 
 	// If the list has only one element, we return that element.
-    if( !(p = obj->cdr()) ){
+    p = obj->cdr();
+    if( !p ){
         p = obj->car();
         p->inc_ref();
         obj_unref(obj);
