@@ -275,8 +275,8 @@ fp_cmd(void){
         }
 
             // Try and open the file
-        FILE *newf;
-        if( (newf = fopen(arg,"r")) == 0 ){
+        FILE *newf = fopen(arg,"r");
+        if( newf == 0 ){
             perror(arg);
             return;
         }
