@@ -716,7 +716,7 @@ do_trans(live_obj_ptr obj)
 
     // Check argument, make sure first element is a list.
     if(
-    ( (p)->type() != obj_type::T_LIST) ||
+    ( !p->is_list()) ||
     !( p = obj->car() ) ||
     ( !p->is_list() )
     ){
