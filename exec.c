@@ -255,8 +255,6 @@ invoke(live_sym_ptr def, live_obj_ptr obj)
 static live_obj_ptr
 do_rinsert(live_ast_ptr act, obj_ptr obj)
 {
-    obj_ptr p;
-
     if( !obj->is_list() ){
         obj_unref(obj);
         return undefined();
@@ -300,7 +298,7 @@ do_rinsert(live_ast_ptr act, obj_ptr obj)
     }
 
 	// If the list has only one element, we return that element.
-    p = obj->cdr();
+    auto p = obj->cdr();
     if( !p ){
         p = obj->car();
         p->inc_ref();
@@ -342,12 +340,6 @@ do_binsert(live_ast_ptr act, obj_ptr obj)
         return undefined();
     }
 
-    obj_ptr p;
-    obj_ptr q;
-    obj_ptr hd;
-    obj_ptr *hdp;
-    obj_ptr r;
-    int x;
 	/*
 	 * If the list is empty, then we need to look at the applied
 	 *	operator.  If it's one for which we have an identity,
@@ -384,6 +376,12 @@ do_binsert(live_ast_ptr act, obj_ptr obj)
         return(p);
     }
 
+    obj_ptr p;
+    obj_ptr q;
+    obj_ptr hd;
+    obj_ptr *hdp;
+    obj_ptr r;
+    int x;
 	// If the list has only one element, we return that element.
     p = obj->cdr();
     if( !p ){
