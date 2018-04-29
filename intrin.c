@@ -18,8 +18,8 @@
 #include "symtab_entry.hpp"
 #include "y.tab.h"
 
-static obj_ptr
-do_dist(obj_ptr elem, obj_ptr lst, obj_ptr obj, int side);
+static live_obj_ptr
+do_dist(live_obj_ptr elem, live_obj_ptr lst, live_obj_ptr obj, int side);
 
 static live_obj_ptr do_trans(live_obj_ptr obj);
 static live_obj_ptr do_bool(live_obj_ptr obj, int op);
@@ -650,11 +650,11 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
 }
 
 /// Common code between distribute-left and -right
-static obj_ptr
+static live_obj_ptr
 do_dist(
-        obj_ptr elem,
-        obj_ptr lst,
-        obj_ptr obj, // Source object
+        live_obj_ptr elem,
+        live_obj_ptr lst,
+        live_obj_ptr obj, // Source object
         int side)   // Which side to stick on
 {
     if( !lst->car() ){        // Distributing over NULL list
