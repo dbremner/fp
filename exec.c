@@ -162,8 +162,12 @@ execute(live_ast_ptr act, live_obj_ptr obj )
             return undefined();
         }
         live_obj_ptr q;
-        if( p->bool_val() ) q = execute(act->middle,obj);
-        else q = execute(act->right,obj);
+        if( p->bool_val() ) {
+            q = execute(act->middle,obj);
+        }
+        else {
+            q = execute(act->right,obj);
+        }
         obj_unref(p);
         return(q);
     }
