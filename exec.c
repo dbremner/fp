@@ -18,8 +18,8 @@
 #include "y.tab.h"
 
 static live_obj_ptr invoke(live_sym_ptr def, live_obj_ptr obj);
-static live_obj_ptr do_rinsert(live_ast_ptr act, obj_ptr obj);
-static live_obj_ptr do_binsert(live_ast_ptr act, obj_ptr obj);
+static live_obj_ptr do_rinsert(live_ast_ptr act, live_obj_ptr obj);
+static live_obj_ptr do_binsert(live_ast_ptr act, live_obj_ptr obj);
 
     /*
      * Given an AST for an action, and an object to do the action upon,
@@ -253,7 +253,7 @@ invoke(live_sym_ptr def, live_obj_ptr obj)
 
 /// Local function to handle the tedious right-inserting
 static live_obj_ptr
-do_rinsert(live_ast_ptr act, obj_ptr obj)
+do_rinsert(live_ast_ptr act, live_obj_ptr obj)
 {
     if( !obj->is_list() ){
         obj_unref(obj);
@@ -333,7 +333,7 @@ do_rinsert(live_ast_ptr act, obj_ptr obj)
 
 /// Local function to handle the tedious binary inserting
 static live_obj_ptr
-do_binsert(live_ast_ptr act, obj_ptr obj)
+do_binsert(live_ast_ptr act, live_obj_ptr obj)
 {
     if( !obj->is_list() ){
         obj_unref(obj);
