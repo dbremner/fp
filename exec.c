@@ -165,13 +165,13 @@ execute(live_ast_ptr act, live_obj_ptr obj )
 
 	// Apply the action to each member of a list
     case '&': {
-        obj_ptr hd = nullptr;
-        obj_ptr *hdp = &hd;
         if( !obj->is_list() ){
             obj_unref(obj);
             return undefined();
         }
         if( !obj->car() ) return(obj);
+        obj_ptr hd = nullptr;
+        obj_ptr *hdp = &hd;
         for(auto p = obj; p; p = p->cdr() ){
             (p->car())->inc_ref();
             auto q = execute(act->left,p->car());
