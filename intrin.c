@@ -21,7 +21,7 @@
 static obj_ptr
 do_dist(obj_ptr elem, obj_ptr lst, obj_ptr obj, int side);
 
-static obj_ptr do_trans(obj_ptr obj);
+static live_obj_ptr do_trans(live_obj_ptr obj);
 static live_obj_ptr do_bool(live_obj_ptr obj, int op);
 static live_obj_ptr do_math_func(int tag, live_obj_ptr obj);
 
@@ -704,8 +704,8 @@ do_dist(
 }
 
 /// do_trans()--transpose the elements of the "matrix"
-static obj_ptr
-do_trans(obj_ptr obj)
+static live_obj_ptr
+do_trans(live_obj_ptr obj)
 {
     obj_ptr p = obj;
 
