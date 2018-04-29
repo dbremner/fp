@@ -274,11 +274,11 @@ struct command
 
 static const command commands[] =
 {
-    {"load", load},
-    {"quit", quit},
-    {"help", help},
+    {"load", load}, // Load command
+    {"quit", quit}, // Leave
+    {"help", help}, // Give help
 #ifdef YYDEBUG
-    {"yydebug", flipyydebug},
+    {"yydebug", flipyydebug}, // Toggle parser trace
 #endif
 };
 
