@@ -794,8 +794,8 @@ do_bool(live_obj_ptr obj, int op)
     obj_ptr q = obj->cadr();
 
     if(
-    ( (p)->type() != obj_type::T_BOOL) ||
-    ( (q)->type() != obj_type::T_BOOL)
+    ( p->type() != obj_type::T_BOOL) ||
+    ( q->type() != obj_type::T_BOOL)
     ){
         obj_unref(obj);
         return undefined();
