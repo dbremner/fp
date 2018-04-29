@@ -57,7 +57,7 @@ skipwhite(){
 /// Lexical analyzer for YACC
 int
 yylex(void){
-    char *p = buf;
+    size_t index = 0;
     int c;
     int c1;
 
@@ -72,10 +72,10 @@ yylex(void){
 	// An "identifier"?
     if( isalpha(c) ){
 	    // Assemble a "word" out of the input stream, symbol table it
-        *p++ = static_cast<char>(c);
-        while( isalnum(c = nextc()) ) *p++ = static_cast<char>(c);
+        buf[index++] = static_cast<char>(c);
+        while( isalnum(c = nextc()) ) buf[index++] = static_cast<char>(c);
         ungetc(c,cur_in);
-        *p = '\0';
+        buf[index] = '\0';
         auto q = lookup(buf);
 
             // yylval is always set to the symbol table entry
@@ -134,24 +134,25 @@ static int
 donum(char startc)
 {
     char isdouble = 0;
-    char c, *p = buf;
+    size_t index = 0;
+    char c;
 
-    *p++ = startc;
+    buf[index++] = startc;
     for(;;){
         c = static_cast<char>(nextc());
         if( isdigit(c) ){
-            *p++ = c;
+            buf[index++] = c;
             continue;
         }
         if( c == '.' ){
-            *p++ = c;
+            buf[index++] = c;
             isdouble = 1;
             continue;
         }
         ungetc( c, cur_in );
         break;
     }
-    *p = '\0';
+    buf[index] = '\0';
     if( isdouble ){
         sscanf(buf,"%lf",&(yylval.YYdouble));
         return( FLOAT );
@@ -213,17 +214,17 @@ load()
     char arg[LINELENGTH];
     // Get next word, the file to load
     skipwhite();
-    char *p = arg;
+    size_t index = 0;
     int c;
     while( (c = nextc()) != EOF ) {
         if( isspace(c) ) {
             break;
         }
         else {
-            *p++ = static_cast<char>(c);
+            arg[index++] = static_cast<char>(c);
         }
     }
-    *p = '\0';
+    arg[index] = '\0';
     
     // Can we push down any more?
     if( fpos == MAXNEST-1 ){
@@ -305,17 +306,17 @@ fp_cmd(void)
         return;
     }
     char cmd[LINELENGTH];
-    char *p = cmd;
-    *p++ = static_cast<char>(c);
+    size_t index = 0;
+    cmd[index++] = static_cast<char>(c);
     while( (c = nextc()) != EOF ) {
         if( isalpha(c) ) {
-            *p++ = static_cast<char>(c);
+            cmd[index++] = static_cast<char>(c);
         }
         else {
             break;
         }
     }
-    *p = '\0';
+    cmd[index] = '\0';
     
     for(auto iter = begin(commands); iter != end(commands); iter++)
     {
