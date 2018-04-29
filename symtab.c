@@ -10,11 +10,14 @@
 #include "yystype.h"
 #include "symtab_entry.hpp"
 #include "y.tab.h"
+#include <array>
+
+using std::array;
 
 static constexpr size_t SYMTABSIZE = 101;
 
 /// Our hash table
-static sym_ptr stab[SYMTABSIZE];
+static array<sym_ptr, SYMTABSIZE> stab;
 
 /// Generate a hash value for a string
 static auto
@@ -27,7 +30,7 @@ hash(const char *p)
 
     while( (c = static_cast<size_t>(*p++)) )
         s += c;
-    return( s % SYMTABSIZE );
+    return( s % stab.size() );
 }
 
     /*
@@ -41,7 +44,7 @@ lookup(const char *name)
     assert(strlen(name) > 0);
     auto h = hash(name);
     assert(h > 0);
-    assert(h < SYMTABSIZE);
+    assert(h < stab.size());
     sym_ptr p = stab[h];
 
     // No hash hits, must be a new entry
