@@ -177,7 +177,8 @@ execute(live_ast_ptr act, live_obj_ptr obj )
             obj_unref(obj);
             return(q);
             }
-            *hdp = r = obj_alloc(q);
+            r = obj_alloc(q);
+            *hdp = r;
             hdp = r->cdr_addr();
         }
         obj_unref(obj);
