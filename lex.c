@@ -135,11 +135,9 @@ donum(char startc)
 {
     char isdouble = 0;
     size_t index = 0;
-    char c;
-
     buf[index++] = startc;
     for(;;){
-        c = static_cast<char>(nextc());
+        const auto c = static_cast<char>(nextc());
         if( isdigit(c) ){
             buf[index++] = c;
             continue;
