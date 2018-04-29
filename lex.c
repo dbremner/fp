@@ -105,7 +105,7 @@ yylex(void)
 	 *	immediately follows.
 	 */
     if( (c == '+') || (c == '-') ){
-        char c2 = nextc();
+        int c2 = nextc();
 
         ungetc(c2,cur_in);
         if( isdigit(c2) ) {
