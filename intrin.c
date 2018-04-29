@@ -268,7 +268,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     case LAST: {		// Return last element of list
         obj_ptr p;
         obj_ptr q = obj;
-        if( !q->is_list() ){
+        if( !obj->is_list() ){
             obj_unref(obj);
             return undefined();
         }
