@@ -298,7 +298,8 @@ fp_cmd(void){
 
     // Assemble a word, the command
     skipwhite();
-    if( (c = nextc()) == EOF )
+    c = nextc();
+    if( c == EOF )
         return;
     *p++ = static_cast<char>(c);
     while( (c = nextc()) != EOF )
