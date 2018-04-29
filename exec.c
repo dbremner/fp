@@ -119,7 +119,8 @@ execute(live_ast_ptr act, live_obj_ptr obj )
         live_obj_ptr q;
         while( act ){
             obj->inc_ref();
-            if( (p = execute(act->left,obj))->is_undef() ){
+            p = execute(act->left,obj);
+            if( p->is_undef() ){
             obj_unref(hd);
             obj_unref(obj);
             return(p);
