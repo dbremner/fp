@@ -138,7 +138,9 @@ execute(live_ast_ptr act, live_obj_ptr obj )
             act = act->right;
         }
         obj_unref(obj);
-        return(hd);
+        assert(hd);
+        auto result = static_cast<live_obj_ptr>(hd);
+        return(result);
     }
 
 	// These are the single-character operations (+, -, etc.)
@@ -192,7 +194,9 @@ execute(live_ast_ptr act, live_obj_ptr obj )
             hdp = r->cdr_addr();
         }
         obj_unref(obj);
-        return(hd);
+        assert(hd);
+        auto result = static_cast<live_obj_ptr>(hd);
+        return(result);
     }
 
 	// Introduce an object

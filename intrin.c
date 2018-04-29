@@ -419,7 +419,9 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         p = obj_alloc(r);
         *hdp = p;
         obj_unref(obj);
-        return(hd);
+        assert(hd);
+        auto result = static_cast<live_obj_ptr>(hd);
+        return(result);
     }
 
     case TRANS:	{	// Transposition
@@ -445,7 +447,9 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             q->car()->inc_ref();
         }
         obj_unref(obj);
-        return(p);
+        assert(p);
+        auto result = static_cast<live_obj_ptr>(p);
+        return(result);
     }
 
     case ROTL:{		// Rotate left
@@ -480,7 +484,9 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         *hdp = p;
         obj->car()->inc_ref();
         obj_unref(obj);
-        return(hd);
+        assert(hd);
+        auto result = static_cast<live_obj_ptr>(hd);
+        return(result);
     }
 
     case ROTR:{		// Rotate right
@@ -718,7 +724,9 @@ do_dist(
         lst = lst->cdr();
     }
     obj_unref(obj);
-    return(hd);
+    assert(hd);
+    auto result = static_cast<live_obj_ptr>(hd);
+    return(result);
 }
 
 /// do_trans()--transpose the elements of the "matrix"
