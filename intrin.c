@@ -431,9 +431,6 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     }
 
     case ROTL:{		// Rotate left
-        obj_ptr hd = nullptr;
-        obj_ptr *hdp = &hd;
-
             // Wanna list
         if( !obj->is_list() ){
             obj_unref(obj);
@@ -451,6 +448,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             return(obj);
         }
 
+        obj_ptr hd = nullptr;
+        obj_ptr *hdp = &hd;
             // Loop, starting from second.  Build parallel list.
         for( /* q has obj->cdr() */ ; q; q = q->cdr() ){
             *hdp = p = obj_alloc(nullptr);
@@ -465,9 +464,6 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     }
 
     case ROTR:{		// Rotate right
-        obj_ptr hd = nullptr;
-        obj_ptr *hdp = &hd;
-
             // Wanna list
         if( !obj->is_list() ){
             obj_unref(obj);
@@ -485,6 +481,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             return(obj);
         }
 
+        obj_ptr hd = nullptr;
+        obj_ptr *hdp = &hd;
             // Loop over list.  Stop one short of end.
         for( q = obj; q->cdr(); q = q->cdr() ){
             *hdp = p = obj_alloc(nullptr);
@@ -500,15 +498,14 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     }
 
     case CONCAT:{		// Concatenate several lists
-        obj_ptr hd = nullptr;
-        obj_ptr *hdp = &hd;
-        obj_ptr r;
-
         if( !obj->is_list() ){
             obj_unref(obj);
             return undefined();
         }
         if( !obj->car() ) return(obj);
+        obj_ptr hd = nullptr;
+        obj_ptr *hdp = &hd;
+        obj_ptr r;
         obj_ptr p;
         obj_ptr q;
         for( p = obj; p; p = p->cdr() ){
@@ -650,28 +647,28 @@ do_dist(
     return(lst);
     }
 
+    /*
+     * Evil C!  Line-by-line, here's what's happening
+     * 1. Get the first list element for the "lower" list
+     * 2. Bind the CAR of it to the distributing object,
+     *    incrementing that object's reference counter.
+     * 3. Get the second element for the "lower" list, bind
+     *    the CDR of the first element to it.
+     * 4. Bind the CAR of the second element to the current
+     *    element in the list being distributed over, increment
+     *    that object's reference count.
+     * 5. Allocate the "upper" list element, build it into the
+     *    chain.
+     * 6. Advance the chain building pointer to be ready to add
+     *    the next element.
+     * 7. Advance to next element of list being distributed over.
+     *
+     *  Gee, wasn't that easy?
+     */
     obj_ptr r;
     obj_ptr r2;
     obj_ptr hd;
     obj_ptr *hdp = &hd;
-	/*
-	 * Evil C!  Line-by-line, here's what's happening
-	 * 1. Get the first list element for the "lower" list
-	 * 2. Bind the CAR of it to the distributing object,
-	 *	incrementing that object's reference counter.
-	 * 3. Get the second element for the "lower" list, bind
-	 *	the CDR of the first element to it.
-	 * 4. Bind the CAR of the second element to the current
-	 *	element in the list being distributed over, increment
-	 *	that object's reference count.
-	 * 5. Allocate the "upper" list element, build it into the
-	 *	chain.
-	 * 6. Advance the chain building pointer to be ready to add
-	 *	the next element.
-	 * 7. Advance to next element of list being distributed over.
-	 *
-	 *  Gee, wasn't that easy?
-	 */
     while( lst ){
 	r = obj_alloc(nullptr);
 	if( !side ){
