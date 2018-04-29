@@ -406,7 +406,8 @@ do_binsert(live_ast_ptr act, live_obj_ptr obj)
     auto hdp = &hd;
     for( q = obj; p; p = p->cdr() ){
         if( x ){
-            *hdp = r = obj_alloc(nullptr);
+            r = obj_alloc(nullptr);
+            *hdp = r;
             hdp = r->cdr_addr();
             r->car(q->car());
             q->car()->inc_ref();
