@@ -57,22 +57,20 @@ skipwhite(){
 
 /// Lexical analyzer for YACC
 int
-yylex(void){
-    size_t index = 0;
-    int c;
-    int c1;
-
-	// Skip over white space
+yylex(void)
+{
+    // Skip over white space
     skipwhite();
-    c = nextc();
+    int c = nextc();
 
-	// Return EOF
+    // Return EOF
     if( c == EOF ) {
         return(c);
     }
 
-	// An "identifier"?
+    // An "identifier"?
     if( isalpha(c) ){
+        size_t index = 0;
 	    // Assemble a "word" out of the input stream, symbol table it
         buf[index++] = static_cast<char>(c);
         while( isalnum(c = nextc()) ) {
@@ -120,6 +118,7 @@ yylex(void){
 	 *	assemble relationals.  Otherwise, just return the char.
 	 */
     yylval.YYint = c;
+    int c1;
     switch( c ){
         case '<': {
             if( (c1 = nextc()) == '=' ) {
