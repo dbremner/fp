@@ -785,13 +785,17 @@ do_trans(live_obj_ptr obj)
 static live_obj_ptr
 do_bool(live_obj_ptr obj, int op)
 {
-    obj_ptr p;
-    obj_ptr q;
+    if (!obj->is_list()) {
+        obj_unref(obj);
+        return undefined();
+    }
+    
+    obj_ptr p = obj->car();
+    obj_ptr q = obj->cadr();
 
     if(
-    (!obj->is_list()) ||
-    ( (p = obj->car())->type() != obj_type::T_BOOL) ||
-    ( (q = obj->cadr())->type() != obj_type::T_BOOL)
+    ( (p)->type() != obj_type::T_BOOL) ||
+    ( (q)->type() != obj_type::T_BOOL)
     ){
         obj_unref(obj);
         return undefined();
