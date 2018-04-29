@@ -489,9 +489,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             p->car(q->car());
             q->car()->inc_ref();
         }
-        p = obj_alloc(q->car());
+        p = obj_alloc(q->car(), hd);
         q->car()->inc_ref();
-        p->cdr(hd);
         obj_unref(obj);
         return(p);
     }
