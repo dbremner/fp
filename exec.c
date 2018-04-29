@@ -162,8 +162,7 @@ execute(live_ast_ptr act, live_obj_ptr obj )
             q = execute(middle,obj);
         }
         else {
-            assert(act->right);
-            auto right = static_cast<live_ast_ptr>(act->right);
+            auto right = act->live_right();
             q = execute(right,obj);
         }
         obj_unref(p);
@@ -224,8 +223,7 @@ execute(live_ast_ptr act, live_obj_ptr obj )
             }
             if( p->bool_val() ){
                 obj_unref(p);
-                assert(act->right);
-                auto right = static_cast<live_ast_ptr>(act->right);
+                auto right = act->live_right();
                 obj = execute(right,obj);
             } else {
                 obj_unref(p);
