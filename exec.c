@@ -110,22 +110,18 @@ execute(live_ast_ptr act, live_obj_ptr obj )
 	 *	the presence of T_UNDEF popping up along the way.
 	 */
     case '[':{
-        obj_ptr hd;
-        obj_ptr *hdp = &hd;
-
         act = act->left;
-        hd = nullptr;
-        live_obj_ptr p;
-        live_obj_ptr q;
+        obj_ptr hd = nullptr;
+        obj_ptr *hdp = &hd;
         while( act ){
             obj->inc_ref();
-            p = execute(act->left,obj);
+            auto p = execute(act->left,obj);
             if( p->is_undef() ){
             obj_unref(hd);
             obj_unref(obj);
             return(p);
             }
-            q = obj_alloc(p);
+            auto q = obj_alloc(p);
             *hdp = q;
             hdp = q->cdr_addr();
             act = act->right;
