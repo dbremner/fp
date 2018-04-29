@@ -263,6 +263,27 @@ load()
     return;
 }
 
+static void help();
+[[noreturn]] static void quit();
+static void load();
+
+struct command
+{
+    const char * _Nonnull const name;
+    void (* _Nonnull func)(void);
+    const char * _Nonnull const description;
+};
+
+static const command commands[] =
+{
+    {"load", load, " load - redirect input from a file\n"},
+    {"quit", quit, " quit - leave FP\n"},
+    {"help", help, " help - this message\n"},
+#ifdef YYDEBUG
+    {"yydebug", flipyydebug, " yydebug - toggle parser tracing\n"},
+#endif
+};
+
 [[noreturn]] static void
 quit(void)
 {
@@ -294,22 +315,6 @@ flipyydebug(void)
 }
 #endif
 
-struct command
-{
-    const char * _Nonnull const name;
-    void (* _Nonnull func)(void);
-    const char * _Nonnull const description;
-};
-
-static const command commands[] =
-{
-    {"load", load, " load - redirect input from a file\n"},
-    {"quit", quit, " quit - leave FP\n"},
-    {"help", help, " help - this message\n"}, // Give help
-#ifdef YYDEBUG
-    {"yydebug", flipyydebug, " yydebug - toggle parser tracing\n"}, // Toggle parser trace
-#endif
-};
 
     /*
      * Command processor.  The reason it's here is that we play with
