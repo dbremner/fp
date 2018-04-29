@@ -377,14 +377,8 @@ do_binsert(live_ast_ptr act, obj_ptr obj)
         return(result);
     }
 
-    obj_ptr p;
-    obj_ptr q;
-    obj_ptr hd;
-    obj_ptr *hdp;
-    obj_ptr r;
-    int x;
-	// If the list has only one element, we return that element.
-    p = obj->cdr();
+    // If the list has only one element, we return that element.
+    auto p = obj->cdr();
     if( !p ){
         p = obj->car();
         assert(p);
@@ -405,9 +399,11 @@ do_binsert(live_ast_ptr act, obj_ptr obj)
 	 *	'q' advances one.  When 'p' hits the end, 'q' names the 2nd
 	 *	half, and 'hd' names a copy of the first.
 	 */
-    x = 0;
-    hd = nullptr;
-    hdp = &hd;
+    obj_ptr q;
+    obj_ptr r;
+    int x = 0;
+    obj_ptr hd = nullptr;
+    auto hdp = &hd;
     for( q = obj; p; p = p->cdr() ){
         if( x ){
             *hdp = r = obj_alloc(nullptr);
