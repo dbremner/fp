@@ -100,12 +100,8 @@ execute(live_ast_ptr act, live_obj_ptr obj )
 	 *	the action on the right against the object.
 	 */
     case '@': {
-        assert(act->left);
-        assert(act->right);
-        auto left = static_cast<live_ast_ptr>(act->left);
-        auto right = static_cast<live_ast_ptr>(act->right);
-        auto p = execute(right, obj );
-        return( execute(left, p ) );
+        auto p = execute(act->live_right(), obj );
+        return( execute(act->live_left(), p ) );
     }
 
 	/*
