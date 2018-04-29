@@ -195,9 +195,6 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     }
 
     case IOTA:{		// Given arg N, generate <1..N>
-        obj_ptr hd;
-        obj_ptr *hdp = &hd;
-
         if( !obj->is_num() ){
             obj_unref(obj);
             return undefined();
@@ -208,6 +205,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         if( l == 0 ) return( obj_alloc(nullptr) );
         obj_ptr p;
         obj_ptr q;
+        obj_ptr hd;
+        obj_ptr *hdp = &hd;
         for(int x = 1; x <= l; x++ ){
             q = obj_alloc(x);
             *hdp = p = obj_alloc(nullptr);
