@@ -785,6 +785,7 @@ do_trans(live_obj_ptr obj)
 static live_obj_ptr
 do_bool(live_obj_ptr obj, int op)
 {
+    //TODO use is_pair()?
     if (!obj->is_list()) {
         obj_unref(obj);
         return undefined();
