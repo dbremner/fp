@@ -28,9 +28,6 @@ static live_obj_ptr do_math_func(int tag, live_obj_ptr obj);
 /// Pair up successive elements of a list
 static live_obj_ptr do_pair(live_obj_ptr obj)
 {
-    obj_ptr hd = nullptr;
-    obj_ptr *hdp = &hd;
-    
     if(
        (!obj->is_list()) ||
        !obj->car()
@@ -38,6 +35,8 @@ static live_obj_ptr do_pair(live_obj_ptr obj)
         obj_unref(obj);
         return undefined();
     }
+    obj_ptr hd = nullptr;
+    obj_ptr *hdp = &hd;
     obj_ptr q;
     obj_ptr r = nullptr;
     int x;
@@ -67,9 +66,6 @@ static live_obj_ptr do_pair(live_obj_ptr obj)
 static live_obj_ptr do_split(live_obj_ptr obj)
 {
     int l;
-    obj_ptr hd = nullptr;
-    obj_ptr *hdp = &hd;
-    
     if(
        (!obj->is_list()) ||
        ( (l = obj->list_length()) == 0 )
@@ -77,6 +73,8 @@ static live_obj_ptr do_split(live_obj_ptr obj)
         obj_unref(obj);
         return undefined();
     }
+    obj_ptr hd = nullptr;
+    obj_ptr *hdp = &hd;
     l = ((l-1) >> 1)+1;
     int x;
     auto p = obj;
