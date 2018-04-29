@@ -123,7 +123,9 @@ execute(live_ast_ptr act, live_obj_ptr obj )
         obj_ptr *hdp = &hd;
         while( act ){
             obj->inc_ref();
-            auto p = execute(act->left,obj);
+            assert(act->left);
+            auto left = static_cast<live_ast_ptr>(act->left);
+            auto p = execute(left,obj);
             if( p->is_undef() ){
             obj_unref(hd);
             obj_unref(obj);
@@ -174,7 +176,11 @@ execute(live_ast_ptr act, live_obj_ptr obj )
         obj_ptr *hdp = &hd;
         for(auto p = obj; p; p = p->cdr() ){
             (p->car())->inc_ref();
-            auto q = execute(act->left,p->car());
+            assert(act->left);
+            auto left = static_cast<live_ast_ptr>(act->left);
+            assert(p->car());
+            auto p_car = static_cast<live_obj_ptr>(p->car());
+            auto q = execute(left, p_car);
             if( q->is_undef() ){
             obj_unref(hd);
             obj_unref(obj);
@@ -204,14 +210,18 @@ execute(live_ast_ptr act, live_obj_ptr obj )
                 break;
             }
             obj->inc_ref();
-            auto p = execute(act->left,obj);
+            assert(act->left);
+            auto left = static_cast<live_ast_ptr>(act->left);
+            auto p = execute(left,obj);
             if( !p->is_bool() ){
                 obj_unref(p);
                 break;
             }
             if( p->bool_val() ){
                 obj_unref(p);
-                obj = execute(act->right,obj);
+                assert(act->right);
+                auto right = static_cast<live_ast_ptr>(act->right);
+                obj = execute(right,obj);
             } else {
                 obj_unref(p);
                 return(obj);
