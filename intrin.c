@@ -209,7 +209,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         obj_ptr *hdp = &hd;
         for(int x = 1; x <= l; x++ ){
             auto q = obj_alloc(x);
-            *hdp = p = obj_alloc(nullptr);
+            p = obj_alloc(nullptr);
+            *hdp = p;
             p->car(q);
             hdp = p->cdr_addr();
         }
