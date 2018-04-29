@@ -347,15 +347,16 @@ do_binsert(live_ast_ptr act, obj_ptr obj)
 	 */
     if( !obj->car() ){
         obj_unref(obj);
+        live_obj_ptr result;
         if( act->tag == 'c' ){
             switch( act->val.YYint ){
             case '+':
             case '-':
-            p = obj_alloc(0);
+            result = obj_alloc(0);
             break;
             case '/':
             case '*':
-            p = obj_alloc(1);
+            result = obj_alloc(1);
             break;
             default:
             return undefined();
@@ -363,17 +364,17 @@ do_binsert(live_ast_ptr act, obj_ptr obj)
         } else if ( act->tag == 'i' ){
             switch( (act->val.YYsym)->sym_val.YYint ){
             case AND:
-            p = obj_alloc(true);
+            result = obj_alloc(true);
             break;
             case OR:
             case XOR:
-            p = obj_alloc(false);
+            result = obj_alloc(false);
             break;
             default:
             return undefined();
             }
         } else return undefined();
-        return(p);
+        return(result);
     }
 
     obj_ptr p;
