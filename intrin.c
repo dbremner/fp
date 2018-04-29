@@ -239,14 +239,15 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
 
             x += (tmp + 1);
             if( x < 1 ){
-            obj_unref(obj);
-            return undefined();
+                obj_unref(obj);
+                return undefined();
             }
         }
 
             // Loop along the list until our count is expired
         for( ; x > 1; --x ){
-            if( !q ) break;
+            if( !q )
+                break;
             q = q->cdr();
         }
 
@@ -269,8 +270,10 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             obj_unref(obj);
             return undefined();
         }
-        if( !obj->car() ) return(obj);
-        while( (p = q->cdr()) ) q = p;
+        if( !obj->car() )
+            return(obj);
+        while( (p = q->cdr()) )
+            q = p;
         q = q->car();
         q->inc_ref();
         obj_unref(obj);
@@ -293,14 +296,16 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         while( q->cdr() ){
             *hdp = p = obj_alloc(q->car());
             if( p->car() ){
-            p->car()->inc_ref();
+                p->car()->inc_ref();
             }
             hdp = p->cdr_addr();
             q = q->cdr();
         }
         obj_unref(obj);
-        if( !hd ) return( obj_alloc(nullptr) );
-        else return(hd);
+        if( !hd )
+            return( obj_alloc(nullptr) );
+        else
+            return(hd);
     }
 
     case DISTL: {		// Distribute from left-most element
@@ -417,7 +422,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         obj_ptr p;
         obj_ptr q;
         obj_ptr r;
-        if( !obj->car() ) return(obj);
+        if( !obj->car() )
+            return(obj);
         for( p = nullptr, q = obj; q; q = q->cdr() ){
             r = obj_alloc(nullptr);
             r->cdr(p);
@@ -506,17 +512,18 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         for(obj_ptr p = obj; p; p = p->cdr() ){
             auto q = p->car();
             if( !q->is_list() ){
-            obj_unref(obj);
-            obj_unref(hd);
-            return undefined();
+                obj_unref(obj);
+                obj_unref(hd);
+                return undefined();
             }
-            if( !q->car() ) continue;
+            if( !q->car() )
+                continue;
             for( ; q; q = q->cdr() ){
-            obj_ptr r;
-            *hdp = r = obj_alloc(nullptr);
-            hdp = r->cdr_addr();
-            r->car(q->car());
-            q->car()->inc_ref();
+                obj_ptr r;
+                *hdp = r = obj_alloc(nullptr);
+                hdp = r->cdr_addr();
+                r->car(q->car());
+                q->car()->inc_ref();
             }
         }
         obj_unref(obj);
@@ -546,8 +553,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             const int x1 = static_cast<int>(obj->car()->num_val());
             const int x2 = static_cast<int>(obj->cadr()->num_val());
             if( x2 == 0 ){
-            obj_unref(obj);
-            return undefined();
+                obj_unref(obj);
+                return undefined();
             }
             auto p = obj_alloc(x1 % x2);
             obj_unref(obj);
@@ -573,21 +580,21 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
 
     case DIV: {		// Like '/', but forces integer operation
         switch( pairtype(obj) ){
-        case pair_type::T_UNDEF:
-            obj_unref(obj);
-            return undefined();
-        case pair_type::T_FLOAT:
-        case pair_type::T_INT:{
-            const int x1 = static_cast<int>(obj->car()->num_val());
-            const int x2 = static_cast<int>(obj->cadr()->num_val());
-            if( x2 == 0 ){
-            obj_unref(obj);
-            return undefined();
+            case pair_type::T_UNDEF:
+                obj_unref(obj);
+                return undefined();
+            case pair_type::T_FLOAT:
+            case pair_type::T_INT:{
+                const int x1 = static_cast<int>(obj->car()->num_val());
+                const int x2 = static_cast<int>(obj->cadr()->num_val());
+                if( x2 == 0 ){
+                    obj_unref(obj);
+                    return undefined();
+                }
+                auto p = obj_alloc(x1 / x2);
+                obj_unref(obj);
+                return(p);
             }
-            auto p = obj_alloc(x1 / x2);
-            obj_unref(obj);
-            return(p);
-        }
         }
     }
 
@@ -597,8 +604,10 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             return undefined();
         }
         bool value;
-        if( obj->car() ) value = false;
-        else value = true;
+        if( obj->car() )
+            value = false;
+        else
+            value = true;
         auto p = obj_alloc(value);
         obj_unref(obj);
         return(p);
@@ -638,9 +647,9 @@ do_dist(
         int side)   // Which side to stick on
 {
     if( !lst->car() ){        // Distributing over NULL list
-    lst->inc_ref();
-    obj_unref(obj);
-    return(lst);
+        lst->inc_ref();
+        obj_unref(obj);
+        return(lst);
     }
 
     /*
@@ -705,8 +714,8 @@ do_trans(obj_ptr obj)
     !( p = obj->car() ) ||
     ( !p->is_list() )
     ){
-    obj_unref(obj);
-    return undefined();
+        obj_unref(obj);
+        return undefined();
     }
 
     int x, y;
@@ -722,20 +731,20 @@ do_trans(obj_ptr obj)
 	 *	and of the same length.
 	 */
     for( q = obj; q ; q = q->cdr() ){
-	r = q->car();
-	if(
-	    (!r->is_list()) ||
-	    (r->list_length() != len)
-	){
-	    obj_unref(obj);
-	    return undefined();
-	}
+        r = q->car();
+        if(
+            (!r->is_list()) ||
+            (r->list_length() != len)
+        ){
+            obj_unref(obj);
+            return undefined();
+        }
     }
 
 	// By definition, list of NULL lists returns <>
     if( len == 0 ){
-	obj_unref(obj);
-	return( obj_alloc(nullptr) );
+        obj_unref(obj);
+        return( obj_alloc(nullptr) );
     }
 
 	/*
@@ -744,24 +753,24 @@ do_trans(obj_ptr obj)
 	 *	about it because I never use this blinking function.
 	 */
     for( x = 0; x < len; ++x ){
-    obj_ptr s = obj_alloc(nullptr);
-    obj_ptr hd2 = nullptr;
-    obj_ptr *hdp2 = &hd2;
+        obj_ptr s = obj_alloc(nullptr);
+        obj_ptr hd2 = nullptr;
+        obj_ptr *hdp2 = &hd2;
 
-	*hdp = s;
-	hdp = s->cdr_addr();
-	for( p = obj; p; p = p->cdr() ){
-	    q = p->car();
-	    for( y = 0; y < x; ++y )
-		q = q->cdr();
-	    q = q->car();
-	    r = obj_alloc(nullptr);
-	    *hdp2 = r;
-	    hdp2 = r->cdr_addr();
-	    r->car(q);
-	    q->inc_ref();
-	}
-    s->car(hd2);
+        *hdp = s;
+        hdp = s->cdr_addr();
+        for( p = obj; p; p = p->cdr() ){
+            q = p->car();
+            for( y = 0; y < x; ++y )
+                q = q->cdr();
+            q = q->car();
+            r = obj_alloc(nullptr);
+            *hdp2 = r;
+            hdp2 = r->cdr_addr();
+            r->car(q);
+            q->inc_ref();
+        }
+        s->car(hd2);
     }
     obj_unref(obj);
     return(hd);
@@ -779,23 +788,23 @@ do_bool(live_obj_ptr obj, int op)
     ( (p = obj->car())->type() != obj_type::T_BOOL) ||
     ( (q = obj->cadr())->type() != obj_type::T_BOOL)
     ){
-    obj_unref(obj);
-    return undefined();
+        obj_unref(obj);
+        return undefined();
     }
     bool i;
     switch( op ){
-    case AND:
-    i = p->bool_val() && q->bool_val();
-    break;
-    case OR:
-    i = p->bool_val() || q->bool_val();
-    break;
-    case XOR:
-    i = (p->bool_val() || q->bool_val()) &&
-        !(p->bool_val() && q->bool_val());
-    break;
-    default:
-    fatal_err("Illegal binary logical op in do_bool()");
+        case AND:
+            i = p->bool_val() && q->bool_val();
+            break;
+        case OR:
+            i = p->bool_val() || q->bool_val();
+            break;
+        case XOR:
+            i = (p->bool_val() || q->bool_val()) &&
+                !(p->bool_val() && q->bool_val());
+            break;
+        default:
+            fatal_err("Illegal binary logical op in do_bool()");
     }
     auto r = obj_alloc(i);
     obj_unref(obj);
