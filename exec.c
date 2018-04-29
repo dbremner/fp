@@ -141,7 +141,6 @@ execute(live_ast_ptr act, live_obj_ptr obj )
     case '>': {
         obj->inc_ref();
         auto p = execute(act->left,obj);
-        live_obj_ptr q;
         if( p->is_undef() ){
             obj_unref(obj);
             return(p);
@@ -151,6 +150,7 @@ execute(live_ast_ptr act, live_obj_ptr obj )
             obj_unref(p);
             return undefined();
         }
+        live_obj_ptr q;
         if( p->bool_val() ) q = execute(act->middle,obj);
         else q = execute(act->right,obj);
         obj_unref(p);
@@ -167,18 +167,16 @@ execute(live_ast_ptr act, live_obj_ptr obj )
             obj_unref(obj);
             return undefined();
         }
-        obj_ptr r;
-        live_obj_ptr q;
         if( !obj->car() ) return(obj);
         for(auto p = obj; p; p = p->cdr() ){
             (p->car())->inc_ref();
-            q = execute(act->left,p->car());
+            auto q = execute(act->left,p->car());
             if( q->is_undef() ){
             obj_unref(hd);
             obj_unref(obj);
             return(q);
             }
-            r = obj_alloc(q);
+            auto r = obj_alloc(q);
             *hdp = r;
             hdp = r->cdr_addr();
         }
