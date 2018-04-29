@@ -201,6 +201,40 @@ nextc(void){
     return(c);
 }
 
+static void
+load()
+{
+    char arg[LINELENGTH];
+    // Get next word, the file to load
+    skipwhite();
+    char *p = arg;
+    int c;
+    while( (c = nextc()) != EOF )
+        if( isspace(c) )
+            break;
+        else
+            *p++ = static_cast<char>(c);
+    *p = '\0';
+    
+    // Can we push down any more?
+    if( fpos == MAXNEST-1 ){
+        printf(")load'ed files nested too deep\n");
+        return;
+    }
+    
+    // Try and open the file
+    FILE *newf = fopen(arg,"r");
+    if( newf == nullptr ){
+        perror(arg);
+        return;
+    }
+    
+    // Pushdown the current file, make this one it.
+    fstack[fpos++] = cur_in;
+    cur_in = newf;
+    return;
+}
+
 [[noreturn]] static void
 quit(void)
 {
@@ -240,10 +274,9 @@ void
 fp_cmd(void){
     char cmd[LINELENGTH];
     char *p = cmd;
-    char arg[LINELENGTH];
     int c;
 
-	// Assemble a word, the command
+    // Assemble a word, the command
     skipwhite();
     if( (c = nextc()) == EOF )
         return;
@@ -255,35 +288,9 @@ fp_cmd(void){
             break;
     *p = '\0';
 
-	// Process the command
-    if( strcmp(cmd,"load") == 0 ){	// Load command
-
-            // Get next word, the file to load
-        skipwhite();
-        p = arg;
-        while( (c = nextc()) != EOF )
-            if( isspace(c) )
-                break;
-            else
-                *p++ = static_cast<char>(c);
-        *p = '\0';
-
-            // Can we push down any more?
-        if( fpos == MAXNEST-1 ){
-            printf(")load'ed files nested too deep\n");
-            return;
-        }
-
-            // Try and open the file
-        FILE *newf = fopen(arg,"r");
-        if( newf == nullptr ){
-            perror(arg);
-            return;
-        }
-
-            // Pushdown the current file, make this one it.
-        fstack[fpos++] = cur_in;
-        cur_in = newf;
+    // Process the command
+    if( strcmp(cmd,"load") == 0 ){    // Load command
+        load();
         return;
     }
 
