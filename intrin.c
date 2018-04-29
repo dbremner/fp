@@ -43,7 +43,8 @@ static live_obj_ptr do_pair(live_obj_ptr obj)
     obj_ptr p = obj;
     for(x = 0; p; p = p->cdr() ){
         if( x == 0 ){
-            *hdp = q = obj_alloc(nullptr);
+            q = obj_alloc(nullptr);
+            *hdp = q;
             hdp = q->cdr_addr();
             r = obj_alloc(nullptr);
             q->car(r);
@@ -80,7 +81,8 @@ static live_obj_ptr do_split(live_obj_ptr obj)
     auto p = obj;
     obj_ptr q;
     for( x = 0; x < l; ++x, p = p->cdr() ){
-        *hdp = q = obj_alloc(nullptr);
+        q = obj_alloc(nullptr);
+        *hdp = q;
         hdp = q->cdr_addr();
         q->car(p->car());
         p->car()->inc_ref();
@@ -89,7 +91,8 @@ static live_obj_ptr do_split(live_obj_ptr obj)
     hd = nullptr;
     hdp = &hd;
     while(p){
-        *hdp = q = obj_alloc(nullptr);
+        q = obj_alloc(nullptr);
+        *hdp = q;
         hdp = q->cdr_addr();
         q->car(p->car());
         p->car()->inc_ref();
@@ -404,7 +407,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
              *	the old one because we're modifying its end.
              */
         while( q ){
-            *hdp = p = obj_alloc(nullptr);
+            p = obj_alloc(nullptr);
+            *hdp = p;
             q->car()->inc_ref();
             p->car(q->car());
             hdp = p->cdr_addr();
@@ -412,7 +416,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         }
 
             // Tack the element onto the end of the built list
-        *hdp = p = obj_alloc(r);
+        p = obj_alloc(r);
+        *hdp = p;
         obj_unref(obj);
         return(hd);
     }
@@ -465,12 +470,14 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         obj_ptr *hdp = &hd;
             // Loop, starting from second.  Build parallel list.
         for( /* q has obj->cdr() */ ; q; q = q->cdr() ){
-            *hdp = p = obj_alloc(nullptr);
+            p = obj_alloc(nullptr);
+            *hdp = p;
             hdp = p->cdr_addr();
             p->car(q->car());
             q->car()->inc_ref();
         }
-        *hdp = p = obj_alloc(obj->car());
+        p = obj_alloc(obj->car());
+        *hdp = p;
         obj->car()->inc_ref();
         obj_unref(obj);
         return(hd);
@@ -498,7 +505,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         obj_ptr *hdp = &hd;
             // Loop over list.  Stop one short of end.
         for( q = obj; q->cdr(); q = q->cdr() ){
-            *hdp = p = obj_alloc(nullptr);
+            p = obj_alloc(nullptr);
+            *hdp = p;
             hdp = p->cdr_addr();
             p->car(q->car());
             q->car()->inc_ref();
@@ -528,7 +536,8 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
                 continue;
             for( ; q; q = q->cdr() ){
                 obj_ptr r;
-                *hdp = r = obj_alloc(nullptr);
+                r = obj_alloc(nullptr);
+                *hdp = r;
                 hdp = r->cdr_addr();
                 r->car(q->car());
                 q->car()->inc_ref();
