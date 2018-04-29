@@ -213,7 +213,9 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
             p->car(q);
             hdp = p->cdr_addr();
         }
-        return(hd);
+        assert(hd);
+        auto result = static_cast<live_obj_ptr>(hd);
+        return(result);
     } // Local block for IOTA
 
     case PICK:{		// Parameterized selection
@@ -304,8 +306,11 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         obj_unref(obj);
         if( !hd )
             return( obj_alloc(nullptr) );
-        else
-            return(hd);
+        else {
+            assert(hd);
+            auto result = static_cast<live_obj_ptr>(hd);
+            return(result);
+        }
     }
 
     case DISTL: {		// Distribute from left-most element
