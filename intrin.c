@@ -205,11 +205,10 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         if( l < 0 ) return undefined();
         if( l == 0 ) return( obj_alloc(nullptr) );
         obj_ptr p;
-        obj_ptr q;
         obj_ptr hd;
         obj_ptr *hdp = &hd;
         for(int x = 1; x <= l; x++ ){
-            q = obj_alloc(x);
+            auto q = obj_alloc(x);
             *hdp = p = obj_alloc(nullptr);
             p->car(q);
             hdp = p->cdr_addr();
