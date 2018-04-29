@@ -430,8 +430,12 @@ do_binsert(live_ast_ptr act, live_obj_ptr obj)
 	 *	them in an outer list, and call execute on them.
 	 */
     auto new_list = obj_alloc(nullptr);
-    p = obj_alloc(do_binsert(act,hd), new_list);
-    auto result = do_binsert(act,q);
+    assert(hd);
+    auto live_hd = static_cast<live_obj_ptr>(hd);
+    p = obj_alloc(do_binsert(act,live_hd), new_list);
+    assert(q);
+    auto live_q = static_cast<live_obj_ptr>(q);
+    auto result = do_binsert(act,live_q);
     p->cadr(result);
     obj_unref(obj);
     return(execute(act,p));

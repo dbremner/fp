@@ -60,7 +60,9 @@ static live_obj_ptr do_pair(live_obj_ptr obj)
         }
     }
     obj_unref(obj);
-    return(hd);
+    assert(hd);
+    auto live_hd = static_cast<live_obj_ptr>(hd);
+    return(live_hd);
 }
 
 /// Split list into two (roughly) equal halves
