@@ -296,17 +296,16 @@ static const command commands[] =
      *	I/O redirection.  Shrug.
      */
 void
-fp_cmd(void){
-    char cmd[LINELENGTH];
-    char *p = cmd;
-    int c;
-
+fp_cmd(void)
+{
     // Assemble a word, the command
     skipwhite();
-    c = nextc();
+    int c = nextc();
     if( c == EOF ) {
         return;
     }
+    char cmd[LINELENGTH];
+    char *p = cmd;
     *p++ = static_cast<char>(c);
     while( (c = nextc()) != EOF ) {
         if( isalpha(c) ) {
