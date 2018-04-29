@@ -121,21 +121,24 @@ yylex(void)
     int c1;
     switch( c ){
         case '<': {
-            if( (c1 = nextc()) == '=' ) {
+            c1 = nextc();
+            if( c1 == '=' ) {
                 return( yylval.YYint = LE );
             }
             ungetc( c1, cur_in );
             return(c);
         }
         case '>': {
-            if( (c1 = nextc()) == '=' ) {
+            c1 = nextc();
+            if( c1 == '=' ) {
                 return( yylval.YYint = GE );
             }
             ungetc( c1, cur_in );
             return(c);
         }
         case '~': {
-            if( (c1 = nextc()) == '=' ) {
+            c1 = nextc();
+            if( c1 == '=' ) {
                 return( yylval.YYint = NE );
             }
             ungetc( c1, cur_in );
