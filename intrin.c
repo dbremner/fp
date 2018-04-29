@@ -541,7 +541,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     }
     
     case MOD: {		// Modulo
-        switch( numargs(obj) ){
+        switch( pairtype(obj) ){
         case obj_type::T_UNDEF:
             obj_unref(obj);
             return undefined();
@@ -579,7 +579,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     }
 
     case DIV: {		// Like '/', but forces integer operation
-        switch( numargs(obj) ){
+        switch( pairtype(obj) ){
         case obj_type::T_UNDEF:
             obj_unref(obj);
             return undefined();

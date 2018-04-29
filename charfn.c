@@ -96,7 +96,7 @@ do_charfun(live_ast_ptr act, live_obj_ptr obj)
     }
 
     case '>':
-	switch( numargs(obj) ){
+	switch( pairtype(obj) ){
         case obj_type::T_UNDEF: {
             obj_unref(obj);
             return undefined();
@@ -115,7 +115,7 @@ do_charfun(live_ast_ptr act, live_obj_ptr obj)
 	}
 
     case GE:
-	switch( numargs(obj) ){
+	switch( pairtype(obj) ){
         case obj_type::T_UNDEF: {
             obj_unref(obj);
             return undefined();
@@ -134,7 +134,7 @@ do_charfun(live_ast_ptr act, live_obj_ptr obj)
 	}
 
     case LE:
-	switch( numargs(obj) ){
+	switch( pairtype(obj) ){
         case obj_type::T_UNDEF: {
             obj_unref(obj);
             return undefined();
@@ -153,7 +153,7 @@ do_charfun(live_ast_ptr act, live_obj_ptr obj)
 	}
 
     case '<':
-	switch( numargs(obj) ){
+	switch( pairtype(obj) ){
         case obj_type::T_UNDEF: {
             obj_unref(obj);
             return undefined();
@@ -172,7 +172,7 @@ do_charfun(live_ast_ptr act, live_obj_ptr obj)
 	}
 
     case '+':
-	switch( numargs(obj) ){
+	switch( pairtype(obj) ){
         case obj_type::T_UNDEF: {
             obj_unref(obj);
             return undefined();
@@ -195,7 +195,7 @@ do_charfun(live_ast_ptr act, live_obj_ptr obj)
         }
 	}
     case '-':
-	switch( numargs(obj) ){
+	switch( pairtype(obj) ){
         case obj_type::T_UNDEF: {
             obj_unref(obj);
             return undefined();
@@ -218,7 +218,7 @@ do_charfun(live_ast_ptr act, live_obj_ptr obj)
         }
 	}
     case '*':
-	switch( numargs(obj) ){
+	switch( pairtype(obj) ){
         case obj_type::T_UNDEF:
             obj_unref(obj);
             return undefined();
@@ -240,7 +240,7 @@ do_charfun(live_ast_ptr act, live_obj_ptr obj)
         }
 	}
     case '/':
-	switch( numargs(obj) ){
+	switch( pairtype(obj) ){
         case obj_type::T_UNDEF: {
             obj_unref(obj);
             return undefined();
@@ -268,7 +268,7 @@ do_charfun(live_ast_ptr act, live_obj_ptr obj)
 }
 
     /*
-     * numargs()--process a list which is to be used as a pair of numeric
+     * pairtype()--process a list which is to be used as a pair of numeric
      *	arguments to a function.
      *
      *	+, -, /, etc.  all need two functions:  first, they need to know
@@ -278,7 +278,7 @@ do_charfun(live_ast_ptr act, live_obj_ptr obj)
      *	can allocate the right type of object.
      */
 obj_type
-numargs(live_obj_ptr obj)
+pairtype(live_obj_ptr obj)
 {
     assert(obj);
     // Don't have a well-formed list, so illegal
