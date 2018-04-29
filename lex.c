@@ -266,6 +266,22 @@ flipyydebug(void)
 }
 #endif
 
+struct command
+{
+    const char * _Nonnull const name;
+    void (* _Nonnull func)(void);
+};
+
+static const command commands[] =
+{
+    {"load", load},
+    {"quit", quit},
+    {"help", help},
+#ifdef YYDEBUG
+    {"yydebug", flipyydebug},
+#endif
+};
+
     /*
      * Command processor.  The reason it's here is that we play with
      *	I/O redirection.  Shrug.
