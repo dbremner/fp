@@ -173,7 +173,7 @@ execute(live_ast_ptr act, live_obj_ptr obj )
         }
         if( !obj->car() ) return(obj);
         obj_ptr hd = nullptr;
-        obj_ptr *hdp = &hd;
+        auto hdp = &hd;
         for(auto p = obj; p; p = p->cdr() ){
             (p->car())->inc_ref();
             assert(act->left);
