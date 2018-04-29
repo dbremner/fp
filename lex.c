@@ -54,6 +54,7 @@ skipwhite(){
 }
 
 /// Lexical analyzer for YACC
+/// TODO consider allowing _ in identifiers
 int
 yylex(void)
 {
@@ -181,6 +182,7 @@ donum(char startc)
     /*
      * getchar() function for lexical analyzer.  Adds a prompt if
      *	input is from keyboard, also localizes I/O redirection.
+     * TODO calls to this function should check for EOF
      */
 static int
 nextc(void){
