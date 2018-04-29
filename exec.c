@@ -141,7 +141,7 @@ execute(live_ast_ptr act, live_obj_ptr obj )
 	// Conditional.  Evaluate & return one of the two paths
     case '>': {
         obj->inc_ref();
-        auto p = execute(act->left,obj);
+        auto p = execute(act->live_left(),obj);
         if( p->is_undef() ){
             obj_unref(obj);
             return(p);
