@@ -288,7 +288,6 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
     
     case FRONT:
     case TLR:{		// Return a list of all but list
-        obj_ptr p;
         obj_ptr q = obj;
         if(
             (!q->is_list()) ||
@@ -300,7 +299,7 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         obj_ptr hd = nullptr;
         obj_ptr *hdp = &hd;
         while( q->cdr() ){
-            p = obj_alloc(q->car());
+            auto p = obj_alloc(q->car());
             *hdp = p;
             if( p->car() ){
                 p->car()->inc_ref();
