@@ -352,6 +352,7 @@
 					"-Wno-unused-macros",
 					"-Wno-nullability-extension",
 					"-Wno-padded",
+					"-Wno-float-equal",
 				);
 			};
 			name = Debug;
@@ -393,6 +394,7 @@
 					"-Wno-unused-macros",
 					"-Wno-nullability-extension",
 					"-Wno-padded",
+					"-Wno-float-equal",
 				);
 			};
 			name = Release;
