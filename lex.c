@@ -221,6 +221,7 @@ nextc(void){
         if( c == EOF ){
             if( cur_in != stdin ){
                 fclose(cur_in);
+                assert(fpos > 0);
                 cur_in = fstack[--fpos];
                 continue;
             } else {
