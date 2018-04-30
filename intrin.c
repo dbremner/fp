@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include "fpcommon.h"
 #include "intrin.h"
+#include "math_intrinsics.h"
 #include "misc.h"
 #include "obj_type.hpp"
 #include "pair_type.hpp"
@@ -23,7 +24,6 @@ do_dist(live_obj_ptr elem, live_obj_ptr lst, live_obj_ptr obj, int side);
 
 static live_obj_ptr do_trans(live_obj_ptr obj);
 static live_obj_ptr do_bool(live_obj_ptr obj, int op);
-static live_obj_ptr do_math_func(int tag, live_obj_ptr obj);
 
 /// Pair up successive elements of a list
 static live_obj_ptr do_pair(live_obj_ptr obj)
@@ -845,62 +845,4 @@ do_bool(live_obj_ptr obj, int op)
     auto r = obj_alloc(i);
     obj_unref(obj);
     return(r);
-}
-
-static live_obj_ptr
-do_math_func(int tag, live_obj_ptr obj)
-{
-    if( !obj->is_num() ){
-        obj_unref(obj);
-        return undefined();
-    }
-    const auto f = obj->num_val();
-    double result;
-    switch(tag) {
-        case SIN: {        // sin() function
-            result = sin(f);
-            break;
-        }
-            
-        case COS: {        // cos() function
-            result = cos(f);
-            break;
-        }
-            
-        case TAN: {        // tan() function
-            result = tan(f);
-            break;
-        }
-            
-        case ASIN: {        // asin() function
-            result = asin(f);
-            break;
-        }
-            
-        case ACOS: {        // acos() function
-            result = acos(f);
-            break;
-        }
-            
-        case ATAN: {        // atan() function
-            result = atan(f);
-            break;
-        }
-            
-        case EXP: {        // exp() function
-            result = exp(f);
-            break;
-        }
-            
-        case LOG: {        // log() function
-            result = log(f);
-            break;
-        }
-        default: {
-            fatal_err("Unreachable case in do_trig");
-        }
-    }
-    auto p = obj_alloc(result);
-    obj_unref(obj);
-    return(p);
 }
