@@ -701,12 +701,10 @@ do_dist(
      *
      *  Gee, wasn't that easy?
      */
-    obj_ptr r;
-    obj_ptr r2;
     obj_ptr hd;
     obj_ptr *hdp = &hd;
     while( lst ){
-        r = obj_alloc(nullptr);
+        auto r = obj_alloc(nullptr);
         if( !side ){
             r->car(elem);
             elem->inc_ref();
@@ -715,7 +713,7 @@ do_dist(
             lst->car()->inc_ref();
         }
         r->cdr(obj_alloc(nullptr));
-        r2 = r->cdr();
+        auto r2 = r->cdr();
         if( !side ){
             r2->car(lst->car());
             lst->car()->inc_ref();
