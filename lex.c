@@ -13,6 +13,7 @@
 #include "yystype.h"
 #include "symtab_entry.hpp"
 #include "y.tab.h"
+#include "file_stack.hpp"
 
 static constexpr size_t LINELENGTH = 80;
 
@@ -20,20 +21,14 @@ static char buf[LINELENGTH];
 static int donum(char startc);
 extern YYSTYPE yylval;
 
-static FILE *cur_in;
+static file_stack stack;
+
 static int nextc(void);
 
 static char prompt;
 
-/// How deep can we get?
-constexpr size_t MAXNEST = 5;
-/// For nested loads
-static FILE *fstack[MAXNEST];
-static int fpos = 0;
-
 void lex_init(FILE *f)
 {
-    cur_in = f;
 }
 
 void set_prompt(char ch)
@@ -51,7 +46,7 @@ skipwhite(){
     while( (c = nextc()) != EOF ) {
         if( !isspace(c) ) break;
     }
-    ungetc(c,cur_in);
+    ungetc(c,stack.cur_in);
 }
 
 /// Lexical analyzer for YACC
@@ -76,7 +71,7 @@ yylex(void)
         while( isalnum(c = nextc()) ) {
             buf[index++] = static_cast<char>(c);
         }
-        ungetc(c,cur_in);
+        ungetc(c,stack.cur_in);
         buf[index] = '\0';
         auto q = lookup(buf);
 
@@ -107,7 +102,7 @@ yylex(void)
     if( (c == '+') || (c == '-') ){
         int c2 = nextc();
 
-        ungetc(c2,cur_in);
+        ungetc(c2,stack.cur_in);
         if( isdigit(c2) ) {
             return( donum(static_cast<char>(c)) );
         }
@@ -125,7 +120,7 @@ yylex(void)
             if( c1 == '=' ) {
                 return( yylval.YYint = LE );
             }
-            ungetc( c1, cur_in );
+            ungetc( c1, stack.cur_in);
             return(c);
         }
         case '>': {
@@ -133,7 +128,7 @@ yylex(void)
             if( c1 == '=' ) {
                 return( yylval.YYint = GE );
             }
-            ungetc( c1, cur_in );
+            ungetc( c1, stack.cur_in);
             return(c);
         }
         case '~': {
@@ -141,7 +136,7 @@ yylex(void)
             if( c1 == '=' ) {
                 return( yylval.YYint = NE );
             }
-            ungetc( c1, cur_in );
+            ungetc( c1, stack.cur_in);
             return(c);
         }
         default: {
@@ -167,7 +162,7 @@ donum(char startc)
             isdouble = 1;
             continue;
         }
-        ungetc( c, cur_in );
+        ungetc( c, stack.cur_in);
         break;
     }
     buf[index] = '\0';
@@ -191,7 +186,7 @@ nextc(void){
     static int saw_eof = 0;
 
     do {
-        if( cur_in == stdin ){
+        if( stack.cur_in == stdin ){
             if( saw_eof ) {
                 return(EOF);
             }
@@ -200,10 +195,10 @@ nextc(void){
                 putchar(prompt);
             }
         }
-        c = fgetc(cur_in);
+        c = fgetc(stack.cur_in);
         if( c == '#' ){
             bool newline = false;
-            while( (c = fgetc(cur_in)) != EOF ) {
+            while( (c = fgetc(stack.cur_in)) != EOF ) {
                 if( c == '\n' ) {
                     newline = true;
                     break;
@@ -215,10 +210,8 @@ nextc(void){
         }
         // Pop up a level of indirection on EOF
         if( c == EOF ){
-            if( cur_in != stdin ){
-                fclose(cur_in);
-                assert(fpos > 0);
-                cur_in = fstack[--fpos];
+            if( stack.cur_in != stdin ){
+                stack.pop();
                 continue;
             } else {
                 saw_eof++;
@@ -247,7 +240,7 @@ load()
     arg[index] = '\0';
     
     // Can we push down any more?
-    if( fpos == MAXNEST-1 ){
+    if( stack.fpos == file_stack::MAXNEST-1 ){
         printf(")load'ed files nested too deep\n");
         return;
     }
@@ -259,9 +252,7 @@ load()
         return;
     }
     
-    // Pushdown the current file, make this one it.
-    fstack[fpos++] = cur_in;
-    cur_in = newf;
+    stack.push(newf);
     return;
 }
 
