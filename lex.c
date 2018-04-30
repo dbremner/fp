@@ -21,6 +21,8 @@ static char buf[LINELENGTH];
 static int donum(char startc);
 extern YYSTYPE yylval;
 
+//TODO inject this?
+#pragma clang diagnostic ignored "-Wglobal-constructors"
 static file_stack stack;
 
 static int nextc(void);
