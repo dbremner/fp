@@ -44,7 +44,7 @@ skipwhite(){
     while( (c = nextc()) != EOF ) {
         if( !isspace(c) ) break;
     }
-    ungetc(c,stack.cur_in);
+    stack.ungetc(c);
 }
 
 /// Lexical analyzer for YACC
@@ -69,7 +69,7 @@ yylex(void)
         while( isalnum(c = nextc()) ) {
             buf[index++] = static_cast<char>(c);
         }
-        ungetc(c,stack.cur_in);
+        stack.ungetc(c);
         buf[index] = '\0';
         auto q = lookup(buf);
 
@@ -100,7 +100,7 @@ yylex(void)
     if( (c == '+') || (c == '-') ){
         int c2 = nextc();
 
-        ungetc(c2,stack.cur_in);
+        stack.ungetc(c2);
         if( isdigit(c2) ) {
             return( donum(static_cast<char>(c)) );
         }
@@ -118,7 +118,7 @@ yylex(void)
             if( c1 == '=' ) {
                 return( yylval.YYint = LE );
             }
-            ungetc( c1, stack.cur_in);
+            stack.ungetc(c1);
             return(c);
         }
         case '>': {
@@ -126,7 +126,7 @@ yylex(void)
             if( c1 == '=' ) {
                 return( yylval.YYint = GE );
             }
-            ungetc( c1, stack.cur_in);
+            stack.ungetc(c1);
             return(c);
         }
         case '~': {
@@ -134,7 +134,7 @@ yylex(void)
             if( c1 == '=' ) {
                 return( yylval.YYint = NE );
             }
-            ungetc( c1, stack.cur_in);
+            stack.ungetc(c1);
             return(c);
         }
         default: {
@@ -160,7 +160,7 @@ donum(char startc)
             isdouble = 1;
             continue;
         }
-        ungetc( c, stack.cur_in);
+        stack.ungetc(c);
         break;
     }
     buf[index] = '\0';
@@ -193,10 +193,10 @@ nextc(void){
                 putchar(prompt);
             }
         }
-        c = fgetc(stack.cur_in);
+        c = stack.fgetc();
         if( c == '#' ){
             bool newline = false;
-            while( (c = fgetc(stack.cur_in)) != EOF ) {
+            while( (c = stack.fgetc()) != EOF ) {
                 if( c == '\n' ) {
                     newline = true;
                     break;
