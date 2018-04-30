@@ -12,7 +12,9 @@ jmp_buf restart;
 int yyparse(void);
 
 int
-main(void) {
+main(void)
+{
+    lex_init(stdin);
     symtab_init();
     set_prompt('\t');
     

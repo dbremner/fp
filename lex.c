@@ -24,7 +24,7 @@ static char buf[LINELENGTH];
 static int donum(char startc);
 extern YYSTYPE yylval;
 
-static FILE *cur_in = stdin;
+static FILE *cur_in;
 static int nextc(void);
 
 static char prompt;
@@ -34,6 +34,11 @@ constexpr size_t MAXNEST = 5;
 /// For nested loads
 static FILE *fstack[MAXNEST];
 static int fpos = 0;
+
+void lex_init(FILE *f)
+{
+    cur_in = f;
+}
 
 void set_prompt(char ch)
 {
