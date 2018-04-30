@@ -59,7 +59,8 @@ fpInput
     if( obj_out || ast_out ){
 	printf("%d objects and %d AST nodes used in definition\n",
 	  obj_out,ast_out);
-	obj_out = ast_out = 0;
+    obj_out = 0;
+    ast_out = 0;
     }
 #endif
 		    }
@@ -68,7 +69,8 @@ fpInput
 #ifdef MEMSTAT
     if( obj_out || ast_out ){
 	printf("%d objects lost, %d AST nodes lost\n",obj_out,ast_out);
-	obj_out = ast_out = 0;
+    obj_out = 0;
+    ast_out = 0;
     }
 #endif
 		    }
