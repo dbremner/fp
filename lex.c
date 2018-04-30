@@ -231,7 +231,7 @@ nextc(void){
 static void
 load()
 {
-    char arg[LINELENGTH];
+    char arg[LINELENGTH]{};
     // Get next word, the file to load
     skipwhite();
     size_t index = 0;
@@ -327,7 +327,7 @@ fp_cmd(void)
     if( c == EOF ) {
         return;
     }
-    char cmd[LINELENGTH];
+    char cmd[LINELENGTH]{};
     size_t index = 0;
     cmd[index++] = static_cast<char>(c);
     while( (c = nextc()) != EOF ) {
