@@ -316,7 +316,9 @@ do_rinsert(live_ast_ptr act, live_obj_ptr obj)
 	 *	objects popping up.
 	 */
     obj->cdr()->inc_ref();
-    p = do_rinsert(act,obj->cdr());
+    assert(obj->cdr());
+    auto cdr = static_cast<live_obj_ptr>(obj->cdr());
+    p = do_rinsert(act, cdr);
     if( p->is_undef() ){
         obj_unref(obj);
         return(p);
