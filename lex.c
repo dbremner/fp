@@ -13,10 +13,6 @@
 #include "yystype.h"
 #include "symtab_entry.hpp"
 #include "y.tab.h"
-#include <algorithm>
-
-using std::begin;
-using std::end;
 
 static constexpr size_t LINELENGTH = 80;
 
@@ -301,9 +297,8 @@ static void
 help(void)
 {
     printf("Commands are:\n");
-    for(auto it = begin(commands); it != end(commands); it++) {
-        const auto description = it->description;
-        printf("%s", description);
+    for(const auto &it: commands) {
+        printf("%s", it.description);
     }
 }
 
@@ -345,12 +340,12 @@ fp_cmd(void)
     }
     cmd[index] = '\0';
     
-    for(auto iter = begin(commands); iter != end(commands); iter++)
+    for(const auto &iter : commands)
     {
-        const auto name = iter->name;
+        const auto name = iter.name;
         if (strcmp(cmd, name) == 0)
         {
-            const auto func = iter->func;
+            const auto func = iter.func;
             func();
             return;
         }
