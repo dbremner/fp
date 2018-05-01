@@ -34,6 +34,11 @@ struct file_stack
         ::ungetc(ch, cur_in);
     }
     
+    bool is_stdin() const
+    {
+        return cur_in == stdin;
+    }
+    
     /// How deep can we get?
     static const size_t MAXNEST = 5;
     
