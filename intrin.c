@@ -171,12 +171,11 @@ do_intrinsics(live_sym_ptr act, live_obj_ptr obj)
         if (!obj->car()) {
             return obj;
         }
-        obj_ptr p = obj->car();
+        assert(obj->car());
+        auto p = static_cast<live_obj_ptr>(obj->car());
         p->inc_ref();
         obj_unref(obj);
-        assert(p);
-        auto result = static_cast<live_obj_ptr>(p);
-        return(result);
+        return(p);
     }
 
     case TL: {		// Remainder of list
