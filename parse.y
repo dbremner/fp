@@ -12,7 +12,6 @@
 #include "ast.h"
 #include "ast.hpp"
 #include "misc.h"
-#include "obj_type.hpp"
 #include "obj.h"
 #include "object.hpp"
 #include "symtab_entry.hpp"

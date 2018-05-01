@@ -2,7 +2,6 @@
 #include "fpcommon.h"
 #include "misc.h"
 #include "obj.h"
-#include "obj_type.hpp"
 #include "object.hpp"
 #include "y.tab.h"
 #include "math_intrinsics.h"

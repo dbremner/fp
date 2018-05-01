@@ -1,5 +1,4 @@
 #include "fpcommon.h"
-#include "obj_type.hpp"
 #include "object.hpp"
 
 bool object::is_pair() const
