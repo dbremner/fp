@@ -9,7 +9,6 @@
 #include "ast.hpp"
 #include "intrin.h"
 #include "misc.h"
-#include "pair_type.hpp"
 #include "charfn.h"
 #include "obj.h"
 #include "object.hpp"

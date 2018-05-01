@@ -10,7 +10,6 @@
 #include "intrin.h"
 #include "math_intrinsics.h"
 #include "misc.h"
-#include "pair_type.hpp"
 #include "charfn.h"
 #include "obj.h"
 #include "object.hpp"

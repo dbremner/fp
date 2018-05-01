@@ -6,7 +6,6 @@
 #include "fpcommon.h"
 #include "yystype.h"
 #include "ast.hpp"
-#include "pair_type.hpp"
 #include "charfn.h"
 #include "misc.h"
 #include "obj.h"
