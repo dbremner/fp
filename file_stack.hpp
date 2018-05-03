@@ -43,6 +43,11 @@ struct file_stack final
         return cur_in == stdin;
     }
     
+    bool is_full() const
+    {
+        return fpos == file_stack::MAXNEST-1;
+    }
+    
     /// How deep can we get?
     static const size_t MAXNEST = 5;
 
