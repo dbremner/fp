@@ -10,7 +10,7 @@ void symtab_entry::define(live_ast_ptr def)
 {
     assert(def);
     // Check what we're defining, handle redefining
-    switch( sym_type ){
+    switch( type() ){
         case symtype::SYM_DEF:
             printf("%s: redefined.\n", sym_pname.c_str());
             ast_freetree(sym_val.YYast);
@@ -27,5 +27,5 @@ void symtab_entry::define(live_ast_ptr def)
      *    definition.
      */
     sym_val.YYast = def;
-    sym_type = symtype::SYM_DEF;
+    type(symtype::SYM_DEF);
 }

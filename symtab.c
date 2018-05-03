@@ -77,9 +77,9 @@ stuff(const char *sym, int val)
     assert(strlen(sym) > 0);
     auto p = lookup(sym);
 
-    if( p->sym_type != symtype::SYM_NEW )
+    if( p->type() != symtype::SYM_NEW )
         fatal_err("Dup init in stuff()");
-    p->sym_type = symtype::SYM_BUILTIN;
+    p->type(symtype::SYM_BUILTIN);
     p->sym_val.YYint = val;
 }
 
