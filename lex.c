@@ -77,7 +77,7 @@ yylex(void)
         yylval.YYsym = q;
 
             // For built-ins, return the token value
-        if( q->sym_type == symtype::SYM_BUILTIN ) {
+        if( q->is_builtin() ) {
             return( q->sym_val.YYint );
         }
 
