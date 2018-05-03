@@ -116,9 +116,9 @@ execute(live_ast_ptr act, live_obj_ptr obj )
             auto left = act->live_left();
             auto p = execute(left,obj);
             if( p->is_undef() ){
-            obj_unref(hd);
-            obj_unref(obj);
-            return(p);
+                obj_unref(hd);
+                obj_unref(obj);
+                return(p);
             }
             auto q = obj_alloc(p);
             *hdp = q;
