@@ -30,6 +30,16 @@ struct symtab_entry final {
     {
         return sym_type == symtype::SYM_BUILTIN;
     }
+    
+    symtype type() const
+    {
+        return sym_type;
+    }
+    
+    void type(symtype new_type)
+    {
+        sym_type = new_type;
+    }
 };
 
 #endif
