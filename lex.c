@@ -244,7 +244,7 @@ load()
     }
     
     // Try and open the file
-    FILE *newf = fopen(arg,"r");
+    FILE * _Nullable newf = fopen(arg,"r");
     if( newf == nullptr ){
         perror(arg);
         return;
