@@ -237,7 +237,7 @@ static live_obj_ptr
 invoke(live_sym_ptr def, live_obj_ptr obj)
 {
     // Must be a defined function
-    if( def->sym_type != symtype::SYM_DEF ){
+    if( !def->is_defined() ){
         printf("%s: undefined\n",def->sym_pname.c_str());
         obj_unref(obj);
         return( undefined() );
