@@ -15,10 +15,12 @@ struct file_stack final
         fclose(cur_in);
         assert(fpos > 0);
         cur_in = fstack[--fpos];
+        assert(cur_in);
     }
     
     void push(FILE *newf)
     {
+        assert(newf);
         // Pushdown the current file, make this one it.
         fstack[fpos++] = cur_in;
         cur_in = newf;
@@ -31,11 +33,13 @@ struct file_stack final
     
     void ungetc(int ch)
     {
+        assert(ch != EOF);
         ::ungetc(ch, cur_in);
     }
     
     bool is_stdin() const
     {
+        assert(cur_in);
         return cur_in == stdin;
     }
     
