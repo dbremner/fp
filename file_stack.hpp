@@ -18,7 +18,7 @@ struct file_stack final
         assert(cur_in);
     }
     
-    void push(FILE *newf)
+    void push(FILE * _Nonnull newf)
     {
         assert(newf);
         // Pushdown the current file, make this one it.
@@ -52,9 +52,9 @@ struct file_stack final
     static const size_t MAXNEST = 5;
 
 private:
-    FILE *cur_in;
+    FILE * _Nonnull cur_in;
     /// For nested loads
-    FILE *fstack[MAXNEST];
+    FILE * _Nonnull fstack[MAXNEST];
     int fpos = 0;
 };
 
