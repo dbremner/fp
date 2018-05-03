@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-struct file_stack
+struct file_stack final
 {
     file_stack()
     :cur_in{stdin}

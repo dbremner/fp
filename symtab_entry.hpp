@@ -6,7 +6,7 @@
 #include <string>
 
 /// A symbol table entry for an identifier
-struct symtab_entry {
+struct symtab_entry final {
     symtype sym_type;
     YYstype sym_val{};
     sym_ptr sym_next = nullptr;

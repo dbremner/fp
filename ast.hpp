@@ -2,7 +2,7 @@
 #define AST_HPP
 
 /// An AST
-struct ast {
+struct ast final {
     int tag = 0;
     YYSTYPE val{};
     ast_ptr left = nullptr;

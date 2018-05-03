@@ -4,7 +4,7 @@
 #include "obj_type.hpp"
 
 /// An object's structure
-struct object {
+struct object final {
 private:
     /// Type for selecting
     const obj_type o_type;
