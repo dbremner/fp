@@ -41,10 +41,12 @@ struct file_stack final
     
     /// How deep can we get?
     static const size_t MAXNEST = 5;
-    
+
+private:
     FILE *cur_in;
     /// For nested loads
     FILE *fstack[MAXNEST];
+public:
     int fpos = 0;
 };
 
