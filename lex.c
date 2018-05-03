@@ -184,7 +184,7 @@ nextc(void){
     static int saw_eof = 0;
 
     do {
-        if( stack.cur_in == stdin ){
+        if( stack.is_stdin() ){
             if( saw_eof ) {
                 return(EOF);
             }
@@ -208,7 +208,7 @@ nextc(void){
         }
         // Pop up a level of indirection on EOF
         if( c == EOF ){
-            if( stack.cur_in != stdin ){
+            if( !stack.is_stdin() ){
                 stack.pop();
                 continue;
             } else {
