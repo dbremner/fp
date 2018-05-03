@@ -20,26 +20,10 @@ struct symtab_entry final {
     
     /// Define a function
     void define(live_ast_ptr def);
-    
-    bool is_defined() const
-    {
-        return sym_type == symtype::SYM_DEF;
-    }
-    
-    bool is_builtin() const
-    {
-        return sym_type == symtype::SYM_BUILTIN;
-    }
-    
-    symtype type() const
-    {
-        return sym_type;
-    }
-    
-    void type(symtype new_type)
-    {
-        sym_type = new_type;
-    }
+    bool is_defined() const;
+    bool is_builtin() const;
+    symtype type() const;
+    void type(symtype new_type);
 };
 
 #endif

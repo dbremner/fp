@@ -29,3 +29,23 @@ void symtab_entry::define(live_ast_ptr def)
     sym_val.YYast = def;
     type(symtype::SYM_DEF);
 }
+
+bool symtab_entry::is_defined() const
+{
+    return sym_type == symtype::SYM_DEF;
+}
+
+bool symtab_entry::is_builtin() const
+{
+    return sym_type == symtype::SYM_BUILTIN;
+}
+
+symtype symtab_entry::type() const
+{
+    return sym_type;
+}
+
+void symtab_entry::type(symtype new_type)
+{
+    sym_type = new_type;
+}
