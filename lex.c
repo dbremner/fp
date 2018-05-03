@@ -238,7 +238,7 @@ load()
     arg[index] = '\0';
     
     // Can we push down any more?
-    if( stack.fpos == file_stack::MAXNEST-1 ){
+    if( stack.is_full() ){
         printf(")load'ed files nested too deep\n");
         return;
     }
