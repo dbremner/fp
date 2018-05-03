@@ -20,6 +20,11 @@ struct symtab_entry final {
     
     /// Define a function
     void define(live_ast_ptr def);
+    
+    bool is_defined() const
+    {
+        return sym_type == symtype::SYM_DEF;
+    }
 };
 
 #endif
