@@ -55,7 +55,6 @@ private:
     FILE *cur_in;
     /// For nested loads
     FILE *fstack[MAXNEST];
-public:
     int fpos = 0;
 };
 
