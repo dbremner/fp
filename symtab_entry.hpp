@@ -25,6 +25,11 @@ struct symtab_entry final {
     {
         return sym_type == symtype::SYM_DEF;
     }
+    
+    bool is_builtin() const
+    {
+        return sym_type == symtype::SYM_BUILTIN;
+    }
 };
 
 #endif
