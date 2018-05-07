@@ -18,6 +18,9 @@ struct symtab_entry final {
     {
     }
     
+    symtab_entry(symtab_entry &&other) = default;
+    symtab_entry&operator=(symtab_entry &&other) = default;
+    
     /// Define a function
     void define(live_ast_ptr def);
     bool is_defined() const;

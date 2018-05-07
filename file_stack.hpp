@@ -10,6 +10,10 @@ struct file_stack final
     {
     }
     
+    file_stack(file_stack &&other) = default;
+    
+    file_stack& operator=(file_stack &&other) = default;
+    
     void pop()
     {
         fclose(cur_in);
