@@ -8,7 +8,6 @@ struct object final {
 private:
     /// Type for selecting
     const obj_type o_type;
-public:
     /// Number of current refs, for GC
     unsigned o_refs = 1;
 private:
