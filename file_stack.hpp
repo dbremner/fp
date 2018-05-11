@@ -53,7 +53,7 @@ struct file_stack final
     }
     
     /// How deep can we get?
-    static const size_t MAXNEST = 5;
+    static constexpr size_t MAXNEST = 5;
 
 private:
     FILE * _Nonnull cur_in;
