@@ -27,10 +27,10 @@ private:
     explicit object(obj_type type, int value, double float_val, obj_ptr car_in=nullptr, obj_ptr cdr_in=nullptr)
     : o_type{type},
     o_int{value},
-    o_double{float_val}
+    o_double{float_val},
+    car_{car_in},
+    cdr_{cdr_in}
     {
-        car(car_in);
-        cdr(cdr_in);
     }
     
 public:
