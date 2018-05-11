@@ -48,7 +48,7 @@ obj_alloc(obj_ptr car_, obj_ptr cdr_)
 live_obj_ptr undefined(void)
 {
     incobjcount();
-    auto obj = new object{obj_type::T_UNDEF};
+    auto obj = object::undefined();
     return(obj);
 }
 
