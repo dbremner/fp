@@ -29,5 +29,5 @@ int object::list_length() const
 
 live_obj_ptr object::undefined()
 {
-    return new object{obj_type::T_UNDEF};
+    return new object{obj_type::T_UNDEF, 0, 0.0};
 }

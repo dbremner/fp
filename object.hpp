@@ -19,11 +19,6 @@ private:
     /// and Tail
     obj_ptr cdr_ = nullptr;
 
-    object(obj_type type)
-    : object(type, 0, 0.0)
-    {
-    }
-
     explicit object(obj_type type, int value, double float_val, obj_ptr car_in=nullptr, obj_ptr cdr_in=nullptr)
     : o_type{type},
     o_int{value},
