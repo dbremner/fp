@@ -18,8 +18,7 @@ private:
     obj_ptr car_ = nullptr;
     /// and Tail
     obj_ptr cdr_ = nullptr;
-    
-public:
+
     object(obj_type type)
     : object(type, 0, 0.0)
     {
