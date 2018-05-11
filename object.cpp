@@ -26,3 +26,8 @@ int object::list_length() const
     }
     return(l);
 }
+
+live_obj_ptr object::undefined()
+{
+    return new object{obj_type::T_UNDEF};
+}

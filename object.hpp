@@ -216,6 +216,8 @@ public:
     
     /// list_length()--return length of a list
     int list_length() const;
+    
+    static live_obj_ptr undefined();
 };
 
 #endif
