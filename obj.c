@@ -69,7 +69,7 @@ void
 obj_unref(obj_ptr p)
 {
     if( !p ) return;
-    if( --(p->o_refs) ) return;
+    if( p->dec_ref() ) return;
     switch( p->type() ){
     case obj_type::T_INT:
     case obj_type::T_FLOAT:

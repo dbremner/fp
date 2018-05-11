@@ -143,9 +143,10 @@ public:
         o_refs++;
     }
     
-    void dec_ref()
+    bool dec_ref()
     {
         o_refs--;
+        return o_refs >0;
     }
     
     bool is_bool() const
